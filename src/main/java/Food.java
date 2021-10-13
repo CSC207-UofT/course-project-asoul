@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Java class representation for Food instance
  */
 
-public class Food {
+public class Food implements Comparable<Food> {
     private final String foodName;
     private double price;
     private final int id;
@@ -66,5 +66,19 @@ public class Food {
 
     public String getDescriptions() {
         return descriptions;
+    }
+
+
+    /**
+     * compare if two food objects are identical, i.e. all their attributes equal to each other
+     * @param o
+     * @return return 0 if two Food objects are identical, return 1 otherwise
+     */
+    @Override
+    public int compareTo(Food o) {
+        if (this.foodName.equals(o.foodName)){
+            return 0;
+        }
+        return 1;
     }
 }
