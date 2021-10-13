@@ -18,6 +18,7 @@ public class CustomerManager extends UserManager{
         this.customers = customers;
     }
 
+
     /**
      *
      * @return a list of all Customers.

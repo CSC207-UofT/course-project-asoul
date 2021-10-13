@@ -15,4 +15,5 @@ abstract public class UserManager {
     public double checkBalance(User user) {
         return user.checkBalance;
     }
+
 }

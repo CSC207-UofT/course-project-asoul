@@ -33,6 +33,7 @@ public class SellerManager extends UserManager{
         }
     }
 
+
     /**
      *
      * @return a list of all Sellers.
