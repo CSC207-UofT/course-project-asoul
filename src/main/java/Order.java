@@ -119,6 +119,9 @@ public class Order {
     }
 
 
+    public String getStatus() {return this.status; }
+
+
     public String getSellerNumber(){
         return this.sellerNumber;
     }
