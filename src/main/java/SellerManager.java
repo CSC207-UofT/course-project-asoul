@@ -68,6 +68,6 @@ public class SellerManager extends UserManager{
 
     public void addFoodTruck(String accName, FoodTruck foodTruck) {
         Seller seller = sellers.get(accName);
-        seller.addFoodtruck(foodTruck);
+        seller.addFoodTruck(foodTruck);
     }
 }
