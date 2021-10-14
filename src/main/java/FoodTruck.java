@@ -5,16 +5,16 @@ import java.util.Queue;
  * Java class representation for FoodTruck instance
  */
 public class FoodTruck {
-    private String truckName;
-    private final String location;
-    private String serviceTimeStart;
-    private String serviceTimeEnd;
-    private boolean status = false;
-    private Seller seller;
-    private ArrayList<Order> orderHistory = new ArrayList<Order>();
-    private double rating = 0.0;
-    private ArrayList<Order> orderQueue = new ArrayList<Order>();
-    private FoodMenu menu;
+    private String truckName; // The name of the Food Truck
+    private final String location; //The location of the Food Truck, can't be changed once set
+    private String serviceTimeStart; //Starting service time
+    private String serviceTimeEnd; //Ending service time
+    private boolean status = false; //Whether the Food Truck is currently operating
+    private Seller seller; // The Seller who owns the Food Truck
+    private ArrayList<Order> orderHistory = new ArrayList<Order>(); // List of Order Histories of the Food Truck
+    private double rating = 0.0; // Rating of the Food Truck
+    private ArrayList<Order> orderQueue = new ArrayList<Order>(); // List of Active Orders
+    private FoodMenu menu; //Menu of the Food Truck
 
     /**
      * Construct an instance of a FoodTruck
@@ -41,6 +41,7 @@ public class FoodTruck {
     }
 
     // Add the given Food to the Food Truck's menu
+    // TODO Add remove Food from Menu
     public void updateMenu(Food food){
         this.menu.addFood(food);
     }
@@ -69,10 +70,10 @@ public class FoodTruck {
 
 
 
-    // public boolean renameTruck(String name){ } (TODO)
+    // public boolean renameTruck(String name){ } (TODO but wait for database)
 
     /**
-     * Will implement a rating system  TODO
+     * TODO Will implement a rating system
      * public double updateRating(){}
      */
 
