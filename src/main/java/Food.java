@@ -5,11 +5,11 @@ import java.util.ArrayList;
  */
 
 public class Food implements Comparable<Food> {
-    private final String foodName;
-    private double price;
-    private final int id;
-    private final ArrayList<String> label;
-    private String descriptions;
+    private final String foodName; //Name of the food item, can't be changed once set
+    private double price; //Price of the food item
+    private final int id; //UNIQUE id of the food item, can't be changed once set
+    private final ArrayList<String> label; //A list of labels given to the Food
+    private String descriptions; // Description of the food
 
     /**
      * Construct an instance of a Food
