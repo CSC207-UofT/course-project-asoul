@@ -14,9 +14,8 @@ public class CustomerManager extends UserManager{
      *
      * Create a CustomerManager with the given customers.
      */
-    public CustomerManager(HashMap<String, Customer> customers){
+    public CustomerManager(){
         super();
-        this.customerMap = customers;
     }
 
 
