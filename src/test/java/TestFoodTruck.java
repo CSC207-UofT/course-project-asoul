@@ -20,17 +20,14 @@ public class TestFoodTruck {
         assert foodTruck.getStatus();
     }
 
-    // TODO NEED FIX, ASK FOODMENU TESTER
     @org.junit.Test
     public void updateMenuTest(){
-        foodTruck.updateMenu(new Food("Burger", 9.99, 1, new ArrayList<>(
-                Arrays.asList("Fast Food", "Western")), "A standard Beef Burger.")
-        );
-        ArrayList<Food> foodList = new ArrayList<>();
-        foodList.add(new Food("Burger", 9.99, 1, new ArrayList<>(
-                Arrays.asList("Fast Food", "Western")), "A standard Beef Burger.")
-        );
-        assert foodTruck.getMenu().getFoodList().equals(foodList);
+        Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
+                Arrays.asList("Fast Food", "Western")), "A standard Beef Burger.");
+        foodTruck.updateMenu(burger);
+        ArrayList<Food> foodList1 = new ArrayList<>();
+        foodList1.add(burger);
+        assert foodTruck.getMenu().getFoodList().equals(foodList1);
     }
 
     @org.junit.Test
