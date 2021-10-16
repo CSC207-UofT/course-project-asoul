@@ -31,6 +31,12 @@ public class FoodMenu {
         }
     }
 
+    /**
+     * Getter for foodList
+     */
+    public ArrayList<Food> getFoodList() {
+        return foodList;
+    }
 
     /**
      * A menu
