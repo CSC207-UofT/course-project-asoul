@@ -53,19 +53,19 @@ public class Food implements Comparable<Food> {
     }
 
     public double getPrice() {
-        return price;
+        return this.price;
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public ArrayList<String> getLabel() {
-        return label;
+        return this.label;
     }
 
     public String getDescriptions() {
-        return descriptions;
+        return this.descriptions;
     }
 
 

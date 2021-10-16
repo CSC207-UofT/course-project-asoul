@@ -64,4 +64,31 @@ public abstract class User {
         }
     }
 
+    /**
+     * Getting for all the instance variables
+     */
+
+    public String getAccountName() {
+        return this.accountName;
+    }
+
+    public double getAccountBalance() {
+        return this.accountBalance;
+    }
+
+    public String getNickname() {
+        return this.nickname;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public boolean getLoginStatus(){
+        return this.login;
+    }
 }
