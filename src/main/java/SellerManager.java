@@ -6,7 +6,6 @@ import java.util.HashMap;
  */
 
 public class SellerManager extends UserManager{
-    private HashMap<String, Seller> sellers;
 
     /**
      *
@@ -14,7 +13,7 @@ public class SellerManager extends UserManager{
      */
     public SellerManager(HashMap<String, Seller> sellers) {
         super();
-        this.sellers = sellers;
+        this.sellerMap = sellers;
     }
 
     /**
@@ -25,13 +24,14 @@ public class SellerManager extends UserManager{
      */
     @Override
     public boolean login(String accName, String password) {
-        if (sellers.containsKey(accName)) {
-            return sellers.get(accName).login(password);
+        if (sellerMap.containsKey(accName)) {
+            return sellerMap.get(accName).login(password);
         }
         else {
             return false;
         }
     }
+
 
 
     /**
@@ -40,8 +40,8 @@ public class SellerManager extends UserManager{
      */
     public ArrayList<Seller> getSellers() {
         ArrayList<Seller> sellerList = new ArrayList<Seller>();
-        for (String accName : sellers.keySet()) {
-            sellerList.add(sellers.get(accName));
+        for (String accName : sellerMap.keySet()) {
+            sellerList.add(sellerMap.get(accName));
         }
         return sellerList;
     }
@@ -54,24 +54,24 @@ public class SellerManager extends UserManager{
      * @param phoneNum A string of the phone number of the customer.
      * @return true if the seller being created successfully.
      */
-    public boolean creatSeller(String accName, String password, String nickname, String phoneNum) {
-
-        if (sellers.containsKey(accName)) {
-            return false;
-        }
-        else {
-            Seller newSeller = new Seller(accName, password, nickname, phoneNum);
-            sellers.put(accName, newSeller);
-            return true;
-        }
-    }
+//    public boolean creatSeller(String accName, String password, String nickname, String phoneNum) {
+//
+//        if (sellerMap.containsKey(accName)) {
+//            return false;
+//        }
+//        else {
+//            Seller newSeller = new Seller(accName, password, nickname, phoneNum);
+//            sellerMap.put(accName, newSeller);
+//            return true;
+//        }
+//    }
 
     // this does not handle multiple invalid FoodTruck.
     // this needs to address the case that the Seller already has the truck.
     // return ture.
     public boolean addFoodTruck(String accName, FoodTruck foodTruck) {
-        if (sellers.containsKey(accName)) {
-            Seller seller = sellers.get(accName);
+        if (sellerMap.containsKey(accName)) {
+            Seller seller = sellerMap.get(accName);
             seller.addFoodTruck(foodTruck);
             return true;
         }
