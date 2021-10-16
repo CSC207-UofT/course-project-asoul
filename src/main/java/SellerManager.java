@@ -46,14 +46,14 @@ public class SellerManager extends UserManager{
         return sellerList;
     }
 
-    /**
-     *
-     * @param accName A string of the account name.
-     * @param password A string of the password.
-     * @param nickname A string of the nickname.
-     * @param phoneNum A string of the phone number of the customer.
-     * @return true if the seller being created successfully.
-     */
+//    /**
+//     *
+//     * @param accName A string of the account name.
+//     * @param password A string of the password.
+//     * @param nickname A string of the nickname.
+//     * @param phoneNum A string of the phone number of the customer.
+//     * @return true if the seller being created successfully.
+//     */
 //    public boolean creatSeller(String accName, String password, String nickname, String phoneNum) {
 //
 //        if (sellerMap.containsKey(accName)) {
