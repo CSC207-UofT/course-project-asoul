@@ -3,9 +3,9 @@ import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 public class Scene {
-    private static foodTruckManager = new FoodTruckManager(); // All scenes shares the same use case classes
-    private static userManager = new UserManager();
-    private static orderManager = new OrderManager();
+    private static  FoodTruckManager = new FoodTruckManager(); // All scenes shares the same use case classes
+    private static UserManager = new UserManager();
+    private static OrderManager = new OrderManager();
     private String name;
     private HashMap<String, Callable<Void>> commandSet;
     private static HashMap<String, Scene> allScenes = new HashMap<>();
