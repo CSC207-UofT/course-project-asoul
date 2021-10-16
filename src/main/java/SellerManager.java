@@ -66,6 +66,7 @@ public class SellerManager extends UserManager{
 //        }
 //    }
 
+
     // this does not handle multiple invalid FoodTruck.
     // this needs to address the case that the Seller already has the truck.
     // return ture.

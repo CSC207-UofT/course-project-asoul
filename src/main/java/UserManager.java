@@ -51,6 +51,7 @@ abstract public class UserManager {
         return "Seller";
     }
 
+
     public boolean createUser(String userType, String accName, String password,
                               String nickname, String phoneNum) {
         if (userMap.containsKey(accName)) {
