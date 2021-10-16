@@ -40,7 +40,7 @@ public class Order {
         this.sellerName = sellerName;
         this.sellerNumber = sellerNumber;
         this.rating = -0.1;
-        this.status = "Order received";
+        this.status = "order received";
     }
 
     /**
@@ -84,8 +84,9 @@ public class Order {
      * @return A string
      */
     public String toString() {
-        return this.ID + "\n" + this.customerName + this.customerNumber + "\n" + this.foodTruck.getTruckName() +
-                this.sellerNumber + "\n" + this.getFoodList() + "Total : " + this.totalPrice + "\n" + this.status;
+        return this.ID + "\n" + this.customerName +" : "+ this.customerNumber + "\n" + this.foodTruck.getTruckName() +
+                " : " + this.sellerNumber + "\n" + this.getFoodList() + "\n" + "Total : $" + this.totalPrice + "\n" +
+                this.status;
     }
 
 
@@ -126,11 +127,15 @@ public class Order {
         return this.sellerNumber;
     }
 
+
+    public Double getRating() { return this.rating; }
+
+
     public String getFoodList(){
         StringBuilder result = new StringBuilder(new String(""));
         for (Food food: this.foodList){
-            result.append(food.getFoodName()).append(":").append(food.getPrice()).append("\n");
+            result.append(food.getFoodName()).append(" : $").append(food.getPrice()).append("\n");
         }
-        return result.toString();
+        return result.toString().trim();
     }
 }
