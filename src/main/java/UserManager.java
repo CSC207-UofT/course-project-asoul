@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 abstract public class UserManager {
-    HashMap<String, User> userMap = new HashMap<>();
-    HashMap<String, Customer> customerMap = new HashMap<>();
-    HashMap<String, Seller> sellerMap = new HashMap<>();
+    static HashMap<String, User> userMap = new HashMap<>();
+    static HashMap<String, Customer> customerMap = new HashMap<>();
+    static HashMap<String, Seller> sellerMap = new HashMap<>();
 
     abstract public void login (String accName, String password) throws IncorrectCredentialsException;
 
@@ -48,10 +48,10 @@ abstract public class UserManager {
 
     public String getUserType(String accName) {
         if (customerMap.containsKey(accName)) {
-            return "customer";
+            return "Customer";
         }
         else if (sellerMap.containsKey(accName)) {
-            return "seller";
+            return "Seller";
         }
         return "no this account";
     }
@@ -65,7 +65,7 @@ abstract public class UserManager {
             return false;
         }
 
-        if (userType.equals("customer")) {
+        if (userType.equals("Customer")) {
             Customer newCustomer = new Customer(accName, password, nickname, phoneNum);
             userMap.put(accName, newCustomer);
             customerMap.put(accName, newCustomer);
