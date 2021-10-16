@@ -44,12 +44,17 @@ abstract public class UserManager {
         return userInfoMap;
     }
 
-    public String getUserType(User user) {
-        if (user instanceof Customer) {
-            return "Customer";
+    public String getUserType(String accName) {
+        if (customerMap.containsKey(accName)) {
+            return "customer";
         }
-        return "Seller";
+        else if (sellerMap.containsKey(accName)) {
+            return "seller";
+        }
+        return "no this account";
     }
+
+
 
 
     public boolean createUser(String userType, String accName, String password,
