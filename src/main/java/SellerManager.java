@@ -22,18 +22,18 @@ public class SellerManager extends UserManager{
      *
      * @param accName A string of the account name.
      * @param password A string of the password.
-     * @return true if the customer login successfully.
+     *
      */
     @Override
-    public boolean login(String accName, String password) throws IncorrectCredentialsException {
+    public void login(String accName, String password) throws IncorrectCredentialsException {
         if (sellerMap.containsKey(accName)) {
             if (sellerMap.get(accName).login(password)) {
-                return true;
+                return;
             }
             throw new IncorrectCredentialsException();
         }
         else {
-            return false;
+            throw new IncorrectCredentialsException();
         }
     }
 

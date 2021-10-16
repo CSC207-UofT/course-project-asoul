@@ -8,7 +8,7 @@ abstract public class UserManager {
     HashMap<String, Customer> customerMap = new HashMap<>();
     HashMap<String, Seller> sellerMap = new HashMap<>();
 
-    abstract public boolean login (String accName, String password) throws IncorrectCredentialsException;
+    abstract public void login (String accName, String password) throws IncorrectCredentialsException;
 
     public void addMoney(User user, int money) {
         user.addMoney(money);
