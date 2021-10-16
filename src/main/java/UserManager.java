@@ -9,11 +9,11 @@ abstract public class UserManager {
     }
 
     public void withdrawMoney(User user, int money) {
-        user.withdray(money);
+        user.withdrawMoney(money);
     }
 
     public double checkBalance(User user) {
-        return user.checkBalance;
+        return user.checkBalance();
     }
 
 }
