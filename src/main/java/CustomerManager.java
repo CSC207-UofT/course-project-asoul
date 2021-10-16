@@ -1,3 +1,5 @@
+import Exceptions.IncorrectCredentialsException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,9 +64,12 @@ public class CustomerManager extends UserManager{
      * @return true if the customer login successfully.
      */
     @Override
-    public boolean login(String accName, String password) {
+    public boolean login(String accName, String password) throws IncorrectCredentialsException {
         if (customerMap.containsKey(accName)) {
-            return customerMap.get(accName).login(password);
+            if (customerMap.get(accName).login(password)) {
+                return true;
+            }
+            throw new IncorrectCredentialsException();
         }
         else {
             return false;

@@ -1,3 +1,5 @@
+import Exceptions.IncorrectCredentialsException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,9 +25,12 @@ public class SellerManager extends UserManager{
      * @return true if the customer login successfully.
      */
     @Override
-    public boolean login(String accName, String password) {
+    public boolean login(String accName, String password) throws IncorrectCredentialsException {
         if (sellerMap.containsKey(accName)) {
-            return sellerMap.get(accName).login(password);
+            if (sellerMap.get(accName).login(password)) {
+                return true;
+            }
+            throw new IncorrectCredentialsException();
         }
         else {
             return false;
