@@ -66,8 +66,16 @@ public class SellerManager extends UserManager{
         }
     }
 
-    public void addFoodTruck(String accName, FoodTruck foodTruck) {
-        Seller seller = sellers.get(accName);
-        seller.addFoodTruck(foodTruck);
+    // this does not handle multiple invalid FoodTruck.
+    // this needs to address the case that the Seller already has the truck.
+    // return ture.
+    public boolean addFoodTruck(String accName, FoodTruck foodTruck) {
+        if (sellers.containsKey(accName)) {
+            Seller seller = sellers.get(accName);
+            seller.addFoodTruck(foodTruck);
+            return true;
+        }
+        return false;
+
     }
 }
