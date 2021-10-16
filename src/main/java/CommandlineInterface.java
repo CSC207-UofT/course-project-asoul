@@ -2,24 +2,18 @@ import java.io.*;
 import java.util.*;
 
 public class CommandlineInterface {
-    private Scene activeScene;
-    private boolean finish;
 
     public CommandlineInterface(){
-        this.activeScene = new Scene("Login");
-        this.finish = false;
+        Scene loginScene = new LoginScene();
+        Scene.setActiveScene(loginScene);
     }
 
     public void run(String command){
-        Scene newScene = this.activeScene.update(command);
-        System.out.println(this.activeScene.construct_outputString());
-        this.activeScene = newScene;
-        if(command.equals("quit")){
-            this.finish = true;
-        }
+        Scene.getActiveScene().handleInput(command);
+        System.out.println(Scene.getActiveScene().constructOutputString());
     }
 
     public boolean isRunning(){
-        return !this.finish;
+        return !Scene.isRunning();
     }
 }
