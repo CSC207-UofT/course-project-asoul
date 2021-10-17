@@ -32,7 +32,7 @@ public class CustomerManager extends UserManager {
      * @param accName  A String that represents the account Name.
      * @param password A String of password that the user typed in.
      * @throws IncorrectCredentialsException Exception if the password doesn't match the account name or there is no
-     *                                       *                                such account name.
+     *                                       such account name.
      */
     @Override
     public void login(String accName, String password) throws IncorrectCredentialsException {
