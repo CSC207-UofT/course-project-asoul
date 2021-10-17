@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
-public class Customer extends User{
+public class Customer extends User {
     private ArrayList<Order> orderHistory;
+
     public Customer(String accName, String password, String nickname, String phoneNumber) {
         super(accName, password, nickname, phoneNumber);
         orderHistory = new ArrayList<Order>();
@@ -11,10 +12,10 @@ public class Customer extends User{
         return orderHistory;
     }
 
-    public boolean storeOrder(Order order){
+    public boolean storeOrder(Order order) {
         try {
             this.orderHistory.add(order);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Add fail");
             return false;
         }
