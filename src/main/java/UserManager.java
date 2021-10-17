@@ -130,4 +130,27 @@ abstract public class UserManager {
         return userMap.get(accName);
     }
 
+    // the account name must exist, I do not
+    public void deleteUser(String accountName) {
+        String type = getUserType(accountName);
+        userMap.remove(accountName);
+        if (type.equals("Customer")) {
+            customerMap.remove(accountName);
+        } else {
+            sellerMap.remove(accountName);
+        }
+    }
+
+    public String getNickname(String accName){
+        return userMap.get(accName).getNickname();
+    }
+
+    public String getPhoneNumber(String accName){
+        return userMap.get(accName).getPhoneNumber();
+    }
+
+    public double getBalance(String accName){
+        return userMap.get(accName).getAccountBalance();
+    }
+
 }
