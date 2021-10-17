@@ -75,6 +75,17 @@ public class FoodMenu {
     }
 
     /**
+     * @return An ArrayList of foods' ids in the menu.
+     */
+    public ArrayList<Integer> getFoodIds() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Food f : foodList) {
+            ids.add(f.getId());
+        }
+        return ids;
+    }
+
+    /**
      * A menu
      *
      * @return a string representation of Foodmenu object

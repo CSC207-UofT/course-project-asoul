@@ -8,6 +8,7 @@ import Entities.Seller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A Use_case.FoodTruckManager that manages all the FoodTrucks.
@@ -53,16 +54,52 @@ public class FoodTruckManager {
      * With the given foodtruck's name, add food to menu if food object is not in menu.
      * If the food is in menu, update the food with the new one.
      *
+     * @param foodName The name of the food want to add or update
+     * @param price    The price of the food item, in double
+     * @param label    The category that the food item belongs to
+     *                 {"Appetizer", "Beverage", "Meal", "Dessert",
+     *                 "Italian Entities.Food", "Fast Entities.Food", etc.}
+     * @param truckName The name of the given truck
+     * @return true if we add the food. false if we update the food.
+     */
+    public boolean addFoodToMenu(String foodName, double price,
+                                 ArrayList<String> label, String descriptions, String truckName) {
+        ArrayList<Integer> ids = getFoodTruckById(truckName).getMenu().getFoodIds();
+        int i = ThreadLocalRandom.current().nextInt(0, 99 + 1);
+        while (ids.contains(i)) {
+            i = ThreadLocalRandom.current().nextInt(0, 99 + 1);
+        }
+        Food food = new Food(foodName, price, i, label, descriptions);
+        return getFoodTruckById(truckName).addFoodToMenu(food);
+    }
+
+    /**
+     * With the given foodtruck's name, add food to menu if food object is not in menu.
+     * If the food is in menu, update the food with the new one.
+     *
      * @param food      The food want to add or update.
      * @param truckName The name of the given truck
      * @return true if we add the food. false if we update the food.
      */
     public boolean addFoodToMenu(Food food, String truckName) {
-        return getFoodTruckById(truckName).addFoodToMenu(food);
+        return getFoodTruckById(truckName).removeFoodFromMenu(food);
     }
 
     /**
-     * With the given foodtruck's name, move food to menu if food object is in menu.
+     * With the given foodtruck's name, remove food to menu if food object is in menu.
+     *
+     * @param foodName The name of the food want to add or update
+     * @param truckName The name of the given truck
+     * @return true if we add the food. false if we update the food.
+     */
+    public boolean removeFoodFromMenu(String foodName, String truckName) {
+        ArrayList<String> label = new ArrayList<>();
+        Food food = new Food(foodName, 0, 0, label, "");
+        return getFoodTruckById(truckName).removeFoodFromMenu(food);
+    }
+
+    /**
+     * With the given foodtruck's name, remove food to menu if food object is in menu.
      *
      * @param food      The food want to remove.
      * @param truckName The name of the given truck
