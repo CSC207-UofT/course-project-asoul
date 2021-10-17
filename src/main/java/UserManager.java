@@ -1,4 +1,5 @@
 import Exceptions.IncorrectCredentialsException;
+import Exceptions.IncorrectOldPasswordException;
 
 
 import java.util.HashMap;
@@ -121,15 +122,6 @@ abstract public class UserManager {
         return userMap.containsKey(accountName);
     }
 
-    /**
-     *
-     * @param accName the account name of a user.
-     * @return the User object.
-     */
-    public User returnUser(String accName) {
-        return userMap.get(accName);
-    }
-
     // the account name must exist, I do not
     public void deleteUser(String accountName) {
         String type = getUserType(accountName);
@@ -139,6 +131,13 @@ abstract public class UserManager {
         } else {
             sellerMap.remove(accountName);
         }
+    }
+    public void setNickname(String accName, String nickname){
+        userMap.get(accName).setNickname(nickname);
+    }
+
+    public void setPassword(String username, String newPassword, String oldPassword) throws IncorrectOldPasswordException {
+        userMap.get(username).setPassword(newPassword, oldPassword);
     }
 
     public String getNickname(String accName){

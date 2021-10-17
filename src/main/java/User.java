@@ -1,3 +1,5 @@
+import Exceptions.IncorrectOldPasswordException;
+
 public abstract class User {
     private String accountName; //The account name of this User
     private double accountBalance; //The current account balance of this User (in double)
@@ -96,6 +98,17 @@ public abstract class User {
         }
     }
 
+    public void setNickname(String nickname){
+        this.nickname = nickname;
+    }
+
+    public void setPassword(String newPassword, String oldPassword) throws IncorrectOldPasswordException {
+        if(oldPassword.equals(this.password)) {
+            this.password = newPassword;
+        }else{
+            throw new IncorrectOldPasswordException();
+        }
+    }
     /**
      * Getting for all the instance variables
      */
