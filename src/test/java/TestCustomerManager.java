@@ -14,6 +14,7 @@ public class TestCustomerManager {
     }
 
 
+
     @org.junit.Test
     public void loginTest() {
         manager.createUser("Customer", "ABC", "123", "nick",
