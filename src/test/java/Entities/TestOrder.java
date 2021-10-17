@@ -81,11 +81,12 @@ public class TestOrder {
     public void toStringTest() {
         String result = order.toString();
         String answer = "1\nPaul : 4169990000\nIdeal Catering : 6478863531\nPizza : $5.0\nTotal :" +
-                " $5.0\norder received";
+                " $5.0\norder created";
         assert result.equals(answer);
         order.changeOrderStatus();
         String result2 = order.toString();
         String answer2 = "1\nPaul : 4169990000\nIdeal Catering : 6478863531\nPizza : $5.0\nTotal :" +
-                " $5.0\nin Progress";
+                " $5.0\nin progress";
+        assert result2.equals(answer2);
     }
 }

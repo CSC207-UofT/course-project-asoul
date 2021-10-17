@@ -68,13 +68,12 @@ public class TestFoodMenu {
 
     @org.junit.Test
     public void removeFoodSuccessTest() {
-        ArrayList<String> labels = new ArrayList<>();
-        labels.add("Italian");
-        labels.add("Fast food");
-        Food spaghetti = new Food("Spaghetti", 7.00, 3, labels, "spaghetti bolognese");
+        ArrayList<String> labels2 = new ArrayList<String>();
+        labels2.add("Drinks");
+        Food coke = new Food("Coke", 2.00, 2, labels2, "500ml Coke");
 
-        assert menu.removeFood(spaghetti);
-        assert !menu.isThereSameNameFood(spaghetti);
+        assert menu.removeFood(coke);
+        assert !menu.isThereSameNameFood(coke);
     }
 
     @org.junit.Test

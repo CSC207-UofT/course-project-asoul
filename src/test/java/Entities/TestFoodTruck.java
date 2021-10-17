@@ -34,6 +34,7 @@ public class TestFoodTruck {
     public void removeFoodFromMenuSuccessTest() {
         Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
                 Arrays.asList("Fast Entities.Food", "Western")), "A standard Beef Burger.");
+        foodTruck.addFoodToMenu(burger);
         assert foodTruck.removeFoodFromMenu(burger);
         ArrayList<Food> foodList1 = new ArrayList<>();
         assert foodTruck.getMenu().getFoodList().isEmpty();
