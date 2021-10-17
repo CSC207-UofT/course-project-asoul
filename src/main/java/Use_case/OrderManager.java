@@ -58,6 +58,26 @@ public class OrderManager {
     }
 
     /**
+     * Create a unique id (0~999999) for the order and add it to the list.
+     *
+     * @param trucks A FoodTruckManager stores all trucks.
+     * @param truckName The truck name of the truck
+     * @param foods       a list of foods' name ordered by the customers
+     * @param customerName   name of the customer who ordered the food
+     * @param customerNumber contact number of the customer who ordered the food
+     * @param sellerName     name of the seller who owns the food truck
+     * @param sellerNumber   contact number of the seller who owns the food truck
+     * @return the id of new order
+     */
+
+    public int creatOrder(FoodTruckManager trucks, String truckName, ArrayList<String> foods, String customerName,
+                          String customerNumber, String sellerName, String sellerNumber) {
+        FoodTruck foodTruck = trucks.getFoodTruckById(truckName);
+        ArrayList<Food> foodList = getMenuFood(foods, foodTruck);
+        return creatOrder(foodTruck, foodList, customerName, customerNumber, sellerName, sellerNumber);
+    }
+
+    /**
      * Change the specific order's status.
      *
      * @param id the id of the specific order
@@ -83,6 +103,17 @@ public class OrderManager {
 
     /**
      * @param foods the list of foods' name
+     * @param trucks A FoodTruckManager stores all trucks.
+     * @param truckName The truck name of the truck
+     * @return An ArrayList of Entities.Food from the given foods' names.
+     */
+    public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruckManager trucks, String truckName) {
+        FoodTruck truck = trucks.getFoodTruckById(truckName);
+        return getMenuFood(foods, truck);
+    }
+
+    /**
+     * @param foods the list of foods' name
      * @param truck where these foods from
      * @return The total price of the given food in the truck
      */
@@ -93,6 +124,17 @@ public class OrderManager {
             total_price += menu.createCopy(item).getPrice();
         }
         return total_price;
+    }
+
+    /**
+     * @param foods the list of foods' name
+     * @param trucks A FoodTruckManager stores all trucks.
+     * @param truckName The truck name of the truck
+     * @return The total price of the given food in the truck
+     */
+    public double getTotalPrice(ArrayList<String> foods, FoodTruckManager trucks, String truckName) {
+        FoodTruck truck = trucks.getFoodTruckById(truckName);
+        return getTotalPrice(foods, truck);
     }
 
     /**
