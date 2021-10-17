@@ -28,6 +28,8 @@ public class UserInformationScene extends Scene{
             }catch (NumberFormatException e){
                 this.invalidFundError = true;
             }
+        }else if(input.equals("view market")){
+            this.viewMarket();
         }else{
             // TODO: Throws unknown command error
         }
@@ -36,6 +38,12 @@ public class UserInformationScene extends Scene{
     private void refreshOutputState(){
         this.invalidFundError = false;
         this.changeNicknameSuccess = false;
+    }
+
+    private void viewMarket(){
+        this.switchScene("Market");
+        MarketScene scene = (MarketScene) Scene.allScenes.get("Market");
+        scene.setUsername(this.username);
     }
 
     private void addFund(String fund){
