@@ -6,7 +6,7 @@ import java.util.ArrayList;
  */
 
 public class FoodMenu {
-    private ArrayList<Food> foodList; // a list of Food objects that are on the menu.
+    private final ArrayList<Food> foodList; // a list of Food objects that are on the menu.
 
 
     public FoodMenu(ArrayList<Food> foodList){
@@ -15,7 +15,6 @@ public class FoodMenu {
 
     /**
      * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.
-     * @param food
      */
     public void addFood(Food food){
         this.foodList.removeIf(f -> f.getFoodName().equals(food.getFoodName()));
@@ -35,7 +34,7 @@ public class FoodMenu {
      * @return a string representation of Foodmenu object
      */
     public String toString(){
-        StringBuilder result = new StringBuilder(new String(""));
+        StringBuilder result = new StringBuilder();
         for (Food food: this.foodList){
             result.append(food.getFoodName()).append(" : $").append(food.getPrice()).append("\n").append("    ")
                     .append(food.getDescriptions()).append("\n");
@@ -45,20 +44,20 @@ public class FoodMenu {
 
 
     public static void main(String[] args) {
-        ArrayList<String> labels = new ArrayList<String>();
+        ArrayList<String> labels = new ArrayList<>();
         labels.add("Italian");
         labels.add("Fast food");
-        ArrayList<String> labels2 = new ArrayList<String>();
+        ArrayList<String> labels2 = new ArrayList<>();
         labels2.add("Drinks");
 
         Food pizza = new Food("Pizza", 5.00, 1, labels,
                 "One large slice of Hawaii Piazza");
         Food coke = new Food("Coke", 2.00, 2, labels2, "500ml Coke");
 
-        ArrayList<Food> foodList = new ArrayList<Food>();
+        ArrayList<Food> foodList = new ArrayList<>();
         foodList.add(pizza);
         foodList.add(coke);
-        ArrayList<Food> foodList2 = new ArrayList<Food>();
+        ArrayList<Food> foodList2 = new ArrayList<>();
 
         FoodMenu menu = new FoodMenu(foodList);
         FoodMenu emptyMenu = new FoodMenu(foodList2);
