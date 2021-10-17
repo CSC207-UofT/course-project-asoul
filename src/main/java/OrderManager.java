@@ -39,10 +39,10 @@ public class OrderManager {
      * @param sellerName name of the seller who owns the food truck
      * @param sellerNumber contact number of the seller who owns the food truck
      *
-     * @return true if the order being created successfully.
+     * @return the id of new order
      */
 
-    public boolean creatOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
+    public int creatOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
                               String customerNumber, String sellerName, String sellerNumber) {
         int id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
         while (this.orders.containsKey(Integer.toString(id))) {
@@ -51,7 +51,7 @@ public class OrderManager {
         Order new_order = new Order(id, foodTruck, foodList, customerName,
                 customerNumber, sellerName, sellerNumber);
         this.orders.put(Integer.toString(id), new_order);
-        return true;
+        return id;
     }
 
     // TODO: deleteOrder()
@@ -111,5 +111,25 @@ public class OrderManager {
             total_price += menu.createCopy(item).getPrice();
         }
         return total_price;
+    }
+
+    /**
+     * @param id the Order's id.
+     * @return A map that from the Order's id to the Order's information. If the Order doesn't
+     *         exist, return an empty map.
+     */
+    public HashMap<String, String> getOrderDetail(int id) {
+        HashMap<String, String> information = new HashMap<>();
+        if (this.orders.containsKey(id)) {
+            information.put(String.valueOf(id), getOrder(id).toString());
+        } return information;
+    }
+
+    /**
+     * @param id the Order's id.
+     * @return The order with the given id.
+     */
+    public Order getOrder(int id) {
+        return this.orders.get(id);
     }
 }
