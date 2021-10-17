@@ -80,7 +80,7 @@ public class UserInformationScene extends Scene{
         this.changeNicknameSuccess = true;
     }
 
-    private void refreshOutputState(){
+    private void refreshOutputState(){ // reset output flags
         this.invalidFundError = false;
         this.changeNicknameSuccess = false;
         this.incorrectOldPasswordError = false;
