@@ -7,7 +7,8 @@ import java.util.Set;
  */
 
 public class FoodTruckManager {
-    private final HashMap<String, FoodTruck> food_trucks; // Mapping FoodTrucks' id to the FoodTrucks.
+
+    private final HashMap<String, FoodTruck> food_trucks; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
      *
@@ -154,7 +155,7 @@ public class FoodTruckManager {
     public HashMap<String, String> getFoodTruckDetail(String id) {
         HashMap<String, String> information = new HashMap<>();
         if (this.food_trucks.containsKey(id)) {
-            FoodTruck truck = this.food_trucks.get(id);
+            FoodTruck truck = getFoodTruckById(id);
             information.put("id/truckName", truck.getTruckName());
             information.put("location", truck.getLocation());
             information.put("serviceTime", truck.displayServiceTime());
@@ -171,8 +172,8 @@ public class FoodTruckManager {
      */
     public HashMap<String, String> getAllFoodTruckDescription() {
         HashMap<String, String> information = new HashMap<>();
-        for (String id : this.food_trucks.keySet())
-            information.put(id, this.food_trucks.get(id).toString());
+        for (String id : getExistFoodTruckName())
+            information.put(id, getFoodTruckById(id).toString());
         return information;
     }
 
