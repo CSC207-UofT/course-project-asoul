@@ -1,3 +1,5 @@
+package Controllers;
+
 import Exceptions.IncorrectOldPasswordException;
 import Exceptions.UnmatchedPasswordException;
 
@@ -79,7 +81,7 @@ public class UserInformationScene extends Scene {
         this.changeNicknameSuccess = true;
     }
 
-    private void refreshOutputState(){ // reset output flags
+    private void refreshOutputState() { // reset output flags
         this.invalidFundError = false;
         this.changeNicknameSuccess = false;
         this.incorrectOldPasswordError = false;
@@ -123,7 +125,7 @@ public class UserInformationScene extends Scene {
             } else {
                 userInfo = Scene.customerManager.getUserByAccountName(this.username);
             }
-            outputString.append("------------------------User Information---------------------------");
+            outputString.append("------------------------Entities.User Information---------------------------");
             for (String field : userInfo.keySet()) {
                 String content = userInfo.get(field);
                 outputString.append("\n").append(field).append(": ").append(content).append("\n");
@@ -153,7 +155,7 @@ public class UserInformationScene extends Scene {
     }
 
     public void setUserInfo(String userType, String username) {
-        assert userType.equals("Customer") || userType.equals("Seller");
+        assert userType.equals("Entities.Customer") || userType.equals("Entities.Seller");
         this.userType = userType;
         this.username = username;
     }

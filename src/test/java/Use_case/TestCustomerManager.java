@@ -1,7 +1,8 @@
+package Use_case;
+
+import Entities.Customer;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TestCustomerManager {
@@ -9,7 +10,7 @@ public class TestCustomerManager {
     @Test
     public void loginTest() {
         CustomerManager manager = new CustomerManager();
-        manager.createUser("Customer", "ABC", "123", "nick",
+        manager.createUser("Entities.Customer", "ABC", "123", "nick",
                 "12345");
         Boolean actual = manager.checkUserExist("ABC");
         assert actual.equals(true);
@@ -20,7 +21,7 @@ public class TestCustomerManager {
     @org.junit.Test
     public void addMoneyTest() {
         CustomerManager manager = new CustomerManager();
-        manager.createUser("Customer", "ABC", "123", "nick",
+        manager.createUser("Entities.Customer", "ABC", "123", "nick",
                 "12345");
         manager.addMoney("ABC", 100);
         double actual = manager.checkBalance("ABC");
@@ -32,7 +33,7 @@ public class TestCustomerManager {
     @org.junit.Test
     public void withdrawTest() {
         CustomerManager manager = new CustomerManager();
-        manager.createUser("Customer", "ABC", "123", "nick",
+        manager.createUser("Entities.Customer", "ABC", "123", "nick",
                 "12345");
         manager.addMoney("ABC", 100);
         manager.withdrawMoney("ABC", 50);
@@ -44,7 +45,7 @@ public class TestCustomerManager {
     @org.junit.Test
     public void checkBalanceTest() {
         CustomerManager manager = new CustomerManager();
-        manager.createUser("Customer", "ABC", "123", "nick",
+        manager.createUser("Entities.Customer", "ABC", "123", "nick",
                 "12345");
         manager.addMoney("ABC", 100);
         manager.addMoney("ABC", 100);
@@ -57,7 +58,7 @@ public class TestCustomerManager {
     @org.junit.Test
     public void getUserByAccountNameTest() {
         CustomerManager manager = new CustomerManager();
-        manager.createUser("Customer", "ABC", "123", "nick",
+        manager.createUser("Entities.Customer", "ABC", "123", "nick",
                 "12345");
         HashMap<String, String> actual = manager.getUserByAccountName("ABC");
         HashMap<String, String> expected = new HashMap<>();
@@ -75,10 +76,10 @@ public class TestCustomerManager {
     @org.junit.Test
     public void getUserTypeTest() {
         CustomerManager manager = new CustomerManager();
-        manager.createUser("Customer", "ABC", "123", "nick",
+        manager.createUser("Entities.Customer", "ABC", "123", "nick",
                 "12345");
         String type = manager.getUserType("ABC");
-        assert type.equals("Customer");
+        assert type.equals("Entities.Customer");
         manager.deleteUser("ABC");
     }
 
@@ -86,7 +87,7 @@ public class TestCustomerManager {
     @org.junit.Test
     public void checkUserExistTest() {
         CustomerManager manager = new CustomerManager();
-        manager.createUser("Customer", "ABC", "123", "nick",
+        manager.createUser("Entities.Customer", "ABC", "123", "nick",
                 "12345");
         Boolean actual = manager.checkUserExist("ABC");
         assert actual.equals(true);
@@ -97,7 +98,7 @@ public class TestCustomerManager {
     @org.junit.Test
     public void getCustomersTest() {
         CustomerManager manager = new CustomerManager();
-        manager.createUser("Customer", "ABC", "123", "nick",
+        manager.createUser("Entities.Customer", "ABC", "123", "nick",
                 "12345");
         Customer customer = new Customer("ABC", "123", "nick",
                 "12345");

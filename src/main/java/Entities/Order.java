@@ -1,3 +1,6 @@
+package Entities;
+
+
 import java.util.ArrayList;
 
 /**
@@ -6,7 +9,7 @@ import java.util.ArrayList;
 
 public class Order {
     private final int ID; // a unique id for the order
-    private final FoodTruck foodTruck; // private FoodTruck foodTruck;
+    private final FoodTruck foodTruck; // private Entities.FoodTruck foodTruck;
     private final ArrayList<Food> foodList; // a list of foods ordered by the customers
     private final double totalPrice; // total price
     private final String customerName; // name of the customer who ordered the food

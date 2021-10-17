@@ -1,5 +1,5 @@
-import java.awt.*;
-import java.lang.reflect.Array;
+package Entities;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,7 +23,7 @@ public class TestFoodTruck {
     @org.junit.Test
     public void addFoodToMenuTest() {
         Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
-                Arrays.asList("Fast Food", "Western")), "A standard Beef Burger.");
+                Arrays.asList("Fast Entities.Food", "Western")), "A standard Beef Burger.");
         assert foodTruck.addFoodToMenu(burger);
         ArrayList<Food> foodList1 = new ArrayList<>();
         foodList1.add(burger);
@@ -33,7 +33,7 @@ public class TestFoodTruck {
     @org.junit.Test
     public void removeFoodFromMenuSuccessTest() {
         Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
-                Arrays.asList("Fast Food", "Western")), "A standard Beef Burger.");
+                Arrays.asList("Fast Entities.Food", "Western")), "A standard Beef Burger.");
         assert foodTruck.removeFoodFromMenu(burger);
         ArrayList<Food> foodList1 = new ArrayList<>();
         assert foodTruck.getMenu().getFoodList().isEmpty();
@@ -42,7 +42,7 @@ public class TestFoodTruck {
     @org.junit.Test
     public void removeFoodFromMenuDefeatTest() {
         Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
-                Arrays.asList("Fast Food", "Western")), "A standard Beef Burger.");
+                Arrays.asList("Fast Entities.Food", "Western")), "A standard Beef Burger.");
         assert !foodTruck.removeFoodFromMenu(burger);
         ArrayList<Food> foodList1 = new ArrayList<>();
         assert foodTruck.getMenu().getFoodList().isEmpty();

@@ -1,9 +1,16 @@
+package Use_case;
+
+import Entities.Food;
+import Entities.FoodMenu;
+import Entities.FoodTruck;
+import Entities.Seller;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 /**
- * A FoodTruckManager that manages all the FoodTrucks.
+ * A Use_case.FoodTruckManager that manages all the FoodTrucks.
  */
 
 public class FoodTruckManager {
@@ -11,16 +18,16 @@ public class FoodTruckManager {
     private final HashMap<String, FoodTruck> food_trucks; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
-     * @param foodTrucks a current map that maps a food truck's id to the FoodTruck object.
+     * @param foodTrucks a current map that maps a food truck's id to the Entities.FoodTruck object.
      *                   <p>
-     *                   Create a FoodTruckManager with the given FoodTrucks.
+     *                   Create a Use_case.FoodTruckManager with the given FoodTrucks.
      */
     public FoodTruckManager(HashMap<String, FoodTruck> foodTrucks) {
         this.food_trucks = foodTrucks;
     }
 
     /**
-     * Create a FoodTruckManager with no given FoodTrucks.
+     * Create a Use_case.FoodTruckManager with no given FoodTrucks.
      */
     public FoodTruckManager() {
         this.food_trucks = new HashMap<>();
@@ -79,7 +86,7 @@ public class FoodTruckManager {
     }
 
     // TODO: updateOrderHistory()
-    // It's better to change the code in the FoodTruck.updateOrderHistory().
+    // It's better to change the code in the Entities.FoodTruck.updateOrderHistory().
     // Since when we update OrderHistory we don't only add order.
 
     // TODO: renameTruck()
@@ -101,12 +108,12 @@ public class FoodTruckManager {
      * Use truckName as the id for the truck and add it to the Hashmap.
      * The default menu is an empty menu. You can add food later.
      *
-     * @param truckName        The name of the Food Truck
-     * @param location         The location of the Food Truck (eg. "207 St. George St")
-     * @param serviceTimeStart Food Truck service start Time (eg. "9:30", "10:00")
-     * @param serviceTimeEnd   Food Truck service end Time (eg. "17:30", "22:00")
-     * @param selName          The corresponding Seller's account name of this Food Truck
-     * @param sellers          The SellerManager of all current sellers.
+     * @param truckName        The name of the Entities.Food Truck
+     * @param location         The location of the Entities.Food Truck (eg. "207 St. George St")
+     * @param serviceTimeStart Entities.Food Truck service start Time (eg. "9:30", "10:00")
+     * @param serviceTimeEnd   Entities.Food Truck service end Time (eg. "17:30", "22:00")
+     * @param selName          The corresponding Entities.Seller's account name of this Entities.Food Truck
+     * @param sellers          The Use_case.SellerManager of all current sellers.
      * @return true if the food truck being created successfully.
      * false if the food truck name has been exists.
      */
@@ -128,8 +135,8 @@ public class FoodTruckManager {
     /**
      * Create a default food truck corresponding to the given seller.
      *
-     * @param selName The corresponding Seller's account name of this Food Truck
-     * @param sellers The SellerManager of all current sellers.
+     * @param selName The corresponding Entities.Seller's account name of this Entities.Food Truck
+     * @param sellers The Use_case.SellerManager of all current sellers.
      * @return true if the food truck being created successfully.
      * false if the food truck name has been exists.
      */
@@ -188,14 +195,14 @@ public class FoodTruckManager {
     }
 
     /**
-     * @return The seller of the FoodTruck.
+     * @return The seller of the Entities.FoodTruck.
      */
     public Seller getSeller(String id) {
         return getFoodTruckById(id).getSeller();
     }
 
     /**
-     * @return The seller AccountName and PhoneNumber of the FoodTruck.
+     * @return The seller AccountName and PhoneNumber of the Entities.FoodTruck.
      */
     public HashMap<String, String> getSellerDetail(String id) {
         HashMap<String, String> information = new HashMap<>();
@@ -212,8 +219,8 @@ public class FoodTruckManager {
     }
 
     /**
-     * @param id the FoodTruck's id.
-     * @return A map that from the FoodTruck's id to the FoodTruck's detailed information. If the truck doesn't
+     * @param id the Entities.FoodTruck's id.
+     * @return A map that from the Entities.FoodTruck's id to the Entities.FoodTruck's detailed information. If the truck doesn't
      * exist, return an empty map.
      */
     public HashMap<String, String> getFoodTruckDetail(String id) {
@@ -232,7 +239,7 @@ public class FoodTruckManager {
     }
 
     /**
-     * @return A map that from the FoodTruck's id to the FoodTruck's briefly information for all trucks.
+     * @return A map that from the Entities.FoodTruck's id to the Entities.FoodTruck's briefly information for all trucks.
      */
     public HashMap<String, String> getAllFoodTruckDescription() {
         HashMap<String, String> information = new HashMap<>();
@@ -249,7 +256,7 @@ public class FoodTruckManager {
     }
 
     /**
-     * @param id the FoodTruck's id
+     * @param id the Entities.FoodTruck's id
      * @return The food truck with the id.
      */
     public FoodTruck getFoodTruckById(String id) {

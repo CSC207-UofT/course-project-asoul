@@ -1,15 +1,19 @@
+package Use_case;
+
+import Entities.FoodTruck;
+import Entities.Seller;
 import Exceptions.IncorrectCredentialsException;
 
 import java.util.ArrayList;
 
 /**
- * A SellerManager that manages all the Sellers.
+ * A Use_case.SellerManager that manages all the Sellers.
  */
 
 public class SellerManager extends UserManager {
 
     /**
-     * Creat a SellerManager.
+     * Creat a Use_case.SellerManager.
      */
     public SellerManager() {
         super();
@@ -44,14 +48,14 @@ public class SellerManager extends UserManager {
     }
 
 
-    // this does not handle multiple invalid FoodTruck.
-    // this needs to address the case that the Seller already has the truck.
+    // this does not handle multiple invalid Entities.FoodTruck.
+    // this needs to address the case that the Entities.Seller already has the truck.
     // return ture.
 
     /**
      * @param accName   The account name of the seller who wants to add truck.
-     * @param foodTruck The FoodTruck that the user wants to add.
-     * @return true if the FoodTruck has been added successfully.
+     * @param foodTruck The Entities.FoodTruck that the user wants to add.
+     * @return true if the Entities.FoodTruck has been added successfully.
      */
     public boolean addFoodTruck(String accName, FoodTruck foodTruck) {
         if (sellerMap.containsKey(accName)) {
@@ -64,7 +68,7 @@ public class SellerManager extends UserManager {
 
     /**
      * @param accName The account name of the seller.
-     * @return The Seller with the accName.
+     * @return The Entities.Seller with the accName.
      */
     public Seller getSellerByAccName(String accName) {
         return sellerMap.get(accName);

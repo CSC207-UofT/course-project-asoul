@@ -1,3 +1,10 @@
+package Controllers;
+
+import Use_case.CustomerManager;
+import Use_case.FoodTruckManager;
+import Use_case.OrderManager;
+import Use_case.SellerManager;
+
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
@@ -69,7 +76,7 @@ abstract public class Scene {
         this.fields.put(field, text);
     }
 
-    protected void clearFields(){ // Remove all entered information
+    protected void clearFields() { // Remove all entered information
         this.fields.replaceAll((key, value) -> "");
     }
 

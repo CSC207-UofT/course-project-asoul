@@ -1,3 +1,6 @@
+package Entities;
+
+
 import java.util.ArrayList;
 
 
@@ -6,7 +9,7 @@ import java.util.ArrayList;
  */
 
 public class FoodMenu {
-    private final ArrayList<Food> foodList; // a list of Food objects that are on the menu.
+    private final ArrayList<Food> foodList; // a list of Entities.Food objects that are on the menu.
 
 
     public FoodMenu(ArrayList<Food> foodList) {

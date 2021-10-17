@@ -1,3 +1,5 @@
+package Entities;
+
 import java.util.ArrayList;
 
 public class TestCustomer {
@@ -5,7 +7,7 @@ public class TestCustomer {
     Order order;
 
     @org.junit.Before
-    public void Setup() throws Exception{
+    public void Setup() throws Exception {
         customer = new Customer("Yx", "yxyyds", "yuanxiao", "110108");
         ArrayList<String> labels = new ArrayList<String>();
         labels.add("Italian");
@@ -21,12 +23,12 @@ public class TestCustomer {
 
         FoodTruck foodTruck = new FoodTruck("Ideal Catering", "Bahen", "8:00",
                 "18:00", seller, menu);
-        order = new Order(1, foodTruck, foodList,"Paul", "4169990000",
+        order = new Order(1, foodTruck, foodList, "Paul", "4169990000",
                 "David", "6478863531");
     }
 
     @org.junit.Test
-    public void addOrderTest(){
+    public void addOrderTest() {
         customer.storeOrder(order);
         ArrayList<Order> anOrder = new ArrayList<Order>();
         anOrder.add(order);
@@ -34,7 +36,7 @@ public class TestCustomer {
     }
 
     @org.junit.Test
-    public void removeOrderTest(){
+    public void removeOrderTest() {
         customer.storeOrder(order);
         customer.removeOrder(order);
         ArrayList<Order> anOrder = new ArrayList<Order>();

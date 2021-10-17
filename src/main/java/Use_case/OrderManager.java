@@ -1,9 +1,16 @@
+package Use_case;
+
+import Entities.Food;
+import Entities.FoodMenu;
+import Entities.FoodTruck;
+import Entities.Order;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * A OrderManager that manages all the Orders.
+ * A Use_case.OrderManager that manages all the Orders.
  */
 
 public class OrderManager {
@@ -11,16 +18,16 @@ public class OrderManager {
     private final HashMap<String, Order> orders; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
-     * @param current_orders a map that maps s' id to the Order objects.
+     * @param current_orders a map that maps s' id to the Entities.Order objects.
      *                       <p>
-     *                       Create a OrderManager with the given Orders.
+     *                       Create a Use_case.OrderManager with the given Orders.
      */
     public OrderManager(HashMap<String, Order> current_orders) {
         this.orders = current_orders;
     }
 
     /**
-     * Create a OrderManager with no given FoodTrucks.
+     * Create a Use_case.OrderManager with no given FoodTrucks.
      */
     public OrderManager() {
         this.orders = new HashMap<>();
@@ -63,7 +70,7 @@ public class OrderManager {
     /**
      * @param foods the list of foods' name
      * @param truck where these foods from
-     * @return An ArrayList of Food from the given foods' names.
+     * @return An ArrayList of Entities.Food from the given foods' names.
      */
     public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) {
         FoodMenu menu = truck.getMenu();
@@ -89,8 +96,8 @@ public class OrderManager {
     }
 
     /**
-     * @param id the Order's id.
-     * @return A map that from the Order's id to the Order's information. If the Order doesn't
+     * @param id the Entities.Order's id.
+     * @return A map that from the Entities.Order's id to the Entities.Order's information. If the Entities.Order doesn't
      * exist, return an empty map.
      */
     public HashMap<String, String> getOrderDetail(int id) {
@@ -102,7 +109,7 @@ public class OrderManager {
     }
 
     /**
-     * @param id the Order's id.
+     * @param id the Entities.Order's id.
      * @return The order with the given id.
      */
     public Order getOrder(int id) {
