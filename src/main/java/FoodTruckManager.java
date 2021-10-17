@@ -141,6 +141,25 @@ public class FoodTruckManager {
 
     /**
      *
+     * @return  The seller of the FoodTruck.
+     */
+    public Seller getSeller(String id) {
+        return getFoodTruckById(id).getSeller();
+    }
+
+    /**
+     *
+     * @return  The seller AccountName and PhoneNumber of the FoodTruck.
+     */
+    public HashMap<String, String> getSellerDetail(String id) {
+        HashMap<String, String> information = new HashMap<>();
+        information.put("accountName", getSeller(id).getAccountName());
+        information.put("phoneNumber", getSeller(id).getPhoneNumber());
+        return information;
+    }
+
+    /**
+     *
      * @return  All food existing FoodTrucks.
      */
     public HashMap<String, FoodTruck> getFoodTrucks() {
