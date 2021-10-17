@@ -142,6 +142,11 @@ public class UserInformationScene extends Scene{
                 field = displayMap.get(field);
                 outputString.append("\n").append(field).append(": ").append(content);
             }
+            if(this.unmatchedPasswordError){
+                outputString.append("\nThe password you entered does not match!");
+            }else if(this.incorrectOldPasswordError){
+                outputString.append("\nThe old password is incorrect!");
+            }
         }
         if(this.changePasswordSuccess){
             outputString.append("\n\n Successfully changed password!");

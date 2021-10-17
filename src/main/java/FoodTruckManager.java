@@ -114,19 +114,19 @@ public class FoodTruckManager {
     /**
      * Use truckName as the id for the truck and add it to the Hashmap.
      * This FoodTruck has a default menu of various food.
+     * The default seller is null.
      *
      * @param truckName The name of the Food Truck
      * @param location The location of the Food Truck (eg. "207 St. George St")
      * @param serviceTimeStart Food Truck service start Time (eg. "9:30", "10:00")
      * @param serviceTimeEnd Food Truck service end Time (eg. "17:30", "22:00")
-     * @param seller The corresponding Seller of this Food Truck
      *
      * @return true if the food truck being created successfully.
      *         false if the food truck name has been exists.
      */
 
     public boolean creatFoodTruck(String truckName, String location, String serviceTimeStart,
-                                  String serviceTimeEnd, Seller seller) {
+                                  String serviceTimeEnd) {
         if (this.food_trucks.containsKey(truckName)) {
             return false;
         }else {
@@ -151,7 +151,7 @@ public class FoodTruckManager {
             menu.addFood(food4);
 
 
-            FoodTruck new_truck = new FoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, seller, menu);
+            FoodTruck new_truck = new FoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, menu);
             this.food_trucks.put(truckName, new_truck);
             return true;
         }

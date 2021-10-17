@@ -35,6 +35,24 @@ public class FoodTruck {
         this.menu = menu;
     }
 
+    /**
+     * Construct an instance of a FoodTruck with no seller (the default value is null).
+     * @param truckName The name of the Food Truck
+     * @param location The location of the Food Truck (eg. "207 St. George St")
+     * @param serviceTimeStart Food Truck service start Time (eg. "9:30", "10:00")
+     * @param serviceTimeEnd Food Truck service end Time (eg. "17:30", "22:00")
+     * @param menu The corresponding Menu of this Food Truck, which contains a list of foods.
+     */
+    public FoodTruck(String truckName, String location, String serviceTimeStart,
+                     String serviceTimeEnd, FoodMenu menu){
+        this.truckName = truckName;
+        this.location = location;
+        this.serviceTimeStart = serviceTimeStart;
+        this.serviceTimeEnd = serviceTimeEnd;
+        this.seller = null;
+        this.menu = menu;
+    }
+
     // Change the status of the Food Truck
     public void changeStatus(boolean status){
         this.status = status;
