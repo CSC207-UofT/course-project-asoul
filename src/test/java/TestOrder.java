@@ -30,7 +30,7 @@ public class TestOrder {
      */
     @org.junit.Test
     public void changeOrderStatusTest(){
-        assert order.getStatus().equals("order received");
+        assert order.getStatus().equals("order created");
 
         Boolean result1 = order.changeOrderStatus();
         assert result1;

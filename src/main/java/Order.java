@@ -40,7 +40,7 @@ public class Order {
         this.sellerName = sellerName;
         this.sellerNumber = sellerNumber;
         this.rating = -0.1;
-        this.status = "order received";
+        this.status = "order created";
     }
 
     /**
@@ -51,7 +51,7 @@ public class Order {
      * @return whether the current status has been modified
      */
     public boolean changeOrderStatus() {
-        if (this.status.equals("order received")) {
+        if (this.status.equals("order created")) {
             this.status = "in progress";
             return true;
         } else if (this.status.equals("in progress")) {
@@ -102,7 +102,7 @@ public class Order {
 
 
     public double getTotalPrice() {
-        Double price = 0.0;
+        double price = 0.0;
         for (Food f : this.foodList){
             price = price + f.getPrice();
         }
