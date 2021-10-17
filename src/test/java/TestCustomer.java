@@ -21,7 +21,7 @@ public class TestCustomer {
 
         FoodTruck foodTruck = new FoodTruck("Ideal Catering", "Bahen", "8:00",
                 "18:00", seller, menu);
-        order = new Order(1, foodTruck, foodList, 5.00, "Paul", "4169990000",
+        order = new Order(1, foodTruck, foodList,"Paul", "4169990000",
                 "David", "6478863531");
     }
 
