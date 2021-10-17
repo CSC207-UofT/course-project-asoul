@@ -152,4 +152,8 @@ abstract public class UserManager {
         return userMap.get(accName).getAccountBalance();
     }
 
+    public User getUserByAccName(String accName){
+        return userMap.get(accName);
+    }
+
 }
