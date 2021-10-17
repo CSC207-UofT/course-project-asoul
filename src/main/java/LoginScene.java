@@ -125,13 +125,13 @@ public class LoginScene extends Scene {
         return outputString.toString();
     }
 
-    private void refreshOutputState() {
+    private void refreshOutputState(){ // reset output flags
         this.incorrectCredentialError = false;
         this.unknownCommandError = false;
         this.successRegistration = false;
     }
 
-    private void userLogin() throws IncorrectCredentialsException {
+    private void userLogin() throws IncorrectCredentialsException{ // attempt to login
         String username = this.fields.get("username");
         String password = this.fields.get("password");
         String type = Scene.customerManager.getUserType(username);
@@ -146,7 +146,7 @@ public class LoginScene extends Scene {
         this.switchScene(nextScene);
     }
 
-    private void registerUser() {
+    private void registerUser(){ // Create new users
         String username = this.fields.get("username");
         String password = this.fields.get("password");
         String userType = this.fields.get("user_type");

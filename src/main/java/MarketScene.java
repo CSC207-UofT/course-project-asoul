@@ -55,6 +55,7 @@ public class MarketScene extends Scene {
         if (this.unknownFoodTruckError) {
             outputString.append("\n\n Unknown Food Truck name entered, please check your spelling before entering");
         }
+        outputString.append("\ntype <select> and choose a truck");
         return outputString.toString();
     }
 }

@@ -137,7 +137,7 @@ public class FoodTruckManager {
      */
 
     public boolean createDefaultFoodTruck(SellerManager sellers, String selName) {
-        String truckName = "Blue Truck";
+        String truckName = "Blue_Truck";
         String location = "Bahen Center for Information Technology";
         String serviceTimeStart = "9:00";
         String serviceTimeEnd = "20:00";
