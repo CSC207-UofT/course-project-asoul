@@ -20,8 +20,7 @@ public class FoodMenu {
     /**
      * return whether the menu have the food with same name as the given food.
      *
-     * @param food   The given food.
-     *
+     * @param food The given food.
      * @return true if there is the food with same name as the given food. false for not
      */
     public boolean isThereSameNameFood(Food food) {
@@ -36,8 +35,7 @@ public class FoodMenu {
     /**
      * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.
      *
-     * @param food   The food want to add or update.
-     *
+     * @param food The food want to add or update.
      * @return true if we add the food. false if we update the food.
      */
     public boolean addFood(Food food) {
@@ -54,8 +52,7 @@ public class FoodMenu {
     /**
      * remove food from menu if food object is in menu.
      *
-     * @param food   The food want to remove.
-     *
+     * @param food The food want to remove.
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
     public boolean removeFood(Food food) {

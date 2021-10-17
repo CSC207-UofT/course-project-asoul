@@ -15,13 +15,13 @@ public class TestFoodTruck {
     }
 
     @org.junit.Test
-    public void changeStatusTest(){
+    public void changeStatusTest() {
         foodTruck.changeStatus(true);
         assert foodTruck.getStatus();
     }
 
     @org.junit.Test
-    public void updateMenuTest(){
+    public void updateMenuTest() {
         Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
                 Arrays.asList("Fast Food", "Western")), "A standard Beef Burger.");
         foodTruck.addFoodToMenu(burger);
@@ -31,7 +31,7 @@ public class TestFoodTruck {
     }
 
     @org.junit.Test
-    public void updateOrderHistoryTest(){
+    public void updateOrderHistoryTest() {
 
         Order order = new Order(1, foodTruck, new ArrayList<>(),
                 "Bob", "1111", "Ava", "2222");
@@ -40,7 +40,7 @@ public class TestFoodTruck {
     }
 
     @org.junit.Test
-    public void addOrderToQueueTest(){
+    public void addOrderToQueueTest() {
 
         Order order = new Order(1, foodTruck, new ArrayList<>(),
                 "Bob", "1111", "Ava", "2222");
@@ -49,7 +49,7 @@ public class TestFoodTruck {
     }
 
     @org.junit.Test
-    public void removeOrderWithIDTest(){
+    public void removeOrderWithIDTest() {
 
         Order order = new Order(1, foodTruck, new ArrayList<>(),
                 "Bob", "1111", "Ava", "2222");

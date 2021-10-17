@@ -46,9 +46,8 @@ public class FoodTruckManager {
      * With the given foodtruck's name, add food to menu if food object is not in menu.
      * If the food is in menu, update the food with the new one.
      *
-     * @param food   The food want to add or update.
+     * @param food      The food want to add or update.
      * @param truckName The name of the given truck
-     *
      * @return true if we add the food. false if we update the food.
      */
     public boolean addFoodToMenu(Food food, String truckName) {
@@ -58,9 +57,8 @@ public class FoodTruckManager {
     /**
      * With the given foodtruck's name, move food to menu if food object is in menu.
      *
-     * @param food   The food want to remove.
+     * @param food      The food want to remove.
      * @param truckName The name of the given truck
-     *
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
     public boolean removeFoodFromMenu(Food food, String truckName) {
@@ -158,7 +156,7 @@ public class FoodTruckManager {
 
         boolean success = creatFoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, selName, sellers);
         addFoodToMenu(food1, truckName);
-        addFoodToMenu(food2,truckName);
+        addFoodToMenu(food2, truckName);
         addFoodToMenu(food3, truckName);
         addFoodToMenu(food4, truckName);
         return success;

@@ -40,8 +40,7 @@ public class FoodTruck {
     /**
      * Change the status of the Food Truck
      *
-     * @param status  The status want to change to.
-     *
+     * @param status The status want to change to.
      */
     public void changeStatus(boolean status) {
         this.status = status;
@@ -50,19 +49,17 @@ public class FoodTruck {
     /**
      * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.
      *
-     * @param food   The food want to add or update.
-     *
+     * @param food The food want to add or update.
      * @return true if we add the food. false if we update the food.
      */
     public boolean addFoodToMenu(Food food) {
-            return this.menu.addFood(food);
+        return this.menu.addFood(food);
     }
 
     /**
      * remove food from menu if food object is in menu.
      *
-     * @param food   The food want to remove.
-     *
+     * @param food The food want to remove.
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
     public boolean removeFoodFromMenu(Food food) {
