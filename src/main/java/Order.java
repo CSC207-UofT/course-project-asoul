@@ -29,12 +29,12 @@ public class Order {
      * @param sellerName     name of the seller who owns the food truck
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
-    public Order(int ID, FoodTruck foodTruck, ArrayList<Food> foodList, double totalPrice, String customerName,
+    public Order(int ID, FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
                  String customerNumber, String sellerName, String sellerNumber) {
         this.ID = ID;
         this.foodTruck = foodTruck;
         this.foodList = foodList; // Aliasing problem??
-        this.totalPrice = totalPrice;
+        this.totalPrice = getTotalPrice();
         this.customerName = customerName;
         this.customerNumber = customerNumber;
         this.sellerName = sellerName;
@@ -102,7 +102,11 @@ public class Order {
 
 
     public double getTotalPrice() {
-        return this.totalPrice;
+        Double price = 0.0;
+        for (Food f : this.foodList){
+            price = price + f.getPrice();
+        }
+        return price;
     }
 
 

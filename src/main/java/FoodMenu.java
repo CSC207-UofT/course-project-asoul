@@ -43,26 +43,12 @@ public class FoodMenu {
     }
 
 
-    public static void main(String[] args) {
-        ArrayList<String> labels = new ArrayList<>();
-        labels.add("Italian");
-        labels.add("Fast food");
-        ArrayList<String> labels2 = new ArrayList<>();
-        labels2.add("Drinks");
-
-        Food pizza = new Food("Pizza", 5.00, 1, labels,
-                "One large slice of Hawaii Piazza");
-        Food coke = new Food("Coke", 2.00, 2, labels2, "500ml Coke");
-
-        ArrayList<Food> foodList = new ArrayList<>();
-        foodList.add(pizza);
-        foodList.add(coke);
-        ArrayList<Food> foodList2 = new ArrayList<>();
-
-        FoodMenu menu = new FoodMenu(foodList);
-        FoodMenu emptyMenu = new FoodMenu(foodList2);
-
-        System.out.println(menu);
-        System.out.println(emptyMenu);
+    public Food createCopy(String foodName){
+        for (Food f : this.foodList){
+            if (f.getFoodName().equals(foodName)){
+                return f;
+            }
+        }
+        return null;
     }
 }
