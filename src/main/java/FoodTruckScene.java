@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,7 +47,7 @@ public class FoodTruckScene extends Scene {
     public void handleInput(String input) {
         String[] text = input.split(" ");
         if (input.equals("back")) {
-            cart = new ArrayList<String>();
+            cart = new ArrayList<>();
             this.switchScene(Scene.allScenes.get("Market"));
         } else if (input.equals("check out")) {
             ArrayList<Food> foodList = om.getMenuFood(this.cart, this.foodTruck);

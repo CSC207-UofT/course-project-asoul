@@ -11,38 +11,35 @@ public class OrderManager {
     private final HashMap<String, Order> orders; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
-     *
      * @param current_orders a map that maps s' id to the Order objects.
-     *
-     * Create a OrderManager with the given Orders.
+     *                       <p>
+     *                       Create a OrderManager with the given Orders.
      */
-    public OrderManager(HashMap<String, Order> current_orders){
+    public OrderManager(HashMap<String, Order> current_orders) {
         this.orders = current_orders;
     }
 
     /**
-     *
      * Create a OrderManager with no given FoodTrucks.
      */
     public OrderManager() {
-        this.orders = new HashMap<String, Order>();
+        this.orders = new HashMap<>();
     }
 
     /**
      * Create a unique id (0~999999) for the order and add it to the list.
      *
-     * @param foodTruck the foodtruck that is responsible for this order
-     * @param foodList a list of foods ordered by the customers
-     * @param customerName name of the customer who ordered the food
+     * @param foodTruck      the foodtruck that is responsible for this order
+     * @param foodList       a list of foods ordered by the customers
+     * @param customerName   name of the customer who ordered the food
      * @param customerNumber contact number of the customer who ordered the food
-     * @param sellerName name of the seller who owns the food truck
-     * @param sellerNumber contact number of the seller who owns the food truck
-     *
+     * @param sellerName     name of the seller who owns the food truck
+     * @param sellerNumber   contact number of the seller who owns the food truck
      * @return the id of new order
      */
 
     public int creatOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
-                              String customerNumber, String sellerName, String sellerNumber) {
+                          String customerNumber, String sellerName, String sellerNumber) {
         int id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
         while (this.orders.containsKey(Integer.toString(id))) {
             id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
@@ -57,7 +54,6 @@ public class OrderManager {
      * Change the specific order's status.
      *
      * @param id the id of the specific order
-     *
      * @return true if the order status being changed successfully.
      */
     public boolean changeOrderStatus(String id) {
@@ -65,10 +61,8 @@ public class OrderManager {
     }
 
     /**
-     *
      * @param foods the list of foods' name
      * @param truck where these foods from
-     *
      * @return An ArrayList of Food from the given foods' names.
      */
     public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) {
@@ -81,10 +75,8 @@ public class OrderManager {
     }
 
     /**
-     *
      * @param foods the list of foods' name
      * @param truck where these foods from
-     *
      * @return The total price of the given food in the truck
      */
     public double getTotalPrice(ArrayList<String> foods, FoodTruck truck) {
@@ -99,13 +91,14 @@ public class OrderManager {
     /**
      * @param id the Order's id.
      * @return A map that from the Order's id to the Order's information. If the Order doesn't
-     *         exist, return an empty map.
+     * exist, return an empty map.
      */
     public HashMap<String, String> getOrderDetail(int id) {
         HashMap<String, String> information = new HashMap<>();
-        if (this.orders.containsKey(id)) {
+        if (this.orders.containsKey(String.valueOf(id))) {
             information.put(String.valueOf(id), getOrder(id).toString());
-        } return information;
+        }
+        return information;
     }
 
     /**
@@ -113,6 +106,6 @@ public class OrderManager {
      * @return The order with the given id.
      */
     public Order getOrder(int id) {
-        return this.orders.get(id);
+        return this.orders.get(String.valueOf(id));
     }
 }
