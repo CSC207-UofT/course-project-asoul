@@ -66,7 +66,7 @@ abstract public class UserManager {
                 orderHistoryString.append(order.toString()).append("\n");
             }
             userInfoMap.put("orderHistory", orderHistoryString.toString());
-        } //to do for seller parts.
+        } //to do for seller parts in else.
 
 
         return userInfoMap;
