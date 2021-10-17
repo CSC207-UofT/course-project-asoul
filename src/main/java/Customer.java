@@ -1,8 +1,15 @@
 import java.util.ArrayList;
 
-public class Customer extends User {
-    private ArrayList<Order> orderHistory;
+public class Customer extends User{
+    private ArrayList<Order> orderHistory; //A List that stores all history orders of this Customer
 
+    /**
+     * Construct an instance of a Customer
+     * @param accName The account name of this Customer
+     * @param password The password of this Customer account
+     * @param nickname The nickname of this Customer
+     * @param phoneNumber A string representing the phone number of this Customer
+     */
     public Customer(String accName, String password, String nickname, String phoneNumber) {
         super(accName, password, nickname, phoneNumber);
         orderHistory = new ArrayList<Order>();
@@ -12,10 +19,10 @@ public class Customer extends User {
         return orderHistory;
     }
 
-    public boolean storeOrder(Order order) {
+    public boolean storeOrder(Order order){
         try {
             this.orderHistory.add(order);
-        } catch (Exception e) {
+        }catch (Exception e){
             System.out.println("Add fail");
             return false;
         }
@@ -48,3 +55,4 @@ public class Customer extends User {
      */
 
 }
+
