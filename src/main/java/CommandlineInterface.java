@@ -8,13 +8,19 @@ public class CommandlineInterface {
         Scene.setActiveScene(loginScene);
     }
 
-    public void run(String command){
-        Scene.getActiveScene().handleInput(command);
-        System.out.println(Scene.getActiveScene().constructOutputString());
-        System.out.print(">>> ");
-    }
-
     public boolean isRunning(){
         return Scene.isRunning();
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        CommandlineInterface cm = new CommandlineInterface();
+        do{
+            System.out.println(Scene.getActiveScene().constructOutputString());
+            System.out.print(">>> ");
+            Scene.getActiveScene().handleInput(br.readLine());
+        }while(cm.isRunning());
+        System.out.println("Exit Program!");
+        br.close();
     }
 }

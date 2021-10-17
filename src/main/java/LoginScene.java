@@ -93,7 +93,7 @@ public class LoginScene extends Scene{
         if(this.incorrectCredentialError){
             outputString.append("Incorrect credentials entered, please check your spellings before reentering");
         }else if(!this.register){
-            outputString.append("Please login with your username and password");
+            outputString.append("Please login with your username and password, enter 'help' to see all available commands");
         }else if(!this.successRegistration){
             outputString.append("Please enter the information for your new account");
         }else{
@@ -112,7 +112,7 @@ public class LoginScene extends Scene{
             outputString.append("\n").append(field).append(": ").append(content);
         }
         if(this.help){
-            outputString.append("\n").append("All commands:\n").append("help -> View all commands on this page\n").
+            outputString.append("\n\n").append("All commands:\n").append("help -> View all commands on this page\n").
                     append("hide -> Hide helping commands\n").append("U + [Space] + [your username] -> " +
                             "Enter your username\n").append("P + [Space] + [your password] -> Enter your password\n").
                     append("register -> Start account registration").append("login -> Start logging in").
