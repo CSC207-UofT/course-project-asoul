@@ -107,6 +107,7 @@ public class FoodTruckManager {
         }else {
             FoodTruck new_truck = new FoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, seller, menu);
             this.food_trucks.put(truckName, new_truck);
+            seller.addFoodTruck(new_truck);
             return true;
         }
     }
