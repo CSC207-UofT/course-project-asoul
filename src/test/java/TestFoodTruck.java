@@ -24,7 +24,7 @@ public class TestFoodTruck {
     public void updateMenuTest(){
         Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
                 Arrays.asList("Fast Food", "Western")), "A standard Beef Burger.");
-        foodTruck.updateMenu(burger);
+        foodTruck.addFoodToMenu(burger);
         ArrayList<Food> foodList1 = new ArrayList<>();
         foodList1.add(burger);
         assert foodTruck.getMenu().getFoodList().equals(foodList1);
