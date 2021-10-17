@@ -141,4 +141,16 @@ abstract public class UserManager {
         }
     }
 
+    public String getNickname(String accName){
+        return userMap.get(accName).getNickname();
+    }
+
+    public String getPhoneNumber(String accName){
+        return userMap.get(accName).getPhoneNumber();
+    }
+
+    public double getBalance(String accName){
+        return userMap.get(accName).getAccountBalance();
+    }
+
 }
