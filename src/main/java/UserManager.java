@@ -3,12 +3,14 @@ import Exceptions.IncorrectCredentialsException;
 
 import java.util.HashMap;
 
-
+/**
+ * A UserManager that manages all the Users.
+ */
 abstract public class UserManager {
-    static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to User object.
-    static HashMap<String, Customer> customerMap = new HashMap<>(); // A map from customer's account name to Customer
+    protected HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to User object.
+    protected HashMap<String, Customer> customerMap = new HashMap<>(); // A map from customer's account name to Customer
     // object.
-    static HashMap<String, Seller> sellerMap = new HashMap<>(); // A map from seller's account name to Seller object.
+    protected HashMap<String, Seller> sellerMap = new HashMap<>(); // A map from seller's account name to Seller object.
 
     /**
      * @param accName  A String that represents the account Name.
