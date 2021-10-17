@@ -39,8 +39,8 @@ public class MarketScene extends Scene{
 
     private void viewFoodTruck(String id) throws UnknownFoodTruckException {
         FoodTruckScene fc = (FoodTruckScene) Scene.allScenes.get("FoodTruck");
-        // fc.setFoodTruck(id);
-        // fc.setUsername(this.username);
+        fc.setFoodTruck(id);
+        fc.setUsername(this.username);
         this.switchScene("FoodTruck");
     }
 
