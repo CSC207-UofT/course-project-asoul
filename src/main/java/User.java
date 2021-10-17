@@ -1,7 +1,7 @@
 import Exceptions.IncorrectOldPasswordException;
 
 public abstract class User {
-    private String accountName; //The account name of this User
+    private final String accountName; //The account name of this User
     private double accountBalance; //The current account balance of this User (in double)
     private String password; //The string representing the password of this User's account
     private String nickname; //The nickname of this User
@@ -10,12 +10,13 @@ public abstract class User {
 
     /**
      * Construct an instance of a User
-     * @param accName The account name of this User
-     * @param password The password of this User account
-     * @param nickname The nickname of this User
+     *
+     * @param accName     The account name of this User
+     * @param password    The password of this User account
+     * @param nickname    The nickname of this User
      * @param phoneNumber A string representing the phone number of this User
      */
-    public User(String accName, String password, String nickname, String phoneNumber){
+    public User(String accName, String password, String nickname, String phoneNumber) {
         this.accountName = accName;
         this.password = password;
         this.nickname = nickname;
@@ -25,17 +26,19 @@ public abstract class User {
     }
 
     public abstract String toString();
+
     /**
      * Login to the account.
+     *
      * @param password The password of this User account
      * @return Return True if the account is logged in and False otherwise.
      */
-    public boolean login(String password){
-        if (this.password.equals(password)){
+    public boolean login(String password) {
+        if (this.password.equals(password)) {
             this.login = true;
             System.out.println("Log in success!");
             return true;
-        }else{
+        } else {
             System.out.println("Password incorrect!");
             return false;
         }
@@ -44,13 +47,14 @@ public abstract class User {
 
     /**
      * Logout to the account.
+     *
      * @return Return True if the account is logged out and False otherwise.v
      */
-    public boolean logout(){
-        if (!this.login){
+    public boolean logout() {
+        if (!this.login) {
             System.out.println("You need log in first");
             return false;
-        }else{
+        } else {
             this.login = false;
             System.out.println("Log out success!");
             return true;
@@ -59,13 +63,14 @@ public abstract class User {
 
     /**
      * Add money to this User's account balance.
+     *
      * @param money The amount of money in double that will be added to the account balance.
      * @return Return True if successfully added and False otherwise.
      */
-    public boolean addMoney(double money){
-        try{
+    public boolean addMoney(double money) {
+        try {
             this.accountBalance += money;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Add fail");
             return false;
         }
@@ -75,40 +80,43 @@ public abstract class User {
 
     /**
      * Check the current account balance
+     *
      * @return Return the Balance of this User account in double.
      */
-    public double checkBalance(){
+    public double checkBalance() {
         System.out.println("Your current balance is: " + this.accountBalance);
         return this.accountBalance;
     }
 
     /**
      * Withdraw money from this User's account balance.
+     *
      * @param money The amount of money in double that will be withdrawn from the account balance.
      * @return Return True if successfully withdrawn and False otherwise.
      */
-    public boolean withdrawMoney(double money){
-        if (this.accountBalance < money){
+    public boolean withdrawMoney(double money) {
+        if (this.accountBalance < money) {
             System.out.println("Insufficient balance!");
             return false;
-        }else{
+        } else {
             this.accountBalance -= money;
             System.out.println("Withdraw Success!");
             return true;
         }
     }
 
-    public void setNickname(String nickname){
+    public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
     public void setPassword(String newPassword, String oldPassword) throws IncorrectOldPasswordException {
-        if(oldPassword.equals(this.password)) {
+        if (oldPassword.equals(this.password)) {
             this.password = newPassword;
-        }else{
+        } else {
             throw new IncorrectOldPasswordException();
         }
     }
+
     /**
      * Getting for all the instance variables
      */
@@ -133,7 +141,7 @@ public abstract class User {
         return this.phoneNumber;
     }
 
-    public boolean getLoginStatus(){
+    public boolean getLoginStatus() {
         return this.login;
     }
 }

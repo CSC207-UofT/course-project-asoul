@@ -2,9 +2,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Exceptions.IncorrectCredentialsException;
-import Exceptions.UnknownCommandException;
 
-public class LoginScene extends Scene{
+public class LoginScene extends Scene {
     // Output States
     private boolean unknownCommandError;
     private boolean incorrectCredentialError;
@@ -13,7 +12,7 @@ public class LoginScene extends Scene{
     private boolean successRegistration;
     private HashMap<String, String> displayMap;
 
-    public LoginScene(){
+    public LoginScene() {
         super("Login");
         this.fields.put("username", "");
         this.fields.put("password", "");
@@ -34,7 +33,7 @@ public class LoginScene extends Scene{
     }
 
     @Override
-    public void handleInput(String input){
+    public void handleInput(String input) {
         // TODO: Use commands to access methods in the map instead of hardcoding
         this.refreshOutputState();
         String[] text = input.split(" ");
@@ -92,28 +91,28 @@ public class LoginScene extends Scene{
     @Override
     public String constructOutputString() {
         StringBuilder outputString = new StringBuilder();
-        if(this.incorrectCredentialError){
+        if (this.incorrectCredentialError) {
             outputString.append("Incorrect credentials entered, please check your spellings before reentering");
-        }else if(!this.register){
+        } else if (!this.register) {
             outputString.append("Please login with your username and password, enter 'help' to see all available commands");
-        }else if(!this.successRegistration){
+        } else if (!this.successRegistration) {
             outputString.append("Please enter the information for your new account");
-        }else{
+        } else {
             outputString.append("Successfully created new account!");
         }
         ArrayList<String> requiredFields = new ArrayList<>();
-        if(this.register){
+        if (this.register) {
             requiredFields.addAll(this.fields.keySet());
-        }else{
+        } else {
             requiredFields.add("username");
             requiredFields.add("password");
         }
-        for(String field: requiredFields){
+        for (String field : requiredFields) {
             String content = this.fields.get(field);
             field = displayMap.get(field);
             outputString.append("\n").append(field).append(": ").append(content);
         }
-        if(this.help){
+        if (this.help) {
             outputString.append("\n\n").append("All commands:\n").append("help -> View all commands on this page\n").
                     append("hide -> Hide helping commands\n").append("U + [Space] + [your username] -> " +
                             "Enter your username\n").append("P + [Space] + [your password] -> Enter your password\n").
@@ -126,42 +125,42 @@ public class LoginScene extends Scene{
         return outputString.toString();
     }
 
-    private void refreshOutputState(){
+    private void refreshOutputState() {
         this.incorrectCredentialError = false;
         this.unknownCommandError = false;
         this.successRegistration = false;
     }
 
-    private void userLogin() throws IncorrectCredentialsException{
+    private void userLogin() throws IncorrectCredentialsException {
         String username = this.fields.get("username");
         String password = this.fields.get("password");
         String type = Scene.customerManager.getUserType(username);
         UserInformationScene nextScene = (UserInformationScene) Scene.allScenes.get("UserInformation");
-        if(type.equals("Seller")) {
+        if (type.equals("Seller")) {
             Scene.sellerManager.login(username, password);
             nextScene.setUserInfo("Seller", username);
-        }else{
+        } else {
             Scene.customerManager.login(username, password);
             nextScene.setUserInfo("Customer", username);
         }
         this.switchScene(nextScene);
     }
 
-    private void registerUser(){
+    private void registerUser() {
         String username = this.fields.get("username");
         String password = this.fields.get("password");
         String userType = this.fields.get("user_type");
         String nickname = this.fields.get("nickname");
         String phoneNumber = this.fields.get("phone_number");
         this.successRegistration = Scene.sellerManager.createUser(userType, username, password, nickname, phoneNumber); // TODO: User creation exception handling
-        if(userType.equals("Seller")){
+        if (userType.equals("Seller")) {
             Scene.foodTruckManager.createDefaultFoodTruck(Scene.sellerManager, username);
         }
         this.clearFields();
     }
 
     @Override
-    protected void switchScene(Scene scene){
+    protected void switchScene(Scene scene) {
         super.switchScene(scene);
         this.clearFields();
         this.refreshOutputState();

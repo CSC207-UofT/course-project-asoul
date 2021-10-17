@@ -1,7 +1,6 @@
 import Exceptions.IncorrectCredentialsException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * A CustomerManager that manages all the Customers.

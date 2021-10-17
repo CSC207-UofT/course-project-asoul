@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class CommandlineInterface {
 
@@ -10,11 +9,11 @@ public class CommandlineInterface {
         new UserInformationScene();
         new FoodTruckScene();
         Scene.setActiveScene(loginScene);
-        do{
+        do {
             System.out.println(Scene.getActiveScene().constructOutputString());
             System.out.print(">>> ");
             Scene.getActiveScene().handleInput(br.readLine());
-        }while(Scene.isRunning());
+        } while (Scene.isRunning());
         System.out.println("Exit Program!");
         br.close();
     }

@@ -32,8 +32,8 @@ abstract public class UserManager {
     }
 
     /**
-     * @param accountName  The user that wants to withdraw money.
-     * @param money The amount of money the user wants to withdraw.
+     * @param accountName The user that wants to withdraw money.
+     * @param money       The amount of money the user wants to withdraw.
      */
     public void withdrawMoney(String accountName, int money) {
         User user = userMap.get(accountName);
@@ -132,7 +132,8 @@ abstract public class UserManager {
             sellerMap.remove(accountName);
         }
     }
-    public void setNickname(String accName, String nickname){
+
+    public void setNickname(String accName, String nickname) {
         userMap.get(accName).setNickname(nickname);
     }
 
@@ -140,15 +141,15 @@ abstract public class UserManager {
         userMap.get(username).setPassword(newPassword, oldPassword);
     }
 
-    public String getNickname(String accName){
+    public String getNickname(String accName) {
         return userMap.get(accName).getNickname();
     }
 
-    public String getPhoneNumber(String accName){
+    public String getPhoneNumber(String accName) {
         return userMap.get(accName).getPhoneNumber();
     }
 
-    public double getBalance(String accName){
+    public double getBalance(String accName) {
         return userMap.get(accName).getAccountBalance();
     }
 

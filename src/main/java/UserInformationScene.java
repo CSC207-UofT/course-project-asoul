@@ -1,10 +1,9 @@
-import Exceptions.IncorrectCredentialsException;
 import Exceptions.IncorrectOldPasswordException;
 import Exceptions.UnmatchedPasswordException;
 
 import java.util.HashMap;
 
-public class UserInformationScene extends Scene{
+public class UserInformationScene extends Scene {
     private String userType;
     private String username;
     private HashMap<String, String> displayMap;
@@ -40,47 +39,47 @@ public class UserInformationScene extends Scene{
     public void handleInput(String input) {
         this.refreshOutputState();
         String[] text = input.split(" ");
-        if(input.equals("sign out")){
+        if (input.equals("sign out")) {
             this.switchScene(Scene.allScenes.get("Login"));
-        }else if(text[0].equals("change_nickname")){
+        } else if (text[0].equals("change_nickname")) {
             this.changeNickname(text[1]);
-        }else if(text[0].equals("add_fund")){
+        } else if (text[0].equals("add_fund")) {
             try {
                 this.addFund(text[1]);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 this.invalidFundError = true;
             }
-        }else if(text[0].equals("O")){
+        } else if (text[0].equals("O")) {
             this.fillInField("old_password", text[1]);
-        }else if(text[0].equals("N")){
+        } else if (text[0].equals("N")) {
             this.fillInField("new_password", text[1]);
-        }else if(text[0].equals("C")){
+        } else if (text[0].equals("C")) {
             this.fillInField("confirm_password", text[1]);
-        }else if(input.equals("change_password")){
+        } else if (input.equals("change_password")) {
             this.changingPassword = true;
-        }else if(input.equals("back")){
+        } else if (input.equals("back")) {
             this.changingPassword = false;
-        }else if(input.equals("view market")){
+        } else if (input.equals("view market")) {
             this.viewMarket();
-        }else if(input.equals("confirm")){
-            if(this.changingPassword){
+        } else if (input.equals("confirm")) {
+            if (this.changingPassword) {
                 try {
                     this.changePassword();
-                }catch (UnmatchedPasswordException e){
+                } catch (UnmatchedPasswordException e) {
                     this.unmatchedPasswordError = true;
                 }
             }
-        }else{
-            // TODO: Throws unknown command error
-        }
+        } // else{
+        // TODO: Throws unknown command error
+        // }
     }
 
-    private void changeNickname(String nickname){
+    private void changeNickname(String nickname) {
         Scene.customerManager.setNickname(this.username, nickname);
         this.changeNicknameSuccess = true;
     }
 
-    private void refreshOutputState(){
+    private void refreshOutputState() {
         this.invalidFundError = false;
         this.changeNicknameSuccess = false;
         this.incorrectOldPasswordError = false;
@@ -88,29 +87,29 @@ public class UserInformationScene extends Scene{
         this.changePasswordSuccess = false;
     }
 
-    private void changePassword() throws UnmatchedPasswordException{
+    private void changePassword() throws UnmatchedPasswordException {
         String oldPassword = this.fields.get("old_password");
         String newPassword = this.fields.get("new_password");
         String confirmPassword = this.fields.get("confirm_password");
         try {
-            if(!confirmPassword.equals(newPassword)){
+            if (!confirmPassword.equals(newPassword)) {
                 throw new UnmatchedPasswordException();
             }
             customerManager.setPassword(this.username, newPassword, oldPassword);
             this.changePasswordSuccess = true;
             this.changingPassword = false;
-        }catch (IncorrectOldPasswordException e){
+        } catch (IncorrectOldPasswordException e) {
             this.incorrectOldPasswordError = true;
         }
     }
 
-    private void viewMarket(){
+    private void viewMarket() {
         this.switchScene("Market");
         MarketScene scene = (MarketScene) Scene.allScenes.get("Market");
         scene.setUsername(this.username);
     }
 
-    private void addFund(String fund){
+    private void addFund(String fund) {
         Scene.customerManager.addMoney(this.username, Integer.parseInt(fund));
     }
 
@@ -118,7 +117,7 @@ public class UserInformationScene extends Scene{
     public String constructOutputString() {
         HashMap<String, String> userInfo;
         StringBuilder outputString = new StringBuilder();
-        if(!this.changingPassword) {
+        if (!this.changingPassword) {
             if (this.userType.equals("seller")) {
                 userInfo = Scene.sellerManager.getUserByAccountName(this.username);
             } else {
@@ -129,31 +128,31 @@ public class UserInformationScene extends Scene{
                 String content = userInfo.get(field);
                 outputString.append("\n").append(field).append(": ").append(content);
             }
-            if(this.invalidFundError){
+            if (this.invalidFundError) {
                 outputString.append("\n\n").append("Invalid Fund entered.");
-            }else if(this.changeNicknameSuccess){
+            } else if (this.changeNicknameSuccess) {
                 outputString.append("\n\nSuccessfully changed nickname to: ").append(userInfo.get("nickname"));
             }
-        }else{
-            for(String field: this.fields.keySet()){
+        } else {
+            for (String field : this.fields.keySet()) {
                 String content = this.fields.get(field);
                 field = displayMap.get(field);
                 outputString.append("\n").append(field).append(": ").append(content);
             }
-            if(this.unmatchedPasswordError){
+            if (this.unmatchedPasswordError) {
                 outputString.append("\nThe password you entered does not match!");
-            }else if(this.incorrectOldPasswordError){
+            } else if (this.incorrectOldPasswordError) {
                 outputString.append("\nThe old password is incorrect!");
             }
         }
-        if(this.changePasswordSuccess){
+        if (this.changePasswordSuccess) {
             outputString.append("\n\n Successfully changed password!");
         }
 
         return outputString.toString();
     }
 
-    public void setUserInfo(String userType, String username){
+    public void setUserInfo(String userType, String username) {
         assert userType.equals("Customer") || userType.equals("Seller");
         this.userType = userType;
         this.username = username;

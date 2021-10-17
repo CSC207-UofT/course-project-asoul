@@ -1,6 +1,3 @@
-import Exceptions.UnknownCommandException;
-
-import java.security.KeyException;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
@@ -17,30 +14,30 @@ abstract public class Scene {
     protected HashMap<String, Callable<Void>> commandSet; // These methods will be called by user typed commands
     protected String name;
 
-    public Scene(String name){
+    public Scene(String name) {
         this.name = name;
         this.commandSet = new HashMap<>();
         this.fields = new HashMap<>();
         Scene.allScenes.put(name, this);
     }
 
-    public static void setActiveScene(Scene scene){
+    public static void setActiveScene(Scene scene) {
         activeScene = scene;
     }
 
-    public static Scene getActiveScene(){
+    public static Scene getActiveScene() {
         return Scene.activeScene;
     }
 
-    public static boolean isRunning(){
+    public static boolean isRunning() {
         return !Scene.exit;
     }
 
-    public void addCommand(String command, Callable<Void> method){
+    public void addCommand(String command, Callable<Void> method) {
         this.commandSet.put(command, method);
     }
 
-    public void handleInput(String input){
+    public void handleInput(String input) {
         /* The input will be separated into segments, one of which will be used to determine which function to call and
         rest will be used to determine parameters for that function
         TODO: Figure out how to store methods in maps so they can be accessed by tied commands
@@ -60,7 +57,7 @@ abstract public class Scene {
 
     }
 
-    private Object[] parseParameters(String raw_command){
+    private Object[] parseParameters(String raw_command) {
         //TODO: Separate parameters from command
         Object[] arr = new Object[2];
         arr[0] = ""; // command
@@ -68,19 +65,19 @@ abstract public class Scene {
         return arr;
     }
 
-    protected void fillInField(String field, String text){
+    protected void fillInField(String field, String text) {
         this.fields.put(field, text);
     }
 
-    protected void clearFields(){
+    protected void clearFields() {
         this.fields.replaceAll((key, value) -> "");
     }
 
-    protected void switchScene(Scene scene){
+    protected void switchScene(Scene scene) {
         Scene.activeScene = scene;
     }
 
-    protected void switchScene(String name){
+    protected void switchScene(String name) {
         Scene.activeScene = Scene.allScenes.get(name);
     }
 

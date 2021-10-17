@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Queue;
 
 /**
  * Java class representation for FoodTruck instance
@@ -18,15 +17,16 @@ public class FoodTruck {
 
     /**
      * Construct an instance of a FoodTruck
-     * @param truckName The name of the Food Truck
-     * @param location The location of the Food Truck (eg. "207 St. George St")
+     *
+     * @param truckName        The name of the Food Truck
+     * @param location         The location of the Food Truck (eg. "207 St. George St")
      * @param serviceTimeStart Food Truck service start Time (eg. "9:30", "10:00")
-     * @param serviceTimeEnd Food Truck service end Time (eg. "17:30", "22:00")
-     * @param seller The corresponding Seller of this Food Truck
-     * @param menu The corresponding Menu of this Food Truck, which contains a list of foods.
+     * @param serviceTimeEnd   Food Truck service end Time (eg. "17:30", "22:00")
+     * @param seller           The corresponding Seller of this Food Truck
+     * @param menu             The corresponding Menu of this Food Truck, which contains a list of foods.
      */
     public FoodTruck(String truckName, String location, String serviceTimeStart,
-                     String serviceTimeEnd, Seller seller, FoodMenu menu){
+                     String serviceTimeEnd, Seller seller, FoodMenu menu) {
         this.truckName = truckName;
         this.location = location;
         this.serviceTimeStart = serviceTimeStart;
@@ -37,14 +37,15 @@ public class FoodTruck {
 
     /**
      * Construct an instance of a FoodTruck with no seller (the default value is null).
-     * @param truckName The name of the Food Truck
-     * @param location The location of the Food Truck (eg. "207 St. George St")
+     *
+     * @param truckName        The name of the Food Truck
+     * @param location         The location of the Food Truck (eg. "207 St. George St")
      * @param serviceTimeStart Food Truck service start Time (eg. "9:30", "10:00")
-     * @param serviceTimeEnd Food Truck service end Time (eg. "17:30", "22:00")
-     * @param menu The corresponding Menu of this Food Truck, which contains a list of foods.
+     * @param serviceTimeEnd   Food Truck service end Time (eg. "17:30", "22:00")
+     * @param menu             The corresponding Menu of this Food Truck, which contains a list of foods.
      */
     public FoodTruck(String truckName, String location, String serviceTimeStart,
-                     String serviceTimeEnd, FoodMenu menu){
+                     String serviceTimeEnd, FoodMenu menu) {
         this.truckName = truckName;
         this.location = location;
         this.serviceTimeStart = serviceTimeStart;
@@ -54,32 +55,31 @@ public class FoodTruck {
     }
 
     // Change the status of the Food Truck
-    public void changeStatus(boolean status){
+    public void changeStatus(boolean status) {
         this.status = status;
     }
 
     // Add the given Food to the Food Truck's menu
     // TODO Add remove Food from Menu
-    public void updateMenu(Food food){
+    public void updateMenu(Food food) {
         this.menu.addFood(food);
     }
 
-    public void updateOrderHistory(Order order){
+    public void updateOrderHistory(Order order) {
         this.orderHistory.add(order);
         // Then if OrderHistory >= 10, calculate rating (To be implemented later TODO)
     }
 
-    public void addOrderToQueue(Order order){
+    public void addOrderToQueue(Order order) {
         this.orderQueue.add(order);
     }
 
     // Remove the Order from orderQueue with the given id, return the removed Order
-    public Order removeOrderWithID(int id){
+    public Order removeOrderWithID(int id) {
         for (Order orders : this.orderQueue) {
             if (orders.getID() == id) {
                 Order temp_order = orders;
-                int orderIDInList = this.orderQueue.indexOf(orders);
-                this.orderQueue.remove(orderIDInList);
+                this.orderQueue.remove(orders);
                 return temp_order;
             }
         }
@@ -87,53 +87,49 @@ public class FoodTruck {
     }
 
 
-
     // public boolean renameTruck(String name){ } (TODO but wait for database)
 
     //A string description of the Food Truck (name, location, rating...)
     @Override
-    public String toString(){
+    public String toString() {
         if (this.status) {
-            return this.truckName + "is located at " +  this.location + "." + "\n" +
+            return this.truckName + "is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently operating." +
                     "\n" + "The rating of the food truck is " + this.rating + ".";
-        }
-        else{
-            return this.truckName + "is located at " +  this.location + "." + "\n" +
+        } else {
+            return this.truckName + "is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently not operating." +
                     "\n" + "The rating of the food truck is " + this.rating + ".";
         }
     }
 
     // Display the food truck's corresponding menu items
-    public String displayMenu(){
-        return "The menu of this food truck: " + " \n" + this.menu.toString();
-    }
 
-    /**
-     * TODO Will implement a rating system
-     * public double updateRating(){}
-     */
+    // public String displayMenu() {
+    //     return "The menu of this food truck: " + " \n" + this.menu.toString();
+    // }
+
+    // TODO: Implement a rating system
 
     /**
      * Below are Getter methods for all instance variables
      */
 
-    public String getTruckName(){
+    public String getTruckName() {
         return this.truckName;
     }
 
-    public String getLocation(){
+    public String getLocation() {
         return this.location;
     }
 
     // Return a String showing the service window of this Food Truck
-    public String displayServiceTime(){
+    public String displayServiceTime() {
         return "The service time for this food truck is :"
-                + this.serviceTimeStart  + "-" + this.serviceTimeEnd + ".";
+                + this.serviceTimeStart + "-" + this.serviceTimeEnd + ".";
     }
 
-    public boolean getStatus(){
+    public boolean getStatus() {
         return this.status;
     }
 

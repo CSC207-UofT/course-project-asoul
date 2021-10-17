@@ -102,7 +102,7 @@ public class Order {
 
     public double getTotalPrice() {
         double price = 0.0;
-        for (Food f : this.foodList){
+        for (Food f : this.foodList) {
             price = price + f.getPrice();
         }
         return price;
@@ -140,7 +140,7 @@ public class Order {
 
 
     public String getFoodList() {
-        StringBuilder result = new StringBuilder("");
+        StringBuilder result = new StringBuilder();
         for (Food food : this.foodList) {
             result.append(food.getFoodName()).append(" : $").append(food.getPrice()).append("\n");
         }
