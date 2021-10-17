@@ -110,4 +110,13 @@ abstract public class UserManager {
         return true;
     }
 
+
+    /**
+     * @param accountName the account name that want to check exists or not.
+     * @return true if the account name already exists.
+     */
+    public boolean checkUserExist(String accountName) {
+        return userMap.containsKey(accountName);
+    }
+
 }
