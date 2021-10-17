@@ -101,7 +101,7 @@ public class FoodTruckManager {
      *         false if the food truck name has been exists.
      */
 
-    public boolean creatFoodTruck(String truckName, String location, String serviceTimeStart,
+    public boolean createFoodTruck(String truckName, String location, String serviceTimeStart,
                                   String serviceTimeEnd, String selName, SellerManager sellers, FoodMenu menu) {
         if (this.food_trucks.containsKey(truckName)) {
             return false;
@@ -124,7 +124,7 @@ public class FoodTruckManager {
      *         false if the food truck name has been exists.
      */
 
-    public boolean creatDefaultFoodTruck(SellerManager sellers, String selName) {
+    public boolean createDefaultFoodTruck(SellerManager sellers, String selName) {
         String truckName = "Blue Truck";
         String location = "Bahen Center for Information Technology";
         String serviceTimeStart = "9:00";
@@ -150,7 +150,7 @@ public class FoodTruckManager {
         menu.addFood(food3);
         menu.addFood(food4);
 
-        return creatFoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, selName, sellers, menu);
+        return createFoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, selName, sellers, menu);
     }
 
     /**

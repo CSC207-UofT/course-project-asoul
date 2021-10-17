@@ -21,7 +21,6 @@ abstract public class Scene {
         this.name = name;
         this.commandSet = new HashMap<>();
         this.fields = new HashMap<>();
-
         Scene.allScenes.put(name, this);
     }
 

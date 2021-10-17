@@ -70,8 +70,6 @@ public class UserInformationScene extends Scene{
                     this.unmatchedPasswordError = true;
                 }
             }
-        }else if(input.equals("Find Foods")){
-            this.switchScene(Scene.allScenes.get("Market"));
         }else{
             // TODO: Throws unknown command error
         }

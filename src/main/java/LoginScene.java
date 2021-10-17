@@ -79,6 +79,9 @@ public class LoginScene extends Scene{
             case "hide":
                 this.help = false;
                 break;
+            case "exit":
+                Scene.exit = true;
+                break;
             default:
                 // TODO: UnknownCommandException handling
                 this.unknownCommandError = true;
@@ -151,6 +154,9 @@ public class LoginScene extends Scene{
         String nickname = this.fields.get("nickname");
         String phoneNumber = this.fields.get("phone_number");
         this.successRegistration = Scene.sellerManager.createUser(userType, username, password, nickname, phoneNumber); // TODO: User creation exception handling
+        if(userType.equals("Seller")){
+            Scene.foodTruckManager.createDefaultFoodTruck(Scene.sellerManager, username);
+        }
         this.clearFields();
     }
 
