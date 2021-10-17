@@ -15,10 +15,18 @@ public class Customer extends User{
         orderHistory = new ArrayList<Order>();
     }
 
-    public ArrayList<Order> getOrderHistory() {
-        return orderHistory;
+    @Override
+    public String toString() {
+        String initial = "Account Name: " + this.getAccountName() + "; Password: " + this.getPassword() + "; Nickname: " +
+                this.getNickname() + "; PhoneNumber: " + this.getPhoneNumber() + ".";
+        return initial;
     }
 
+
+    /** Add given order to order history.
+     * @param order the order that will be added
+     * @return Return True if success, and False otherwise.
+     */
     public boolean storeOrder(Order order){
         try {
             this.orderHistory.add(order);
@@ -29,30 +37,27 @@ public class Customer extends User{
         System.out.println("Add success");
         return true;
     }
-
-    /* TODO
-    public boolean cancelOrder(Order order){
-        + money \This order should be cancelled in Order Manager and only send back money cost here
-    }
-    public boolean checkOrderStatus(Order order)[
-
-    }
-    public Order orderFood(FoodTruck foodtruck){
-        - money \Order placed here? or just withdraw money here.
-    }
-
-    public boolean rateOrder(int rate, Order order){
-        try{
-            order.setRating(rate);
-        }catch (Exception e){
-            System.out.println("Rate Fail!");
+    /** Remove given order to order history.
+     * @param order the order that will be removed
+     * @return Return True if success, and False otherwise.
+     */
+    public boolean removeOrder(Order order) {
+        try {
+            this.orderHistory.remove(order);
+        } catch (Exception e) {
+            System.out.println("Remove fail");
             return false;
         }
-        System.out.println("Rate success!");
+        System.out.println("Remove success");
         return true;
     }
 
+    /**
+     * Getting for all instance variables
      */
+    public ArrayList<Order> getOrderHistory() {
+        return orderHistory;
+    }
 
 }
 

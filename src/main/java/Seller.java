@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class Seller extends User{
     private ArrayList<FoodTruck> ownedFoodTruck; //A List stored all FoodTrucks this Seller owned
 
@@ -16,9 +15,17 @@ public class Seller extends User{
         this.ownedFoodTruck = new ArrayList<FoodTruck>();
     }
 
+    @Override
+    public String toString() {
+        String initial = "Account Name: " + this.getAccountName() + "; Password: " + this.getPassword()
+                + "; Nickname: " + this.getNickname() + "; PhoneNumber: " + this.getPhoneNumber() + ".";
+        return initial;
+    }
+
     /**
-     * Add a foodtruck to ownedFoodTruck that this seller owned. Return True if successfully added and False otherwise.
+     * Add a foodtruck to ownedFoodTruck that this seller owned.
      * @param foodtruck the foodtruck that want to be added to the ownedFoodTruck.
+     * @return Return True if successfully added and False otherwise.
      */
     public boolean addFoodTruck(FoodTruck foodtruck){
         //comment
@@ -32,9 +39,9 @@ public class Seller extends User{
         return true;
     }
     /**
-     * Remove a foodtruck from ownedFoodTruck that this seller owned. Return True if successfully removed
-     * and False otherwise.
+     * Remove a foodtruck from ownedFoodTruck that this seller owned.
      * @param foodtruck the foodtruck that want to be removed from the ownedFoodTruck.
+     * @return Return True if successfully removed and False otherwise.
      */
     public boolean removeFoodTruck(FoodTruck foodtruck){
         try{
@@ -48,6 +55,7 @@ public class Seller extends User{
     }
     /**
      * To return a list of all owned FoodTrucks of this Seller.
+     * @return a list of all owned FoodTrucks of this Seller.
      */
     public ArrayList<FoodTruck> getFoodTruck(){
         return this.ownedFoodTruck;

@@ -22,9 +22,11 @@ public abstract class User {
         login = false;
     }
 
+    public abstract String toString();
     /**
-     * Login to the account. Return True if the account is logged in and False otherwise.
+     * Login to the account.
      * @param password The password of this User account
+     * @return Return True if the account is logged in and False otherwise.
      */
     public boolean login(String password){
         if (this.password.equals(password)){
@@ -37,8 +39,10 @@ public abstract class User {
         }
     }
 
+
     /**
-     * Logout to the account. Return True if the account is logged out and False otherwise.
+     * Logout to the account.
+     * @return Return True if the account is logged out and False otherwise.v
      */
     public boolean logout(){
         if (!this.login){
@@ -52,8 +56,9 @@ public abstract class User {
     }
 
     /**
-     * Add money to this User's account balance. Return True if successfully added and False otherwise.
+     * Add money to this User's account balance.
      * @param money The amount of money in double that will be added to the account balance.
+     * @return Return True if successfully added and False otherwise.
      */
     public boolean addMoney(double money){
         try{
@@ -67,7 +72,8 @@ public abstract class User {
     }
 
     /**
-     * Return the Balance of this User account in double.
+     * Check the current account balance
+     * @return Return the Balance of this User account in double.
      */
     public double checkBalance(){
         System.out.println("Your current balance is: " + this.accountBalance);
@@ -75,8 +81,9 @@ public abstract class User {
     }
 
     /**
-     * Withdraw money from this User's account balance. Return True if successfully withdrawn and False otherwise.
+     * Withdraw money from this User's account balance.
      * @param money The amount of money in double that will be withdrawn from the account balance.
+     * @return Return True if successfully withdrawn and False otherwise.
      */
     public boolean withdrawMoney(double money){
         if (this.accountBalance < money){
