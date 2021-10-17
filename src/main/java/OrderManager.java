@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
@@ -7,7 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class OrderManager {
-    private final HashMap<String, Order> orders;
+
+    private final HashMap<String, Order> orders; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
      *
@@ -32,7 +34,6 @@ public class OrderManager {
      *
      * @param foodTruck the foodtruck that is responsible for this order
      * @param foodList a list of foods ordered by the customers
-     * @param totalPrice total price
      * @param customerName name of the customer who ordered the food
      * @param customerNumber contact number of the customer who ordered the food
      * @param sellerName name of the seller who owns the food truck
@@ -41,13 +42,13 @@ public class OrderManager {
      * @return true if the order being created successfully.
      */
 
-    public boolean creatOrder(FoodTruck foodTruck, ArrayList<Food> foodList, double totalPrice, String customerName,
+    public boolean creatOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
                               String customerNumber, String sellerName, String sellerNumber) {
         int id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
         while (this.orders.containsKey(Integer.toString(id))) {
             id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
         }
-        Order new_order = new Order(id, foodTruck, foodList, totalPrice, customerName,
+        Order new_order = new Order(id, foodTruck, foodList, customerName,
                 customerNumber, sellerName, sellerNumber);
         this.orders.put(Integer.toString(id), new_order);
         return true;
@@ -78,5 +79,37 @@ public class OrderManager {
      */
     public boolean changeOrderStatus(String id) {
         return this.orders.get(id).changeOrderStatus();
+    }
+
+    /**
+     *
+     * @param foods the list of foods' name
+     * @param truck where these foods from
+     *
+     * @return An ArrayList of Food from the given foods' names.
+     */
+    public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) {
+        FoodMenu menu = truck.getMenu();
+        ArrayList<Food> wish_food = new ArrayList<>();
+        for (String item : foods) {
+            wish_food.add(menu.createCopy(item));
+        }
+        return wish_food;
+    }
+
+    /**
+     *
+     * @param foods the list of foods' name
+     * @param truck where these foods from
+     *
+     * @return The total price of the given food in the truck
+     */
+    public double getTotalPrice(ArrayList<String> foods, FoodTruck truck) {
+        FoodMenu menu = truck.getMenu();
+        double total_price = 0;
+        for (String item : foods) {
+            total_price += menu.createCopy(item).getPrice();
+        }
+        return total_price;
     }
 }

@@ -1,50 +1,63 @@
 import java.util.ArrayList;
 
-public class Customer extends User {
-    private ArrayList<Order> orderHistory;
+public class Customer extends User{
+    private ArrayList<Order> orderHistory; //A List that stores all history orders of this Customer
 
+    /**
+     * Construct an instance of a Customer
+     * @param accName The account name of this Customer
+     * @param password The password of this Customer account
+     * @param nickname The nickname of this Customer
+     * @param phoneNumber A string representing the phone number of this Customer
+     */
     public Customer(String accName, String password, String nickname, String phoneNumber) {
         super(accName, password, nickname, phoneNumber);
         orderHistory = new ArrayList<Order>();
     }
 
-    public ArrayList<Order> getOrderHistory() {
-        return orderHistory;
+    @Override
+    public String toString() {
+        String initial = "Account Name: " + this.getAccountName() + "; Password: " + this.getPassword() + "; Nickname: " +
+                this.getNickname() + "; PhoneNumber: " + this.getPhoneNumber() + ".";
+        return initial;
     }
 
-    public boolean storeOrder(Order order) {
+
+    /** Add given order to order history.
+     * @param order the order that will be added
+     * @return Return True if success, and False otherwise.
+     */
+    public boolean storeOrder(Order order){
         try {
             this.orderHistory.add(order);
-        } catch (Exception e) {
+        }catch (Exception e){
             System.out.println("Add fail");
             return false;
         }
         System.out.println("Add success");
         return true;
     }
-
-    /* TODO
-    public boolean cancelOrder(Order order){
-        + money \This order should be cancelled in Order Manager and only send back money cost here
-    }
-    public boolean checkOrderStatus(Order order)[
-
-    }
-    public Order orderFood(FoodTruck foodtruck){
-        - money \Order placed here? or just withdraw money here.
-    }
-
-    public boolean rateOrder(int rate, Order order){
-        try{
-            order.setRating(rate);
-        }catch (Exception e){
-            System.out.println("Rate Fail!");
+    /** Remove given order to order history.
+     * @param order the order that will be removed
+     * @return Return True if success, and False otherwise.
+     */
+    public boolean removeOrder(Order order) {
+        try {
+            this.orderHistory.remove(order);
+        } catch (Exception e) {
+            System.out.println("Remove fail");
             return false;
         }
-        System.out.println("Rate success!");
+        System.out.println("Remove success");
         return true;
     }
 
+    /**
+     * Getting for all instance variables
      */
+    public ArrayList<Order> getOrderHistory() {
+        return orderHistory;
+    }
 
 }
+

@@ -31,7 +31,6 @@ public class LoginScene extends Scene{
         this.help = false;
         this.register = false;
         this.successRegistration = false;
-        new UserInformationScene();
     }
 
     @Override
@@ -115,10 +114,10 @@ public class LoginScene extends Scene{
             outputString.append("\n\n").append("All commands:\n").append("help -> View all commands on this page\n").
                     append("hide -> Hide helping commands\n").append("U + [Space] + [your username] -> " +
                             "Enter your username\n").append("P + [Space] + [your password] -> Enter your password\n").
-                    append("register -> Start account registration").append("login -> Start logging in").
+                    append("register -> Start account registration\n").append("login -> Start logging in\n").
                     append("confirm -> Login / Register new account with the information you entered\n").append("" +
                             "T + [Space] + [User Type] -> Enter the user type for your new account\n").append("" +
-                            "N + [Space] + [Nickname] -> Enter the nickname for your new account").append("" +
+                            "N + [Space] + [Nickname] -> Enter the nickname for your new account\n").append("" +
                             "PN + [Space] + [Phone Number] -> Enter the phone number for your new account");
         }
         return outputString.toString();

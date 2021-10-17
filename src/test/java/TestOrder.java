@@ -20,7 +20,7 @@ public class TestOrder {
 
         FoodTruck foodTruck = new FoodTruck("Ideal Catering", "Bahen", "8:00",
                 "18:00", seller, menu);
-        order = new Order(1, foodTruck, foodList, 5.00, "Paul", "4169990000",
+        order = new Order(1, foodTruck, foodList, "Paul", "4169990000",
                 "David", "6478863531");
     }
 
@@ -30,7 +30,7 @@ public class TestOrder {
      */
     @org.junit.Test
     public void changeOrderStatusTest(){
-        assert order.getStatus().equals("order received");
+        assert order.getStatus().equals("order created");
 
         Boolean result1 = order.changeOrderStatus();
         assert result1;
