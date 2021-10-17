@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 abstract public class UserManager {
-    static HashMap<String, User> userMap = new HashMap<>();
-    static HashMap<String, Customer> customerMap = new HashMap<>();
-    static HashMap<String, Seller> sellerMap = new HashMap<>();
+    protected static HashMap<String, User> userMap = new HashMap<>();
+    protected static HashMap<String, Customer> customerMap = new HashMap<>();
+    protected static HashMap<String, Seller> sellerMap = new HashMap<>();
 
     abstract public void login (String accName, String password) throws IncorrectCredentialsException;
 
