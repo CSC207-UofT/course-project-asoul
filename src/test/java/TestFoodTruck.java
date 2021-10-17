@@ -33,7 +33,7 @@ public class TestFoodTruck {
     @org.junit.Test
     public void updateOrderHistoryTest(){
 
-        Order order = new Order(1, foodTruck, new ArrayList<>(), 1.0,
+        Order order = new Order(1, foodTruck, new ArrayList<>(),
                 "Bob", "1111", "Ava", "2222");
         foodTruck.updateOrderHistory(order);
         assert foodTruck.getOrderHistory().contains(order);
@@ -42,7 +42,7 @@ public class TestFoodTruck {
     @org.junit.Test
     public void addOrderToQueueTest(){
 
-        Order order = new Order(1, foodTruck, new ArrayList<>(), 1.0,
+        Order order = new Order(1, foodTruck, new ArrayList<>(),
                 "Bob", "1111", "Ava", "2222");
         foodTruck.addOrderToQueue(order);
         assert foodTruck.getOrderQueue().contains(order);
@@ -51,7 +51,7 @@ public class TestFoodTruck {
     @org.junit.Test
     public void removeOrderWithIDTest(){
 
-        Order order = new Order(1, foodTruck, new ArrayList<>(), 1.0,
+        Order order = new Order(1, foodTruck, new ArrayList<>(),
                 "Bob", "1111", "Ava", "2222");
         foodTruck.removeOrderWithID(1);
         assert !foodTruck.getOrderQueue().contains(order) && foodTruck.getOrderQueue().size() == 0;
