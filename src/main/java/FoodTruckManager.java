@@ -32,7 +32,9 @@ public class FoodTruckManager {
      * @param status the status that the food truck will turn to.
      * @param id the id of the food truck whose status is going to be changed.
      *
-     * Change the status of the specific food truck. Return true if successfully changed.
+     * Change the status of the specific food truck.
+     *
+     * @return Return true if successfully changed.
      */
     public boolean changeStatus(String id, boolean status) {
         if (this.food_trucks.containsKey(id)) {
@@ -51,7 +53,8 @@ public class FoodTruckManager {
      *
      * @param id the id of the specific food truck.
      *
-     * Get order history of the specific food truck. Return false if the food truck is not in the list.
+     * @return order history of the specific food truck.
+     *         false if the food truck is not in the list.
      */
     public Object getOrderHistory(String id) {
         if (this.food_trucks.containsKey(id)) {
@@ -71,7 +74,8 @@ public class FoodTruckManager {
      *
      * @param id the id of the specific food truck.
      *
-     * Get the menu of the specific food truck. Return false if the food truck is not in the list.
+     * @return the menu of the specific food truck.
+     *         false if the food truck is not in the list.
      */
     public Object getMenu(String id) {
         if (this.food_trucks.containsKey(id)) {
@@ -91,7 +95,8 @@ public class FoodTruckManager {
      * @param seller The corresponding Seller of this Food Truck
      * @param menu The corresponding Menu of this Food Truck, which contains a list of foods.
      *
-     * @return true if the food truck being created successfully. false if the food truck name exists.
+     * @return true if the food truck being created successfully.
+     *         false if the food truck name has been exists.
      */
 
     public boolean creatFoodTruck(String truckName, String location, String serviceTimeStart,
@@ -109,7 +114,7 @@ public class FoodTruckManager {
      *
      * @param id the id of the specific food truck.
      *
-     * Get the order queue of the specific food truck. Return false if the food truck is not in the list.
+     * @return Get the order queue of the specific food truck. Return false if the food truck doesn't exist.
      */
     public Object getOrderQueue(String id) {
         if (this.food_trucks.containsKey(id)) {
@@ -161,16 +166,13 @@ public class FoodTruckManager {
     }
 
     /**
-     * @param id the FoodTruck's id.
-     * @return A map that from the FoodTruck's id to the FoodTruck's briefly information. If the truck doesn't
-     *         exist, return an empty map.
+     * @return A map that from the FoodTruck's id to the FoodTruck's briefly information for all trucks.
+     *
      */
-    public HashMap<String, String> getFoodTruckDescription(String id) {
+    public HashMap<String, String> getAllFoodTruckDescription() {
         HashMap<String, String> information = new HashMap<>();
-        if (this.food_trucks.containsKey(id)) {
-            FoodTruck truck = this.food_trucks.get(id);
-            information.put(id, truck.toString());
-        }
+        for (String id : this.food_trucks.keySet())
+            information.put(id, this.food_trucks.get(id).toString());
         return information;
     }
 
