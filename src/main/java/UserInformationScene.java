@@ -79,7 +79,7 @@ public class UserInformationScene extends Scene {
         this.changeNicknameSuccess = true;
     }
 
-    private void refreshOutputState() {
+    private void refreshOutputState(){ // reset output flags
         this.invalidFundError = false;
         this.changeNicknameSuccess = false;
         this.incorrectOldPasswordError = false;
@@ -126,7 +126,7 @@ public class UserInformationScene extends Scene {
             outputString.append("------------------------User Information---------------------------");
             for (String field : userInfo.keySet()) {
                 String content = userInfo.get(field);
-                outputString.append("\n").append(field).append(": ").append(content);
+                outputString.append("\n").append(field).append(": ").append(content).append("\n");
             }
             if (this.invalidFundError) {
                 outputString.append("\n\n").append("Invalid Fund entered.");
@@ -148,7 +148,7 @@ public class UserInformationScene extends Scene {
         if (this.changePasswordSuccess) {
             outputString.append("\n\n Successfully changed password!");
         }
-
+        outputString.append("type <view market> to browse available food trucks");
         return outputString.toString();
     }
 

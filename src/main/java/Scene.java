@@ -69,13 +69,13 @@ abstract public class Scene {
         this.fields.put(field, text);
     }
 
-    protected void clearFields() {
+    protected void clearFields(){ // Remove all entered information
         this.fields.replaceAll((key, value) -> "");
     }
 
     protected void switchScene(Scene scene) {
         Scene.activeScene = scene;
-    }
+    } // switch to another scene
 
     protected void switchScene(String name) {
         Scene.activeScene = Scene.allScenes.get(name);

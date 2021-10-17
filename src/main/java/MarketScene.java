@@ -37,7 +37,7 @@ public class MarketScene extends Scene {
         this.username = username;
     }
 
-    private void viewFoodTruck(String id) throws UnknownFoodTruckException {
+    private void viewFoodTruck(String id) throws UnknownFoodTruckException { // Forward to foodtruck page
         FoodTruckScene fc = (FoodTruckScene) Scene.allScenes.get("FoodTruck");
         fc.setFoodTruck(id);
         fc.setUsername(this.username);
@@ -55,6 +55,7 @@ public class MarketScene extends Scene {
         if (this.unknownFoodTruckError) {
             outputString.append("\n\n Unknown Food Truck name entered, please check your spelling before entering");
         }
+        outputString.append("\ntype <select> and choose a truck");
         return outputString.toString();
     }
 }
