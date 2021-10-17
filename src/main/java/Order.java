@@ -23,7 +23,6 @@ public class Order {
      * @param ID             a unique id for the order
      * @param foodTruck      the foodtruck that is responsible for this order
      * @param foodList       a list of foods ordered by the customers
-     * @param totalPrice     total price
      * @param customerName   name of the customer who ordered the food
      * @param customerNumber contact number of the customer who ordered the food
      * @param sellerName     name of the seller who owns the food truck
