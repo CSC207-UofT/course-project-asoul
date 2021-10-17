@@ -1,14 +1,17 @@
+package Use_case;
+
+import Entities.Customer;
 import Exceptions.IncorrectCredentialsException;
 
 import java.util.ArrayList;
 
 /**
- * A CustomerManager that manages all the Customers.
+ * A Use_case.CustomerManager that manages all the Customers.
  */
 public class CustomerManager extends UserManager {
 
     /**
-     * Create a CustomerManager.
+     * Create a Use_case.CustomerManager.
      */
     public CustomerManager() {
         super();

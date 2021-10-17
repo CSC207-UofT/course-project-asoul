@@ -1,3 +1,9 @@
+package Use_case;
+
+import Entities.Customer;
+import Entities.Order;
+import Entities.Seller;
+import Entities.User;
 import Exceptions.IncorrectCredentialsException;
 import Exceptions.IncorrectOldPasswordException;
 
@@ -5,13 +11,13 @@ import Exceptions.IncorrectOldPasswordException;
 import java.util.HashMap;
 
 /**
- * A UserManager that manages all the Users.
+ * A Use_case.UserManager that manages all the Users.
  */
 abstract public class UserManager {
-    protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to User object.
-    protected static HashMap<String, Customer> customerMap = new HashMap<>(); // A map from customer's account name to Customer
+    protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to Entities.User object.
+    protected static HashMap<String, Customer> customerMap = new HashMap<>(); // A map from customer's account name to Entities.Customer
     // object.
-    protected static HashMap<String, Seller> sellerMap = new HashMap<>(); // A map from seller's account name to Seller object.
+    protected static HashMap<String, Seller> sellerMap = new HashMap<>(); // A map from seller's account name to Entities.Seller object.
 
     /**
      * @param accName  A String that represents the account Name.
@@ -79,9 +85,9 @@ abstract public class UserManager {
      */
     public String getUserType(String accName) {
         if (customerMap.containsKey(accName)) {
-            return "Customer";
+            return "Entities.Customer";
         } else if (sellerMap.containsKey(accName)) {
-            return "Seller";
+            return "Entities.Seller";
         }
         return "no this account";
     }
@@ -101,7 +107,7 @@ abstract public class UserManager {
             return false;
         }
 
-        if (userType.equals("Customer")) {
+        if (userType.equals("Entities.Customer")) {
             Customer newCustomer = new Customer(accName, password, nickname, phoneNum);
             userMap.put(accName, newCustomer);
             customerMap.put(accName, newCustomer);
@@ -126,7 +132,7 @@ abstract public class UserManager {
     public void deleteUser(String accountName) {
         String type = getUserType(accountName);
         userMap.remove(accountName);
-        if (type.equals("Customer")) {
+        if (type.equals("Entities.Customer")) {
             customerMap.remove(accountName);
         } else {
             sellerMap.remove(accountName);

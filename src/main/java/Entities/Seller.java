@@ -1,15 +1,18 @@
+package Entities;
+
+
 import java.util.ArrayList;
 
 public class Seller extends User {
-    private ArrayList<FoodTruck> ownedFoodTruck; //A List stored all FoodTrucks this Seller owned
+    private ArrayList<FoodTruck> ownedFoodTruck; //A List stored all FoodTrucks this Entities.Seller owned
 
     /**
-     * Construct an instance of a Seller
+     * Construct an instance of a Entities.Seller
      *
-     * @param accName     The account name of this Seller
-     * @param password    The password of this Seller account
-     * @param nickname    The nickname of this Seller
-     * @param phoneNumber A string representing the phone number of this Seller
+     * @param accName     The account name of this Entities.Seller
+     * @param password    The password of this Entities.Seller account
+     * @param nickname    The nickname of this Entities.Seller
+     * @param phoneNumber A string representing the phone number of this Entities.Seller
      */
 
     public Seller(String accName, String password, String nickname, String phoneNumber) {
@@ -59,9 +62,9 @@ public class Seller extends User {
     }
 
     /**
-     * To return a list of all owned FoodTrucks of this Seller.
+     * To return a list of all owned FoodTrucks of this Entities.Seller.
      *
-     * @return a list of all owned FoodTrucks of this Seller.
+     * @return a list of all owned FoodTrucks of this Entities.Seller.
      */
     public ArrayList<FoodTruck> getFoodTruck() {
         return this.ownedFoodTruck;

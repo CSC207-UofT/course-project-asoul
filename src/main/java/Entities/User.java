@@ -1,20 +1,22 @@
+package Entities;
+
 import Exceptions.IncorrectOldPasswordException;
 
 public abstract class User {
-    private final String accountName; //The account name of this User
-    private double accountBalance; //The current account balance of this User (in double)
-    private String password; //The string representing the password of this User's account
-    private String nickname; //The nickname of this User
-    private String phoneNumber; //A string that represents the phone number of this User
+    private final String accountName; //The account name of this Entities.User
+    private double accountBalance; //The current account balance of this Entities.User (in double)
+    private String password; //The string representing the password of this Entities.User's account
+    private String nickname; //The nickname of this Entities.User
+    private String phoneNumber; //A string that represents the phone number of this Entities.User
     private boolean login; //Login status. True if logged in, False otherwise.
 
     /**
-     * Construct an instance of a User
+     * Construct an instance of a Entities.User
      *
-     * @param accName     The account name of this User
-     * @param password    The password of this User account
-     * @param nickname    The nickname of this User
-     * @param phoneNumber A string representing the phone number of this User
+     * @param accName     The account name of this Entities.User
+     * @param password    The password of this Entities.User account
+     * @param nickname    The nickname of this Entities.User
+     * @param phoneNumber A string representing the phone number of this Entities.User
      */
     public User(String accName, String password, String nickname, String phoneNumber) {
         this.accountName = accName;
@@ -30,7 +32,7 @@ public abstract class User {
     /**
      * Login to the account.
      *
-     * @param password The password of this User account
+     * @param password The password of this Entities.User account
      * @return Return True if the account is logged in and False otherwise.
      */
     public boolean login(String password) {
@@ -62,7 +64,7 @@ public abstract class User {
     }
 
     /**
-     * Add money to this User's account balance.
+     * Add money to this Entities.User's account balance.
      *
      * @param money The amount of money in double that will be added to the account balance.
      * @return Return True if successfully added and False otherwise.
@@ -81,7 +83,7 @@ public abstract class User {
     /**
      * Check the current account balance
      *
-     * @return Return the Balance of this User account in double.
+     * @return Return the Balance of this Entities.User account in double.
      */
     public double checkBalance() {
         System.out.println("Your current balance is: " + this.accountBalance);
@@ -89,7 +91,7 @@ public abstract class User {
     }
 
     /**
-     * Withdraw money from this User's account balance.
+     * Withdraw money from this Entities.User's account balance.
      *
      * @param money The amount of money in double that will be withdrawn from the account balance.
      * @return Return True if successfully withdrawn and False otherwise.

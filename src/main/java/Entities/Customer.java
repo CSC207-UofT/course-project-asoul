@@ -1,15 +1,17 @@
+package Entities;
+
 import java.util.ArrayList;
 
 public class Customer extends User {
-    private ArrayList<Order> orderHistory; //A List that stores all history orders of this Customer
+    private ArrayList<Order> orderHistory; //A List that stores all history orders of this Entities.Customer
 
     /**
-     * Construct an instance of a Customer
+     * Construct an instance of a Entities.Customer
      *
-     * @param accName     The account name of this Customer
-     * @param password    The password of this Customer account
-     * @param nickname    The nickname of this Customer
-     * @param phoneNumber A string representing the phone number of this Customer
+     * @param accName     The account name of this Entities.Customer
+     * @param password    The password of this Entities.Customer account
+     * @param nickname    The nickname of this Entities.Customer
+     * @param phoneNumber A string representing the phone number of this Entities.Customer
      */
     public Customer(String accName, String password, String nickname, String phoneNumber) {
         super(accName, password, nickname, phoneNumber);

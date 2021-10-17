@@ -1,4 +1,5 @@
-import java.awt.*;
+package Entities;
+
 import java.util.ArrayList;
 
 public class TestOrder {
@@ -29,7 +30,7 @@ public class TestOrder {
      * Test changeOrderStatus method
      */
     @org.junit.Test
-    public void changeOrderStatusTest(){
+    public void changeOrderStatusTest() {
         assert order.getStatus().equals("order created");
 
         Boolean result1 = order.changeOrderStatus();
@@ -50,7 +51,7 @@ public class TestOrder {
      * Test rateOrder method
      */
     @org.junit.Test
-    public void rateOrderTest(){
+    public void rateOrderTest() {
         assert order.getRating().equals(-0.1);
 
         Boolean result1 = order.rateOrder(9.5);
@@ -67,7 +68,7 @@ public class TestOrder {
      * Test getFoodList method
      */
     @org.junit.Test
-    public void getFoodListTest(){
+    public void getFoodListTest() {
         String result = order.getFoodList();
         assert result.equals("Pizza : $5.0");
     }
@@ -77,14 +78,15 @@ public class TestOrder {
      * Test toString method
      */
     @org.junit.Test
-    public void toStringTest(){
+    public void toStringTest() {
         String result = order.toString();
         String answer = "1\nPaul : 4169990000\nIdeal Catering : 6478863531\nPizza : $5.0\nTotal :" +
-                " $5.0\norder received";
+                " $5.0\norder created";
         assert result.equals(answer);
         order.changeOrderStatus();
         String result2 = order.toString();
         String answer2 = "1\nPaul : 4169990000\nIdeal Catering : 6478863531\nPizza : $5.0\nTotal :" +
-                " $5.0\nin Progress";
+                " $5.0\nin progress";
+        assert result2.equals(answer2);
     }
 }

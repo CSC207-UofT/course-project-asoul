@@ -1,3 +1,12 @@
+package Controllers;
+
+import Entities.Food;
+import Entities.FoodTruck;
+import Use_case.CustomerManager;
+import Use_case.FoodTruckManager;
+import Use_case.OrderManager;
+import Use_case.SellerManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +25,7 @@ public class FoodTruckScene extends Scene {
     private boolean checkOut;
 
     public FoodTruckScene() {
-        super("FoodTruck");
+        super("Entities.FoodTruck");
         ftm = foodTruckManager;
         om = orderManager;
         cm = customerManager;

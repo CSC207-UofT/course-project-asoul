@@ -1,29 +1,32 @@
+package Entities;
+
+
 import java.util.ArrayList;
 
 /**
- * Java class representation for FoodTruck instance
+ * Java class representation for Entities.FoodTruck instance
  */
 public class FoodTruck {
-    private final String truckName; // The name of the Food Truck
-    private final String location; //The location of the Food Truck, can't be changed once set
+    private final String truckName; // The name of the Entities.Food Truck
+    private final String location; //The location of the Entities.Food Truck, can't be changed once set
     private final String serviceTimeStart; //Starting service time
     private final String serviceTimeEnd; //Ending service time
-    private boolean status = false; //Whether the Food Truck is currently operating
-    private final Seller seller; // The Seller who owns the Food Truck
-    private final ArrayList<Order> orderHistory; // List of Order Histories of the Food Truck
-    private double rating = 0.0; // Rating of the Food Truck
+    private boolean status = false; //Whether the Entities.Food Truck is currently operating
+    private final Seller seller; // The Entities.Seller who owns the Entities.Food Truck
+    private final ArrayList<Order> orderHistory; // List of Entities.Order Histories of the Entities.Food Truck
+    private double rating = 0.0; // Rating of the Entities.Food Truck
     private final ArrayList<Order> orderQueue; // List of Active Orders
-    private final FoodMenu menu; //Menu of the Food Truck
+    private final FoodMenu menu; //Menu of the Entities.Food Truck
 
     /**
-     * Construct an instance of a FoodTruck
+     * Construct an instance of a Entities.FoodTruck
      *
-     * @param truckName        The name of the Food Truck
-     * @param location         The location of the Food Truck (eg. "207 St. George St")
-     * @param serviceTimeStart Food Truck service start Time (eg. "9:30", "10:00")
-     * @param serviceTimeEnd   Food Truck service end Time (eg. "17:30", "22:00")
-     * @param seller           The corresponding Seller of this Food Truck
-     * @param menu             The corresponding Menu of this Food Truck, which contains a list of foods.
+     * @param truckName        The name of the Entities.Food Truck
+     * @param location         The location of the Entities.Food Truck (eg. "207 St. George St")
+     * @param serviceTimeStart Entities.Food Truck service start Time (eg. "9:30", "10:00")
+     * @param serviceTimeEnd   Entities.Food Truck service end Time (eg. "17:30", "22:00")
+     * @param seller           The corresponding Entities.Seller of this Entities.Food Truck
+     * @param menu             The corresponding Menu of this Entities.Food Truck, which contains a list of foods.
      */
     public FoodTruck(String truckName, String location, String serviceTimeStart,
                      String serviceTimeEnd, Seller seller, FoodMenu menu) {
@@ -38,7 +41,7 @@ public class FoodTruck {
     }
 
     /**
-     * Change the status of the Food Truck
+     * Change the status of the Entities.Food Truck
      *
      * @param status The status want to change to.
      */
@@ -75,7 +78,7 @@ public class FoodTruck {
         this.orderQueue.add(order);
     }
 
-    // Remove the Order from orderQueue with the given id, return the removed Order
+    // Remove the Entities.Order from orderQueue with the given id, return the removed Entities.Order
     public Order removeOrderWithID(int id) {
         for (Order orders : this.orderQueue) {
             if (orders.getID() == id) {
@@ -89,7 +92,7 @@ public class FoodTruck {
 
     // public boolean renameTruck(String name){ } (TODO but wait for database)
 
-    //A string description of the Food Truck (name, location, rating...)
+    //A string description of the Entities.Food Truck (name, location, rating...)
     @Override
     public String toString() {
         if (this.status) {
@@ -123,7 +126,7 @@ public class FoodTruck {
         return this.location;
     }
 
-    // Return a String showing the service window of this Food Truck
+    // Return a String showing the service window of this Entities.Food Truck
     public String displayServiceTime() {
         return "The service time for this food truck is :"
                 + this.serviceTimeStart + "-" + this.serviceTimeEnd + ".";

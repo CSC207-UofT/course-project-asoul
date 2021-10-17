@@ -1,3 +1,5 @@
+package Controllers;
+
 import Exceptions.UnknownFoodTruckException;
 
 import java.util.HashMap;
@@ -38,10 +40,10 @@ public class MarketScene extends Scene {
     }
 
     private void viewFoodTruck(String id) throws UnknownFoodTruckException { // Forward to foodtruck page
-        FoodTruckScene fc = (FoodTruckScene) Scene.allScenes.get("FoodTruck");
+        FoodTruckScene fc = (FoodTruckScene) Scene.allScenes.get("Entities.FoodTruck");
         fc.setFoodTruck(id);
         fc.setUsername(this.username);
-        this.switchScene("FoodTruck");
+        this.switchScene("Entities.FoodTruck");
     }
 
     @Override
@@ -53,7 +55,7 @@ public class MarketScene extends Scene {
             outputString.append("\n\nTruckName:").append(field).append("\n").append(content);
         }
         if (this.unknownFoodTruckError) {
-            outputString.append("\n\n Unknown Food Truck name entered, please check your spelling before entering");
+            outputString.append("\n\n Unknown Entities.Food Truck name entered, please check your spelling before entering");
         }
         outputString.append("\ntype <select> and choose a truck");
         return outputString.toString();
