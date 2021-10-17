@@ -11,9 +11,9 @@ public class FoodTruck {
     private String serviceTimeEnd; //Ending service time
     private boolean status = false; //Whether the Food Truck is currently operating
     private Seller seller; // The Seller who owns the Food Truck
-    private ArrayList<Order> orderHistory = new ArrayList<Order>(); // List of Order Histories of the Food Truck
+    private ArrayList<Order> orderHistory = new ArrayList<>(); // List of Order Histories of the Food Truck
     private double rating = 0.0; // Rating of the Food Truck
-    private ArrayList<Order> orderQueue = new ArrayList<Order>(); // List of Active Orders
+    private ArrayList<Order> orderQueue = new ArrayList<>(); // List of Active Orders
     private FoodMenu menu; //Menu of the Food Truck
 
     /**
@@ -71,6 +71,26 @@ public class FoodTruck {
 
 
     // public boolean renameTruck(String name){ } (TODO but wait for database)
+
+    //A string description of the Food Truck (name, location, rating...)
+    @Override
+    public String toString(){
+        if (this.status) {
+            return this.truckName + "is located at " +  this.location + "." + "\n" +
+                    displayServiceTime() + "\n" + "The food truck is currently operating." +
+                    "\n" + "The rating of the food truck is " + this.rating + ".";
+        }
+        else{
+            return this.truckName + "is located at " +  this.location + "." + "\n" +
+                    displayServiceTime() + "\n" + "The food truck is currently not operating." +
+                    "\n" + "The rating of the food truck is " + this.rating + ".";
+        }
+    }
+
+    // Display the food truck's corresponding menu items
+    public String displayMenu(){
+        return "The menu of this food truck: " + " \n" + this.menu.toString();
+    }
 
     /**
      * TODO Will implement a rating system
