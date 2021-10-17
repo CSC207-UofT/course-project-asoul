@@ -140,7 +140,7 @@ public class FoodTruckManager {
 
     /**
      *
-     * Get all food trucks on the list.
+     * @return  All food existing FoodTrucks.
      */
     public HashMap<String, FoodTruck> getFoodTrucks() {
         return this.food_trucks;
@@ -181,5 +181,13 @@ public class FoodTruckManager {
      */
     public Set<String> getExistFoodTruckName() {
         return this.food_trucks.keySet();
+    }
+
+    /**
+     * @param id the FoodTruck's id
+     * @return The food truck with the id.
+     */
+    public FoodTruck getFoodTruckById(String id) {
+        return this.food_trucks.get(id);
     }
 }
