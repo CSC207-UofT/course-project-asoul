@@ -77,5 +77,13 @@ abstract public class Scene {
         this.fields.replaceAll((key, value) -> "");
     }
 
+    protected void switchScene(Scene scene){
+        Scene.activeScene = scene;
+    }
+
+    protected void switchScene(String name){
+        Scene.activeScene = Scene.allScenes.get(name);
+    }
+
     abstract public String constructOutputString();
 }

@@ -14,7 +14,7 @@ public class UserInformationScene extends Scene{
     @Override
     public void handleInput(String input) {
         if(input.equals("sign out")){
-            Scene.setActiveScene(Scene.allScenes.get("Login"));
+            this.switchScene(Scene.allScenes.get("Login"));
         }else{
             // TODO: Throws unknown command error
         }

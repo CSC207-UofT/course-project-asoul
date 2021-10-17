@@ -135,16 +135,14 @@ public class LoginScene extends Scene{
         String password = this.fields.get("password");
         String type = Scene.customerManager.getUserType(username);
         UserInformationScene nextScene = (UserInformationScene) Scene.allScenes.get("UserInformation");
-        if(type.equals("seller")) {
+        if(type.equals("Seller")) {
             Scene.sellerManager.login(username, password);
             nextScene.setUserInfo("Seller", username);
         }else{
             Scene.customerManager.login(username, password);
             nextScene.setUserInfo("Customer", username);
         }
-        Scene.setActiveScene(nextScene);
-        this.clearFields();
-        this.refreshOutputState();
+        this.switchScene(nextScene);
     }
 
     private void registerUser(){
@@ -155,5 +153,12 @@ public class LoginScene extends Scene{
         String phoneNumber = this.fields.get("phone_number");
         this.successRegistration = Scene.sellerManager.createUser(userType, username, password, nickname, phoneNumber); // TODO: User creation exception handling
         this.clearFields();
+    }
+
+    @Override
+    protected void switchScene(Scene scene){
+        super.switchScene(scene);
+        this.clearFields();
+        this.refreshOutputState();
     }
 }
