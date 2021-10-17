@@ -60,6 +60,13 @@ public class SellerManager extends UserManager {
             return true;
         }
         return false;
+    }
 
+    /**
+     * @param accName The account name of the seller.
+     * @return The Seller with the accName.
+     */
+    public Seller getSellerByAccName(String accName) {
+        return sellerMap.get(accName);
     }
 }
