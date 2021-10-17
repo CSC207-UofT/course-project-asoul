@@ -8,7 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class OrderManager {
-    private final HashMap<String, Order> orders;
+
+    private final HashMap<String, Order> orders; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
      *
