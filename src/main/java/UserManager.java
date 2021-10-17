@@ -19,8 +19,7 @@ abstract public class UserManager {
     abstract public void login(String accName, String password) throws IncorrectCredentialsException;
 
     /**
-     *
-     * @param user The user that wants to add money.
+     * @param user  The user that wants to add money.
      * @param money The amount of money the user wants to add.
      */
     public void addMoney(User user, int money) {
@@ -28,8 +27,7 @@ abstract public class UserManager {
     }
 
     /**
-     *
-     * @param user The user that wants to withdraw money.
+     * @param user  The user that wants to withdraw money.
      * @param money The amount of money the user wants to withdraw.
      */
     public void withdrawMoney(User user, int money) {
@@ -37,7 +35,6 @@ abstract public class UserManager {
     }
 
     /**
-     *
      * @param user The user that wants to check their balance.
      * @return The amount of money in the user's balance.
      */
@@ -46,7 +43,6 @@ abstract public class UserManager {
     }
 
     /**
-     *
      * @param userName A user's account name.
      * @return A map that from the user's information keyword to the user's information.
      */
@@ -59,23 +55,17 @@ abstract public class UserManager {
         userInfoMap.put("nickname", user.getNickname());
         userInfoMap.put("phoneNum", user.getPhoneNumber());
         if (user instanceof Customer) {
-            StringBuilder orderHistoryString = new StringBuilder(new String(""));
+            StringBuilder orderHistoryString = new StringBuilder();
             for (Order order : ((Customer) user).getOrderHistory()) {
                 orderHistoryString.append(order.toString()).append("\n");
             }
             userInfoMap.put("orderHistory", orderHistoryString.toString());
         }
-//        else {
-//            StringBuilder trucks = new StringBuilder(new String(""));
-//            for (FoodTruck truck: ((Seller) user).getFoodTruck()) {
-//                orderHistoryString.append(order.toString()).append("\n");
-//            }
-//        }
+
         return userInfoMap;
     }
 
     /**
-     *
      * @param accName A user's account name.
      * @return A string that represent the user's type.
      */
@@ -90,9 +80,8 @@ abstract public class UserManager {
 
 
     /**
-     *
-     * @param userType  The type of the user want to create.
-     * @param accName The account name user wants to have.
+     * @param userType The type of the user want to create.
+     * @param accName  The account name user wants to have.
      * @param password The password name user wants to have.
      * @param nickname The nickname user wants to have.
      * @param phoneNum The user's phone number.
