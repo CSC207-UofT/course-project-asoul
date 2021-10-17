@@ -9,26 +9,28 @@ public class FoodTruckScene extends Scene {
     private ArrayList<String> cart;
     private final FoodTruckManager ftm;
     private final OrderManager om;
-    private UserManager um;
+    private CustomerManager cm;
+    private SellerManager sm;
     private User customer;
+    private String cusName;
     private User seller;
     private int orderID;
     private boolean checkOut;
 
     public FoodTruckScene() {
         super("FoodTruck");
-        ftm = new FoodTruckManager();
-        om = new OrderManager();
+        ftm = foodTruckManager;
+        om = orderManager;
+        cm = customerManager;
+        sm = sellerManager;
         checkOut = false;
     }
 
 
     @Override
     public String constructOutputString() {
-        StringBuilder output = new StringBuilder();
-        output.append(foodTruckName).append("\n").append(ftm.getRating(foodTruckName)).append("\n")
-                .append(ftm.getMenu(foodTruckName)).append("----------------Cart---------------").append(cart);
-        return output.toString();
+        return foodTruckName + "\n" + ftm.getRating(foodTruckName) + "\n" +
+                ftm.getMenu(foodTruckName) + "----------------Cart---------------" + cart;
     }
 
 
@@ -37,11 +39,12 @@ public class FoodTruckScene extends Scene {
      */
     public void setFoodTruck(String name) {
         this.foodTruck = ftm.getFoodTruckById(name);
-        seller = this.foodTruck.getSeller();
+        this.foodTruckName = name;
     }
 
     public void setUsername(String name) {
-        this.customer = um.returnUser(name);
+        this.customer = cm.returnUser(name);
+        this.cusName = name;
     }
 
     public void handleInput(String input) {
@@ -51,8 +54,9 @@ public class FoodTruckScene extends Scene {
             this.switchScene(Scene.allScenes.get("Market"));
         } else if (input.equals("check out")) {
             ArrayList<Food> foodList = om.getMenuFood(this.cart, this.foodTruck);
-            orderID = om.creatOrder(this.foodTruck, foodList, om.getNickname(),
-                    this.customer.getPhoneNumber(), this.seller.getAccountName(), this.seller.getPhoneNumber());
+            
+            orderID = om.creatOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
+                    sm.getNickname(), sm.getPhoneNumber());
         } else if (text[0].equals("select")) {
             String[] foods = Arrays.copyOfRange(text, 1, text.length);
             Collections.addAll(cart, foods);
