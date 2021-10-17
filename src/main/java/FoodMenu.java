@@ -40,7 +40,7 @@ public class FoodMenu {
      */
     public boolean addFood(Food food) {
         if (isThereSameNameFood(food)) {
-            this.foodList.remove(food);
+            this.foodList.removeIf(f -> f.getFoodName().equals(food.getFoodName()));
             this.foodList.add(food);
             return false;
         } else {
@@ -50,14 +50,14 @@ public class FoodMenu {
     }
 
     /**
-     * remove food from menu if food object is in menu.
+     * remove food with the same name of the given food from menu if the food is in menu.
      *
      * @param food The food want to remove.
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
     public boolean removeFood(Food food) {
-        if (this.foodList.contains(food)) {
-            this.foodList.remove(food);
+        if (isThereSameNameFood(food)) {
+            this.foodList.removeIf(f -> f.getFoodName().equals(food.getFoodName()));
             return true;
         } else {
             return false;
