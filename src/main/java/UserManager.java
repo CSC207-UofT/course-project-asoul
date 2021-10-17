@@ -21,11 +21,13 @@ abstract public class UserManager {
     abstract public void login(String accName, String password) throws IncorrectCredentialsException;
 
     /**
-     * @param user  The user that wants to add money.
-     * @param money The amount of money the user wants to add.
+     * @param accountName The username of the user that wants to add money.
+     * @param money       The amount of money the user wants to add.
      */
-    public void addMoney(User user, int money) {
+    public void addMoney(String accountName, int money) {
+        User user = userMap.get(accountName);
         user.addMoney(money);
+
     }
 
     /**
@@ -106,6 +108,15 @@ abstract public class UserManager {
             sellerMap.put(accName, newSeller);
         }
         return true;
+    }
+
+
+    /**
+     * @param accountName the account name that want to check exists or not.
+     * @return true if the account name already exists.
+     */
+    public boolean checkUserExist(String accountName) {
+        return userMap.containsKey(accountName);
     }
 
 }
