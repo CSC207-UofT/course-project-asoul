@@ -46,10 +46,6 @@ public class FoodTruckManager {
         }
     }
 
-    // TODO: updateMenu()
-    // It's better to change the code in the FoodTruck.updateMenu().
-    // Since when we update menu we don't only add food.
-
     /**
      *
      * @param id the id of the specific food truck.
@@ -64,12 +60,6 @@ public class FoodTruckManager {
             return false;
         }
     }
-
-    // TODO: updateOrderHistory()
-    // It's better to change the code in the FoodTruck.updateOrderHistory().
-    // Since when we update OrderHistory we don't only add order.
-
-    // TODO: renameTruck()
 
     /**
      *

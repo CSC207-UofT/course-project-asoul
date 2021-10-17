@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
@@ -53,22 +52,6 @@ public class OrderManager {
         this.orders.put(Integer.toString(id), new_order);
         return id;
     }
-
-    // TODO: deleteOrder()
-    // Need a new attribute of Order which represent order time.
-
-    // TODO: getOrders()
-    // Complete this method with some restriction.
-
-    // TODO:
-    // **
-    // * Cancel the order only if the status of the order is received
-    // *
-    // * @param id the id of the specific order
-    // *
-    // * @return true if the order being created successfully.
-    // */
-    // public boolean cancelOrder(String id) {}
 
     /**
      * Change the specific order's status.
