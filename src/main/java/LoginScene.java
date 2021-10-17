@@ -1,6 +1,5 @@
-import java.security.KeyException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.Callable;
 
 import Exceptions.IncorrectCredentialsException;
 import Exceptions.UnknownCommandException;
@@ -11,6 +10,8 @@ public class LoginScene extends Scene{
     private boolean incorrectCredentialError;
     private boolean help;
     private boolean register;
+    private boolean successRegistration;
+    private HashMap<String, String> displayMap;
 
     public LoginScene(){
         super("Login");
@@ -19,16 +20,24 @@ public class LoginScene extends Scene{
         this.fields.put("user_type", "");
         this.fields.put("nickname", "");
         this.fields.put("phone_number", "");
+        this.displayMap = new HashMap<>();
+        this.displayMap.put("username", "Username");
+        this.displayMap.put("password", "Password");
+        this.displayMap.put("nickname", "Nickname");
+        this.displayMap.put("user_type", "User Type");
+        this.displayMap.put("phone_number", "Phone Number");
         this.unknownCommandError = false;
         this.incorrectCredentialError = false;
         this.help = false;
         this.register = false;
+        this.successRegistration = false;
+        new UserInformationScene();
     }
 
     @Override
     public void handleInput(String input){
         // TODO: Use commands to access methods in the map instead of hardcoding
-        this.refreshErrorState();
+        this.refreshOutputState();
         String[] text = input.split(" ");
         switch (text[0]) {
             case "U":
@@ -59,9 +68,17 @@ public class LoginScene extends Scene{
                 break;
             case "register":
                 this.register = true;
+                this.clearFields();
                 break;
             case "login":
                 this.register = false;
+                this.clearFields();
+                break;
+            case "help":
+                this.help = true;
+                break;
+            case "hide":
+                this.help = false;
                 break;
             default:
                 // TODO: UnknownCommandException handling
@@ -72,38 +89,60 @@ public class LoginScene extends Scene{
 
     @Override
     public String constructOutputString() {
-        StringBuilder outputString = new StringBuilder("");
+        StringBuilder outputString = new StringBuilder();
         if(this.incorrectCredentialError){
             outputString.append("Incorrect credentials entered, please check your spellings before reentering");
+        }else if(!this.register){
+            outputString.append("Please login with your username and password, enter 'help' to see all available commands");
+        }else if(!this.successRegistration){
+            outputString.append("Please enter the information for your new account");
         }else{
-            outputString.append("Please login with your username and password");
+            outputString.append("Successfully created new account!");
         }
-        for(String field: this.fields.keySet()){
+        ArrayList<String> requiredFields = new ArrayList<>();
+        if(this.register){
+            requiredFields.addAll(this.fields.keySet());
+        }else{
+            requiredFields.add("username");
+            requiredFields.add("password");
+        }
+        for(String field: requiredFields){
             String content = this.fields.get(field);
+            field = displayMap.get(field);
             outputString.append("\n").append(field).append(": ").append(content);
+        }
+        if(this.help){
+            outputString.append("\n\n").append("All commands:\n").append("help -> View all commands on this page\n").
+                    append("hide -> Hide helping commands\n").append("U + [Space] + [your username] -> " +
+                            "Enter your username\n").append("P + [Space] + [your password] -> Enter your password\n").
+                    append("register -> Start account registration").append("login -> Start logging in").
+                    append("confirm -> Login / Register new account with the information you entered\n").append("" +
+                            "T + [Space] + [User Type] -> Enter the user type for your new account\n").append("" +
+                            "N + [Space] + [Nickname] -> Enter the nickname for your new account").append("" +
+                            "PN + [Space] + [Phone Number] -> Enter the phone number for your new account");
         }
         return outputString.toString();
     }
 
-    private void refreshErrorState(){
+    private void refreshOutputState(){
         this.incorrectCredentialError = false;
         this.unknownCommandError = false;
+        this.successRegistration = false;
     }
 
     private void userLogin() throws IncorrectCredentialsException{
         String username = this.fields.get("username");
-        String[] expectedInfo = UserManager.getUserCredentials(username); // expectInfo = (Password of the user, User type)
-        if(expectedInfo[0].equals(this.fields.get("password"))){
-            UserInformationScene nextScene = (UserInformationScene) Scene.allScenes.get("UserInformation"); // Forward information to next scene
-            Scene.activeScene = nextScene;
-            if(expectedInfo[1].equals("seller")){
-                nextScene.setUserInfo("seller", username);
-            }else{
-                nextScene.setUserInfo("customer", username);
-            }
+        String password = this.fields.get("password");
+        String type = Scene.customerManager.getUserType(username);
+        UserInformationScene nextScene = (UserInformationScene) Scene.allScenes.get("UserInformation");
+        if(type.equals("Seller")) {
+            Scene.sellerManager.login(username, password);
+            nextScene.setUserInfo("Seller", username);
         }else{
-            throw new IncorrectCredentialsException();
+            Scene.customerManager.login(username, password);
+            nextScene.setUserInfo("Customer", username);
         }
+        this.switchScene(nextScene);
     }
 
     private void registerUser(){
@@ -112,12 +151,14 @@ public class LoginScene extends Scene{
         String userType = this.fields.get("user_type");
         String nickname = this.fields.get("nickname");
         String phoneNumber = this.fields.get("phone_number");
-        if(userType.equals("seller")){
-            Scene.sellerManager.creatSeller(username, password, nickname, phoneNumber); // TODO: User creation exception handling
-        }else if(userType.equals("customer")){
-            Scene.customerManager.creatCustomer(username, password, nickname, phoneNumber);
-        }else{
-            // TODO: Throw exception
-        }
+        this.successRegistration = Scene.sellerManager.createUser(userType, username, password, nickname, phoneNumber); // TODO: User creation exception handling
+        this.clearFields();
+    }
+
+    @Override
+    protected void switchScene(Scene scene){
+        super.switchScene(scene);
+        this.clearFields();
+        this.refreshOutputState();
     }
 }

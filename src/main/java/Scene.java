@@ -7,8 +7,8 @@ import java.util.concurrent.Callable;
 abstract public class Scene {
     protected static boolean exit = false;
     protected final static FoodTruckManager foodTruckManager = new FoodTruckManager(); // All scenes share the same use case classes
-    protected final static SellerManager sellerManager = new SellerManager(new HashMap<>());
-    protected final static CustomerManager customerManager = new CustomerManager((new HashMap<>()));
+    protected final static SellerManager sellerManager = new SellerManager();
+    protected final static CustomerManager customerManager = new CustomerManager();
     protected final static OrderManager orderManager = new OrderManager();
     protected static final HashMap<String, Scene> allScenes = new HashMap<>();
     protected static Scene activeScene;
@@ -75,6 +75,14 @@ abstract public class Scene {
 
     protected void clearFields(){
         this.fields.replaceAll((key, value) -> "");
+    }
+
+    protected void switchScene(Scene scene){
+        Scene.activeScene = scene;
+    }
+
+    protected void switchScene(String name){
+        Scene.activeScene = Scene.allScenes.get(name);
     }
 
     abstract public String constructOutputString();

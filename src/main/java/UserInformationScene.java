@@ -3,6 +3,7 @@ import java.util.HashMap;
 public class UserInformationScene extends Scene{
     private String userType;
     private String username;
+    private HashMap<String, String> displayMap;
 
     public UserInformationScene() {
         super("UserInformation");
@@ -13,7 +14,7 @@ public class UserInformationScene extends Scene{
     @Override
     public void handleInput(String input) {
         if(input.equals("sign out")){
-            Scene.setActiveScene(Scene.allScenes.get("Login"));
+            this.switchScene(Scene.allScenes.get("Login"));
         }else{
             // TODO: Throws unknown command error
         }
@@ -23,9 +24,9 @@ public class UserInformationScene extends Scene{
     public String constructOutputString() {
         HashMap<String, String> userInfo;
         if(this.userType.equals("seller")){
-            userInfo = Scene.sellerManager.getUserInfo(this.username);
+            userInfo = Scene.sellerManager.getUserByAccountName(this.username);
         }else{
-            userInfo = Scene.customerManager.getUserInfo(this.username);
+            userInfo = Scene.customerManager.getUserByAccountName(this.username);
         }
         StringBuilder outputString = new StringBuilder("------------------------User Information---------------------------");
         for(String field: userInfo.keySet()){
