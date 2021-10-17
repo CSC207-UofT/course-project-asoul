@@ -4,7 +4,7 @@ package Entities;
 import java.util.ArrayList;
 
 public class Seller extends User {
-    private ArrayList<FoodTruck> ownedFoodTruck; //A List stored all FoodTrucks this Entities.Seller owned
+    private final ArrayList<FoodTruck> ownedFoodTruck; //A List stored all FoodTrucks this Entities.Seller owned
 
     /**
      * Construct an instance of a Entities.Seller

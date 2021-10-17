@@ -7,7 +7,7 @@ public abstract class User {
     private double accountBalance; //The current account balance of this Entities.User (in double)
     private String password; //The string representing the password of this Entities.User's account
     private String nickname; //The nickname of this Entities.User
-    private String phoneNumber; //A string that represents the phone number of this Entities.User
+    private final String phoneNumber; //A string that represents the phone number of this Entities.User
     private boolean login; //Login status. True if logged in, False otherwise.
 
     /**

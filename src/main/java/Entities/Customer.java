@@ -3,7 +3,7 @@ package Entities;
 import java.util.ArrayList;
 
 public class Customer extends User {
-    private ArrayList<Order> orderHistory; //A List that stores all history orders of this Entities.Customer
+    private final ArrayList<Order> orderHistory; //A List that stores all history orders of this Entities.Customer
 
     /**
      * Construct an instance of a Entities.Customer
@@ -15,14 +15,13 @@ public class Customer extends User {
      */
     public Customer(String accName, String password, String nickname, String phoneNumber) {
         super(accName, password, nickname, phoneNumber);
-        orderHistory = new ArrayList<Order>();
+        orderHistory = new ArrayList<>();
     }
 
     @Override
     public String toString() {
-        String initial = "Account Name: " + this.getAccountName() + "; Password: " + this.getPassword() + "; Nickname: " +
+        return "Account Name: " + this.getAccountName() + "; Password: " + this.getPassword() + "; Nickname: " +
                 this.getNickname() + "; PhoneNumber: " + this.getPhoneNumber() + ".";
-        return initial;
     }
 
 
