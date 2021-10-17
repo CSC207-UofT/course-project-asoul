@@ -96,4 +96,20 @@ public class OrderManager {
         }
         return wish_food;
     }
+
+    /**
+     *
+     * @param foods the list of foods' name
+     * @param truck where these foods from
+     *
+     * @return The total price of the given food in the truck
+     */
+    public double getTotalPrice(ArrayList<String> foods, FoodTruck truck) {
+        FoodMenu menu = truck.getMenu();
+        double total_price = 0;
+        for (String item : foods) {
+            total_price += menu.createCopy(item).getPrice();
+        }
+        return total_price;
+    }
 }
