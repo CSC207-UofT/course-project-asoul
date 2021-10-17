@@ -31,18 +31,20 @@ abstract public class UserManager {
     }
 
     /**
-     * @param user  The user that wants to withdraw money.
+     * @param accountName  The user that wants to withdraw money.
      * @param money The amount of money the user wants to withdraw.
      */
-    public void withdrawMoney(User user, int money) {
+    public void withdrawMoney(String accountName, int money) {
+        User user = userMap.get(accountName);
         user.withdrawMoney(money);
     }
 
     /**
-     * @param user The user that wants to check their balance.
+     * @param accName The account name of user that wants to check their balance.
      * @return The amount of money in the user's balance.
      */
-    public double checkBalance(User user) {
+    public double checkBalance(String accName) {
+        User user = userMap.get(accName);
         return user.checkBalance();
     }
 
