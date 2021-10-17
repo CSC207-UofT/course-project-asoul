@@ -2,6 +2,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class FoodTruckScene extends Scene {
     private FoodTruck foodTruck;
@@ -9,11 +10,9 @@ public class FoodTruckScene extends Scene {
     private ArrayList<String> cart;
     private final FoodTruckManager ftm;
     private final OrderManager om;
-    private CustomerManager cm;
-    private SellerManager sm;
-    private User customer;
+    private final CustomerManager cm;
+    private final SellerManager sm;
     private String cusName;
-    private User seller;
     private int orderID;
     private boolean checkOut;
 
@@ -43,7 +42,6 @@ public class FoodTruckScene extends Scene {
     }
 
     public void setUsername(String name) {
-        this.customer = cm.returnUser(name);
         this.cusName = name;
     }
 
@@ -54,15 +52,12 @@ public class FoodTruckScene extends Scene {
             this.switchScene(Scene.allScenes.get("Market"));
         } else if (input.equals("check out")) {
             ArrayList<Food> foodList = om.getMenuFood(this.cart, this.foodTruck);
-            
+            HashMap<String, String> info = ftm.getFoodTruckDetail(foodTruckName);
             orderID = om.creatOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
-                    sm.getNickname(), sm.getPhoneNumber());
+                    sm.getNickname(info.get("seller")), sm.getPhoneNumber(info.get("seller")));
         } else if (text[0].equals("select")) {
             String[] foods = Arrays.copyOfRange(text, 1, text.length);
             Collections.addAll(cart, foods);
         }
-
     }
-
-
 }
