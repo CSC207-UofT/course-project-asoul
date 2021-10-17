@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -5,36 +6,35 @@ public class TestSellerManager {
     SellerManager manager;
 
     @org.junit.Before
-    public void setUp() throws Exception {
-        HashMap<String, Seller> map = new HashMap<>();
+    public void setUp() {
 
         manager = new SellerManager();
     }
 
+
     @org.junit.Test
-    public void createSellerTest() {
-        Boolean result = manager.creatSeller("123",
-                "1234", "Tom", "2167");
-        assert result.equals(true);
+    public void getSellerTest() {
+        manager.createUser("Seller", "ABC", "123", "nick",
+                "12345");
+        Seller seller = new Seller("ABC", "123", "nick",
+                "12345");
+        int actual = manager.getSellers().size();
+        assert actual == 1;
+
     }
 
     @org.junit.Test
     public void addFoodTruckTest() {
-        manager.creatSeller("123",
-                "1234", "Tom", "2167");
+        manager.createUser("Seller", "ABC", "123", "nick",
+                "12345");
+        Seller seller = (Seller) manager.returnUser("ABC");
         FoodMenu menu = new FoodMenu(new ArrayList<>());
-        FoodTruck truck = new FoodTruck("a", "Toronto", "12:00",
-                "15:00", manager.getSellers().get(0), menu);
+        FoodTruck truck = new FoodTruck("Bluc", "TORONTO", "10:00",
+                "12:00", seller, menu);
+        manager.addFoodTruck("ABC", truck);
 
-        Boolean result = manager.addFoodTruck("123", truck);
-        assert result.equals(true);
+        int actual = seller.getFoodTruck().size();
+        assert actual == 1;
 
-    }
-
-    @org.junit.Test
-    public void getCustomerTest() {
-        manager.creatSeller("a", "123", "Tom", "123456");
-        manager.creatSeller("ab", "123", "Tom", "123456");
-        assert manager.getSellers().size() == 2;
     }
 }

@@ -121,4 +121,13 @@ abstract public class UserManager {
         return userMap.containsKey(accountName);
     }
 
+    /**
+     *
+     * @param accName the account name of a user.
+     * @return the User object.
+     */
+    public User returnUser(String accName) {
+        return userMap.get(accName);
+    }
+
 }
