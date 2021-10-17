@@ -10,8 +10,7 @@ import java.util.HashMap;
 public class SellerManager extends UserManager{
 
     /**
-     *
-     * @param sellers a map that maps a seller's account name to the Seller object.
+     * Creat a SellerManager.
      */
     public SellerManager() {
         super();
