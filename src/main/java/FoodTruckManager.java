@@ -42,9 +42,28 @@ public class FoodTruckManager {
         }
     }
 
-    // TODO: updateMenu()
-    // It's better to change the code in the FoodTruck.updateMenu().
-    // Since when we update menu we don't only add food.
+    /**
+     * With the given foodtruck's name, add food to menu if food object is not in menu.
+     * If the food is in menu, update the food with the new one.
+     *
+     * @param food      The food want to add or update.
+     * @param truckName The name of the given truck
+     * @return true if we add the food. false if we update the food.
+     */
+    public boolean addFoodToMenu(Food food, String truckName) {
+        return getFoodTruckById(truckName).addFoodToMenu(food);
+    }
+
+    /**
+     * With the given foodtruck's name, move food to menu if food object is in menu.
+     *
+     * @param food      The food want to remove.
+     * @param truckName The name of the given truck
+     * @return true if the food is removed successfully. false if the food is not in the menu.
+     */
+    public boolean removeFoodFromMenu(Food food, String truckName) {
+        return getFoodTruckById(truckName).removeFoodFromMenu(food);
+    }
 
     /**
      * @param id the id of the specific food truck.
@@ -80,6 +99,7 @@ public class FoodTruckManager {
 
     /**
      * Use truckName as the id for the truck and add it to the Hashmap.
+     * The default menu is an empty menu. You can add food later.
      *
      * @param truckName        The name of the Food Truck
      * @param location         The location of the Food Truck (eg. "207 St. George St")
@@ -87,17 +107,17 @@ public class FoodTruckManager {
      * @param serviceTimeEnd   Food Truck service end Time (eg. "17:30", "22:00")
      * @param selName          The corresponding Seller's account name of this Food Truck
      * @param sellers          The SellerManager of all current sellers.
-     * @param menu             The corresponding Menu of this Food Truck, which contains a list of foods.
      * @return true if the food truck being created successfully.
      * false if the food truck name has been exists.
      */
 
     public boolean creatFoodTruck(String truckName, String location, String serviceTimeStart,
-                                  String serviceTimeEnd, String selName, SellerManager sellers, FoodMenu menu) {
+                                  String serviceTimeEnd, String selName, SellerManager sellers) {
         if (this.food_trucks.containsKey(truckName)) {
             return false;
         } else {
             Seller sel = sellers.getSellerByAccName(selName);
+            FoodMenu menu = new FoodMenu();
             FoodTruck new_truck = new FoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, sel, menu);
             this.food_trucks.put(truckName, new_truck);
             sel.addFoodTruck(new_truck);
@@ -134,13 +154,12 @@ public class FoodTruckManager {
         label4.add("Crisp");
         Food food4 = new Food("Poutine", 6.50, 4, label4, "Pretty delicious crisp Poutine!");
 
-        FoodMenu menu = new FoodMenu();
-        menu.addFood(food1);
-        menu.addFood(food2);
-        menu.addFood(food3);
-        menu.addFood(food4);
-
-        return creatFoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, selName, sellers, menu);
+        boolean success = creatFoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, selName, sellers);
+        addFoodToMenu(food1, truckName);
+        addFoodToMenu(food2, truckName);
+        addFoodToMenu(food3, truckName);
+        addFoodToMenu(food4, truckName);
+        return success;
     }
 
     /**

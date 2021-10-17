@@ -4,16 +4,16 @@ import java.util.ArrayList;
  * Java class representation for FoodTruck instance
  */
 public class FoodTruck {
-    private String truckName; // The name of the Food Truck
+    private final String truckName; // The name of the Food Truck
     private final String location; //The location of the Food Truck, can't be changed once set
-    private String serviceTimeStart; //Starting service time
-    private String serviceTimeEnd; //Ending service time
+    private final String serviceTimeStart; //Starting service time
+    private final String serviceTimeEnd; //Ending service time
     private boolean status = false; //Whether the Food Truck is currently operating
-    private Seller seller; // The Seller who owns the Food Truck
-    private ArrayList<Order> orderHistory = new ArrayList<>(); // List of Order Histories of the Food Truck
+    private final Seller seller; // The Seller who owns the Food Truck
+    private final ArrayList<Order> orderHistory; // List of Order Histories of the Food Truck
     private double rating = 0.0; // Rating of the Food Truck
-    private ArrayList<Order> orderQueue = new ArrayList<>(); // List of Active Orders
-    private FoodMenu menu; //Menu of the Food Truck
+    private final ArrayList<Order> orderQueue; // List of Active Orders
+    private final FoodMenu menu; //Menu of the Food Truck
 
     /**
      * Construct an instance of a FoodTruck
@@ -33,36 +33,37 @@ public class FoodTruck {
         this.serviceTimeEnd = serviceTimeEnd;
         this.seller = seller;
         this.menu = menu;
+        this.orderHistory = new ArrayList<>();
+        this.orderQueue = new ArrayList<>();
     }
 
     /**
-     * Construct an instance of a FoodTruck with no seller (the default value is null).
+     * Change the status of the Food Truck
      *
-     * @param truckName        The name of the Food Truck
-     * @param location         The location of the Food Truck (eg. "207 St. George St")
-     * @param serviceTimeStart Food Truck service start Time (eg. "9:30", "10:00")
-     * @param serviceTimeEnd   Food Truck service end Time (eg. "17:30", "22:00")
-     * @param menu             The corresponding Menu of this Food Truck, which contains a list of foods.
+     * @param status The status want to change to.
      */
-    public FoodTruck(String truckName, String location, String serviceTimeStart,
-                     String serviceTimeEnd, FoodMenu menu) {
-        this.truckName = truckName;
-        this.location = location;
-        this.serviceTimeStart = serviceTimeStart;
-        this.serviceTimeEnd = serviceTimeEnd;
-        this.seller = null;
-        this.menu = menu;
-    }
-
-    // Change the status of the Food Truck
     public void changeStatus(boolean status) {
         this.status = status;
     }
 
-    // Add the given Food to the Food Truck's menu
-    // TODO Add remove Food from Menu
-    public void updateMenu(Food food) {
-        this.menu.addFood(food);
+    /**
+     * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.
+     *
+     * @param food The food want to add or update.
+     * @return true if we add the food. false if we update the food.
+     */
+    public boolean addFoodToMenu(Food food) {
+        return this.menu.addFood(food);
+    }
+
+    /**
+     * remove food from menu if food object is in menu.
+     *
+     * @param food The food want to remove.
+     * @return true if the food is removed successfully. false if the food is not in the menu.
+     */
+    public boolean removeFoodFromMenu(Food food) {
+        return this.menu.removeFood(food);
     }
 
     public void updateOrderHistory(Order order) {
@@ -78,9 +79,8 @@ public class FoodTruck {
     public Order removeOrderWithID(int id) {
         for (Order orders : this.orderQueue) {
             if (orders.getID() == id) {
-                Order temp_order = orders;
                 this.orderQueue.remove(orders);
-                return temp_order;
+                return orders;
             }
         }
         return null; // Add Error here, we should not have reached here if the given id is correct.

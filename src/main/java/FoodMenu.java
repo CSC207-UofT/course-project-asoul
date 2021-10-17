@@ -18,12 +18,50 @@ public class FoodMenu {
     }
 
     /**
-     * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.
+     * return whether the menu have the food with same name as the given food.
+     *
+     * @param food The given food.
+     * @return true if there is the food with same name as the given food. false for not
      */
-    public void addFood(Food food) {
-        this.foodList.removeIf(f -> f.getFoodName().equals(food.getFoodName()));
+    public boolean isThereSameNameFood(Food food) {
+        for (Food f : this.foodList) {
+            if (f.getFoodName().equals(food.getFoodName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        this.foodList.add(food);
+    /**
+     * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.
+     *
+     * @param food The food want to add or update.
+     * @return true if we add the food. false if we update the food.
+     */
+    public boolean addFood(Food food) {
+        if (isThereSameNameFood(food)) {
+            this.foodList.removeIf(f -> f.getFoodName().equals(food.getFoodName()));
+            this.foodList.add(food);
+            return false;
+        } else {
+            this.foodList.add(food);
+            return true;
+        }
+    }
+
+    /**
+     * remove food with the same name of the given food from menu if the food is in menu.
+     *
+     * @param food The food want to remove.
+     * @return true if the food is removed successfully. false if the food is not in the menu.
+     */
+    public boolean removeFood(Food food) {
+        if (isThereSameNameFood(food)) {
+            this.foodList.removeIf(f -> f.getFoodName().equals(food.getFoodName()));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
