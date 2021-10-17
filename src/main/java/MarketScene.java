@@ -17,7 +17,7 @@ public class MarketScene extends Scene{
         this.refreshOutputState();
         String[] text = input.split(" ");
         if(input.equals("view user info")){
-            this.switchScene(Scene.allScenes.get("Login"));
+            this.switchScene(Scene.allScenes.get("UserInformation"));
         }else if(text[0].equals("select")){
             try {
                 this.viewFoodTruck(text[1]);
@@ -33,10 +33,14 @@ public class MarketScene extends Scene{
         this.unknownFoodTruckError = false;
     }
 
+    public void setUsername(String username){
+        this.username = username;
+    }
+
     private void viewFoodTruck(String id) throws UnknownFoodTruckException {
         FoodTruckScene fc = (FoodTruckScene) Scene.allScenes.get("FoodTruck");
-        fc.setFoodTruck(id);
-        fc.setUsername(this.username);
+        // fc.setFoodTruck(id);
+        // fc.setUsername(this.username);
         this.switchScene("FoodTruck");
     }
 
