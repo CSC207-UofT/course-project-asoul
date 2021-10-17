@@ -28,8 +28,8 @@ public class FoodTruckScene extends Scene {
 
     @Override
     public String constructOutputString() {
-        return foodTruckName + "\n" + ftm.getRating(foodTruckName) + "\n" +
-                ftm.getMenu(foodTruckName) + "----------------Cart---------------" + cart;
+        return foodTruckName + "\n" + "rating : " + ftm.getRating(foodTruckName) + "\n" +
+                ftm.getMenu(foodTruckName) + "\n----------------Cart---------------" + cart;
     }
 
 
