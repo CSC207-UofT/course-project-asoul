@@ -19,7 +19,7 @@ public class TestSeller {
     @org.junit.Test
     public void addFoodTruckTest() {
         seller.addFoodTruck(foodtruck);
-        ArrayList<FoodTruck> foodTruckList = new ArrayList<FoodTruck>();
+        ArrayList<FoodTruck> foodTruckList = new ArrayList<>();
         foodTruckList.add(foodtruck);
         assert seller.getFoodTruck().equals(foodTruckList);
     }
@@ -27,9 +27,8 @@ public class TestSeller {
     @org.junit.Test
     public void removeFoodTruckTest() {
         seller.addFoodTruck(foodtruck);
-        ArrayList<FoodTruck> foodTruckList = new ArrayList<FoodTruck>();
         seller.removeFoodTruck(foodtruck);
-        assert seller.getFoodTruck().equals(foodTruckList);
+        assert seller.getFoodTruck().isEmpty();
     }
 
     @org.junit.Test

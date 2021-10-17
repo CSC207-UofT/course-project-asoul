@@ -7,12 +7,12 @@ public class TestOrder {
 
     @org.junit.Before
     public void Setup() throws Exception {
-        ArrayList<String> labels = new ArrayList<String>();
+        ArrayList<String> labels = new ArrayList<>();
         labels.add("Italian");
         labels.add("Fast food");
         Food pizza = new Food("Pizza", 5.00, 1, labels,
                 "One large slice of Hawaii Piazza");
-        ArrayList<Food> foodList = new ArrayList<Food>();
+        ArrayList<Food> foodList = new ArrayList<>();
 
         foodList.add(pizza);
         FoodMenu menu = new FoodMenu(foodList);
@@ -33,15 +33,15 @@ public class TestOrder {
     public void changeOrderStatusTest() {
         assert order.getStatus().equals("order created");
 
-        Boolean result1 = order.changeOrderStatus();
+        boolean result1 = order.changeOrderStatus();
         assert result1;
         assert order.getStatus().equals("in progress");
 
-        Boolean result2 = order.changeOrderStatus();
+        boolean result2 = order.changeOrderStatus();
         assert result2;
         assert order.getStatus().equals("order completed");
 
-        Boolean result3 = order.changeOrderStatus();
+        boolean result3 = order.changeOrderStatus();
         assert !result3;
         assert order.getStatus().equals("order completed");
     }
@@ -54,11 +54,11 @@ public class TestOrder {
     public void rateOrderTest() {
         assert order.getRating().equals(-0.1);
 
-        Boolean result1 = order.rateOrder(9.5);
+        boolean result1 = order.rateOrder(9.5);
         assert result1;
         assert order.getRating().equals(9.5);
 
-        Boolean result2 = order.rateOrder(11.1);
+        boolean result2 = order.rateOrder(11.1);
         assert !result2;
         assert order.getRating().equals(9.5);
     }
