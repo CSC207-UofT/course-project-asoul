@@ -66,7 +66,7 @@ abstract public class UserManager {
                 orderHistoryString.append(order.toString()).append("\n");
             }
             userInfoMap.put("orderHistory", orderHistoryString.toString());
-        } //to do for seller parts.
+        } //to do for seller parts in else.
 
 
         return userInfoMap;
@@ -119,6 +119,15 @@ abstract public class UserManager {
      */
     public boolean checkUserExist(String accountName) {
         return userMap.containsKey(accountName);
+    }
+
+    /**
+     *
+     * @param accName the account name of a user.
+     * @return the User object.
+     */
+    public User returnUser(String accName) {
+        return userMap.get(accName);
     }
 
 }
