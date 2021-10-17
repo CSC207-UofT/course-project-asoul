@@ -8,7 +8,7 @@ public class TestSellerManager {
     public void setUp() throws Exception {
         HashMap<String, Seller> map = new HashMap<>();
 
-        manager = new SellerManager(map);
+        manager = new SellerManager();
     }
 
     @org.junit.Test

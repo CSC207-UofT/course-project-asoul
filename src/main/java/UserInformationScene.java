@@ -15,6 +15,8 @@ public class UserInformationScene extends Scene{
     public void handleInput(String input) {
         if(input.equals("sign out")){
             this.switchScene(Scene.allScenes.get("Login"));
+        }else if(input.equals("Find Foods")){
+            this.switchScene(Scene.allScenes.get("Market"));
         }else{
             // TODO: Throws unknown command error
         }
