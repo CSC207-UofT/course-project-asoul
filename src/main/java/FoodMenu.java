@@ -13,6 +13,8 @@ public class FoodMenu {
         this.foodList = foodList;
     }
 
+    public FoodMenu() { this.foodList = new ArrayList<Food>(); }
+
     /**
      * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.
      */

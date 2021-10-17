@@ -112,6 +112,52 @@ public class FoodTruckManager {
     }
 
     /**
+     * Use truckName as the id for the truck and add it to the Hashmap.
+     * This FoodTruck has a default menu of various food.
+     *
+     * @param truckName The name of the Food Truck
+     * @param location The location of the Food Truck (eg. "207 St. George St")
+     * @param serviceTimeStart Food Truck service start Time (eg. "9:30", "10:00")
+     * @param serviceTimeEnd Food Truck service end Time (eg. "17:30", "22:00")
+     * @param seller The corresponding Seller of this Food Truck
+     *
+     * @return true if the food truck being created successfully.
+     *         false if the food truck name has been exists.
+     */
+
+    public boolean creatFoodTruck(String truckName, String location, String serviceTimeStart,
+                                  String serviceTimeEnd, Seller seller) {
+        if (this.food_trucks.containsKey(truckName)) {
+            return false;
+        }else {
+            ArrayList<String> label1 = new ArrayList<String>();
+            label1.add("Fast food");
+            Food food1 = new Food("Hamburger", 5.50, 1, label1, "Pretty delicious legend Hamburger!");
+            ArrayList<String> label2 = new ArrayList<String>();
+            label2.add("Italian");
+            Food food2 = new Food("Pizza", 10.50, 2, label2, "Pretty delicious and traditional Italian pizza!");
+            ArrayList<String> label3 = new ArrayList<String>();
+            label3.add("Drinks");
+            Food food3 = new Food("Coca Cola", 1.80, 3, label3, "Cool and relaxing!");
+            ArrayList<String> label4 = new ArrayList<String>();
+            label4.add("Fast food");
+            label4.add("Crisp");
+            Food food4 = new Food("Poutine", 6.50, 4, label4, "Pretty delicious crisp Poutine!");
+
+            FoodMenu menu = new FoodMenu();
+            menu.addFood(food1);
+            menu.addFood(food2);
+            menu.addFood(food3);
+            menu.addFood(food4);
+
+
+            FoodTruck new_truck = new FoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, seller, menu);
+            this.food_trucks.put(truckName, new_truck);
+            return true;
+        }
+    }
+
+    /**
      *
      * @param id the id of the specific food truck.
      *
