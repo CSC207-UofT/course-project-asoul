@@ -135,7 +135,7 @@ public class FoodTruckManager {
      */
     public Object getMenu(String id) {
         if (this.food_trucks.containsKey(id)) {
-            return this.food_trucks.get(id).getMenu();
+            return this.food_trucks.get(id).getMenu().toString();
         } else {
             return false;
         }
