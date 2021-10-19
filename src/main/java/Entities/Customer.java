@@ -31,7 +31,7 @@ public class Customer extends User {
      * @param order the order that will be added
      * @return Return True if success, and False otherwise.
      */
-    public boolean storeOrder(Order order) {
+    public boolean storeOrder(Order order) { // we are going to use the return value later.
         try {
             this.orderHistory.add(order);
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class Customer extends User {
      * @param order the order that will be removed
      * @return Return True if success, and False otherwise.
      */
-    public boolean removeOrder(Order order) {
+    public boolean removeOrder(Order order) { // we are going to use the return value later.
         try {
             this.orderHistory.remove(order);
         } catch (Exception e) {

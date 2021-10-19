@@ -7,7 +7,7 @@ public class TestFoodTruck {
     FoodTruck foodTruck;
 
     @org.junit.Before
-    public void Setup() throws Exception {
+    public void Setup() {
         foodTruck = new FoodTruck("Truck1", "207 St. George St",
                 "9:30", "17:00",
                 new Seller("acc1", "1234", "ASOUL", "11223344"),

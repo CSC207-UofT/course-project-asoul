@@ -54,11 +54,11 @@ public class FoodTruckManager {
      * With the given foodtruck's name, add food to menu if food object is not in menu.
      * If the food is in menu, update the food with the new one.
      *
-     * @param foodName The name of the food want to add or update
-     * @param price    The price of the food item, in double
-     * @param label    The category that the food item belongs to
-     *                 {"Appetizer", "Beverage", "Meal", "Dessert",
-     *                 "Italian Entities.Food", "Fast Entities.Food", etc.}
+     * @param foodName  The name of the food want to add or update
+     * @param price     The price of the food item, in double
+     * @param label     The category that the food item belongs to
+     *                  {"Appetizer", "Beverage", "Meal", "Dessert",
+     *                  "Italian Entities.Food", "Fast Entities.Food", etc.}
      * @param truckName The name of the given truck
      * @return true if we add the food. false if we update the food.
      */
@@ -81,14 +81,14 @@ public class FoodTruckManager {
      * @param truckName The name of the given truck
      * @return true if we add the food. false if we update the food.
      */
-    public boolean addFoodToMenu(Food food, String truckName) {
+    public boolean addFoodToMenu(Food food, String truckName) { // we are going to use the return value later.
         return getFoodTruckById(truckName).addFoodToMenu(food);
     }
 
     /**
      * With the given foodtruck's name, remove food to menu if food object is in menu.
      *
-     * @param foodName The name of the food want to add or update
+     * @param foodName  The name of the food want to add or update
      * @param truckName The name of the given truck
      * @return true if we add the food. false if we update the food.
      */
@@ -178,7 +178,7 @@ public class FoodTruckManager {
      * false if the food truck name has been exists.
      */
 
-    public boolean createDefaultFoodTruck(SellerManager sellers, String selName) {
+    public boolean createDefaultFoodTruck(SellerManager sellers, String selName) { // we are going to use the return value later.
         String truckName = "Blue_Truck";
         String location = "Bahen Center for Information Technology";
         String serviceTimeStart = "9:00";

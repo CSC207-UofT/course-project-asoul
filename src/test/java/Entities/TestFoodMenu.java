@@ -8,7 +8,7 @@ public class TestFoodMenu {
 
 
     @org.junit.Before
-    public void Setup() throws Exception {
+    public void Setup() {
         ArrayList<String> labels = new ArrayList<>();
         labels.add("Italian");
         labels.add("Fast food");

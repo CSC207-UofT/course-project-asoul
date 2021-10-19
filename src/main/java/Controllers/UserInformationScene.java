@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class UserInformationScene extends Scene {
     private String userType;
     private String username;
-    private HashMap<String, String> displayMap;
+    private final HashMap<String, String> displayMap;
     // Output State
     private boolean invalidFundError;
     private boolean changeNicknameSuccess;

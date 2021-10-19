@@ -21,8 +21,8 @@ public class FoodTruckScene extends Scene {
     private final CustomerManager cm;
     private final SellerManager sm;
     private String cusName;
-    private int orderID;
-    private boolean checkOut;
+    private int orderID; // we are going to use it later, so it can't be local variable.
+    private boolean checkOut; // we are going to use it later, so it can't be local variable.
 
     public FoodTruckScene() {
         super("Entities.FoodTruck");
