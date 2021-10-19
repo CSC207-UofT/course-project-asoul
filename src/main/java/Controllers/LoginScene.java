@@ -12,7 +12,7 @@ public class LoginScene extends Scene {
     private boolean help;
     private boolean register;
     private boolean successRegistration;
-    private HashMap<String, String> displayMap;
+    private final HashMap<String, String> displayMap;
 
     public LoginScene() {
         super("Login");

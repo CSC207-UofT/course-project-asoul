@@ -79,10 +79,9 @@ public class FoodTruckManager {
      *
      * @param food      The food want to add or update.
      * @param truckName The name of the given truck
-     * @return true if we add the food. false if we update the food.
      */
-    public boolean addFoodToMenu(Food food, String truckName) {
-        return getFoodTruckById(truckName).addFoodToMenu(food);
+    public void addFoodToMenu(Food food, String truckName) {
+        getFoodTruckById(truckName).addFoodToMenu(food);
     }
 
     /**
@@ -172,13 +171,11 @@ public class FoodTruckManager {
     /**
      * Create a default food truck corresponding to the given seller.
      *
-     * @param selName The corresponding Entities.Seller's account name of this Entities.Food Truck
      * @param sellers The Use_case.SellerManager of all current sellers.
-     * @return true if the food truck being created successfully.
-     * false if the food truck name has been exists.
+     * @param selName The corresponding Entities.Seller's account name of this Entities.Food Truck
      */
 
-    public boolean createDefaultFoodTruck(SellerManager sellers, String selName) {
+    public void createDefaultFoodTruck(SellerManager sellers, String selName) {
         String truckName = "Blue_Truck";
         String location = "Bahen Center for Information Technology";
         String serviceTimeStart = "9:00";
@@ -203,7 +200,6 @@ public class FoodTruckManager {
         addFoodToMenu(food2, truckName);
         addFoodToMenu(food3, truckName);
         addFoodToMenu(food4, truckName);
-        return success;
     }
 
     /**

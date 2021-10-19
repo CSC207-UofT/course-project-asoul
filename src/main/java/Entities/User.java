@@ -67,17 +67,15 @@ public abstract class User {
      * Add money to this Entities.User's account balance.
      *
      * @param money The amount of money in double that will be added to the account balance.
-     * @return Return True if successfully added and False otherwise.
      */
-    public boolean addMoney(double money) {
+    public void addMoney(double money) {
         try {
             this.accountBalance += money;
         } catch (Exception e) {
             System.out.println("Add fail");
-            return false;
+            return;
         }
         System.out.println("Add success!");
-        return true;
     }
 
     /**

@@ -8,7 +8,7 @@ public class TestSeller {
     FoodTruck foodtruck;
 
     @org.junit.Before
-    public void Setup() throws Exception {
+    public void Setup() {
         seller = new Seller("Yx", "yxyyds", "yuanxiao", "110108");
         foodtruck = new FoodTruck("Truck1", "207 St. George St",
                 "9:30", "17:00",
@@ -33,13 +33,15 @@ public class TestSeller {
 
     @org.junit.Test
     public void loginTest() {
-        assert seller.login("yxyyds");
+        boolean x = seller.login("yxyyds");
+        assert x;
     }
 
     @org.junit.Test
     public void logoutTest() {
         seller.login("yxyyds");
-        assert seller.logout();
+        boolean x = seller.logout();
+        assert x;
     }
 
     @org.junit.Test

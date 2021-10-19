@@ -29,34 +29,30 @@ public class Customer extends User {
      * Add given order to order history.
      *
      * @param order the order that will be added
-     * @return Return True if success, and False otherwise.
      */
-    public boolean storeOrder(Order order) {
+    public void storeOrder(Order order) {
         try {
             this.orderHistory.add(order);
         } catch (Exception e) {
             System.out.println("Add fail");
-            return false;
+            return;
         }
         System.out.println("Add success");
-        return true;
     }
 
     /**
      * Remove given order to order history.
      *
      * @param order the order that will be removed
-     * @return Return True if success, and False otherwise.
      */
-    public boolean removeOrder(Order order) {
+    public void removeOrder(Order order) {
         try {
             this.orderHistory.remove(order);
         } catch (Exception e) {
             System.out.println("Remove fail");
-            return false;
+            return;
         }
         System.out.println("Remove success");
-        return true;
     }
 
     /**

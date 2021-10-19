@@ -30,35 +30,31 @@ public class Seller extends User {
      * Add a foodtruck to ownedFoodTruck that this seller owned.
      *
      * @param foodtruck the foodtruck that want to be added to the ownedFoodTruck.
-     * @return Return True if successfully added and False otherwise.
      */
-    public boolean addFoodTruck(FoodTruck foodtruck) {
+    public void addFoodTruck(FoodTruck foodtruck) {
         //comment
         try {
             ownedFoodTruck.add(foodtruck);
         } catch (Exception e) {
             System.out.println("Add fail!");
-            return false;
+            return;
         }
         System.out.println("Add success!");
-        return true;
     }
 
     /**
      * Remove a foodtruck from ownedFoodTruck that this seller owned.
      *
      * @param foodtruck the foodtruck that want to be removed from the ownedFoodTruck.
-     * @return Return True if successfully removed and False otherwise.
      */
-    public boolean removeFoodTruck(FoodTruck foodtruck) {
+    public void removeFoodTruck(FoodTruck foodtruck) {
         try {
             ownedFoodTruck.remove(foodtruck);
         } catch (Exception e) {
             System.out.println("Remove Fail!");
-            return false;
+            return;
         }
         System.out.println("Remove Success!");
-        return true;
     }
 
     /**

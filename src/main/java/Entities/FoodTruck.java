@@ -14,7 +14,7 @@ public class FoodTruck {
     private boolean status = false; //Whether the Entities.Food Truck is currently operating
     private final Seller seller; // The Entities.Seller who owns the Entities.Food Truck
     private final ArrayList<Order> orderHistory; // List of Entities.Order Histories of the Entities.Food Truck
-    private double rating = 0.0; // Rating of the Entities.Food Truck
+    private final double rating = 0.0; // Rating of the Entities.Food Truck
     private final ArrayList<Order> orderQueue; // List of Active Orders
     private final FoodMenu menu; //Menu of the Entities.Food Truck
 
@@ -78,15 +78,14 @@ public class FoodTruck {
         this.orderQueue.add(order);
     }
 
-    // Remove the Entities.Order from orderQueue with the given id, return the removed Entities.Order
-    public Order removeOrderWithID(int id) {
+    // Remove the Entities.Order from orderQueue with the given id.
+    public void removeOrderWithID(int id) {
         for (Order orders : this.orderQueue) {
             if (orders.getID() == id) {
                 this.orderQueue.remove(orders);
-                return orders;
+                return;
             }
         }
-        return null; // Add Error here, we should not have reached here if the given id is correct.
     }
 
 

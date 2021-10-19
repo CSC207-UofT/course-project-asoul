@@ -21,8 +21,6 @@ public class FoodTruckScene extends Scene {
     private final CustomerManager cm;
     private final SellerManager sm;
     private String cusName;
-    private int orderID;
-    private boolean checkOut;
 
     public FoodTruckScene() {
         super("Entities.FoodTruck");
@@ -30,7 +28,7 @@ public class FoodTruckScene extends Scene {
         om = orderManager;
         cm = customerManager;
         sm = sellerManager;
-        checkOut = false;
+        boolean checkOut = false;
     }
 
 
@@ -61,7 +59,7 @@ public class FoodTruckScene extends Scene {
         } else if (input.equals("check out")) {
             ArrayList<Food> foodList = om.getMenuFood(this.cart, this.foodTruck);
             HashMap<String, String> info = ftm.getFoodTruckDetail(foodTruckName);
-            orderID = om.creatOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
+            int orderID = om.creatOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
                     sm.getNickname(info.get("seller")), sm.getPhoneNumber(info.get("seller")));
         } else if (text[0].equals("select")) {
             String[] foods = Arrays.copyOfRange(text, 1, text.length);
