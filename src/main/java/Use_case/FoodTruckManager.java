@@ -82,7 +82,7 @@ public class FoodTruckManager {
      * @return true if we add the food. false if we update the food.
      */
     public boolean addFoodToMenu(Food food, String truckName) {
-        return getFoodTruckById(truckName).removeFoodFromMenu(food);
+        return getFoodTruckById(truckName).addFoodToMenu(food);
     }
 
     /**
