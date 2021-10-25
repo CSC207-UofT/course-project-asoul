@@ -32,7 +32,7 @@ public class Seller extends User {
      * @param foodtruck the foodtruck that want to be added to the ownedFoodTruck.
      * @return Return True if successfully added and False otherwise.
      */
-    public boolean addFoodTruck(FoodTruck foodtruck) {
+    public boolean addFoodTruck(FoodTruck foodtruck) { // we are going to use the return value later.
         //comment
         try {
             ownedFoodTruck.add(foodtruck);
@@ -50,7 +50,7 @@ public class Seller extends User {
      * @param foodtruck the foodtruck that want to be removed from the ownedFoodTruck.
      * @return Return True if successfully removed and False otherwise.
      */
-    public boolean removeFoodTruck(FoodTruck foodtruck) {
+    public boolean removeFoodTruck(FoodTruck foodtruck) { // we are going to use the return value later.
         try {
             ownedFoodTruck.remove(foodtruck);
         } catch (Exception e) {

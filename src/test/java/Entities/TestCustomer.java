@@ -7,7 +7,7 @@ public class TestCustomer {
     Order order;
 
     @org.junit.Before
-    public void Setup() throws Exception {
+    public void Setup() {
         customer = new Customer("Yx", "yxyyds", "yuanxiao", "110108");
         ArrayList<String> labels = new ArrayList<>();
         labels.add("Italian");
@@ -39,8 +39,7 @@ public class TestCustomer {
     public void removeOrderTest() {
         customer.storeOrder(order);
         customer.removeOrder(order);
-        ArrayList<Order> anOrder = new ArrayList<>();
-        assert customer.getOrderHistory().equals(anOrder);
+        assert customer.getOrderHistory().isEmpty();
     }
 
 }

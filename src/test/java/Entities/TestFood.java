@@ -7,7 +7,7 @@ public class TestFood {
     Food food;
 
     @org.junit.Before
-    public void Setup() throws Exception {
+    public void Setup() {
         food = new Food("Burger", 9.99, 1, new ArrayList<>(
                 Arrays.asList("Fast Entities.Food", "Western")), "A standard Beef Burger."
         );

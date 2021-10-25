@@ -15,6 +15,7 @@ public class FoodTruck {
     private final Seller seller; // The Entities.Seller who owns the Entities.Food Truck
     private final ArrayList<Order> orderHistory; // List of Entities.Order Histories of the Entities.Food Truck
     private double rating = 0.0; // Rating of the Entities.Food Truck
+    // we are going to change it in the rating system. So it can't be final.
     private final ArrayList<Order> orderQueue; // List of Active Orders
     private final FoodMenu menu; //Menu of the Entities.Food Truck
 
@@ -79,7 +80,7 @@ public class FoodTruck {
     }
 
     // Remove the Entities.Order from orderQueue with the given id, return the removed Entities.Order
-    public Order removeOrderWithID(int id) {
+    public Order removeOrderWithID(int id) { // we are going to use the return value later.
         for (Order orders : this.orderQueue) {
             if (orders.getID() == id) {
                 this.orderQueue.remove(orders);

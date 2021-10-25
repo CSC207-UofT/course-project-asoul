@@ -69,7 +69,7 @@ public abstract class User {
      * @param money The amount of money in double that will be added to the account balance.
      * @return Return True if successfully added and False otherwise.
      */
-    public boolean addMoney(double money) {
+    public boolean addMoney(double money) { // we are going to use the return value later.
         try {
             this.accountBalance += money;
         } catch (Exception e) {
@@ -96,7 +96,7 @@ public abstract class User {
      * @param money The amount of money in double that will be withdrawn from the account balance.
      * @return Return True if successfully withdrawn and False otherwise.
      */
-    public boolean withdrawMoney(double money) {
+    public boolean withdrawMoney(double money) { // we are going to use the return value later.
         if (this.accountBalance < money) {
             System.out.println("Insufficient balance!");
             return false;
