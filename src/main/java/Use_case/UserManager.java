@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * A Use_case.UserManager that manages all the Users.
  */
-abstract public class UserManager {
+abstract public class UserManager{
     protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to Entities.User object.
     protected static HashMap<String, Customer> customerMap = new HashMap<>(); // A map from customer's account name to Entities.Customer
     // object.

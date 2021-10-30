@@ -4,13 +4,15 @@ import Entities.FoodTruck;
 import Entities.Seller;
 import Exceptions.IncorrectCredentialsException;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A Use_case.SellerManager that manages all the Sellers.
  */
 
-public class SellerManager extends UserManager {
+public class SellerManager extends UserManager implements CommandExecutable{
 
     /**
      * Creat a Use_case.SellerManager.
@@ -72,5 +74,10 @@ public class SellerManager extends UserManager {
      */
     public Seller getSellerByAccName(String accName) {
         return sellerMap.get(accName);
+    }
+
+    @Override
+    public HashMap<String, Method> getAvailableCommands() {
+        return null;
     }
 }

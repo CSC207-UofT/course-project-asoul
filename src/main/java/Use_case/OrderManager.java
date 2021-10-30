@@ -5,6 +5,7 @@ import Entities.FoodMenu;
 import Entities.FoodTruck;
 import Entities.Order;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * A Use_case.OrderManager that manages all the Orders.
  */
 
-public class OrderManager {
+public class OrderManager implements CommandExecutable {
 
     private final HashMap<String, Order> orders; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
@@ -156,5 +157,10 @@ public class OrderManager {
      */
     public Order getOrder(int id) {
         return this.orders.get(String.valueOf(id));
+    }
+
+    @Override
+    public HashMap<String, Method> getAvailableCommands() {
+        return null;
     }
 }

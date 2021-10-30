@@ -3,12 +3,14 @@ package Use_case;
 import Entities.Customer;
 import Exceptions.IncorrectCredentialsException;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A Use_case.CustomerManager that manages all the Customers.
  */
-public class CustomerManager extends UserManager {
+public class CustomerManager extends UserManager implements CommandExecutable{
 
     /**
      * Create a Use_case.CustomerManager.
@@ -44,5 +46,10 @@ public class CustomerManager extends UserManager {
             }
         }
         throw new IncorrectCredentialsException();
+    }
+
+    @Override
+    public HashMap<String, Method> getAvailableCommands() {
+        return null;
     }
 }

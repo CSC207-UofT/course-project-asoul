@@ -5,6 +5,7 @@ import Entities.FoodMenu;
 import Entities.FoodTruck;
 import Entities.Seller;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -14,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * A Use_case.FoodTruckManager that manages all the FoodTrucks.
  */
 
-public class FoodTruckManager {
+public class FoodTruckManager implements CommandExecutable{
 
     private final HashMap<String, FoodTruck> food_trucks; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
@@ -298,5 +299,10 @@ public class FoodTruckManager {
      */
     public FoodTruck getFoodTruckById(String id) {
         return this.food_trucks.get(id);
+    }
+
+    @Override
+    public HashMap<String, Method> getAvailableCommands() {
+        return null;
     }
 }
