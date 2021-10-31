@@ -37,14 +37,18 @@ public class CommandExecutor {
         String[] cs = command.split(" ");
         String arg = String.join("", Arrays.copyOfRange(cs, 1, cs.length));
         String name = cs[0].toLowerCase(Locale.ROOT);
-        Command cm = switch (name) {
+        Command cm = this.getCommand(name);
+        return new CommandComm(arg, cm);
+    }
+
+    private Command getCommand(String name) throws UnknownCommandException{
+        return switch (name) {
             case "customer" -> this.customerCommand;
             case "seller" -> this.sellerCommand;
             case "order" -> this.orderCommand;
             case "foodtruck" -> this.orderCommand;
             default -> throw new UnknownCommandException();
         };
-        return new CommandComm(arg, cm);
     }
 
     public Object executeCommand(String command) throws UnknownCommandException, IncorrectArgumentException {
@@ -52,5 +56,11 @@ public class CommandExecutor {
         Command receiver = coms.receiver;
         String arg = coms.methodName;
         return receiver.executeCommand(arg);
+    }
+
+    public Object executeCommand(String receiver, String methodName, Object[] args) throws UnknownCommandException,
+            IncorrectArgumentException {
+        Command cm = this.getCommand(receiver);
+        return cm.executeCommand(methodName, args);
     }
 }

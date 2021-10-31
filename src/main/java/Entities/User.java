@@ -1,6 +1,9 @@
 package Entities;
 
+import Exceptions.IllegalUserAccessException;
 import Exceptions.IncorrectOldPasswordException;
+
+import java.util.HashMap;
 
 public abstract class User {
     private final String accountName; //The account name of this Entities.User
@@ -9,7 +12,7 @@ public abstract class User {
     private String nickname; //The nickname of this Entities.User
     private final String phoneNumber; //A string that represents the phone number of this Entities.User
     private boolean login; //Login status. True if logged in, False otherwise.
-
+    private HashMap<String, Boolean> viewableWhenLoggedInOnly;
     /**
      * Construct an instance of a Entities.User
      *
@@ -23,6 +26,7 @@ public abstract class User {
         this.password = password;
         this.nickname = nickname;
         this.phoneNumber = phoneNumber;
+        this.viewableWhenLoggedInOnly = new HashMap<>();
         accountBalance = 0.0;
         login = false;
     }
@@ -107,11 +111,17 @@ public abstract class User {
         }
     }
 
-    public void setNickname(String nickname) {
+    public void setNickname(String nickname) throws IllegalUserAccessException{
+        if(!this.login){
+            throw new IllegalUserAccessException();
+        }
         this.nickname = nickname;
     }
 
-    public void setPassword(String newPassword, String oldPassword) throws IncorrectOldPasswordException {
+    public void setPassword(String newPassword, String oldPassword) throws IncorrectOldPasswordException, IllegalUserAccessException {
+        if(!this.login){
+            throw new IllegalUserAccessException();
+        }
         if (oldPassword.equals(this.password)) {
             this.password = newPassword;
         } else {

@@ -4,6 +4,7 @@ import Entities.Customer;
 import Entities.Order;
 import Entities.Seller;
 import Entities.User;
+import Exceptions.IllegalUserAccessException;
 import Exceptions.IncorrectCredentialsException;
 import Exceptions.IncorrectOldPasswordException;
 
@@ -25,7 +26,14 @@ abstract public class UserManager{
      * @throws IncorrectCredentialsException Exception if the password doesn't match the account name or there is no
      *                                       such account name.
      */
-    abstract public void login(String accName, String password) throws IncorrectCredentialsException;
+    public void login(String accName, String password) throws IncorrectCredentialsException{
+        if (userMap.containsKey(accName)) {
+            if (userMap.get(accName).login(password)) {
+                return;
+            }
+        }
+        throw new IncorrectCredentialsException();
+    };
 
     /**
      * @param accountName The username of the user that wants to add money.
@@ -140,11 +148,19 @@ abstract public class UserManager{
     }
 
     public void setNickname(String accName, String nickname) {
-        userMap.get(accName).setNickname(nickname);
+        try {
+            userMap.get(accName).setNickname(nickname);
+        }catch (IllegalUserAccessException e){
+            e.printStackTrace(); // TODO: Handle this exception in the output method
+        }
     }
 
     public void setPassword(String username, String newPassword, String oldPassword) throws IncorrectOldPasswordException {
-        userMap.get(username).setPassword(newPassword, oldPassword);
+        try {
+            userMap.get(username).setPassword(newPassword, oldPassword);
+        }catch (IllegalUserAccessException e){
+            e.printStackTrace(); // TODO: Handle this exception in the output method
+        }
     }
 
     public String getNickname(String accName) {

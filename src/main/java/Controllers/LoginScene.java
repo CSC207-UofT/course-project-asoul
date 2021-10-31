@@ -3,7 +3,9 @@ package Controllers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Exceptions.IncorrectArgumentException;
 import Exceptions.IncorrectCredentialsException;
+import Exceptions.UnknownCommandException;
 
 public class LoginScene extends Scene {
     // Output States
@@ -136,16 +138,17 @@ public class LoginScene extends Scene {
     private void userLogin() throws IncorrectCredentialsException { // attempt to login
         String username = this.fields.get("username");
         String password = this.fields.get("password");
-        String type = Scene.customerManager.getUserType(username);
-        UserInformationScene nextScene = (UserInformationScene) Scene.allScenes.get("UserInformation");
-        if (type.equals("Entities.Seller")) {
-            Scene.sellerManager.login(username, password);
-            nextScene.setUserInfo("Entities.Seller", username);
-        } else {
-            Scene.customerManager.login(username, password);
-            nextScene.setUserInfo("Entities.Customer", username);
+        String[] args = {username, password};
+        try {
+            Scene.commandExecutor.executeCommand("customer", "login", args);
+            String[] args2 = {username};
+            String type = (String) Scene.commandExecutor.executeCommand("customer", "getUserType", args2);
+            UserInformationScene nextScene = (UserInformationScene) Scene.allScenes.get("UserInformation");
+            nextScene.setUserInfo(type, username);
+            this.switchScene(nextScene);
+        }catch (IncorrectArgumentException | UnknownCommandException e){
+            e.printStackTrace();
         }
-        this.switchScene(nextScene);
     }
 
     private void registerUser() { // Create new users
@@ -154,11 +157,18 @@ public class LoginScene extends Scene {
         String userType = this.fields.get("user_type");
         String nickname = this.fields.get("nickname");
         String phoneNumber = this.fields.get("phone_number");
-        this.successRegistration = Scene.sellerManager.createUser(userType, username, password, nickname, phoneNumber); // TODO: Entities.User creation exception handling
-        if (userType.equals("Entities.Seller")) {
-            Scene.foodTruckManager.createDefaultFoodTruck(Scene.sellerManager, username);
+        Object[] args = {userType, username, password, nickname, phoneNumber};
+        try{
+            this.successRegistration = (boolean)Scene.commandExecutor.executeCommand("seller", "createUser", args);
+            // TODO: User creation exception handling
+            Object[] args2 = {username};
+            if (userType.equals("Entities.Seller")) {
+                Scene.commandExecutor.executeCommand("foodtruck", "createDefaultFoodTruck", args2);
+            }
+            this.clearFields();
+        } catch (IllegalArgumentException | UnknownCommandException | IncorrectArgumentException e){
+            e.printStackTrace();
         }
-        this.clearFields();
     }
 
     @Override

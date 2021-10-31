@@ -27,14 +27,22 @@ public class Command {
 
     public Object executeCommand(String command) throws UnknownCommandException, IncorrectArgumentException {
         Object[] args = this.parseParameters(command);
+        return runMethod(command, args);
+    }
+
+    public Object executeCommand(String methodName, Object[] args) throws UnknownCommandException,
+            IncorrectArgumentException {
+        return runMethod(methodName, args);
+    }
+
+    private Object runMethod(String methodName, Object[] args) throws UnknownCommandException, IllegalArgumentException {
         try{
-            return this.commandMap.get(command).invoke(ce, args);
+            Method method = this.commandMap.get(methodName);
+            return method.invoke(ce, args);
         }catch (NullPointerException e){
             throw new UnknownCommandException();
-        }catch (IllegalAccessException e){
+        }catch (IllegalAccessException | InvocationTargetException e){
             e.printStackTrace();
-        }catch (InvocationTargetException e){
-            throw new IncorrectArgumentException();
         }
         return null;
     }
