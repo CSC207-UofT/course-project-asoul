@@ -1,12 +1,13 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Java class representation for Entities.Food instance
  */
 
-public class Food implements Comparable<Food> {
+public class Food implements Comparable<Food>, Serializable {
     private final String foodName; //Name of the food item, can't be changed once set
     private double price; //Price of the food item
     private final int id; //UNIQUE id of the food item, can't be changed once set

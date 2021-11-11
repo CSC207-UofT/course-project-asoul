@@ -5,6 +5,7 @@ import Entities.FoodMenu;
 import Entities.FoodTruck;
 import Entities.Seller;
 
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class FoodTruckManager implements CommandExecutable{
 
-    private final HashMap<String, FoodTruck> food_trucks; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
+    private static HashMap<String, FoodTruck> foodTrucks; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
      * @param foodTrucks a current map that maps a food truck's id to the Entities.FoodTruck object.
@@ -25,14 +26,14 @@ public class FoodTruckManager implements CommandExecutable{
      *                   Create a Use_case.FoodTruckManager with the given FoodTrucks.
      */
     public FoodTruckManager(HashMap<String, FoodTruck> foodTrucks) {
-        this.food_trucks = foodTrucks;
+        this.foodTrucks = foodTrucks;
     }
 
     /**
      * Create a Use_case.FoodTruckManager with no given FoodTrucks.
      */
     public FoodTruckManager() {
-        this.food_trucks = new HashMap<>();
+        this.foodTrucks = new HashMap<>();
     }
 
     /**
@@ -43,8 +44,8 @@ public class FoodTruckManager implements CommandExecutable{
      * @return Return true if successfully changed.
      */
     public boolean changeStatus(String id, boolean status) {
-        if (this.food_trucks.containsKey(id)) {
-            this.food_trucks.get(id).changeStatus(status);
+        if (this.foodTrucks.containsKey(id)) {
+            this.foodTrucks.get(id).changeStatus(status);
             return true;
         } else {
             return false;
@@ -116,8 +117,8 @@ public class FoodTruckManager implements CommandExecutable{
      * false if the food truck is not in the list.
      */
     public Object getOrderHistory(String id) {
-        if (this.food_trucks.containsKey(id)) {
-            return this.food_trucks.get(id).getOrderHistory();
+        if (this.foodTrucks.containsKey(id)) {
+            return this.foodTrucks.get(id).getOrderHistory();
         } else {
             return false;
         }
@@ -135,8 +136,8 @@ public class FoodTruckManager implements CommandExecutable{
      * false if the food truck is not in the list.
      */
     public Object getMenu(String id) {
-        if (this.food_trucks.containsKey(id)) {
-            return this.food_trucks.get(id).getMenu().toString();
+        if (this.foodTrucks.containsKey(id)) {
+            return this.foodTrucks.get(id).getMenu().toString();
         } else {
             return false;
         }
@@ -158,13 +159,13 @@ public class FoodTruckManager implements CommandExecutable{
 
     public boolean creatFoodTruck(String truckName, String location, String serviceTimeStart,
                                   String serviceTimeEnd, String selName, SellerManager sellers) {
-        if (this.food_trucks.containsKey(truckName)) {
+        if (this.foodTrucks.containsKey(truckName)) {
             return false;
         } else {
             Seller sel = sellers.getSellerByAccName(selName);
             FoodMenu menu = new FoodMenu();
             FoodTruck new_truck = new FoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, sel, menu);
-            this.food_trucks.put(truckName, new_truck);
+            this.foodTrucks.put(truckName, new_truck);
             sel.addFoodTruck(new_truck);
             return true;
         }
@@ -212,8 +213,8 @@ public class FoodTruckManager implements CommandExecutable{
      * @return Get the order queue of the specific food truck. Return false if the food truck doesn't exist.
      */
     public Object getOrderQueue(String id) {
-        if (this.food_trucks.containsKey(id)) {
-            return this.food_trucks.get(id).getOrderQueue();
+        if (foodTrucks.containsKey(id)) {
+            return foodTrucks.get(id).getOrderQueue();
         } else {
             return false;
         }
@@ -225,8 +226,8 @@ public class FoodTruckManager implements CommandExecutable{
      *           Get the rating of the specific food truck. Return false if the food truck is not in the list.
      */
     public Object getRating(String id) {
-        if (this.food_trucks.containsKey(id)) {
-            return this.food_trucks.get(id).getRating();
+        if (foodTrucks.containsKey(id)) {
+            return foodTrucks.get(id).getRating();
         } else {
             return false;
         }
@@ -253,7 +254,7 @@ public class FoodTruckManager implements CommandExecutable{
      * @return All food existing FoodTrucks.
      */
     public HashMap<String, FoodTruck> getFoodTrucks() {
-        return this.food_trucks;
+        return foodTrucks;
     }
 
     /**
@@ -263,7 +264,7 @@ public class FoodTruckManager implements CommandExecutable{
      */
     public HashMap<String, String> getFoodTruckDetail(String id) {
         HashMap<String, String> information = new HashMap<>();
-        if (this.food_trucks.containsKey(id)) {
+        if (foodTrucks.containsKey(id)) {
             FoodTruck truck = getFoodTruckById(id);
             information.put("id/truckName", truck.getTruckName());
             information.put("location", truck.getLocation());
@@ -290,7 +291,7 @@ public class FoodTruckManager implements CommandExecutable{
      * @return A set contains all current FoodTrucks' names.
      */
     public Set<String> getExistFoodTruckName() {
-        return this.food_trucks.keySet();
+        return foodTrucks.keySet();
     }
 
     /**
@@ -298,11 +299,29 @@ public class FoodTruckManager implements CommandExecutable{
      * @return The food truck with the id.
      */
     public FoodTruck getFoodTruckById(String id) {
-        return this.food_trucks.get(id);
+        return foodTrucks.get(id);
     }
 
     @Override
     public HashMap<String, Method> getAvailableCommands() {
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void constructFoodTruckDataBase() throws IOException, ClassNotFoundException {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/foodtruck info"));
+            foodTrucks = (HashMap<String, FoodTruck>) ois.readObject();
+            ois.close();
+        }catch (EOFException e){
+            // Do Nothing, no foodtruck has been registered yet
+        }
+    }
+
+    public void saveFoodTruckDataBase() throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/foodtruck info"));
+        oos.writeObject(foodTrucks);
+        oos.flush();
+        oos.close();
     }
 }

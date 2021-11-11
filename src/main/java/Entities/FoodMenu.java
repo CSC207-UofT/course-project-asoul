@@ -1,6 +1,7 @@
 package Entities;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * A menu at a food truck (list of all the foods a food truck sells)
  */
 
-public class FoodMenu {
+public class FoodMenu implements Serializable {
     private final ArrayList<Food> foodList; // a list of Entities.Food objects that are on the menu.
 
 

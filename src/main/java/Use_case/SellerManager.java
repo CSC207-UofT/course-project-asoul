@@ -4,6 +4,7 @@ import Entities.FoodTruck;
 import Entities.Seller;
 import Exceptions.IncorrectCredentialsException;
 
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +36,27 @@ public class SellerManager extends UserManager implements CommandExecutable{
             }
         }
         throw new IncorrectCredentialsException();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void constructUserDataBase() throws IOException, ClassNotFoundException {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/seller info"));
+            SellerManager.sellerMap = (HashMap<String, Seller>) ois.readObject();
+            UserManager.userMap.putAll(sellerMap);
+            ois.close();
+        }catch(EOFException e){
+            // Do nothing, no seller has been registered
+        }
+    }
+
+    @Override
+    public void saveUserDataBase() throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/seller info"));
+        oos.writeObject(sellerMap);
+        oos.flush();
+        oos.close();
     }
 
 

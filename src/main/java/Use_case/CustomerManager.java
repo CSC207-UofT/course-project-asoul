@@ -1,8 +1,10 @@
 package Use_case;
 
 import Entities.Customer;
+import Entities.Seller;
 import Exceptions.IncorrectCredentialsException;
 
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,5 +53,26 @@ public class CustomerManager extends UserManager implements CommandExecutable{
     @Override
     public HashMap<String, Method> getAvailableCommands() {
         return null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void constructUserDataBase() throws IOException, ClassNotFoundException {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/customer info"));
+            CustomerManager.customerMap = (HashMap<String, Customer>) ois.readObject();
+            UserManager.userMap.putAll(customerMap);
+            ois.close();
+        }catch (EOFException e){
+            // Do nothing, no customer has been created
+        }
+    }
+
+    @Override
+    public void saveUserDataBase() throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/customer info"));
+        oos.writeObject(customerMap);
+        oos.flush();
+        oos.close();
     }
 }

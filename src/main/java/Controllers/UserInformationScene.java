@@ -125,7 +125,7 @@ public class UserInformationScene extends Scene {
             } else {
                 userInfo = Scene.customerManager.getUserByAccountName(this.username);
             }
-            outputString.append("------------------------Entities.User Information---------------------------");
+            outputString.append("------------------------User Information---------------------------");
             for (String field : userInfo.keySet()) {
                 String content = userInfo.get(field);
                 outputString.append("\n").append(field).append(": ").append(content).append("\n");
@@ -155,7 +155,7 @@ public class UserInformationScene extends Scene {
     }
 
     public void setUserInfo(String userType, String username) {
-        assert userType.equals("Entities.Customer") || userType.equals("Entities.Seller");
+        assert userType.equals("Customer") || userType.equals("Seller");
         this.userType = userType;
         this.username = username;
     }

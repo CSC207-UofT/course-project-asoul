@@ -5,6 +5,7 @@ import Use_case.FoodTruckManager;
 import Use_case.OrderManager;
 import Use_case.SellerManager;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
@@ -26,6 +27,19 @@ abstract public class Scene {
         this.commandSet = new HashMap<>();
         this.fields = new HashMap<>();
         Scene.allScenes.put(name, this);
+    }
+    public static void init() throws IOException, ClassNotFoundException {
+        foodTruckManager.constructFoodTruckDataBase();
+        sellerManager.constructUserDataBase();
+        customerManager.constructUserDataBase();
+        orderManager.constructOrderDataBase();
+    }
+
+    public static void exit() throws IOException {
+        foodTruckManager.saveFoodTruckDataBase();
+        sellerManager.saveUserDataBase();
+        customerManager.saveUserDataBase();
+        orderManager.saveOrderDataBase();
     }
 
     public static void setActiveScene(Scene scene) {

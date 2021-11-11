@@ -16,26 +16,23 @@ public class FoodTruckScene extends Scene {
     private FoodTruck foodTruck;
     private String foodTruckName;
     private ArrayList<String> cart;
-    private final FoodTruckManager ftm;
-    private final OrderManager om;
-    private final CustomerManager cm;
-    private final SellerManager sm;
     private String cusName;
     private int orderID; // we are going to use it later, so it can't be local variable.
     private boolean checkOut; // we are going to use it later, so it can't be local variable.
 
     public FoodTruckScene() {
         super("Entities.FoodTruck");
-        ftm = foodTruckManager;
-        om = orderManager;
-        cm = customerManager;
-        sm = sellerManager;
+        // ftm = foodTruckManager;
+        // om = orderManager;
+        // cm = customerManager;
+        // sm = sellerManager;
         checkOut = false;
     }
 
 
     @Override
     public String constructOutputString() {
+        FoodTruckManager ftm = Scene.foodTruckManager;
         return foodTruckName + "\n" + "rating : " + ftm.getRating(foodTruckName) + "\n" +
                 ftm.getMenu(foodTruckName) + "\n----------------Cart---------------" + cart;
     }
@@ -45,7 +42,7 @@ public class FoodTruckScene extends Scene {
      * set Foodtruck name to name
      */
     public void setFoodTruck(String name) {
-        this.foodTruck = ftm.getFoodTruckById(name);
+        this.foodTruck = Scene.foodTruckManager.getFoodTruckById(name);
         this.foodTruckName = name;
     }
 
@@ -54,14 +51,17 @@ public class FoodTruckScene extends Scene {
     }
 
     public void handleInput(String input) {
+        CustomerManager cm = Scene.customerManager;
+        OrderManager om = Scene.orderManager;
+        SellerManager sm = Scene.sellerManager;
         String[] text = input.split(" ");
         if (input.equals("back")) {
             cart = new ArrayList<>();
             this.switchScene(Scene.allScenes.get("Market"));
         } else if (input.equals("check out")) {
             ArrayList<Food> foodList = om.getMenuFood(this.cart, this.foodTruck);
-            HashMap<String, String> info = ftm.getFoodTruckDetail(foodTruckName);
-            orderID = om.creatOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
+            HashMap<String, String> info = Scene.foodTruckManager.getFoodTruckDetail(foodTruckName);
+            orderID = om.createOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
                     sm.getNickname(info.get("seller")), sm.getPhoneNumber(info.get("seller")));
         } else if (text[0].equals("select")) {
             String[] foods = Arrays.copyOfRange(text, 1, text.length);

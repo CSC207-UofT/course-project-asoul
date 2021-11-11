@@ -5,6 +5,7 @@ import Entities.FoodMenu;
 import Entities.FoodTruck;
 import Entities.Order;
 
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class OrderManager implements CommandExecutable {
 
-    private final HashMap<String, Order> orders; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
+    private static HashMap<String, Order> orders; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
      * @param current_orders a map that maps s' id to the Entities.Order objects.
@@ -24,14 +25,14 @@ public class OrderManager implements CommandExecutable {
      *                       Create a Use_case.OrderManager with the given Orders.
      */
     public OrderManager(HashMap<String, Order> current_orders) {
-        this.orders = current_orders;
+        orders = current_orders;
     }
 
     /**
      * Create a Use_case.OrderManager with no given FoodTrucks.
      */
     public OrderManager() {
-        this.orders = new HashMap<>();
+        orders = new HashMap<>();
     }
 
     /**
@@ -46,15 +47,15 @@ public class OrderManager implements CommandExecutable {
      * @return the id of new order
      */
 
-    public int creatOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
+    public int createOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
                           String customerNumber, String sellerName, String sellerNumber) {
         int id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
-        while (this.orders.containsKey(Integer.toString(id))) {
+        while (orders.containsKey(Integer.toString(id))) {
             id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
         }
         Order new_order = new Order(id, foodTruck, foodList, customerName,
                 customerNumber, sellerName, sellerNumber);
-        this.orders.put(Integer.toString(id), new_order);
+        orders.put(Integer.toString(id), new_order);
         return id;
     }
 
@@ -71,11 +72,11 @@ public class OrderManager implements CommandExecutable {
      * @return the id of new order
      */
 
-    public int creatOrder(FoodTruckManager trucks, String truckName, ArrayList<String> foods, String customerName,
+    public int createOrder(FoodTruckManager trucks, String truckName, ArrayList<String> foods, String customerName,
                           String customerNumber, String sellerName, String sellerNumber) {
         FoodTruck foodTruck = trucks.getFoodTruckById(truckName);
         ArrayList<Food> foodList = getMenuFood(foods, foodTruck);
-        return creatOrder(foodTruck, foodList, customerName, customerNumber, sellerName, sellerNumber);
+        return createOrder(foodTruck, foodList, customerName, customerNumber, sellerName, sellerNumber);
     }
 
     /**
@@ -85,7 +86,7 @@ public class OrderManager implements CommandExecutable {
      * @return true if the order status being changed successfully.
      */
     public boolean changeOrderStatus(String id) {
-        return this.orders.get(id).changeOrderStatus();
+        return orders.get(id).changeOrderStatus();
     }
 
     /**
@@ -145,7 +146,7 @@ public class OrderManager implements CommandExecutable {
      */
     public HashMap<String, String> getOrderDetail(int id) {
         HashMap<String, String> information = new HashMap<>();
-        if (this.orders.containsKey(String.valueOf(id))) {
+        if (orders.containsKey(String.valueOf(id))) {
             information.put(String.valueOf(id), getOrder(id).toString());
         }
         return information;
@@ -156,11 +157,29 @@ public class OrderManager implements CommandExecutable {
      * @return The order with the given id.
      */
     public Order getOrder(int id) {
-        return this.orders.get(String.valueOf(id));
+        return orders.get(String.valueOf(id));
     }
 
     @Override
     public HashMap<String, Method> getAvailableCommands() {
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void constructOrderDataBase() throws IOException, ClassNotFoundException {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/order info"));
+            orders = (HashMap<String, Order>) ois.readObject();
+            ois.close();
+        }catch (EOFException e){
+            // Do nothing, no order has been created
+        }
+    }
+
+    public void saveOrderDataBase() throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/order info.txt"));
+        oos.writeObject(orders);
+        oos.flush();
+        oos.close();
     }
 }

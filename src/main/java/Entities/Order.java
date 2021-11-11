@@ -1,13 +1,14 @@
 package Entities;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * An order
  */
 
-public class Order {
+public class Order implements Serializable {
     private final int ID; // a unique id for the order
     private final FoodTruck foodTruck; // private Entities.FoodTruck foodTruck;
     private final ArrayList<Food> foodList; // a list of foods ordered by the customers
