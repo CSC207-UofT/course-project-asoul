@@ -15,7 +15,9 @@ public class CommandlineInterface {
         RegisterScene rs = new RegisterScene();
         InputHandler handler = new InputHandler(loginScene, ms, us, fts, rs);
         Scene.setActiveScene(rs);
-        System.out.println("Program Started! Please log in or register.");
+        OutputConstructor constructor = new OutputConstructor(loginScene, ms, us, fts, rs);
+        SystemInOut system = new SystemInOut(handler, constructor);
+        System.out.println("Program Started! Please login or register.");
 
         do {
 //            System.out.println(Scene.getActiveScene().constructOutputString());
@@ -23,9 +25,11 @@ public class CommandlineInterface {
 //            Scene.getActiveScene().handleInput(br.readLine());
             try {
                 String input = br.readLine();
-                handler.call(input, handler);
+                String output = system.processInput(input);
+                System.out.println(output);
             } catch (Exception e) {
-                e.toString();
+                e.printStackTrace();
+                //TODO:
             }
         } while (Scene.isRunning());
         System.out.println("Exit Program!");

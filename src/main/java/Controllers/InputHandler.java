@@ -9,7 +9,7 @@ public class InputHandler {
     private final MarketScene ms;
     private final UserInformationScene usc;
     private final FoodTruckScene fts;
-    private boolean first = true;
+//  private boolean first = true;
     private final RegisterScene rs;
 
     public InputHandler(LoginScene ls, MarketScene ms, UserInformationScene usc, FoodTruckScene fts,
@@ -21,97 +21,100 @@ public class InputHandler {
         this.rs = rs;
     }
 
-    public String[] parsingInput(String text) throws InvalidInput {
+    public String[] parsingInput(String text) {
         return text.split(" ");
     }
 
+    public void commandChecker(Scene scene, String command) throws UnknownCommandException {
+        if (!(scene.commandSet.contains(command))) {
+            throw new UnknownCommandException();
+        }
+    }
 
-    public void handlingGeneralInput(String[] arr) throws IncorrectCredentialsException, UnknownCommandException {
-
+    public String handlingGeneralInput(String input) throws IncorrectCredentialsException, UnknownCommandException {
+        String[] arr = parsingInput(input);
         if (arr[0].equals("exit")) {
             Scene.exit = true;
-//        } else if (arr.length != 2) {
-//            throw new InvalidInput();
+            return "exit";
         }
+        commandChecker(Scene.getActiveScene(), arr[0]);
         switch (Scene.activeScene.getClass().getName()) {
             case "Controllers.LoginScene":
-                logInSceneInputHandler(arr);
-                break;
+                return logInSceneInputHandler(arr);
             case "Controllers.UserInformationScene":
-                userInformationSceneHandler(arr);
-                break;
+                return userInformationSceneHandler(arr);
             case "Controllers.MarketScene":
-                marketSceneHandler(arr);
-                break;
+                return marketSceneHandler(arr);
             case "Controllers.FoodTruckScene":
-                foodTruckSceneHandler(arr);
+                return foodTruckSceneHandler(arr);
             case "Controllers.RegisterScene":
-                registerSceneHandler(arr);
+                return registerSceneHandler(arr); //TODO: add more cases.
         }
-
+        return "No active scene"; //TODO:
 
     }
 
-    private void registerSceneHandler(String[] arr) {
-        System.out.println(1);
-        OutputConstructor.registerGeneralInfo(this.rs);
+    private String registerSceneHandler(String[] arr) {
         switch (arr[0]) {
             case "U": rs.fillInField("username", arr[1]);
-                break;
+                return "username received";
+
             case "P": rs.fillInField("password", arr[1]);
-                break;
+                return "password received";
             case "T": rs.fillInField("user_type", arr[1]);
-                break;
+                return "user_type received";
+
             case "N": rs.fillInField("nickname", arr[1]);
-                break;
+                return "nickname received";
+
             case "PN": rs.fillInField("phone_number", arr[1]);
-                break;
+                return "phone_number received";
+
             case "confirm": rs.registerUser();
-                break;
+                return "confirm received";
+            case "register": rs.registerUser();
+                return "start register";
             default:
-                OutputConstructor.askRegisterInto();
-
+                return "input invalid";
         }
-        rs.getfield();
 
     }
 
-    private void foodTruckSceneHandler(String[] arr) {
+    private String foodTruckSceneHandler(String[] arr) {
+        return  "";
     }
 
-    private void marketSceneHandler(String[] arr) {
+    private String marketSceneHandler(String[] arr) {
+        return  "";
     }
 
-    private void userInformationSceneHandler(String[] arr) {
-
+    private String userInformationSceneHandler(String[] arr) {
+        return  "";
     }
 
-//    public void commandChecker(Scene scene, String command) throws UnknownCommandException {
-//        if (!(scene.commandSet.containsKey(command))) {
-//            throw new UnknownCommandException();
+
+
+    public String logInSceneInputHandler(String[] arr) throws UnknownCommandException, IncorrectCredentialsException {
+////        commandChecker(ls, arr[0]); TODO
+////        if (first) {
+////            OutputConstructor.programStart();
+////        }
+//
+//        switch (arr[0]) {
+//            case "register":
+//                registerCommand(arr);
+//            break;
+//            case "help":
+//                OutputConstructor.printCurrSceneCommands(ls);
+//            break;
+//            case "login": {
+//                do {
+//                    loginCommand(arr);
+//                } while ((arr[0].equals("confirm"))); //TODO: may introduce bugs
+//                ls.switchScene(usc);
+//            }
 //        }
-//    } //TODO: set keys
-
-    public void logInSceneInputHandler(String[] arr) throws UnknownCommandException, IncorrectCredentialsException {
-//        commandChecker(ls, arr[0]); TODO
-//        if (first) {
-//            OutputConstructor.programStart();
-//        }
-
-        switch (arr[0]) {
-            case "register":
-                registerCommand(arr);
-            break;
-            case "help":
-                OutputConstructor.printCurrSceneCommands(ls);
-            break;
-            case "login": {
-                do {
-                    loginCommand(arr);
-                } while ((arr[0].equals("confirm"))); //TODO: may introduce bugs
-                ls.switchScene(usc);
-            }
-        }
+        return  "";
 
     }
 
@@ -148,8 +151,8 @@ public class InputHandler {
         }
     }
 
-    public void call(String input, InputHandler handler) throws InvalidInput, IncorrectCredentialsException, UnknownCommandException {
-        String[] arr = handler.parsingInput(input);
-        handler.handlingGeneralInput(arr);
-    }
+//    public void call(String input, InputHandler handler) throws InvalidInput, IncorrectCredentialsException, UnknownCommandException {
+//        String[] arr = handler.parsingInput(input);
+//        handler.handlingGeneralInput(arr);
+//    }
 }

@@ -5,6 +5,8 @@ import Use_case.FoodTruckManager;
 import Use_case.OrderManager;
 import Use_case.SellerManager;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
@@ -18,12 +20,11 @@ abstract public class Scene {
     protected static Scene activeScene;
     // instance fields
     protected HashMap<String, String> fields; // Input fields will be stored here
-    protected HashMap<String, Callable<Void>> commandSet; // These methods will be called by user typed commands
+    protected ArrayList<String> commandSet; // These methods will be called by user typed commands
     protected String name;
 
     public Scene(String name) {
         this.name = name;
-        this.commandSet = new HashMap<>();
         this.fields = new HashMap<>();
         Scene.allScenes.put(name, this);
     }
@@ -40,9 +41,9 @@ abstract public class Scene {
         return !Scene.exit;
     }
 
-    public void addCommand(String command, Callable<Void> method) {
-        this.commandSet.put(command, method);
-    }
+//    public void addCommand(String command, Callable<Void> method) {
+//        this.commandSet.put(command, method);
+//    }
 
 //    public void handleInput(String input) {
 //        /* The input will be separated into segments, one of which will be used to determine which function to call and
