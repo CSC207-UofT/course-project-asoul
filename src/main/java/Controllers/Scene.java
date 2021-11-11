@@ -44,25 +44,25 @@ abstract public class Scene {
         this.commandSet.put(command, method);
     }
 
-    public void handleInput(String input) {
-        /* The input will be separated into segments, one of which will be used to determine which function to call and
-        rest will be used to determine parameters for that function
-        TODO: Figure out how to store methods in maps so they can be accessed by tied commands
-
-        try{
-            Object[] i = this.parseParameters(input);
-            String command = (String)i[0];
-            HashMap<String, Object> parameters = (HashMap<String, Object>)i[1];
-            Callable method = this.commandSet.get(command);
-            method.call(parameters);
-        }catch(KeyException e){
-            System.out.print("Command not found!");
-        } catch (Exception e) {
-            System.err.println("Failed to execute command!");
-        }
-        */
-
-    }
+//    public void handleInput(String input) {
+//        /* The input will be separated into segments, one of which will be used to determine which function to call and
+//        rest will be used to determine parameters for that function
+//        TODO: Figure out how to store methods in maps so they can be accessed by tied commands
+//
+//        try{
+//            Object[] i = this.parseParameters(input);
+//            String command = (String)i[0];
+//            HashMap<String, Object> parameters = (HashMap<String, Object>)i[1];
+//            Callable method = this.commandSet.get(command);
+//            method.call(parameters);
+//        }catch(KeyException e){
+//            System.out.print("Command not found!");
+//        } catch (Exception e) {
+//            System.err.println("Failed to execute command!");
+//        }
+//        */
+//
+//    }
 
     private Object[] parseParameters(String raw_command) {
         //TODO: Separate parameters from command
@@ -73,6 +73,7 @@ abstract public class Scene {
     }
 
     protected void fillInField(String field, String text) {
+        System.out.println(2);
         this.fields.put(field, text);
     }
 
@@ -88,5 +89,5 @@ abstract public class Scene {
         Scene.activeScene = Scene.allScenes.get(name);
     }
 
-    abstract public String constructOutputString();
+//    abstract public String constructOutputString();
 }
