@@ -15,25 +15,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * A Use_case.OrderManager that manages all the Orders.
  */
 
-public class OrderManager implements CommandExecutable {
+public class OrderManager{
 
-    private static HashMap<String, Order> orders; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
+    protected static HashMap<String, Order> orders = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
-    /**
-     * @param current_orders a map that maps s' id to the Entities.Order objects.
-     *                       <p>
-     *                       Create a Use_case.OrderManager with the given Orders.
-     */
-    public OrderManager(HashMap<String, Order> current_orders) {
-        orders = current_orders;
-    }
-
-    /**
-     * Create a Use_case.OrderManager with no given FoodTrucks.
-     */
-    public OrderManager() {
-        orders = new HashMap<>();
-    }
 
     /**
      * Create a unique id (0~999999) for the order and add it to the list.
@@ -47,13 +32,13 @@ public class OrderManager implements CommandExecutable {
      * @return the id of new order
      */
 
-    public int createOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
+    public static int createOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
                           String customerNumber, String sellerName, String sellerNumber) {
         int id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
         while (orders.containsKey(Integer.toString(id))) {
             id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
         }
-        Order new_order = new Order(id, foodTruck, foodList, customerName,
+        Order new_order = new Order(foodTruck, foodList, customerName,
                 customerNumber, sellerName, sellerNumber);
         orders.put(Integer.toString(id), new_order);
         return id;
@@ -160,13 +145,8 @@ public class OrderManager implements CommandExecutable {
         return orders.get(String.valueOf(id));
     }
 
-    @Override
-    public HashMap<String, Method> getAvailableCommands() {
-        return null;
-    }
-
     @SuppressWarnings("unchecked")
-    public void constructOrderDataBase() throws IOException, ClassNotFoundException {
+    public static void constructOrderDataBase() throws IOException, ClassNotFoundException {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/order info"));
             orders = (HashMap<String, Order>) ois.readObject();
@@ -176,7 +156,7 @@ public class OrderManager implements CommandExecutable {
         }
     }
 
-    public void saveOrderDataBase() throws IOException {
+    public static void saveOrderDataBase() throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/order info.txt"));
         oos.writeObject(orders);
         oos.flush();

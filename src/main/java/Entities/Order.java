@@ -9,7 +9,8 @@ import java.util.ArrayList;
  */
 
 public class Order implements Serializable {
-    private final int ID; // a unique id for the order
+    private static int idCounter = 0;
+    private final int id; // a unique id for the order
     private final FoodTruck foodTruck; // private Entities.FoodTruck foodTruck;
     private final ArrayList<Food> foodList; // a list of foods ordered by the customers
     private final double totalPrice; // total price
@@ -24,7 +25,6 @@ public class Order implements Serializable {
     /**
      * Construct a new order object
      *
-     * @param ID             a unique id for the order
      * @param foodTruck      the foodtruck that is responsible for this order
      * @param foodList       a list of foods ordered by the customers
      * @param customerName   name of the customer who ordered the food
@@ -32,9 +32,10 @@ public class Order implements Serializable {
      * @param sellerName     name of the seller who owns the food truck
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
-    public Order(int ID, FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
+    public Order(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
                  String customerNumber, String sellerName, String sellerNumber) {
-        this.ID = ID;
+        this.id = idCounter;
+        idCounter ++;
         this.foodTruck = foodTruck;
         this.foodList = foodList; // Aliasing problem??
         this.totalPrice = getTotalPrice();
@@ -43,7 +44,7 @@ public class Order implements Serializable {
         this.sellerName = sellerName;
         this.sellerNumber = sellerNumber;
         this.rating = -0.1;
-        this.status = "order created";
+        this.status = "in progress";
     }
 
     /**
@@ -88,14 +89,14 @@ public class Order implements Serializable {
      * @return A string
      */
     public String toString() {
-        return this.ID + "\n" + this.customerName + " : " + this.customerNumber + "\n" + this.foodTruck.getTruckName() +
+        return this.id + "\n" + this.customerName + " : " + this.customerNumber + "\n" + this.foodTruck.getTruckName() +
                 " : " + this.sellerNumber + "\n" + this.getFoodList() + "\n" + "Total : $" + this.totalPrice + "\n" +
                 this.status;
     }
 
 
-    public int getID() {
-        return this.ID;
+    public int getId() {
+        return this.id;
     }
 
 

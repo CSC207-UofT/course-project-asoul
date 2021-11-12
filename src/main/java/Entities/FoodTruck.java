@@ -12,14 +12,12 @@ public class FoodTruck implements Serializable {
     private final String location; //The location of the Entities.Food Truck, can't be changed once set
     private final String serviceTimeStart; //Starting service time
     private final String serviceTimeEnd; //Ending service time
-    private boolean status = false; //Whether the Entities.Food Truck is currently operating
-    private final Seller seller; // The Entities.Seller who owns the Entities.Food Truck
-    private final ArrayList<Order> orderHistory; // List of Entities.Order Histories of the Entities.Food Truck
-    private double rating = 0.0; // Rating of the Entities.Food Truck
+    private boolean active = false; //Whether the Entities.Food Truck is currently operating
+    private final String seller; // The Entities.Seller who owns the Entities.Food Truck
+    private double rating; // Rating of the Entities.Food Truck
     // we are going to change it in the rating system. So it can't be final.
-    private final ArrayList<Order> orderQueue; // List of Active Orders
+    private final ArrayList<Integer> orderQueue; // List of Active Orders
     private final FoodMenu menu; //Menu of the Entities.Food Truck
-
     /**
      * Construct an instance of a Entities.FoodTruck
      *
@@ -31,24 +29,23 @@ public class FoodTruck implements Serializable {
      * @param menu             The corresponding Menu of this Entities.Food Truck, which contains a list of foods.
      */
     public FoodTruck(String truckName, String location, String serviceTimeStart,
-                     String serviceTimeEnd, Seller seller, FoodMenu menu) {
+                     String serviceTimeEnd, String seller, FoodMenu menu) {
+        this.rating = 0.0;
         this.truckName = truckName;
         this.location = location;
         this.serviceTimeStart = serviceTimeStart;
         this.serviceTimeEnd = serviceTimeEnd;
         this.seller = seller;
         this.menu = menu;
-        this.orderHistory = new ArrayList<>();
         this.orderQueue = new ArrayList<>();
+        this.active = false;
     }
 
     /**
      * Change the status of the Entities.Food Truck
-     *
-     * @param status The status want to change to.
      */
-    public void changeStatus(boolean status) {
-        this.status = status;
+    public void changeStatus() {
+        this.active = !this.active;
     }
 
     /**
@@ -71,24 +68,19 @@ public class FoodTruck implements Serializable {
         return this.menu.removeFood(food);
     }
 
-    public void updateOrderHistory(Order order) {
-        this.orderHistory.add(order);
-        // Then if OrderHistory >= 10, calculate rating (To be implemented later TODO)
-    }
-
     public void addOrderToQueue(Order order) {
-        this.orderQueue.add(order);
+        this.orderQueue.add(order.getId());
     }
 
     // Remove the Entities.Order from orderQueue with the given id, return the removed Entities.Order
-    public Order removeOrderWithID(int id) { // we are going to use the return value later.
-        for (Order orders : this.orderQueue) {
-            if (orders.getID() == id) {
-                this.orderQueue.remove(orders);
-                return orders;
+    public int removeOrderWithID(int id) { // we are going to use the return value later.
+        for (int orderID : this.orderQueue) {
+            if (orderID == id) {
+                this.orderQueue.remove(orderID);
+                return orderID;
             }
         }
-        return null; // Add Error here, we should not have reached here if the given id is correct.
+        return -1; // Add Error here, we should not have reached here if the given id is correct.
     }
 
 
@@ -97,7 +89,7 @@ public class FoodTruck implements Serializable {
     //A string description of the Entities.Food Truck (name, location, rating...)
     @Override
     public String toString() {
-        if (this.status) {
+        if (this.active) {
             return this.truckName + "is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently operating." +
                     "\n" + "The rating of the food truck is " + this.rating + ".";
@@ -134,11 +126,11 @@ public class FoodTruck implements Serializable {
                 + this.serviceTimeStart + "-" + this.serviceTimeEnd + ".";
     }
 
-    public boolean getStatus() {
-        return this.status;
+    public boolean isActive() {
+        return this.active;
     }
 
-    public Seller getSeller() {
+    public String getSeller() {
         return this.seller;
     }
 
@@ -150,11 +142,7 @@ public class FoodTruck implements Serializable {
         return this.menu;
     }
 
-    public ArrayList<Order> getOrderHistory() {
-        return this.orderHistory;
-    }
-
-    public ArrayList<Order> getOrderQueue() {
+    public ArrayList<Integer> getOrderQueue() {
         return this.orderQueue;
     }
 }

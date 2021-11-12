@@ -3,14 +3,16 @@ package Entities;
 import Exceptions.IncorrectOldPasswordException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
     private final String accountName; //The account name of this Entities.User
     private double accountBalance; //The current account balance of this Entities.User (in double)
     private String password; //The string representing the password of this Entities.User's account
     private String nickname; //The nickname of this Entities.User
     private final String phoneNumber; //A string that represents the phone number of this Entities.User
     private boolean login; //Login status. True if logged in, False otherwise.
+    private ArrayList<String> orderHistory;
 
     /**
      * Construct an instance of a Entities.User
@@ -25,11 +27,15 @@ public abstract class User implements Serializable {
         this.password = password;
         this.nickname = nickname;
         this.phoneNumber = phoneNumber;
+        this.orderHistory = new ArrayList<>();
         accountBalance = 0.0;
         login = false;
     }
 
-    public abstract String toString();
+    public String toString() {
+        return "Account Name: " + this.getAccountName() + "; Password: " + this.getPassword() + "; Nickname: " +
+                this.getNickname() + "; PhoneNumber: " + this.getPhoneNumber() + ".";
+    }
 
     /**
      * Login to the account.
@@ -40,10 +46,8 @@ public abstract class User implements Serializable {
     public boolean login(String password) {
         if (this.password.equals(password)) {
             this.login = true;
-            System.out.println("Log in success!");
             return true;
         } else {
-            System.out.println("Password incorrect!");
             return false;
         }
     }
@@ -56,11 +60,9 @@ public abstract class User implements Serializable {
      */
     public boolean logout() {
         if (!this.login) {
-            System.out.println("You need log in first");
             return false;
         } else {
             this.login = false;
-            System.out.println("Log out success!");
             return true;
         }
     }
@@ -75,10 +77,8 @@ public abstract class User implements Serializable {
         try {
             this.accountBalance += money;
         } catch (Exception e) {
-            System.out.println("Add fail");
             return false;
         }
-        System.out.println("Add success!");
         return true;
     }
 
@@ -88,7 +88,6 @@ public abstract class User implements Serializable {
      * @return Return the Balance of this Entities.User account in double.
      */
     public double checkBalance() {
-        System.out.println("Your current balance is: " + this.accountBalance);
         return this.accountBalance;
     }
 
@@ -100,11 +99,9 @@ public abstract class User implements Serializable {
      */
     public boolean withdrawMoney(double money) { // we are going to use the return value later.
         if (this.accountBalance < money) {
-            System.out.println("Insufficient balance!");
             return false;
         } else {
             this.accountBalance -= money;
-            System.out.println("Withdraw Success!");
             return true;
         }
     }
@@ -121,6 +118,14 @@ public abstract class User implements Serializable {
         }
     }
 
+    public boolean storeOrder(String orderID) { // we are going to use the return value later.
+        try {
+            this.orderHistory.add(orderID);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
     /**
      * Getting for all the instance variables
      */
@@ -148,5 +153,8 @@ public abstract class User implements Serializable {
     public boolean getLoginStatus() {
         return this.login;
     }
-    
+
+    public ArrayList<String> getOrderHistory() {
+        return orderHistory;
+    }
 }
