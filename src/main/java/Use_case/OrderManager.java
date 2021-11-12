@@ -6,10 +6,8 @@ import Entities.FoodTruck;
 import Entities.Order;
 
 import java.io.*;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A Use_case.OrderManager that manages all the Orders.
@@ -34,12 +32,19 @@ public class OrderManager{
 
     public static int createOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
                           String customerNumber, String sellerName, String sellerNumber) {
-        int id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
-        while (orders.containsKey(Integer.toString(id))) {
-            id = ThreadLocalRandom.current().nextInt(0, 999999 + 1);
+        int id = 0;
+        if (orders.isEmpty()) {
+            id = 1;
+        } else {
+            for (Order k : orders.values()) {
+                if (k.getId() > id) {
+                    id = k.getId();
+                }
+            }
+            id ++;
         }
         Order new_order = new Order(foodTruck, foodList, customerName,
-                customerNumber, sellerName, sellerNumber);
+                customerNumber, sellerName, sellerNumber, id);
         orders.put(Integer.toString(id), new_order);
         return id;
     }
@@ -71,7 +76,7 @@ public class OrderManager{
      * @return true if the order status being changed successfully.
      */
     public boolean changeOrderStatus(String id) {
-        return orders.get(id).changeOrderStatus();
+        return getOrder(id).changeOrderStatus();
     }
 
     /**
@@ -117,6 +122,7 @@ public class OrderManager{
      * @param foods the list of foods' name
      * @param trucks A FoodTruckManager stores all trucks.
      * @param truckName The truck name of the truck
+     *
      * @return The total price of the given food in the truck
      */
     public double getTotalPrice(ArrayList<String> foods, FoodTruckManager trucks, String truckName) {
@@ -126,23 +132,42 @@ public class OrderManager{
 
     /**
      * @param id the Entities.Order's id.
+     *
      * @return A map that from the Entities.Order's id to the Entities.Order's information. If the Entities.Order doesn't
      * exist, return an empty map.
      */
-    public HashMap<String, String> getOrderDetail(int id) {
+    public HashMap<String, String> getOrderDetail(String id) {
         HashMap<String, String> information = new HashMap<>();
-        if (orders.containsKey(String.valueOf(id))) {
-            information.put(String.valueOf(id), getOrder(id).toString());
+        if (orders.containsKey(id)) {
+            information.put(id, getOrder(id).toString());
         }
         return information;
     }
 
     /**
-     * @param id the Entities.Order's id.
-     * @return The order with the given id.
+     * Update the customers rating for an order. Method returns true when given a reasonable rating, return false
+     * otherwise
+     *
+     * @param rating should be a double < 10 & > 0
+     * @param id the id of the order we want to rate
+     *
+     * @return return true if rating updated successfully, return false otherwise
      */
-    public Order getOrder(int id) {
-        return orders.get(String.valueOf(id));
+    public boolean rateOrder(double rating, String id) {
+        return getOrder(id).rateOrder(rating);
+    }
+
+    /**
+     * @param id the Entities.Order's id.
+     *
+     * @return The order with the given id.
+     *         null is the id is not exist.
+     */
+    public Order getOrder(String id) {
+        if (orders.containsKey(id)) {
+            return orders.get(id);
+        }
+        return null;
     }
 
     @SuppressWarnings("unchecked")
