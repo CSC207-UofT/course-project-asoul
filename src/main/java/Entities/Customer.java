@@ -52,7 +52,6 @@ public class Customer extends User {
         try {
             this.orderHistory.remove(order);
         } catch (Exception e) {
-            System.out.println("Remove fail");
             return false;
         }
         System.out.println("Remove success");
