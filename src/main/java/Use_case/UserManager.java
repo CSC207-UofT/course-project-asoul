@@ -8,6 +8,8 @@ import Exceptions.IncorrectCredentialsException;
 import Exceptions.IncorrectOldPasswordException;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -85,9 +87,9 @@ abstract public class UserManager{
      */
     public String getUserType(String accName) {
         if (customerMap.containsKey(accName)) {
-            return "Entities.Customer";
+            return "Customer";
         } else if (sellerMap.containsKey(accName)) {
-            return "Entities.Seller";
+            return "Seller";
         }
         return "no this account";
     }
@@ -107,7 +109,7 @@ abstract public class UserManager{
             return false;
         }
 
-        if (userType.equals("Entities.Customer")) {
+        if (userType.equals("Customer")) {
             Customer newCustomer = new Customer(accName, password, nickname, phoneNum);
             userMap.put(accName, newCustomer);
             customerMap.put(accName, newCustomer);
@@ -132,7 +134,7 @@ abstract public class UserManager{
     public void deleteUser(String accountName) {
         String type = getUserType(accountName);
         userMap.remove(accountName);
-        if (type.equals("Entities.Customer")) {
+        if (type.equals("Customer")) {
             customerMap.remove(accountName);
         } else {
             sellerMap.remove(accountName);
@@ -159,4 +161,7 @@ abstract public class UserManager{
         return userMap.get(accName).getAccountBalance();
     }
 
+    public abstract void constructUserDataBase() throws IOException, ClassNotFoundException;
+
+    public abstract void saveUserDataBase() throws IOException;
 }

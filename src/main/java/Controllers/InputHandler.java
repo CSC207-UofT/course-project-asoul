@@ -75,7 +75,7 @@ public class InputHandler {
             case "register": rs.registerUser();
                 return "start register";
             default:
-                return "input invalid";
+                return "input invalid"; //TODO
         }
 
     }

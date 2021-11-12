@@ -2,7 +2,9 @@ package Entities;
 
 import Exceptions.IncorrectOldPasswordException;
 
-public abstract class User {
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
     private final String accountName; //The account name of this Entities.User
     private double accountBalance; //The current account balance of this Entities.User (in double)
     private String password; //The string representing the password of this Entities.User's account
@@ -146,4 +148,5 @@ public abstract class User {
     public boolean getLoginStatus() {
         return this.login;
     }
+    
 }

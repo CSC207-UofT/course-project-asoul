@@ -1,12 +1,13 @@
 package Entities;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Java class representation for Entities.FoodTruck instance
  */
-public class FoodTruck {
+public class FoodTruck implements Serializable {
     private final String truckName; // The name of the Entities.Food Truck
     private final String location; //The location of the Entities.Food Truck, can't be changed once set
     private final String serviceTimeStart; //Starting service time

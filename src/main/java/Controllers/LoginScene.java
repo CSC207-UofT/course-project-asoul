@@ -14,6 +14,8 @@ public class LoginScene extends Scene {
 //    private boolean successRegistration;
     private final HashMap<String, String> displayMap;
 
+
+
     public LoginScene() {
         super("Login");
         this.fields.put("username", "");
