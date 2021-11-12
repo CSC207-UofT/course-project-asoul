@@ -9,7 +9,6 @@ import java.util.ArrayList;
  */
 
 public class Order implements Serializable {
-    private static int idCounter = 0;
     private final int id; // a unique id for the order
     private final FoodTruck foodTruck; // private Entities.FoodTruck foodTruck;
     private final ArrayList<Food> foodList; // a list of foods ordered by the customers
@@ -20,7 +19,7 @@ public class Order implements Serializable {
     private final String sellerNumber; // contact number of the seller who owns the food truck
     private double rating;// customer can rate their order from 0 ~ 10. (if the customer didn't rate, rating
     // for the order will be a default -0.1)
-    private String status; // the status can only be "order received", "in progress" or "order completed"
+    private String status; // the status can only be "in progress" or "order completed"
 
     /**
      * Construct a new order object
@@ -33,9 +32,8 @@ public class Order implements Serializable {
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
     public Order(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
-                 String customerNumber, String sellerName, String sellerNumber) {
-        this.id = idCounter;
-        idCounter ++;
+                 String customerNumber, String sellerName, String sellerNumber, int id) {
+        this.id = id;
         this.foodTruck = foodTruck;
         this.foodList = foodList; // Aliasing problem??
         this.totalPrice = getTotalPrice();
@@ -55,10 +53,7 @@ public class Order implements Serializable {
      * @return whether the current status has been modified
      */
     public boolean changeOrderStatus() {
-        if (this.status.equals("order created")) {
-            this.status = "in progress";
-            return true;
-        } else if (this.status.equals("in progress")) {
+        if (this.status.equals("in progress")) {
             this.status = "order completed";
             return true;
         } else {
