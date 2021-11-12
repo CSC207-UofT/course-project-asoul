@@ -1,7 +1,7 @@
 package Exceptions;
 
-public class IncorrectCredentialsException extends Exception{
-    public IncorrectCredentialsException(){
+public class IncorrectCredentialsException extends Exception {
+    public IncorrectCredentialsException() {
         super("Incorrect user credentials entered!");
     }
 }
