@@ -122,6 +122,16 @@ public class FoodTruckManager {
         }
     }
 
+    public boolean checkFoodFromFTMenu(int ID, String truckName){
+        FoodTruck checkFoodTruck;
+        checkFoodTruck = getFoodTruckById(truckName);
+        FoodMenu checkFoodMenu;
+        checkFoodMenu = checkFoodTruck.getMenu();
+        return checkFoodMenu.isThereSameNameFoodId(ID);
+
+
+
+    }
     // TODO: updateOrderHistory()
     // It's better to change the code in the Entities.FoodTruck.updateOrderHistory().
     // Since when we update OrderHistory we don't only add order.
@@ -155,7 +165,7 @@ public class FoodTruckManager {
      * false if the food truck name has been exists.
      */
 
-    public boolean creatFoodTruck(String truckName, String location, String serviceTimeStart,
+    public boolean createFoodTruck(String truckName, String location, String serviceTimeStart,
                                   String serviceTimeEnd, String selName, SellerManager sellers) {
         if (this.food_trucks.containsKey(truckName)) {
             return false;
@@ -198,7 +208,7 @@ public class FoodTruckManager {
         label4.add("Crisp");
         Food food4 = new Food("Poutine", 6.50, 4, label4, "Pretty delicious crisp Poutine!");
 
-        boolean success = creatFoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, selName, sellers);
+        boolean success = createFoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, selName, sellers);
         addFoodToMenu(food1, truckName);
         addFoodToMenu(food2, truckName);
         addFoodToMenu(food3, truckName);
