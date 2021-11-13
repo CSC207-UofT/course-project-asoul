@@ -1,9 +1,6 @@
 package Use_case;
 
-import Entities.Food;
-import Entities.FoodMenu;
-import Entities.FoodTruck;
-import Entities.Seller;
+import Entities.*;
 
 import java.io.*;
 import java.lang.reflect.Method;
@@ -16,25 +13,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * A Use_case.FoodTruckManager that manages all the FoodTrucks.
  */
 
-public class FoodTruckManager implements CommandExecutable{
+public class FoodTruckManager{
 
-    private static HashMap<String, FoodTruck> foodTrucks; // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
-
-    /**
-     * @param foodTrucks a current map that maps a food truck's id to the Entities.FoodTruck object.
-     *                   <p>
-     *                   Create a Use_case.FoodTruckManager with the given FoodTrucks.
-     */
-    public FoodTruckManager(HashMap<String, FoodTruck> foodTrucks) {
-        this.foodTrucks = foodTrucks;
-    }
-
-    /**
-     * Create a Use_case.FoodTruckManager with no given FoodTrucks.
-     */
-    public FoodTruckManager() {
-        this.foodTrucks = new HashMap<>();
-    }
+    protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
      * @param status the status that the food truck will turn to.
@@ -43,9 +24,9 @@ public class FoodTruckManager implements CommandExecutable{
      *               Change the status of the specific food truck.
      * @return Return true if successfully changed.
      */
-    public boolean changeStatus(String id, boolean status) {
-        if (this.foodTrucks.containsKey(id)) {
-            this.foodTrucks.get(id).changeStatus(status);
+    public static boolean changeStatus(String id) {
+        if (foodTrucks.containsKey(id)) {
+            foodTrucks.get(id).changeStatus();
             return true;
         } else {
             return false;
@@ -64,7 +45,7 @@ public class FoodTruckManager implements CommandExecutable{
      * @param truckName The name of the given truck
      * @return true if we add the food. false if we update the food.
      */
-    public boolean addFoodToMenu(String foodName, double price,
+    public static boolean addFoodToMenu(String foodName, double price,
                                  ArrayList<String> label, String descriptions, String truckName) {
         ArrayList<Integer> ids = getFoodTruckById(truckName).getMenu().getFoodIds();
         int i = ThreadLocalRandom.current().nextInt(0, 99 + 1);
@@ -83,7 +64,7 @@ public class FoodTruckManager implements CommandExecutable{
      * @param truckName The name of the given truck
      * @return true if we add the food. false if we update the food.
      */
-    public boolean addFoodToMenu(Food food, String truckName) { // we are going to use the return value later.
+    public static boolean addFoodToMenu(Food food, String truckName) { // we are going to use the return value later.
         return getFoodTruckById(truckName).addFoodToMenu(food);
     }
 
@@ -94,7 +75,7 @@ public class FoodTruckManager implements CommandExecutable{
      * @param truckName The name of the given truck
      * @return true if we add the food. false if we update the food.
      */
-    public boolean removeFoodFromMenu(String foodName, String truckName) {
+    public static boolean removeFoodFromMenu(String foodName, String truckName) {
         ArrayList<String> label = new ArrayList<>();
         Food food = new Food(foodName, 0, 0, label, "");
         return getFoodTruckById(truckName).removeFoodFromMenu(food);
@@ -107,21 +88,8 @@ public class FoodTruckManager implements CommandExecutable{
      * @param truckName The name of the given truck
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
-    public boolean removeFoodFromMenu(Food food, String truckName) {
+    public static boolean removeFoodFromMenu(Food food, String truckName) {
         return getFoodTruckById(truckName).removeFoodFromMenu(food);
-    }
-
-    /**
-     * @param id the id of the specific food truck.
-     * @return order history of the specific food truck.
-     * false if the food truck is not in the list.
-     */
-    public Object getOrderHistory(String id) {
-        if (this.foodTrucks.containsKey(id)) {
-            return this.foodTrucks.get(id).getOrderHistory();
-        } else {
-            return false;
-        }
     }
 
     // TODO: updateOrderHistory()
@@ -135,84 +103,37 @@ public class FoodTruckManager implements CommandExecutable{
      * @return the menu of the specific food truck.
      * false if the food truck is not in the list.
      */
-    public Object getMenu(String id) {
-        if (this.foodTrucks.containsKey(id)) {
-            return this.foodTrucks.get(id).getMenu().toString();
+    public static Object getMenu(String id) {
+        if (foodTrucks.containsKey(id)) {
+            return foodTrucks.get(id).getMenu().toString();
         } else {
             return false;
         }
     }
 
     /**
-     * Use truckName as the id for the truck and add it to the Hashmap.
-     * The default menu is an empty menu. You can add food later.
-     *
-     * @param truckName        The name of the Entities.Food Truck
-     * @param location         The location of the Entities.Food Truck (eg. "207 St. George St")
-     * @param serviceTimeStart Entities.Food Truck service start Time (eg. "9:30", "10:00")
-     * @param serviceTimeEnd   Entities.Food Truck service end Time (eg. "17:30", "22:00")
-     * @param selName          The corresponding Entities.Seller's account name of this Entities.Food Truck
-     * @param sellers          The Use_case.SellerManager of all current sellers.
-     * @return true if the food truck being created successfully.
-     * false if the food truck name has been exists.
+     * @param sellerName the owner of the food truck
+     * @return the created food truck
      */
 
-    public boolean creatFoodTruck(String truckName, String location, String serviceTimeStart,
-                                  String serviceTimeEnd, String selName, SellerManager sellers) {
-        if (this.foodTrucks.containsKey(truckName)) {
-            return false;
+    protected static FoodTruck createEmptyFoodTruck(String sellerName) { // Called when creating a new user
+        if (foodTrucks.containsKey(sellerName)) {
+            return null;
         } else {
-            Seller sel = sellers.getSellerByAccName(selName);
             FoodMenu menu = new FoodMenu();
-            FoodTruck new_truck = new FoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, sel, menu);
-            this.foodTrucks.put(truckName, new_truck);
-            sel.addFoodTruck(new_truck);
-            return true;
+
+            FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", "", "", "", sellerName, menu);
+            foodTrucks.put(sellerName, new_truck);
+            return new_truck;
         }
     }
 
-    /**
-     * Create a default food truck corresponding to the given seller.
-     *
-     * @param selName The corresponding Entities.Seller's account name of this Entities.Food Truck
-     * @param sellers The Use_case.SellerManager of all current sellers.
-     * @return true if the food truck being created successfully.
-     * false if the food truck name has been exists.
-     */
-
-    public boolean createDefaultFoodTruck(SellerManager sellers, String selName) { // we are going to use the return value later.
-        String truckName = "Blue_Truck";
-        String location = "Bahen Center for Information Technology";
-        String serviceTimeStart = "9:00";
-        String serviceTimeEnd = "20:00";
-
-        ArrayList<String> label1 = new ArrayList<>();
-        label1.add("Fast food");
-        Food food1 = new Food("Hamburger", 5.50, 1, label1, "Pretty delicious legend Hamburger!");
-        ArrayList<String> label2 = new ArrayList<>();
-        label2.add("Italian");
-        Food food2 = new Food("Pizza", 10.50, 2, label2, "Pretty delicious and traditional Italian pizza!");
-        ArrayList<String> label3 = new ArrayList<>();
-        label3.add("Drinks");
-        Food food3 = new Food("Coca Cola", 1.80, 3, label3, "Cool and relaxing!");
-        ArrayList<String> label4 = new ArrayList<>();
-        label4.add("Fast food");
-        label4.add("Crisp");
-        Food food4 = new Food("Poutine", 6.50, 4, label4, "Pretty delicious crisp Poutine!");
-
-        boolean success = creatFoodTruck(truckName, location, serviceTimeStart, serviceTimeEnd, selName, sellers);
-        addFoodToMenu(food1, truckName);
-        addFoodToMenu(food2, truckName);
-        addFoodToMenu(food3, truckName);
-        addFoodToMenu(food4, truckName);
-        return success;
-    }
 
     /**
      * @param id the id of the specific food truck.
      * @return Get the order queue of the specific food truck. Return false if the food truck doesn't exist.
      */
-    public Object getOrderQueue(String id) {
+    public static Object getOrderQueue(String id) {
         if (foodTrucks.containsKey(id)) {
             return foodTrucks.get(id).getOrderQueue();
         } else {
@@ -225,7 +146,7 @@ public class FoodTruckManager implements CommandExecutable{
      *           <p>
      *           Get the rating of the specific food truck. Return false if the food truck is not in the list.
      */
-    public Object getRating(String id) {
+    public static Object getRating(String id) {
         if (foodTrucks.containsKey(id)) {
             return foodTrucks.get(id).getRating();
         } else {
@@ -236,8 +157,8 @@ public class FoodTruckManager implements CommandExecutable{
     /**
      * @return The seller of the Entities.FoodTruck.
      */
-    public Seller getSeller(String id) {
-        return getFoodTruckById(id).getSeller();
+    public static User getSeller(String id) {
+        return UserManager.userMap.get(getFoodTruckById(id).getSeller());
     }
 
     /**
@@ -262,14 +183,14 @@ public class FoodTruckManager implements CommandExecutable{
      * @return A map that from the Entities.FoodTruck's id to the Entities.FoodTruck's detailed information. If the truck doesn't
      * exist, return an empty map.
      */
-    public HashMap<String, String> getFoodTruckDetail(String id) {
+    public static HashMap<String, String> getFoodTruckDetail(String id) {
         HashMap<String, String> information = new HashMap<>();
         if (foodTrucks.containsKey(id)) {
             FoodTruck truck = getFoodTruckById(id);
             information.put("id/truckName", truck.getTruckName());
             information.put("location", truck.getLocation());
             information.put("serviceTime", truck.displayServiceTime());
-            information.put("status", String.valueOf(truck.getStatus()));
+            information.put("active", String.valueOf(truck.isActive()));
             information.put("seller", truck.getSeller().toString());
             information.put("rating", String.valueOf(truck.getRating()));
             information.put("menu", truck.getMenu().toString());
@@ -280,7 +201,7 @@ public class FoodTruckManager implements CommandExecutable{
     /**
      * @return A map that from the Entities.FoodTruck's id to the Entities.FoodTruck's briefly information for all trucks.
      */
-    public HashMap<String, String> getAllFoodTruckDescription() {
+    public static HashMap<String, String> getAllFoodTruckDescription() {
         HashMap<String, String> information = new HashMap<>();
         for (String id : getExistFoodTruckName())
             information.put(id, getFoodTruckById(id).toString());
@@ -290,7 +211,7 @@ public class FoodTruckManager implements CommandExecutable{
     /**
      * @return A set contains all current FoodTrucks' names.
      */
-    public Set<String> getExistFoodTruckName() {
+    public static Set<String> getExistFoodTruckName() {
         return foodTrucks.keySet();
     }
 
@@ -298,17 +219,12 @@ public class FoodTruckManager implements CommandExecutable{
      * @param id the Entities.FoodTruck's id
      * @return The food truck with the id.
      */
-    public FoodTruck getFoodTruckById(String id) {
+    public static FoodTruck getFoodTruckById(String id) {
         return foodTrucks.get(id);
     }
 
-    @Override
-    public HashMap<String, Method> getAvailableCommands() {
-        return null;
-    }
-
     @SuppressWarnings("unchecked")
-    public void constructFoodTruckDataBase() throws IOException, ClassNotFoundException {
+    public static void constructFoodTruckDataBase() throws IOException, ClassNotFoundException {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/foodtruck info"));
             foodTrucks = (HashMap<String, FoodTruck>) ois.readObject();
@@ -318,7 +234,7 @@ public class FoodTruckManager implements CommandExecutable{
         }
     }
 
-    public void saveFoodTruckDataBase() throws IOException {
+    public static void saveFoodTruckDataBase() throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/foodtruck info"));
         oos.writeObject(foodTrucks);
         oos.flush();

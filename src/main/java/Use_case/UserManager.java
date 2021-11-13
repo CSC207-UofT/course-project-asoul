@@ -1,15 +1,13 @@
 package Use_case;
 
-import Entities.Customer;
+import Entities.FoodTruck;
 import Entities.Order;
-import Entities.Seller;
 import Entities.User;
 import Exceptions.IncorrectCredentialsException;
 import Exceptions.IncorrectOldPasswordException;
 
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -17,9 +15,6 @@ import java.util.HashMap;
  */
 abstract public class UserManager{
     protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to Entities.User object.
-    protected static HashMap<String, Customer> customerMap = new HashMap<>(); // A map from customer's account name to Entities.Customer
-    // object.
-    protected static HashMap<String, Seller> sellerMap = new HashMap<>(); // A map from seller's account name to Entities.Seller object.
 
     /**
      * @param accName  A String that represents the account Name.
@@ -27,7 +22,14 @@ abstract public class UserManager{
      * @throws IncorrectCredentialsException Exception if the password doesn't match the account name or there is no
      *                                       such account name.
      */
-    abstract public void login(String accName, String password) throws IncorrectCredentialsException;
+    public void login(String accName, String password) throws IncorrectCredentialsException {
+        if (userMap.containsKey(accName)) {
+            if (userMap.get(accName).login(password)) {
+                return;
+            }
+        }
+        throw new IncorrectCredentialsException();
+    }
 
     /**
      * @param accountName The username of the user that wants to add money.
@@ -69,55 +71,34 @@ abstract public class UserManager{
         userInfoMap.put("password", user.getPassword());
         userInfoMap.put("nickname", user.getNickname());
         userInfoMap.put("phoneNum", user.getPhoneNumber());
-        if (user instanceof Customer) {
-            StringBuilder orderHistoryString = new StringBuilder();
-            for (Order order : ((Customer) user).getOrderHistory()) {
-                orderHistoryString.append(order.toString()).append("\n");
-            }
-            userInfoMap.put("orderHistory", orderHistoryString.toString());
-        } //to do for seller parts in else.
 
-
+        /*
+        StringBuilder orderHistoryString = new StringBuilder();
+        for (String orderID : user.getOrderHistory()) {
+            Order order =
+            orderHistoryString.append(order.toString()).append("\n");
+        }
+        userInfoMap.put("orderHistory", orderHistoryString.toString());
+        */
         return userInfoMap;
     }
 
-    /**
-     * @param accName A user's account name.
-     * @return A string that represent the user's type.
-     */
-    public String getUserType(String accName) {
-        if (customerMap.containsKey(accName)) {
-            return "Customer";
-        } else if (sellerMap.containsKey(accName)) {
-            return "Seller";
-        }
-        return "no this account";
-    }
-
 
     /**
-     * @param userType The type of the user want to create.
      * @param accName  The account name user wants to have.
      * @param password The password name user wants to have.
      * @param nickname The nickname user wants to have.
      * @param phoneNum The user's phone number.
      * @return true if the user created successfully.
      */
-    public boolean createUser(String userType, String accName, String password,
+    public boolean createUser(String accName, String password,
                               String nickname, String phoneNum) {
         if (userMap.containsKey(accName)) {
             return false;
         }
-
-        if (userType.equals("Customer")) {
-            Customer newCustomer = new Customer(accName, password, nickname, phoneNum);
-            userMap.put(accName, newCustomer);
-            customerMap.put(accName, newCustomer);
-        } else {
-            Seller newSeller = new Seller(accName, password, nickname, phoneNum);
-            userMap.put(accName, newSeller);
-            sellerMap.put(accName, newSeller);
-        }
+        FoodTruck foodTruck = FoodTruckManager.createEmptyFoodTruck(accName);
+        User newUser = new User(accName, password, nickname, phoneNum);
+        userMap.put(accName, newUser);
         return true;
     }
 
@@ -132,13 +113,7 @@ abstract public class UserManager{
 
     // the account name must exist, I do not
     public void deleteUser(String accountName) {
-        String type = getUserType(accountName);
         userMap.remove(accountName);
-        if (type.equals("Customer")) {
-            customerMap.remove(accountName);
-        } else {
-            sellerMap.remove(accountName);
-        }
     }
 
     public void setNickname(String accName, String nickname) {
@@ -161,7 +136,21 @@ abstract public class UserManager{
         return userMap.get(accName).getAccountBalance();
     }
 
-    public abstract void constructUserDataBase() throws IOException, ClassNotFoundException;
+    @SuppressWarnings("unchecked")
+    public static void constructUserDataBase() throws IOException, ClassNotFoundException {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/user info"));
+            userMap = (HashMap<String, User>) ois.readObject();
+            ois.close();
+        }catch(EOFException e){
+            // Do nothing, no seller has been registered
+        }
+    }
 
-    public abstract void saveUserDataBase() throws IOException;
+    public static void saveUserDataBase() throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/user info"));
+        oos.writeObject(userMap);
+        oos.flush();
+        oos.close();
+    }
 }

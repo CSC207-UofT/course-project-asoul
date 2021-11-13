@@ -38,19 +38,16 @@ public class InputHandler {
             return "exit";
         }
         commandChecker(Scene.getActiveScene(), arr[0]);
-        switch (Scene.activeScene.getClass().getName()) {
-            case "Controllers.LoginScene":
-                return logInSceneInputHandler(arr);
-            case "Controllers.UserInformationScene":
-                return userInformationSceneHandler(arr);
-            case "Controllers.MarketScene":
-                return marketSceneHandler(arr);
-            case "Controllers.FoodTruckScene":
-                return foodTruckSceneHandler(arr);
-            case "Controllers.RegisterScene":
-                return registerSceneHandler(arr); //TODO: add more cases.
-        }
-        return "No active scene"; //TODO:
+        return switch (Scene.activeScene.getClass().getName()) {
+            case "Controllers.LoginScene" -> logInSceneInputHandler(arr);
+            case "Controllers.UserInformationScene" -> userInformationSceneHandler(arr);
+            case "Controllers.MarketScene" -> marketSceneHandler(arr);
+            case "Controllers.FoodTruckScene" -> foodTruckSceneHandler(arr);
+            case "Controllers.RegisterScene" -> registerSceneHandler(arr);
+            default -> //TODO: add more cases.
+                    "No active scene";
+        };
+        //TODO:
 
     }
 
@@ -77,7 +74,6 @@ public class InputHandler {
             default:
                 return "input invalid"; //TODO
         }
-
     }
 
     private String foodTruckSceneHandler(String[] arr) {

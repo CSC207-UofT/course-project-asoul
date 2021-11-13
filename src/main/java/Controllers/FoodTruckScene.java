@@ -2,10 +2,8 @@ package Controllers;
 
 import Entities.Food;
 import Entities.FoodTruck;
-import Use_case.CustomerManager;
 import Use_case.FoodTruckManager;
 import Use_case.OrderManager;
-import Use_case.SellerManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,20 +14,12 @@ public class FoodTruckScene extends Scene {
     private FoodTruck foodTruck;
     private String foodTruckName;
     private ArrayList<String> cart;
-    private final FoodTruckManager ftm;
-    private final OrderManager om;
-    private final CustomerManager cm;
-    private final SellerManager sm;
     private String cusName;
     private int orderID; // we are going to use it later, so it can't be local variable.
     private boolean checkOut; // we are going to use it later, so it can't be local variable.
 
     public FoodTruckScene() {
         super("Entities.FoodTruck");
-        ftm = foodTruckManager;
-        om = orderManager;
-        cm = customerManager;
-        sm = sellerManager;
         checkOut = false;
     }
 
@@ -45,7 +35,7 @@ public class FoodTruckScene extends Scene {
      * set Foodtruck name to name
      */
     public void setFoodTruck(String name) {
-        this.foodTruck = ftm.getFoodTruckById(name);
+        this.foodTruck = FoodTruckManager.getFoodTruckById(name);
         this.foodTruckName = name;
     }
 
@@ -61,7 +51,7 @@ public class FoodTruckScene extends Scene {
         } else if (input.equals("check out")) {
             ArrayList<Food> foodList = om.getMenuFood(this.cart, this.foodTruck);
             HashMap<String, String> info = ftm.getFoodTruckDetail(foodTruckName);
-            orderID = om.creatOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
+            orderID = OrderManager.createOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
                     sm.getNickname(info.get("seller")), sm.getPhoneNumber(info.get("seller")));
         } else if (text[0].equals("select")) {
             String[] foods = Arrays.copyOfRange(text, 1, text.length);
