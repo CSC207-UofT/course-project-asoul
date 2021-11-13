@@ -3,6 +3,8 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.time.LocalDateTime; // Import the LocalDateTime class
+import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
 
 /**
  * An order
@@ -20,6 +22,7 @@ public class Order implements Serializable {
     private double rating;// customer can rate their order from 0 ~ 10. (if the customer didn't rate, rating
     // for the order will be a default -0.1)
     private String status; // the status can only be "in progress" or "order completed"
+    private final LocalDateTime time;
 
     /**
      * Construct a new order object
@@ -36,28 +39,45 @@ public class Order implements Serializable {
         this.id = id;
         this.foodTruck = foodTruck;
         this.foodList = foodList; // Aliasing problem??
-        this.totalPrice = getTotalPrice();
+        this.totalPrice = calculateTotalPrice();
         this.customerName = customerName;
         this.customerNumber = customerNumber;
         this.sellerName = sellerName;
         this.sellerNumber = sellerNumber;
         this.rating = -0.1;
         this.status = "in progress";
+        this.time = LocalDateTime.now();
+    }
+
+
+    /**
+     * Calculate the total price of the food list.
+     *
+     * @return The total price.
+     */
+    public double calculateTotalPrice() {
+        double price = 0.0;
+        for (Food f : this.foodList) {
+            price = price + f.getPrice();
+        }
+        return price;
     }
 
     /**
-     * change the current status of this order to the next status. Method will return true when the status successfully
-     * modified, and return false otherwise. E.g. when current status is "order completed", call changeOrderStatus again
-     * will not change the status and false will be returned.
+     * change the current status of this order to the next status.
+     * E.g. when current status is "order completed", call changeOrderStatus again
+     * will not change the status and "Change Failed" will be returned.
      *
-     * @return whether the current status has been modified
+     * @return Whether the status being changed successfully.
      */
-    public boolean changeOrderStatus() {
+    public String changeOrderStatus() throws Exception {
         if (this.status.equals("in progress")) {
             this.status = "order completed";
-            return true;
+            return "Change Successfully";
+        } else if (this.status.equals("order completed")) {
+            return "Change Failed";
         } else {
-            return false;
+            throw new Exception("Invalid Status");
         }
     }
 
@@ -70,7 +90,7 @@ public class Order implements Serializable {
      * @return return true if rating updated successfully, return false otherwise
      */
     public boolean rateOrder(double rating) {
-        if (0 < rating & rating < 10) {
+        if (0 <= rating & rating <= 10) {
             this.rating = rating;
             return true;
         }
@@ -84,9 +104,24 @@ public class Order implements Serializable {
      * @return A string
      */
     public String toString() {
-        return this.id + "\n" + this.customerName + " : " + this.customerNumber + "\n" + this.foodTruck.getTruckName() +
-                " : " + this.sellerNumber + "\n" + this.getFoodList() + "\n" + "Total : $" + this.totalPrice + "\n" +
-                this.status;
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedTime = this.getTime().format(format);
+        try {
+            return "Order Id: " + this.getId() + "\n" +
+                    "Order Time: " + formattedTime + "\n" +
+                    "Customer Name: " + this.getCustomerName() + "\n" +
+                    "Customer Number: " + this.getCustomerNumber() + "\n" +
+                    "Food Truck: " + this.getFoodTruck().getTruckName() + "\n" +
+                    "Seller Name: " + this.getSellerName() + "\n" +
+                    "Seller Number: " + this.getSellerNumber() + "\n" +
+                    "Food List: " + this.getFoodList() + "\n" +
+                    "Total Price: $" + this.getTotalPrice() + "\n" +
+                    "Status: " + this.getStatus() + "\n" +
+                    "Rating: " + this.getRating();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Invalid Rating";
+        }
     }
 
 
@@ -100,12 +135,13 @@ public class Order implements Serializable {
     }
 
 
-    public double getTotalPrice() {
-        double price = 0.0;
-        for (Food f : this.foodList) {
-            price = price + f.getPrice();
-        }
-        return price;
+    public Double getTotalPrice() {
+        return this.totalPrice;
+    }
+
+
+    public LocalDateTime getTime() {
+        return this.time;
     }
 
 
@@ -134,8 +170,14 @@ public class Order implements Serializable {
     }
 
 
-    public Double getRating() {
-        return this.rating;
+    public Object getRating() throws Exception {
+        if (this.rating == -0.1) {
+            return "No Rating";
+        } else if (0 <= this.rating & this.rating <= 10) {
+            return this.rating;
+        } else {
+            throw new Exception("Invalid Rating");
+        }
     }
 
 
