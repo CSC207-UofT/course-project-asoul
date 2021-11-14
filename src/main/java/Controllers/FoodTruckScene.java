@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class FoodTruckScene extends Scene {
-    private FoodTruck foodTruck;
     private String foodTruckName;
     private ArrayList<String> cart;
     private String cusName;
@@ -58,4 +57,21 @@ public class FoodTruckScene extends Scene {
             Collections.addAll(cart, foods);
         }
     }
+
+
+    public void selectFood(int id, int num){
+
+    }
+
+
+    public void removeFood(int id, int num){
+
+    }
+
+
+    public boolean checkValidFood(int id){
+        return FoodTruckManager.checkFoodFromFTMenu(id, foodTruckName);
+    }
+
+
 }

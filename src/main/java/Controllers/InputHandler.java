@@ -4,6 +4,9 @@ import Exceptions.IncorrectCredentialsException;
 import Exceptions.InvalidInput;
 import Exceptions.UnknownCommandException;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class InputHandler {
     private final LoginScene ls;
     private final MarketScene ms;
@@ -76,8 +79,33 @@ public class InputHandler {
         }
     }
 
-    private String foodTruckSceneHandler(String[] arr) {
-        return  "";
+    private String foodTruckSceneHandler(String[] arr) throws UnknownCommandException {
+       List<String> commands = Arrays.asList("select_food", "remove_food", "check_out", "back");
+       int quantity = 0;
+       int foodId = 0;
+       if (!commands.contains(arr[0])){
+           throw new UnknownCommandException();
+       }
+       if (arr[0].equals(commands.get(0)) || arr[0].equals(commands.get(1))){
+           try {
+               quantity = Integer.parseInt(arr[2]);
+               foodId = Integer.parseInt(arr[1]);
+           }
+           catch (NumberFormatException e){
+               throw new UnknownCommandException();
+           }
+       }
+       if (!(fts.checkValidFood(foodId))){
+           throw new UnknownCommandException();
+       }
+        switch (arr[0]) {
+            case "select_food": fts.selectFood(foodId, quantity);
+                return "added to basket";
+            case "remove_food": fts.removeFood(foodId, quantity);
+                return "removed from basket";
+            case "check_out":
+
+        }
     }
 
     private String marketSceneHandler(String[] arr) {
