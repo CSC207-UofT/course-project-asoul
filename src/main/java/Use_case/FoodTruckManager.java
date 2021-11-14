@@ -18,7 +18,6 @@ public class FoodTruckManager{
     protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
-     * @param status the status that the food truck will turn to.
      * @param id     the id of the food truck whose status is going to be changed.
      *               <p>
      *               Change the status of the specific food truck.
@@ -99,7 +98,7 @@ public class FoodTruckManager{
      * @return true if the food ID is in the given foodtruck's menu, false otherwise.
      */
     public boolean checkFoodFromFTMenu(int ID, String truckName){
-        return getFoodTruckById(truckName).getMenu().isThereSameNameFoodId(ID)
+        return getFoodTruckById(truckName).getMenu().isThereSameNameFoodId(ID);
     }
 
     // TODO: updateOrderHistory()
