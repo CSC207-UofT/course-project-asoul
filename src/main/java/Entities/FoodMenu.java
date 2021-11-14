@@ -35,6 +35,21 @@ public class FoodMenu implements Serializable {
         }
         return false;
     }
+    /**
+     * return whether the menu have the food with same name as the given food.
+     *
+     * @param id The given food id.
+     * @return true if there is the food with same name as the given food id. false for not
+     */
+    public boolean isThereSameNameFoodId(int id) {
+        for (Food f : this.foodList) {
+            if (f.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.

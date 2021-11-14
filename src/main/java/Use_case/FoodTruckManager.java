@@ -91,6 +91,16 @@ public class FoodTruckManager{
     public static boolean removeFoodFromMenu(Food food, String truckName) {
         return getFoodTruckById(truckName).removeFoodFromMenu(food);
     }
+    /**
+     * With the given foodtruck's name, remove food to menu if food object is in menu.
+     *
+     * @param ID      The food ID want to check.
+     * @param truckName The name of the given truck
+     * @return true if the food ID is in the given foodtruck's menu, false otherwise.
+     */
+    public boolean checkFoodFromFTMenu(int ID, String truckName){
+        return getFoodTruckById(truckName).getMenu().isThereSameNameFoodId(ID)
+    }
 
     // TODO: updateOrderHistory()
     // It's better to change the code in the Entities.FoodTruck.updateOrderHistory().
