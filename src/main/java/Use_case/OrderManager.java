@@ -13,13 +13,27 @@ import java.util.HashMap;
  * A Use_case.OrderManager that manages all the Orders.
  */
 
-public class OrderManager{
+public class OrderManager {
 
     protected static HashMap<String, Order> orders = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
+    /**
+     * Find the id of the newest order.
+     *
+     * @return The id of the newest order. If there is no existing order, return 0.
+     */
+    public static int getNewestOrder() {
+        int id = 0;
+        for (Order k : orders.values()) {
+            if (k.getId() > id) {
+                id = k.getId();
+            }
+        }
+        return id;
+    }
 
     /**
-     * Create a unique id (0~999999) for the order and add it to the list.
+     * Create an order and add it to the list.
      *
      * @param foodTruck      the foodtruck that is responsible for this order
      * @param foodList       a list of foods ordered by the customers
@@ -31,18 +45,8 @@ public class OrderManager{
      */
 
     public static int createOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
-                          String customerNumber, String sellerName, String sellerNumber) {
-        int id = 0;
-        if (orders.isEmpty()) {
-            id = 1;
-        } else {
-            for (Order k : orders.values()) {
-                if (k.getId() > id) {
-                    id = k.getId();
-                }
-            }
-            id ++;
-        }
+                                  String customerNumber, String sellerName, String sellerNumber) {
+        int id = getNewestOrder() + 1;
         Order new_order = new Order(foodTruck, foodList, customerName,
                 customerNumber, sellerName, sellerNumber, id);
         orders.put(Integer.toString(id), new_order);
@@ -50,11 +54,11 @@ public class OrderManager{
     }
 
     /**
-     * Create a unique id (0~999999) for the order and add it to the list.
+     * Create an order and add it to the list.
      *
-     * @param trucks A FoodTruckManager stores all trucks.
-     * @param truckName The truck name of the truck
-     * @param foods       a list of foods' name ordered by the customers
+     * @param trucks         A FoodTruckManager stores all trucks.
+     * @param truckName      The truck name of the truck
+     * @param foods          a list of foods' name ordered by the customers
      * @param customerName   name of the customer who ordered the food
      * @param customerNumber contact number of the customer who ordered the food
      * @param sellerName     name of the seller who owns the food truck
@@ -62,8 +66,9 @@ public class OrderManager{
      * @return the id of new order
      */
 
-    public int createOrder(FoodTruckManager trucks, String truckName, ArrayList<String> foods, String customerName,
-                          String customerNumber, String sellerName, String sellerNumber) {
+    public int createOrder(FoodTruckManager trucks, String truckName, ArrayList<String> foods, String
+            customerName,
+                           String customerNumber, String sellerName, String sellerNumber) {
         FoodTruck foodTruck = trucks.getFoodTruckById(truckName);
         ArrayList<Food> foodList = getMenuFood(foods, foodTruck);
         return createOrder(foodTruck, foodList, customerName, customerNumber, sellerName, sellerNumber);
@@ -73,9 +78,10 @@ public class OrderManager{
      * Change the specific order's status.
      *
      * @param id the id of the specific order
-     * @return true if the order status being changed successfully.
+     *
+     * @return Whether the status being changed successfully.
      */
-    public boolean changeOrderStatus(String id) {
+    public String changeOrderStatus(String id) throws Exception {
         return getOrder(id).changeOrderStatus();
     }
 
@@ -94,8 +100,8 @@ public class OrderManager{
     }
 
     /**
-     * @param foods the list of foods' name
-     * @param trucks A FoodTruckManager stores all trucks.
+     * @param foods     the list of foods' name
+     * @param trucks    A FoodTruckManager stores all trucks.
      * @param truckName The truck name of the truck
      * @return An ArrayList of Entities.Food from the given foods' names.
      */
@@ -119,10 +125,9 @@ public class OrderManager{
     }
 
     /**
-     * @param foods the list of foods' name
-     * @param trucks A FoodTruckManager stores all trucks.
+     * @param foods     the list of foods' name
+     * @param trucks    A FoodTruckManager stores all trucks.
      * @param truckName The truck name of the truck
-     *
      * @return The total price of the given food in the truck
      */
     public double getTotalPrice(ArrayList<String> foods, FoodTruckManager trucks, String truckName) {
@@ -132,7 +137,6 @@ public class OrderManager{
 
     /**
      * @param id the Entities.Order's id.
-     *
      * @return A map that from the Entities.Order's id to the Entities.Order's information. If the Entities.Order doesn't
      * exist, return an empty map.
      */
@@ -149,8 +153,7 @@ public class OrderManager{
      * otherwise
      *
      * @param rating should be a double < 10 & > 0
-     * @param id the id of the order we want to rate
-     *
+     * @param id     the id of the order we want to rate
      * @return return true if rating updated successfully, return false otherwise
      */
     public boolean rateOrder(double rating, String id) {
@@ -159,9 +162,7 @@ public class OrderManager{
 
     /**
      * @param id the Entities.Order's id.
-     *
-     * @return The order with the given id.
-     *         null is the id is not exist.
+     * @return The order with the given id. Return null is the id is not exist.
      */
     public Order getOrder(String id) {
         if (orders.containsKey(id)) {
@@ -176,7 +177,7 @@ public class OrderManager{
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/order info"));
             orders = (HashMap<String, Order>) ois.readObject();
             ois.close();
-        }catch (EOFException e){
+        } catch (EOFException e) {
             // Do nothing, no order has been created
         }
     }
