@@ -152,7 +152,7 @@ public class OrderManager {
      * Update the customers rating for an order. Method returns true when given a reasonable rating, return false
      * otherwise
      *
-     * @param rating should be a double < 10 & > 0
+     * @param rating should be a double <= 10 & >= 0
      * @param id     the id of the order we want to rate
      * @return return true if rating updated successfully, return false otherwise
      */
