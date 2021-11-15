@@ -22,7 +22,7 @@ abstract public class UserManager{
      * @throws IncorrectCredentialsException Exception if the password doesn't match the account name or there is no
      *                                       such account name.
      */
-    public void login(String accName, String password) throws IncorrectCredentialsException {
+    public static void login(String accName, String password) throws IncorrectCredentialsException {
         if (userMap.containsKey(accName)) {
             if (userMap.get(accName).login(password)) {
                 return;
@@ -35,16 +35,17 @@ abstract public class UserManager{
      * @param accountName The username of the user that wants to add money.
      * @param money       The amount of money the user wants to add.
      */
-    public void addMoney(String accountName, int money) {
+
+    public static void addMoney(String accountName, int money) {
         User user = userMap.get(accountName);
         user.addMoney(money);
-
     }
 
     /**
      * @param accountName The user that wants to withdraw money.
      * @param money       The amount of money the user wants to withdraw.
      */
+
     public void withdrawMoney(String accountName, int money) {
         User user = userMap.get(accountName);
         user.withdrawMoney(money);
@@ -54,6 +55,7 @@ abstract public class UserManager{
      * @param accName The account name of user that wants to check their balance.
      * @return The amount of money in the user's balance.
      */
+
     public double checkBalance(String accName) {
         User user = userMap.get(accName);
         return user.checkBalance();
@@ -116,11 +118,15 @@ abstract public class UserManager{
         userMap.remove(accountName);
     }
 
-    public void setNickname(String accName, String nickname) {
+    public static void setNickname(String accName, String nickname) {
         userMap.get(accName).setNickname(nickname);
     }
 
-    public void setPassword(String username, String newPassword, String oldPassword) throws IncorrectOldPasswordException {
+    public static void setPhoneNumber(String accName, String phoneNumber) {
+        userMap.get(accName).setPhoneNumber(phoneNumber);
+    }
+
+    public static void setPassword(String username, String newPassword, String oldPassword) throws IncorrectOldPasswordException {
         userMap.get(username).setPassword(newPassword, oldPassword);
     }
 

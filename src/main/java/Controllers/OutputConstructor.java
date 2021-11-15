@@ -57,7 +57,7 @@ public class OutputConstructor {
         } else if (inputFeedback.equals("confirm received")) {
             return this.rs.registerUser();
         } else {
-            return "register failure"; //TODO
+            return "register failure"; //TODO:
         }
     }
 

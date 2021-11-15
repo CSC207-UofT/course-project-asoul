@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Exceptions.IncorrectCredentialsException;
+import Use_case.UserManager;
 
 public class LoginScene extends Scene {
     // Output States
@@ -138,16 +139,9 @@ public class LoginScene extends Scene {
     public void userLogin() throws IncorrectCredentialsException { // attempt to login
         String username = this.fields.get("username");
         String password = this.fields.get("password");
-        String type = Scene.customerManager.getUserType(username);
         UserInformationScene nextScene = (UserInformationScene) Scene.allScenes.get("UserInformation");
-        if (type.equals("Entities.Seller")) {
-            Scene.sellerManager.login(username, password);
-            nextScene.setUserInfo("Entities.Seller", username);
-        } else {
-            Scene.customerManager.login(username, password);
-            nextScene.setUserInfo("Entities.Customer", username);
-        }
-        this.switchScene(nextScene);
+        UserManager.login(username, password);
+        nextScene.setUserInfo(username);
     }
 
     public void registerUser() { // Create new users

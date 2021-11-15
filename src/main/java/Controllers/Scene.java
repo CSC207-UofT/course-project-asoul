@@ -3,12 +3,14 @@ package Controllers;
 import Use_case.FoodTruckManager;
 import Use_case.OrderManager;
 import Use_case.UserManager;
+import Utilities.HasState;
+import Utilities.State;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-abstract public class Scene {
+abstract public class Scene{
     protected static boolean exit = false;
     protected static final HashMap<String, Scene> allScenes = new HashMap<>();
     protected static Scene activeScene;
@@ -16,6 +18,7 @@ abstract public class Scene {
     protected HashMap<String, String> fields; // Input fields will be stored here
     protected ArrayList<String> commandSet; // These methods will be called by user typed commands
     protected String name;
+    // private HashMap<String, State> stateMap;
 
     public Scene(String name) {
         this.name = name;
