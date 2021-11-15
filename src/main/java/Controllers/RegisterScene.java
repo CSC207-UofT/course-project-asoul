@@ -1,10 +1,15 @@
 package Controllers;
 
+import Use_case.FoodTruckManager;
+import Use_case.UserManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RegisterScene extends Scene{
     private final HashMap<String, String> displayMap;
+    private final UserManager userManager = new UserManager();
+    private final FoodTruckManager foodTruckManager = new FoodTruckManager();
 
     public RegisterScene() {
         super("register");
@@ -35,12 +40,10 @@ public class RegisterScene extends Scene{
         String userType = this.fields.get("user_type");
         String nickname = this.fields.get("nickname");
         String phoneNumber = this.fields.get("phone_number"); //TODO: let use cases throw Exceptions.
-        Scene.sellerManager.createUser(userType, username, password, nickname, phoneNumber); // TODO: Entities.User creation exception handling
-        if (userType.equals("Seller")) { //TODO: eliminate Exception
-            Scene.foodTruckManager.createDefaultFoodTruck(Scene.sellerManager, username);
-            this.clearFields();
+        userManager.createUser(username, password, nickname, phoneNumber); // TODO: Entities.User creation exception handling
+        FoodTruckManager.createEmptyFoodTruck(this.fields.get("username") + " 's Food truck.");
 
-        }
+
         this.clearFields();
         return "register success";
         //TODO: return register failure

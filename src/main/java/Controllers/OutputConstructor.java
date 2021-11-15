@@ -1,5 +1,7 @@
 package Controllers;
 
+import Exceptions.IncorrectCredentialsException;
+
 public class OutputConstructor {
     private final LoginScene ls;
     private final MarketScene ms;
@@ -17,7 +19,7 @@ public class OutputConstructor {
     }
 
 
-    public String outputGeneralGenerator(String inputFeedback) {
+    public String outputGeneralGenerator(String inputFeedback) throws IncorrectCredentialsException {
         switch (Scene.activeScene.getClass().getName()) {
             case "Controllers.LoginScene":
                 return logInSceneOutputGenerator(inputFeedback);
@@ -33,8 +35,15 @@ public class OutputConstructor {
         return ""; //TODO;
     }
 
-    private String logInSceneOutputGenerator(String inputFeedback) {
-        return ""; //TODO
+    private String logInSceneOutputGenerator(String inputFeedback) throws IncorrectCredentialsException {
+        if (inputFeedback.equals("username received") || inputFeedback.equals("password received") ||
+                inputFeedback.equals("")) {
+            return loginGeneralInfo(ls);
+        } else if (inputFeedback.equals("confirm received")) {
+            return this.ls.userLogin();
+        } else {
+            return "login failure";
+        }
     }
 
     private String userInformationSceneOutputGenerator(String inputFeedback) {
@@ -83,7 +92,8 @@ public class OutputConstructor {
 
 
 
-    public static void loginGeneral() {
-
+    public static String loginGeneralInfo(LoginScene scene) {
+        return "Username: " + scene.fields.get("username") + "\n" +
+                "Password: " + scene.fields.get("password") + "\n";
     }
 }

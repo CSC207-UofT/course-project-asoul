@@ -14,6 +14,7 @@ public class LoginScene extends Scene {
 //    private boolean register;
 //    private boolean successRegistration;
     private final HashMap<String, String> displayMap;
+    private final UserManager userManager = new UserManager();
 
 
 
@@ -30,6 +31,9 @@ public class LoginScene extends Scene {
         this.displayMap.put("nickname", "Nickname");
         this.displayMap.put("user_type", "Entities.User Type");
         this.displayMap.put("phone_number", "Phone Number");
+        this.commandSet.add("U");
+        this.commandSet.add("P");
+        this.commandSet.add("confirm");
 //        this.unknownCommandError = false;
 //        this.incorrectCredentialError = false;
 //        this.help = false;
@@ -136,26 +140,13 @@ public class LoginScene extends Scene {
 //        this.successRegistration = false;
 //    }
 
-    public void userLogin() throws IncorrectCredentialsException { // attempt to login
+    public String userLogin() throws IncorrectCredentialsException { // attempt to login
         String username = this.fields.get("username");
         String password = this.fields.get("password");
-        UserInformationScene nextScene = (UserInformationScene) Scene.allScenes.get("UserInformation");
-        UserManager.login(username, password);
-        nextScene.setUserInfo(username);
+        userManager.login(username, password);
+        return "login success";
     }
 
-    public void registerUser() { // Create new users
-        String username = this.fields.get("username");
-        String password = this.fields.get("password");
-        String userType = this.fields.get("user_type");
-        String nickname = this.fields.get("nickname");
-        String phoneNumber = this.fields.get("phone_number"); //TODO: let use cases throw Exceptions.
-        Scene.sellerManager.createUser(userType, username, password, nickname, phoneNumber); // TODO: Entities.User creation exception handling
-        if (userType.equals("Entities.Seller")) {
-            Scene.foodTruckManager.createDefaultFoodTruck(Scene.sellerManager, username);
-        }
-        this.clearFields();
-    }
 
     @Override
     protected void switchScene(Scene scene) {

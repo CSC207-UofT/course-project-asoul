@@ -125,7 +125,7 @@ public class FoodTruckManager{
      * @return the created food truck
      */
 
-    protected static FoodTruck createEmptyFoodTruck(String sellerName) { // Called when creating a new user
+    public static FoodTruck createEmptyFoodTruck(String sellerName) { // Called when creating a new user
         if (foodTrucks.containsKey(sellerName)) {
             return null;
         } else {
