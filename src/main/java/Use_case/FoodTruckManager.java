@@ -18,7 +18,6 @@ public class FoodTruckManager{
     protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
 
     /**
-     * @param status the status that the food truck will turn to.
      * @param id     the id of the food truck whose status is going to be changed.
      *               <p>
      *               Change the status of the specific food truck.
@@ -126,7 +125,7 @@ public class FoodTruckManager{
      * @return the created food truck
      */
 
-    protected static FoodTruck createEmptyFoodTruck(String sellerName) { // Called when creating a new user
+    public static FoodTruck createEmptyFoodTruck(String sellerName) { // Called when creating a new user
         if (foodTrucks.containsKey(sellerName)) {
             return null;
         } else {

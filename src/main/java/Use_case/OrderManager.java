@@ -90,7 +90,7 @@ public class OrderManager {
      * @param truck where these foods from
      * @return An ArrayList of Entities.Food from the given foods' names.
      */
-    public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) {
+    public static ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) {
         FoodMenu menu = truck.getMenu();
         ArrayList<Food> wish_food = new ArrayList<>();
         for (String item : foods) {
@@ -152,7 +152,7 @@ public class OrderManager {
      * Update the customers rating for an order. Method returns true when given a reasonable rating, return false
      * otherwise
      *
-     * @param rating should be a double < 10 & > 0
+     * @param rating should be a double <= 10 & >= 0
      * @param id     the id of the order we want to rate
      * @return return true if rating updated successfully, return false otherwise
      */

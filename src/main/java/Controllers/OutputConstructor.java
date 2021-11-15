@@ -1,5 +1,11 @@
 package Controllers;
 
+import Exceptions.IncorrectCredentialsException;
+import Use_case.FoodTruckManager;
+import Use_case.UserManager;
+
+import java.util.HashMap;
+
 public class OutputConstructor {
     private final LoginScene ls;
     private final MarketScene ms;
@@ -17,7 +23,7 @@ public class OutputConstructor {
     }
 
 
-    public String outputGeneralGenerator(String inputFeedback) {
+    public String outputGeneralGenerator(String inputFeedback) throws IncorrectCredentialsException {
         switch (Scene.activeScene.getClass().getName()) {
             case "Controllers.LoginScene":
                 return logInSceneOutputGenerator(inputFeedback);
@@ -33,32 +39,79 @@ public class OutputConstructor {
         return ""; //TODO;
     }
 
-    private String logInSceneOutputGenerator(String inputFeedback) {
-        return ""; //TODO
+    private String logInSceneOutputGenerator(String inputFeedback) throws IncorrectCredentialsException {
+        if (inputFeedback.equals("username received") || inputFeedback.equals("password received") ||
+                inputFeedback.equals("")) {
+            return loginGeneralInfo(ls);
+        } else if (inputFeedback.equals("confirm received")) {
+            return this.ls.userLogin();
+        } else {
+            return "login failure";
+        }
     }
 
     private String userInformationSceneOutputGenerator(String inputFeedback) {
-        return "";//TODO
+        HashMap<String, String> userInfo = UserManager.getUserByAccountName(us.username);
+        StringBuilder outputString = new StringBuilder();
+        if (!us.changingPassword) {
+            outputString.append("------------------------User Information---------------------------");
+            for (String field : userInfo.keySet()) {
+                String content = userInfo.get(field);
+                outputString.append("\n").append(field).append(": ").append(content).append("\n");
+            }
+            if (us.invalidFundError) {
+                outputString.append("\n\n").append("Invalid Fund entered.");
+            } else if (us.changeNicknameSuccess) {
+                outputString.append("\n\nSuccessfully changed nickname to: ").append(userInfo.get("nickname"));
+            }
+        } else {
+            for (String field : us.fields.keySet()) {
+                String content = us.fields.get(field);
+                field = us.displayMap.get(field);
+                outputString.append("\n").append(field).append(": ").append(content);
+            }
+            if (us.unmatchedPasswordError) {
+                outputString.append("\nThe password you entered does not match!");
+            } else if (us.incorrectOldPasswordError) {
+                outputString.append("\nThe old password is incorrect!");
+            }
+        }
+        if (us.changePasswordSuccess) {
+            outputString.append("\n\n Successfully changed password!");
+        }
+        outputString.append("type <view market> to browse available food trucks");
+        return outputString.toString();
     }
 
     private String marketSceneOutputGenerator(String inputFeedback) {
-        return ""; //TODO
+        HashMap<String, String> foodTruckInfo = FoodTruckManager.getAllFoodTruckDescription();
+        StringBuilder outputString = new StringBuilder("------------------------Market---------------------------");
+        for (String field : foodTruckInfo.keySet()) {
+            String content = foodTruckInfo.get(field);
+            outputString.append("\n\nTruckName:").append(field).append("\n").append(content);
+        }
+        if (ms.unknownFoodTruckError) {
+            outputString.append("\n\n Unknown Food Truck name entered, please check your spelling before entering");
+        }
+        outputString.append("\ntype <select> and choose a truck");
+        return outputString.toString();
     }
 
     private String foodTruckSceneOutputGenerator(String inputFeedback) {
-
-        return ""; //TODO
+        return fts.foodTruckName + "\n" + "rating : " + FoodTruckManager.getRating(fts.foodTruckName) + "\n" +
+                FoodTruckManager.getMenu(fts.foodTruckName) + "\n----------------Cart---------------" + fts.cart;
     }
 
     private String registerSceneOutputGenerator(String inputFeedback) {
         if (inputFeedback.equals("username received") || inputFeedback.equals("password received") ||
                 inputFeedback.equals("user_type received") || inputFeedback.equals("nickname received") ||
-                inputFeedback.equals("phone_number received") || inputFeedback.equals("start register")) {
+                inputFeedback.equals("phone_number received") || inputFeedback.equals("start register") ||
+                inputFeedback.equals("")) {
             return registerGeneralInfo(rs);
         } else if (inputFeedback.equals("confirm received")) {
             return this.rs.registerUser();
         } else {
-            return "register failure"; //TODO
+            return "register failure"; //TODO:
         }
     }
 
@@ -77,14 +130,14 @@ public class OutputConstructor {
     public static String registerGeneralInfo(RegisterScene scene) {
         return "Username: " + scene.fields.get("username") + "\n" +
                 "Password: " + scene.fields.get("password") + "\n" +
-                "User Type: " + scene.fields.get("user_type") + "\n" +
                 "Nickname: " + scene.fields.get("nickname") + "\n" +
                 "Phone number: " + scene.fields.get("phone_number");
     }
 
 
 
-    public static void loginGeneral() {
-
+    public static String loginGeneralInfo(LoginScene scene) {
+        return "Username: " + scene.fields.get("username") + "\n" +
+                "Password: " + scene.fields.get("password") + "\n";
     }
 }

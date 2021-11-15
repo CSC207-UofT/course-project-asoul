@@ -1,24 +1,25 @@
 package Interface;
 
 import Controllers.*;
+import Exceptions.IncorrectCredentialsException;
 
 import java.io.*;
 
 public class CommandlineInterface {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, IncorrectCredentialsException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         LoginScene loginScene = new LoginScene();
         MarketScene ms = new MarketScene();
         UserInformationScene us = new UserInformationScene();
         FoodTruckScene fts = new FoodTruckScene();
         RegisterScene rs = new RegisterScene();
-        OrderScene os = new OrderScene();
-        InputHandler handler = new InputHandler(loginScene, ms, us, fts, rs, os);
-        Scene.setActiveScene(rs);
+        InputHandler handler = new InputHandler(loginScene, ms, us, fts, rs);
+        Scene.setActiveScene(loginScene);
         OutputConstructor constructor = new OutputConstructor(loginScene, ms, us, fts, rs);
-        System.out.println("Program Started! Please login or register.");
         Scene.init();
+        System.out.println(constructor.outputGeneralGenerator(""));
+        System.out.print(">>> ");
         do {
             try {
                 String input = br.readLine();

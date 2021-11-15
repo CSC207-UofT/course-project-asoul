@@ -1,27 +1,28 @@
 package Controllers;
 
+import Entities.User;
 import Exceptions.IncorrectOldPasswordException;
 import Exceptions.UnmatchedPasswordException;
+import Use_case.UserManager;
+import Utilities.State;
 
 import java.util.HashMap;
 
 public class UserInformationScene extends Scene {
-    private String userType;
-    private String username;
-    private final HashMap<String, String> displayMap;
-    // Output State
-    private boolean invalidFundError;
-    private boolean changeNicknameSuccess;
-    private boolean incorrectOldPasswordError;
-    private boolean unmatchedPasswordError;
-    private boolean changePasswordSuccess;
+    public String username;
 
-    private boolean changingPassword;
+    // Output State
+    public boolean invalidFundError;
+    public boolean changeNicknameSuccess;
+    public boolean incorrectOldPasswordError;
+    public boolean unmatchedPasswordError;
+    public boolean changePasswordSuccess;
+    public boolean changingPassword;
+    public final HashMap<String, String> displayMap;
 
     public UserInformationScene() {
         super("UserInformation");
         this.username = "";
-        this.userType = "";
         this.invalidFundError = false;
         this.changeNicknameSuccess = false;
         this.incorrectOldPasswordError = false;
@@ -35,14 +36,24 @@ public class UserInformationScene extends Scene {
         this.displayMap.put("old_password", "Old Password");
         this.displayMap.put("new_password", "New Password");
         this.displayMap.put("confirm_password", "Confirm Password");
+        this.commandSet.add("sign_out");
+        this.commandSet.add("view_market");
+        this.commandSet.add("change_password");
+        this.commandSet.add("change_nickname");
+        this.commandSet.add("change_phone_number");
+        this.commandSet.add("O");
+        this.commandSet.add("N");
+        this.commandSet.add("C");
+        this.commandSet.add("confirm");
+        this.commandSet.add("back");
+        this.commandSet.add("add_fund");
     }
 
-    private void changeNickname(String nickname) {
-        Scene.customerManager.setNickname(this.username, nickname);
-        this.changeNicknameSuccess = true;
+    private HashMap<String, State> declareStates(){
+        return null; // TODO: Define states of this scene here
     }
 
-    private void refreshOutputState() { // reset output flags
+    void refreshOutputState() { // reset output flags
         this.invalidFundError = false;
         this.changeNicknameSuccess = false;
         this.incorrectOldPasswordError = false;
@@ -50,7 +61,14 @@ public class UserInformationScene extends Scene {
         this.changePasswordSuccess = false;
     }
 
-    private void changePassword() throws UnmatchedPasswordException {
+    public void changePhoneNumber(String phoneNumber) {
+        UserManager.setPhoneNumber(this.username, phoneNumber);
+    }
+
+    public void changeNickname(String nickname) {
+        UserManager.setNickname(this.username, nickname);
+    }
+    void changePassword() throws UnmatchedPasswordException {
         String oldPassword = this.fields.get("old_password");
         String newPassword = this.fields.get("new_password");
         String confirmPassword = this.fields.get("confirm_password");
@@ -58,7 +76,7 @@ public class UserInformationScene extends Scene {
             if (!confirmPassword.equals(newPassword)) {
                 throw new UnmatchedPasswordException();
             }
-            customerManager.setPassword(this.username, newPassword, oldPassword);
+            UserManager.setPassword(this.username, newPassword, oldPassword);
             this.changePasswordSuccess = true;
             this.changingPassword = false;
         } catch (IncorrectOldPasswordException e) {
@@ -66,19 +84,17 @@ public class UserInformationScene extends Scene {
         }
     }
 
-    private void viewMarket() {
+    public void viewMarket() {
         this.switchScene("Market");
         MarketScene scene = (MarketScene) Scene.allScenes.get("Market");
         scene.setUsername(this.username);
     }
 
-    private void addFund(String fund) {
-        Scene.customerManager.addMoney(this.username, Integer.parseInt(fund));
+    public void addFund(String fund) {
+        UserManager.addMoney(this.username, Integer.parseInt(fund));
     }
 
-    public void setUserInfo(String userType, String username) {
-        assert userType.equals("Entities.Customer") || userType.equals("Entities.Seller");
-        this.userType = userType;
+    public void setUserInfo(String username) {
         this.username = username;
     }
 }

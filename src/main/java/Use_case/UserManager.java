@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * A Use_case.UserManager that manages all the Users.
  */
-abstract public class UserManager{
+public class UserManager{
     protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to Entities.User object.
 
     /**
@@ -22,7 +22,7 @@ abstract public class UserManager{
      * @throws IncorrectCredentialsException Exception if the password doesn't match the account name or there is no
      *                                       such account name.
      */
-    public void login(String accName, String password) throws IncorrectCredentialsException {
+    public static void login(String accName, String password) throws IncorrectCredentialsException {
         if (userMap.containsKey(accName)) {
             if (userMap.get(accName).login(password)) {
                 return;
@@ -35,16 +35,17 @@ abstract public class UserManager{
      * @param accountName The username of the user that wants to add money.
      * @param money       The amount of money the user wants to add.
      */
-    public void addMoney(String accountName, int money) {
+
+    public static void addMoney(String accountName, int money) {
         User user = userMap.get(accountName);
         user.addMoney(money);
-
     }
 
     /**
      * @param accountName The user that wants to withdraw money.
      * @param money       The amount of money the user wants to withdraw.
      */
+
     public void withdrawMoney(String accountName, int money) {
         User user = userMap.get(accountName);
         user.withdrawMoney(money);
@@ -54,6 +55,7 @@ abstract public class UserManager{
      * @param accName The account name of user that wants to check their balance.
      * @return The amount of money in the user's balance.
      */
+
     public double checkBalance(String accName) {
         User user = userMap.get(accName);
         return user.checkBalance();
@@ -63,7 +65,7 @@ abstract public class UserManager{
      * @param userName A user's account name.
      * @return A map that from the user's information keyword to the user's information.
      */
-    public HashMap<String, String> getUserByAccountName(String userName) {
+    public static HashMap<String, String> getUserByAccountName(String userName) {
         User user = userMap.get(userName);
         HashMap<String, String> userInfoMap = new HashMap<>();
         userInfoMap.put("accName", user.getAccountName());
@@ -96,7 +98,7 @@ abstract public class UserManager{
         if (userMap.containsKey(accName)) {
             return false;
         }
-        FoodTruck foodTruck = FoodTruckManager.createEmptyFoodTruck(accName);
+        FoodTruckManager.createEmptyFoodTruck(accName);
         User newUser = new User(accName, password, nickname, phoneNum);
         userMap.put(accName, newUser);
         return true;
@@ -116,19 +118,23 @@ abstract public class UserManager{
         userMap.remove(accountName);
     }
 
-    public void setNickname(String accName, String nickname) {
+    public static void setNickname(String accName, String nickname) {
         userMap.get(accName).setNickname(nickname);
     }
 
-    public void setPassword(String username, String newPassword, String oldPassword) throws IncorrectOldPasswordException {
+    public static void setPhoneNumber(String accName, String phoneNumber) {
+        userMap.get(accName).setPhoneNumber(phoneNumber);
+    }
+
+    public static void setPassword(String username, String newPassword, String oldPassword) throws IncorrectOldPasswordException {
         userMap.get(username).setPassword(newPassword, oldPassword);
     }
 
-    public String getNickname(String accName) {
+    public static String getNickname(String accName) {
         return userMap.get(accName).getNickname();
     }
 
-    public String getPhoneNumber(String accName) {
+    public static String getPhoneNumber(String accName) {
         return userMap.get(accName).getPhoneNumber();
     }
 

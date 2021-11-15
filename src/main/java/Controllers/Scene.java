@@ -3,23 +3,28 @@ package Controllers;
 import Use_case.FoodTruckManager;
 import Use_case.OrderManager;
 import Use_case.UserManager;
+import Utilities.HasState;
+import Utilities.State;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
-abstract public class Scene {
+abstract public class Scene{
     protected static boolean exit = false;
     protected static final HashMap<String, Scene> allScenes = new HashMap<>();
     protected static Scene activeScene;
     // instance fields
     protected HashMap<String, String> fields; // Input fields will be stored here
-    protected ArrayList<String> commandSet; // These methods will be called by user typed commands
+    protected HashSet<String> commandSet; // These methods will be called by user typed commands
     protected String name;
+    // private HashMap<String, State> stateMap;
 
     public Scene(String name) {
         this.name = name;
         this.fields = new HashMap<>();
+        this.commandSet = new HashSet<>();
         Scene.allScenes.put(name, this);
     }
 
@@ -48,7 +53,6 @@ abstract public class Scene {
     }
 
     protected void fillInField(String field, String text) {
-        System.out.println(2);
         this.fields.put(field, text);
     }
 
