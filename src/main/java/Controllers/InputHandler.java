@@ -91,61 +91,40 @@ public class InputHandler {
 
 
     public String logInSceneInputHandler(String[] arr) throws UnknownCommandException, IncorrectCredentialsException {
-////        commandChecker(ls, arr[0]); TODO
-////        if (first) {
-////            OutputConstructor.programStart();
-////        }
-//
-//        switch (arr[0]) {
-//            case "register":
-//                registerCommand(arr);
-//            break;
-//            case "help":
-//                OutputConstructor.printCurrSceneCommands(ls);
-//            break;
-//            case "login": {
-//                do {
-//                    loginCommand(arr);
-//                } while ((arr[0].equals("confirm"))); //TODO: may introduce bugs
-//                ls.switchScene(usc);
-//            }
-//        }
-        return  "";
+            commandChecker(ls, arr[0]);
+
+        switch (arr[0]) {
+            case "register":
+                ls.switchScene(rs);
+                return "register";
+            case "U":
+                ls.fillInField("username", arr[1]);
+                return "username received";
+            case "P":
+                ls.fillInField("password", arr[1]);
+                return "password received";
+            case "confirm":
+                ls.userLogin();
+                return "confirm received";
+            default:
+                return "";
+        }
 
     }
 
-    public void registerCommand(String[] arr) {
-//        OutputConstructor.registerGeneralInfo(ls);
+
+
+//    public void loginCommand(String[] arr) throws IncorrectCredentialsException {
 //        switch (arr[0]) {
 //            case "U": ls.fillInField("username", arr[1]);
 //            break;
 //            case "P": ls.fillInField("password", arr[1]);
 //            break;
-//            case "T": ls.fillInField("user_type", arr[1]);
+//            case "confirm": ls.userLogin();
 //            break;
-//            case "N": ls.fillInField("nickname", arr[1]);
-//            break;
-//            case "PN": ls.fillInField("phone_number", arr[1]);
-//            break;
-//            case "confirm": ls.registerUser();
-//            break;
-//            default:
-//                OutputConstructor.askRegisterInto();
-
-        }
-
-
-    public void loginCommand(String[] arr) throws IncorrectCredentialsException {
-        switch (arr[0]) {
-            case "U": ls.fillInField("username", arr[1]);
-            break;
-            case "P": ls.fillInField("password", arr[1]);
-            break;
-            case "confirm": ls.userLogin();
-            break;
-            default: OutputConstructor.askLoginInfo();
-        }
-    }
+//            default: OutputConstructor.askLoginInfo();
+//        }
+//    }
 
 //    public void call(String input, InputHandler handler) throws InvalidInput, IncorrectCredentialsException, UnknownCommandException {
 //        String[] arr = handler.parsingInput(input);
