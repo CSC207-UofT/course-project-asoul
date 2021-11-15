@@ -131,7 +131,8 @@ public class FoodTruckManager{
         } else {
             FoodMenu menu = new FoodMenu();
 
-            FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", "", "", "", sellerName, menu);
+            FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", "", "",
+                    "", sellerName, menu);
             foodTrucks.put(sellerName, new_truck);
             return new_truck;
         }
