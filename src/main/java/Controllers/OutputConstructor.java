@@ -46,7 +46,7 @@ public class OutputConstructor {
         } else if (inputFeedback.equals("confirm received")) {
             return this.ls.userLogin();
         } else {
-            return "login failure";
+            return "";
         }
     }
 
@@ -109,7 +109,7 @@ public class OutputConstructor {
                 inputFeedback.equals("")) {
             return registerGeneralInfo(rs);
         } else if (inputFeedback.equals("confirm received")) {
-            return this.rs.registerUser();
+            return "registered success";
         } else {
             return "register failure"; //TODO:
         }
