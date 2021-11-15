@@ -92,6 +92,7 @@ public class FoodTruckScene extends Scene {
             orderScene.setOrderID(orderID);
             return orderID;
         }
+
         return -1;
     }
 
