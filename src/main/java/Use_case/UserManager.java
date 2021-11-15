@@ -142,6 +142,22 @@ public class UserManager{
         return userMap.get(accName).getAccountBalance();
     }
 
+    public boolean pay(String payer, String payee, String password, double amount){
+        User buyer = UserManager.userMap.get(payer);
+        User seller = UserManager.userMap.get(payee);
+        double balance = buyer.getAccountBalance();
+        if(balance < amount){
+            return false; // buyer does not have enough money to pay
+        }
+        if(!password.equals(buyer.getPassword())){
+            return false;
+        }
+        double newBalance = balance - amount;
+        buyer.setAccountBalance(newBalance);
+        seller.addMoney(amount);
+        return true;
+    }
+
     @SuppressWarnings("unchecked")
     public static void constructUserDataBase() throws IOException, ClassNotFoundException {
         try {

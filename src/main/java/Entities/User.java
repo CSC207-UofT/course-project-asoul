@@ -105,6 +105,7 @@ public class User implements Serializable {
             return true;
         }
     }
+    public void setAccountBalance(double amount){this.accountBalance = amount;}
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
