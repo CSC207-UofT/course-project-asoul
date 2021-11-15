@@ -1,6 +1,5 @@
 package Controllers;
 
-import Entities.User;
 import Exceptions.IncorrectOldPasswordException;
 import Exceptions.UnmatchedPasswordException;
 import Use_case.UserManager;
