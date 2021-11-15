@@ -1,7 +1,5 @@
 package Controllers;
 
-import Entities.Food;
-import Entities.FoodTruck;
 import Use_case.FoodTruckManager;
 import Use_case.OrderManager;
 
@@ -12,7 +10,7 @@ import java.util.HashMap;
 
 public class FoodTruckScene extends Scene {
     private String foodTruckName;
-    private ArrayList<String> cart;
+    private ArrayList<Integer> cart;
     private String cusName;
     private int orderID; // we are going to use it later, so it can't be local variable.
     private boolean checkOut; // we are going to use it later, so it can't be local variable.
@@ -34,7 +32,7 @@ public class FoodTruckScene extends Scene {
      * set Foodtruck name to name
      */
     public void setFoodTruck(String name) {
-        this.foodTruck = FoodTruckManager.getFoodTruckById(name);
+//        this.foodTruck = FoodTruckManager.getFoodTruckById(name);
         this.foodTruckName = name;
     }
 
@@ -42,7 +40,7 @@ public class FoodTruckScene extends Scene {
         this.cusName = name;
     }
 
-    public void handleInput(String input) {
+/*    public void handleInput(String input) {
         String[] text = input.split(" ");
         if (input.equals("back")) {
             cart = new ArrayList<>();
@@ -56,22 +54,31 @@ public class FoodTruckScene extends Scene {
             String[] foods = Arrays.copyOfRange(text, 1, text.length);
             Collections.addAll(cart, foods);
         }
-    }
+    }*/
 
 
     public void selectFood(int id, int num){
-
+        int i = 0;
+        while (!(i == num)){
+            i = i + 1;
+            cart.add(id);
+        }
     }
 
 
-    public void removeFood(int id, int num){
 
+    public void removeFood(int id, int num){
+        int i = 0;
+        while (!(i == num)){
+            i = i + 1;
+            if (cart.contains(id)){
+                cart.remove(id);
+            }
+        }
     }
 
 
     public boolean checkValidFood(int id){
         return FoodTruckManager.checkFoodFromFTMenu(id, foodTruckName);
     }
-
-
 }

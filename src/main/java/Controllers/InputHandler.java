@@ -14,14 +14,16 @@ public class InputHandler {
     private final FoodTruckScene fts;
 //  private boolean first = true;
     private final RegisterScene rs;
+    private final OrderScene os;
 
     public InputHandler(LoginScene ls, MarketScene ms, UserInformationScene usc, FoodTruckScene fts,
-                        RegisterScene rs) {
+                        RegisterScene rs, OrderScene os) {
         this.fts = fts;
         this.ls = ls;
         this.ms = ms;
         this.usc = usc;
         this.rs = rs;
+        this.os = os;
     }
 
     public String[] parsingInput(String text) {
@@ -99,13 +101,35 @@ public class InputHandler {
            throw new UnknownCommandException();
        }
         switch (arr[0]) {
-            case "select_food": fts.selectFood(foodId, quantity);
+            case "select_food" -> {
+                fts.selectFood(foodId, quantity);
                 return "added to basket";
-            case "remove_food": fts.removeFood(foodId, quantity);
+            }
+            case "remove_food" -> {
+                fts.removeFood(foodId, quantity);
                 return "removed from basket";
-            case "check_out":
-
+            }
+            case "check_out" -> {
+                Scene.setActiveScene(os);
+                return "check out page";
+            }
+            case "back" -> {
+                Scene.setActiveScene(ms);
+                return "";
+            }
+            default -> {
+                throw new UnknownCommandException();
+            }
         }
+    }
+
+
+    private String orderSceneHandler(String[] arr) throws UnknownCommandException {
+        List<String> commands = Arrays.asList("complete_order", "rate_order", "back");
+        if (!(commands.contains(arr[0]))){
+            throw new UnknownCommandException();
+        }
+
     }
 
     private String marketSceneHandler(String[] arr) {

@@ -46,6 +46,7 @@ public class OutputConstructor {
     }
 
     private String foodTruckSceneOutputGenerator(String inputFeedback) {
+
         return ""; //TODO
     }
 
