@@ -65,7 +65,7 @@ public class UserManager{
      * @param userName A user's account name.
      * @return A map that from the user's information keyword to the user's information.
      */
-    public HashMap<String, String> getUserByAccountName(String userName) {
+    public static HashMap<String, String> getUserByAccountName(String userName) {
         User user = userMap.get(userName);
         HashMap<String, String> userInfoMap = new HashMap<>();
         userInfoMap.put("accName", user.getAccountName());
@@ -98,7 +98,7 @@ public class UserManager{
         if (userMap.containsKey(accName)) {
             return false;
         }
-        FoodTruck foodTruck = FoodTruckManager.createEmptyFoodTruck(accName);
+        FoodTruckManager.createEmptyFoodTruck(accName);
         User newUser = new User(accName, password, nickname, phoneNum);
         userMap.put(accName, newUser);
         return true;
@@ -130,11 +130,11 @@ public class UserManager{
         userMap.get(username).setPassword(newPassword, oldPassword);
     }
 
-    public String getNickname(String accName) {
+    public static String getNickname(String accName) {
         return userMap.get(accName).getNickname();
     }
 
-    public String getPhoneNumber(String accName) {
+    public static String getPhoneNumber(String accName) {
         return userMap.get(accName).getPhoneNumber();
     }
 

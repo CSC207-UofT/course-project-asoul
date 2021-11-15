@@ -90,7 +90,7 @@ public class OrderManager {
      * @param truck where these foods from
      * @return An ArrayList of Entities.Food from the given foods' names.
      */
-    public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) {
+    public static ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) {
         FoodMenu menu = truck.getMenu();
         ArrayList<Food> wish_food = new ArrayList<>();
         for (String item : foods) {

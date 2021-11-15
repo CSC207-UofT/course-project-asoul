@@ -1,8 +1,15 @@
 package Controllers;
 
-import Exceptions.IncorrectCredentialsException;
-import Exceptions.InvalidInput;
-import Exceptions.UnknownCommandException;
+import Entities.Food;
+import Exceptions.*;
+import Use_case.FoodTruckManager;
+import Use_case.OrderManager;
+import Use_case.UserManager;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class InputHandler {
     private final LoginScene ls;
@@ -69,34 +76,105 @@ public class InputHandler {
 
             case "confirm": rs.registerUser();
                 return "confirm received";
-            case "register": rs.registerUser();
-                return "start register";
+            case "login": rs.clearFields(); rs.switchScene("Login");
+                return "";
             default:
                 return "input invalid"; //TODO
         }
     }
 
     private String foodTruckSceneHandler(String[] arr) {
-        return  "";
+        if (arr[0].equals("back")) {
+            fts.cart = new ArrayList<>();
+            fts.switchScene(Scene.allScenes.get("Market"));
+        } else if (arr[0].equals("check_out")) {
+            ArrayList<Food> foodList = OrderManager.getMenuFood(fts.cart, fts.foodTruck);
+            HashMap<String, String> info = FoodTruckManager.getFoodTruckDetail(fts.foodTruckName);
+            fts.orderID = OrderManager.createOrder(fts.foodTruck, foodList, UserManager.getNickname(fts.cusName), UserManager.getPhoneNumber(fts.cusName),
+                    UserManager.getNickname(info.get("seller")), UserManager.getPhoneNumber(info.get("seller")));
+        } else if (arr[0].equals("select")) {
+            String[] foods = Arrays.copyOfRange(arr, 1, arr.length);
+            Collections.addAll(fts.cart, foods);
+        }
+        return ""; // Temporary fix
     }
 
     private String marketSceneHandler(String[] arr) {
-        return  "";
+        ms.refreshOutputState();
+        if (arr[0].equals("view_user_info")) {
+            ms.switchScene(Scene.allScenes.get("UserInformation"));
+        } else if (arr[0].equals("select")) {
+            try {
+                ms.viewFoodTruck(arr[1]);
+            } catch (UnknownFoodTruckException e) {
+                ms.unknownFoodTruckError = true;
+            }
+        }  else{
+         //TODO: Throws unknown command error
+         }
+        return ""; // Temporary fix
     }
 
-    private String userInformationSceneHandler(String[] arr) {
-        return  "";
+    public String userInformationSceneHandler(String[] arr) {
+        usc.refreshOutputState();
+        switch (arr[0]) {
+            case "sign_out":
+                usc.switchScene(Scene.allScenes.get("Login"));
+                break;
+            case "change_nickname":
+                usc.changeNickname(arr[1]);
+                break;
+            case "change_phone_number":
+                usc.changePhoneNumber(arr[1]);
+                break;
+            case "add_fund":
+                try {
+                    usc.addFund(arr[1]);
+                } catch (NumberFormatException e) {
+                    usc.invalidFundError = true;
+                }
+                break;
+            case "O":
+                usc.fillInField("old_password", arr[1]);
+                break;
+            case "N":
+                usc.fillInField("new_password", arr[1]);
+                break;
+            case "C":
+                usc.fillInField("confirm_password", arr[1]);
+                break;
+            case "change_password":
+                usc.changingPassword = true;
+                break;
+            case "back":
+                usc.changingPassword = false;
+                break;
+            case "view_market":
+                usc.viewMarket();
+                break;
+            case "confirm":
+                if (usc.changingPassword) {
+                    try {
+                        usc.changePassword();
+                    } catch (UnmatchedPasswordException e) {
+                        usc.unmatchedPasswordError = true;
+                    }
+                }
+                break;
+        }
+        return ""; // Temporary fix
     }
 
 
 
     public String logInSceneInputHandler(String[] arr) throws UnknownCommandException, IncorrectCredentialsException {
-            commandChecker(ls, arr[0]);
+        commandChecker(ls, arr[0]);
 
         switch (arr[0]) {
             case "register":
                 ls.switchScene(rs);
-                return "register";
+                ls.clearFields();
+                return "";
             case "U":
                 ls.fillInField("username", arr[1]);
                 return "username received";

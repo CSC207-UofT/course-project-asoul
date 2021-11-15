@@ -15,6 +15,4 @@ public class State {
         stateName = name;
         inputMap = mp;
     }
-
-    pub
 }
