@@ -82,24 +82,24 @@ public class InputHandler {
     }
 
     private String foodTruckSceneHandler(String[] arr) throws UnknownCommandException {
-       List<String> commands = Arrays.asList("select_food", "remove_food", "check_out", "back");
-       int quantity = 0;
-       int foodId = 0;
-       if (!commands.contains(arr[0])){
-           throw new UnknownCommandException();
-       }
-       if (arr[0].equals(commands.get(0)) || arr[0].equals(commands.get(1))){
-           try {
-               quantity = Integer.parseInt(arr[2]);
-               foodId = Integer.parseInt(arr[1]);
-           }
-           catch (NumberFormatException e){
-               throw new UnknownCommandException();
-           }
-       }
-       if (!(fts.checkValidFood(foodId))){
-           throw new UnknownCommandException();
-       }
+        List<String> commands = Arrays.asList("select_food", "remove_food", "check_out", "back");
+        int quantity = 0;
+        int foodId = 0;
+        if (!commands.contains(arr[0])){
+            throw new UnknownCommandException();
+        }
+        if (arr[0].equals(commands.get(0)) || arr[0].equals(commands.get(1))){
+            try {
+                quantity = Integer.parseInt(arr[2]);
+                foodId = Integer.parseInt(arr[1]);
+            }
+            catch (NumberFormatException e){
+                throw new UnknownCommandException();
+            }
+        }
+        if (!(fts.checkValidFood(foodId))){
+            throw new UnknownCommandException();
+        }
         switch (arr[0]) {
             case "select_food" -> {
                 fts.selectFood(foodId, quantity);
@@ -110,8 +110,11 @@ public class InputHandler {
                 return "removed from basket";
             }
             case "check_out" -> {
-                Scene.setActiveScene(os);
-                return "check out page";
+                if (fts.chekOut(arr[1]) > -1){
+                    Scene.setActiveScene(os);
+                    return "";
+                }
+                return "Unable to pay";
             }
             case "back" -> {
                 Scene.setActiveScene(ms);
@@ -129,7 +132,25 @@ public class InputHandler {
         if (!(commands.contains(arr[0]))){
             throw new UnknownCommandException();
         }
+        switch (arr[0]) {
+            case "complete_order" -> {
 
+            }
+            case "rate_order" -> {
+                double rating = Double.parseDouble(arr[1]);
+                if (0 <= rating & rating <= 10) {
+                    os.rateOrder(rating);
+                }
+            }
+            case "back" -> {
+                Scene.setActiveScene(fts);
+                return "";
+            }
+            default -> {
+                throw new UnknownCommandException();
+            }
+        }
+        return "";
     }
 
     private String marketSceneHandler(String[] arr) {
