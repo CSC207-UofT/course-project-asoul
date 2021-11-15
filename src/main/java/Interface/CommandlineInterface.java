@@ -14,9 +14,10 @@ public class CommandlineInterface {
         UserInformationScene us = new UserInformationScene();
         FoodTruckScene fts = new FoodTruckScene();
         RegisterScene rs = new RegisterScene();
-        InputHandler handler = new InputHandler(loginScene, ms, us, fts, rs);
+        OrderScene os = new OrderScene();
+        InputHandler handler = new InputHandler(loginScene, ms, us, fts, rs, os);
         Scene.setActiveScene(loginScene);
-        OutputConstructor constructor = new OutputConstructor(loginScene, ms, us, fts, rs);
+        OutputConstructor constructor = new OutputConstructor(loginScene, ms, us, fts, rs, os);
         Scene.init();
         System.out.println(constructor.outputGeneralGenerator(""));
         System.out.print(">>> ");

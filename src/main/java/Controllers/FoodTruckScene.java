@@ -2,14 +2,12 @@ package Controllers;
 
 import Use_case.FoodTruckManager;
 import Use_case.OrderManager;
+import Use_case.UserManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 
 public class FoodTruckScene extends Scene {
-    private String foodTruckName;
+    public String foodTruckName;
     private ArrayList<Integer> cart;
     private String cusName;
     private int orderID; // we are going to use it later, so it can't be local variable.
@@ -80,5 +78,34 @@ public class FoodTruckScene extends Scene {
 
     public boolean checkValidFood(int id){
         return FoodTruckManager.checkFoodFromFTMenu(id, foodTruckName);
+    }
+
+
+    public int chekOut(String password){
+        Double cartTotal =  FoodTruckManager.checkOut(foodTruckName, cart);
+        String seller = FoodTruckManager.getUserByFTName(foodTruckName);
+        if (UserManager.pay(cusName, seller, password, cartTotal)){
+            OrderScene orderScene = (OrderScene) Scene.allScenes.get("order");
+            orderID = OrderManager.createOrder(FoodTruckManager.getFoodTruckById(foodTruckName),
+                    FoodTruckManager.getFoodById(cart), cusName, UserManager.getPhoneNumber(cusName), seller,
+                    UserManager.getPhoneNumber(seller));
+            orderScene.setOrderID(orderID);
+            return orderID;
+        }
+        return -1;
+    }
+
+
+    public StringBuilder printCart(){
+        String[] cartFoodList = FoodTruckManager.getFoodById(cart);
+        StringBuilder result = new StringBuilder("Your cart: \n");
+        for (String each: cartFoodList){
+            result.append(each);
+            result.append("\n");
+        }
+        Double cartTotal =  FoodTruckManager.checkOut(foodTruckName, cart);
+        result.append("total: ");
+        result.append(cartTotal);
+        return result;
     }
 }
