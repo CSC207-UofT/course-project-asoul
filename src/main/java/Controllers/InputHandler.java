@@ -1,9 +1,6 @@
 package Controllers;
 
-import Exceptions.IncorrectCredentialsException;
-import Exceptions.InvalidInput;
-import Exceptions.UnknownCommandException;
-import Exceptions.UnmatchedPasswordException;
+import Exceptions.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,22 +34,29 @@ public class InputHandler {
         }
     }
 
-    public String handlingGeneralInput(String input) throws IncorrectCredentialsException, UnknownCommandException {
+    public String handlingGeneralInput(String input){
         String[] arr = parsingInput(input);
         if (arr[0].equals("exit")) {
             Scene.exit = true;
             return "exit";
         }
-        commandChecker(Scene.getActiveScene(), arr[0]);
-        return switch (Scene.activeScene.getClass().getName()) {
-            case "Controllers.LoginScene" -> logInSceneInputHandler(arr);
-            case "Controllers.UserInformationScene" -> userInformationSceneHandler(arr);
-            case "Controllers.MarketScene" -> marketSceneHandler(arr);
-            case "Controllers.FoodTruckScene" -> foodTruckSceneHandler(arr);
-            case "Controllers.RegisterScene" -> registerSceneHandler(arr);
-            default -> //TODO: add more cases.
-                    "No active scene";
-        };
+        try {
+            commandChecker(Scene.getActiveScene(), arr[0]);
+        }catch (UnknownCommandException e){
+            return "";
+        }try {
+            return switch (Scene.activeScene.getClass().getName()) {
+                case "Controllers.LoginScene" -> logInSceneInputHandler(arr);
+                case "Controllers.UserInformationScene" -> userInformationSceneHandler(arr);
+                case "Controllers.MarketScene" -> marketSceneHandler(arr);
+                case "Controllers.FoodTruckScene" -> foodTruckSceneHandler(arr);
+                case "Controllers.RegisterScene" -> registerSceneHandler(arr);
+                default -> //TODO: add more cases.
+                        "No active scene";
+            };
+        }catch (IncorrectCredentialsException e){
+            return "";
+        }
         //TODO:
 
     }
@@ -90,12 +94,9 @@ public class InputHandler {
         }
     }
 
-    private String foodTruckSceneHandler(String[] arr) throws UnknownCommandException {
+    private String foodTruckSceneHandler(String[] arr){
         int quantity = 0;
         int foodId = 0;
-        if (!(fts.checkValidFood(foodId))){
-            throw new UnknownCommandException();
-        }
         switch (arr[0]) {
             case "select_food" -> {
                 fts.selectFood(foodId, quantity);
@@ -113,15 +114,11 @@ public class InputHandler {
                 Scene.setActiveScene(ms);
                 return "";
             }
-            default -> {
-                throw new UnknownCommandException();
-            }
         }
+        return "";
     }
 
-    public String logInSceneInputHandler(String[] arr) throws UnknownCommandException, IncorrectCredentialsException {
-        commandChecker(ls, arr[0]);
-
+    public String logInSceneInputHandler(String[] arr) throws IncorrectCredentialsException {
         switch (arr[0]) {
             case "register":
                 ls.switchScene(rs);
@@ -151,7 +148,19 @@ public class InputHandler {
     }
 
     private String marketSceneHandler(String[] arr) {
-        return "";
+        ms.refreshOutputState();
+        if (arr[0].equals("view_user_info")) {
+            ms.switchScene(Scene.allScenes.get("UserInformation"));
+        } else if (arr[0].equals("select")) {
+            try {
+                ms.viewFoodTruck(arr[1]);
+            } catch (UnknownFoodTruckException e) {
+                ms.unknownFoodTruckError = true;
+            }
+        }  else{
+            //TODO: Throws unknown command error
+        }
+        return ""; // Temporary fix
     }
 
     public String userInformationSceneHandler(String[] arr) {

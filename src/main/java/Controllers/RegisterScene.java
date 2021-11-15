@@ -13,7 +13,7 @@ public class RegisterScene extends Scene{
     private final FoodTruckManager foodTruckManager = new FoodTruckManager();
 
     public RegisterScene() {
-        super("register");
+        super("Register");
         this.fields.put("username", "");
         this.fields.put("password", "");
         this.fields.put("nickname", "");
@@ -37,9 +37,6 @@ public class RegisterScene extends Scene{
         String nickname = this.fields.get("nickname");
         String phoneNumber = this.fields.get("phone_number"); //TODO: let use cases throw Exceptions.
         userManager.createUser(username, password, nickname, phoneNumber); // TODO: Entities.User creation exception handling
-        FoodTruckManager.createEmptyFoodTruck(this.fields.get("username") + " 's Food truck.");
-
-
         this.clearFields();
         return "register success";
         //TODO: return register failure

@@ -25,9 +25,9 @@ public class MarketScene extends Scene {
     }
 
     public void viewFoodTruck(String id) throws UnknownFoodTruckException { // Forward to foodtruck page
-        FoodTruckScene fc = (FoodTruckScene) Scene.allScenes.get("Entities.FoodTruck");
+        FoodTruckScene fc = (FoodTruckScene) Scene.allScenes.get("FoodTruck");
         fc.setFoodTruck(id);
         fc.setUsername(this.username);
-        this.switchScene("Entities.FoodTruck");
+        this.switchScene("FoodTruck");
     }
 }
