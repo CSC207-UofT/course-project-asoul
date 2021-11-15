@@ -97,7 +97,7 @@ public class FoodTruckManager{
      * @param truckName The name of the given truck
      * @return true if the food ID is in the given foodtruck's menu, false otherwise.
      */
-    public boolean checkFoodFromFTMenu(int ID, String truckName){
+    public static boolean checkFoodFromFTMenu(int ID, String truckName){
         return getFoodTruckById(truckName).getMenu().isThereSameNameFoodId(ID);
     }
 

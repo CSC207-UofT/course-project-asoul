@@ -1,6 +1,7 @@
 package Interface;
 
 import Controllers.*;
+import Entities.Order;
 import Exceptions.IncorrectCredentialsException;
 
 import java.io.*;
@@ -14,7 +15,8 @@ public class CommandlineInterface {
         UserInformationScene us = new UserInformationScene();
         FoodTruckScene fts = new FoodTruckScene();
         RegisterScene rs = new RegisterScene();
-        InputHandler handler = new InputHandler(loginScene, ms, us, fts, rs);
+        OrderScene os = new OrderScene();
+        InputHandler handler = new InputHandler(loginScene, ms, us, fts, rs, os);
         Scene.setActiveScene(loginScene);
         OutputConstructor constructor = new OutputConstructor(loginScene, ms, us, fts, rs);
         Scene.init();
