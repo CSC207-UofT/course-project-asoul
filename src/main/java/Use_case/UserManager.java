@@ -23,6 +23,7 @@ public class UserManager{
      *                                       such account name.
      */
     public static void login(String accName, String password) throws IncorrectCredentialsException {
+        System.out.println(FoodTruckManager.foodTrucks.keySet());
         if (userMap.containsKey(accName)) {
             if (userMap.get(accName).login(password)) {
                 return;
@@ -109,12 +110,12 @@ public class UserManager{
      * @param accountName the account name that want to check exists or not.
      * @return true if the account name already exists.
      */
-    public boolean checkUserExist(String accountName) {
+    public static boolean checkUserExist(String accountName) {
         return userMap.containsKey(accountName);
     }
 
     // the account name must exist, I do not
-    public void deleteUser(String accountName) {
+    public static void deleteUser(String accountName) {
         userMap.remove(accountName);
     }
 
@@ -138,8 +139,24 @@ public class UserManager{
         return userMap.get(accName).getPhoneNumber();
     }
 
-    public double getBalance(String accName) {
+    public static double getBalance(String accName) {
         return userMap.get(accName).getAccountBalance();
+    }
+
+    public static boolean pay(String payer, String payee, String password, double amount){
+        User buyer = UserManager.userMap.get(payer);
+        User seller = UserManager.userMap.get(payee);
+        double balance = buyer.getAccountBalance();
+        if(balance < amount){
+            return false; // buyer does not have enough money to pay
+        }
+        if(!password.equals(buyer.getPassword())){
+            return false;
+        }
+        double newBalance = balance - amount;
+        buyer.setAccountBalance(newBalance);
+        seller.addMoney(amount);
+        return true;
     }
 
     @SuppressWarnings("unchecked")

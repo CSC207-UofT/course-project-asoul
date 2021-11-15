@@ -1,6 +1,7 @@
 package Interface;
 
 import Controllers.*;
+import Entities.Order;
 import Exceptions.IncorrectCredentialsException;
 
 import java.io.*;

@@ -110,11 +110,8 @@ public class InputHandler {
                 return "removed from basket";
             }
             case "check_out" -> {
-                if (fts.chekOut(arr[1]) > -1){
-                    Scene.setActiveScene(os);
-                    return "";
-                }
-                return "Unable to pay";
+                Scene.setActiveScene(os);
+                return "check out page";
             }
             case "back" -> {
                 Scene.setActiveScene(ms);
@@ -132,25 +129,7 @@ public class InputHandler {
         if (!(commands.contains(arr[0]))){
             throw new UnknownCommandException();
         }
-        switch (arr[0]) {
-            case "complete_order" -> {
 
-            }
-            case "rate_order" -> {
-                double rating = Double.parseDouble(arr[1]);
-                if (0 <= rating & rating <= 10) {
-                    os.rateOrder(rating);
-                }
-            }
-            case "back" -> {
-                Scene.setActiveScene(fts);
-                return "";
-            }
-            default -> {
-                throw new UnknownCommandException();
-            }
-        }
-        return "";
     }
 
     private String marketSceneHandler(String[] arr) {
