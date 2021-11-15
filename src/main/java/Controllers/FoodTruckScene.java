@@ -20,20 +20,12 @@ public class FoodTruckScene extends Scene {
     private boolean checkOut; // we are going to use it later, so it can't be local variable.
 
     public FoodTruckScene() {
-        super("Entities.FoodTruck");
+        super("FoodTruck");
         checkOut = false;
         this.commandSet.add("back");
         this.commandSet.add("check_out");
         this.commandSet.add("select");
     }
-
-
-//    @Override
-//    public String constructOutputString() {
-//        return foodTruckName + "\n" + "rating : " + ftm.getRating(foodTruckName) + "\n" +
-//                ftm.getMenu(foodTruckName) + "\n----------------Cart---------------" + cart;
-//    }
-
 
     /**
      * set Foodtruck name to name
