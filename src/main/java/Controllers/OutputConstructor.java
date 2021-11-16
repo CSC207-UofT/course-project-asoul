@@ -1,6 +1,5 @@
 package Controllers;
 
-import Entities.Order;
 import Exceptions.IncorrectCredentialsException;
 import Use_case.FoodTruckManager;
 import Use_case.UserManager;
