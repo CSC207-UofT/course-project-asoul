@@ -27,4 +27,5 @@ public class TestInputHandler {
         assert result[1].equals("1");
         assert result[2].equals("10");
     }
+
 }
