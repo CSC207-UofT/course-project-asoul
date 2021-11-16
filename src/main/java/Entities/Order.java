@@ -177,6 +177,7 @@ public class Order implements Serializable {
         return this.sellerNumber;
     }
 
+    public double getRatingRaw(){return this.rating; }
 
     public Object getRating() throws Exception {
         if (this.rating == -0.1) {
