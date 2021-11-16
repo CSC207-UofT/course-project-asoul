@@ -86,7 +86,7 @@ public class TestOrder {
                 "Food List: Pizza : $5.0\n" +
                 "Total Price: $5.0\n" +
                 "Status: in progress\n" +
-                "Rating: 9.5";
+                "Rating: No Rating";
         assert result.equals(answer);
         order.changeOrderStatus();
         String result2 = order.toString();
@@ -100,7 +100,7 @@ public class TestOrder {
                 "Food List: Pizza : $5.0\n" +
                 "Total Price: $5.0\n" +
                 "Status: order completed\n" +
-                "Rating: 9.5";
+                "Rating: No Rating";
         assert result2.equals(answer2);
     }
 }
