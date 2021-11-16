@@ -109,13 +109,13 @@ public class InputHandler {
                 fts.removeFood(foodId, quantity);
                 return "removed from basket";
             }
-            case "check_out" -> {
-                if (fts.chekOut(arr[1]) > -1){
-                    Scene.setActiveScene(os);
-                    return "";
-                }
-                return "Unable to pay";
-            }
+    //        case "check_out" -> {
+    //            if (fts.chekOut(arr[1]) > -1){
+    //                Scene.setActiveScene(os);
+    //                return "";
+    //            }
+    //            return "Unable to pay";
+    //        }
             case "back" -> {
                 Scene.setActiveScene(ms);
                 return "";
