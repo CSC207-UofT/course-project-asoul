@@ -82,7 +82,7 @@ public class FoodTruckScene extends Scene {
 
 
     public int chekOut(String password){
-        Double cartTotal =  FoodTruckManager.checkOut(foodTruckName, cart);
+        Double cartTotal = FoodTruckManager.checkOut(foodTruckName, cart);
         String seller = FoodTruckManager.getUserByFTName(foodTruckName);
         if (UserManager.pay(cusName, seller, password, cartTotal)){
             OrderScene orderScene = (OrderScene) Scene.allScenes.get("order");
