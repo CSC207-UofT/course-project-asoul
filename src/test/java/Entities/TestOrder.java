@@ -17,12 +17,12 @@ public class TestOrder {
         foodList.add(pizza);
         FoodMenu menu = new FoodMenu(foodList);
 
-        Seller seller = new Seller("David", "BigBoss", "D.", "6478863531");
+        User seller = new User("David", "BigBoss", "D.", "6478863531");
 
         FoodTruck foodTruck = new FoodTruck("Ideal Catering", "Bahen", "8:00",
-                "18:00", seller, menu);
-        order = new Order(1, foodTruck, foodList, "Paul", "4169990000",
-                "David", "6478863531");
+                "18:00", seller.getAccountName(), menu);
+        order = new Order(foodTruck, foodList, "Paul", "4169990000",
+                "David", "6478863531", 1);
     }
 
 
@@ -30,19 +30,15 @@ public class TestOrder {
      * Test changeOrderStatus method
      */
     @org.junit.Test
-    public void changeOrderStatusTest() {
-        assert order.getStatus().equals("order created");
-
-        boolean result1 = order.changeOrderStatus();
-        assert result1;
+    public void changeOrderStatusTest() throws Exception {
         assert order.getStatus().equals("in progress");
 
-        boolean result2 = order.changeOrderStatus();
-        assert result2;
+        String result1 = order.changeOrderStatus();
+        assert result1.equals("Change Successfully");
         assert order.getStatus().equals("order completed");
 
-        boolean result3 = order.changeOrderStatus();
-        assert !result3;
+        String result2 = order.changeOrderStatus();
+        assert result2.equals("Change Failed");
         assert order.getStatus().equals("order completed");
     }
 
@@ -51,8 +47,8 @@ public class TestOrder {
      * Test rateOrder method
      */
     @org.junit.Test
-    public void rateOrderTest() {
-        assert order.getRating().equals(-0.1);
+    public void rateOrderTest() throws Exception {
+        assert order.getRating().equals("No Rating");
 
         boolean result1 = order.rateOrder(9.5);
         assert result1;
@@ -78,15 +74,33 @@ public class TestOrder {
      * Test toString method
      */
     @org.junit.Test
-    public void toStringTest() {
+    public void toStringTest() throws Exception {
         String result = order.toString();
-        String answer = "1\nPaul : 4169990000\nIdeal Catering : 6478863531\nPizza : $5.0\nTotal :" +
-                " $5.0\norder created";
+        String answer = "Order Id: 1\n" +
+                "Order Time: " + order.getFormattedTime() + "\n" +
+                "Customer Name: Paul\n" +
+                "Customer Number: 4169990000\n" +
+                "Food Truck: Ideal Catering\n" +
+                "Seller Name: David\n" +
+                "Seller Number: 6478863531\n" +
+                "Food List: Pizza : $5.0\n" +
+                "Total Price: $5.0\n" +
+                "Status: in progress\n" +
+                "Rating: 9.5";
         assert result.equals(answer);
         order.changeOrderStatus();
         String result2 = order.toString();
-        String answer2 = "1\nPaul : 4169990000\nIdeal Catering : 6478863531\nPizza : $5.0\nTotal :" +
-                " $5.0\nin progress";
+        String answer2 = "Order Id: 1\n" +
+                "Order Time: " + order.getFormattedTime() + "\n" +
+                "Customer Name: Paul\n" +
+                "Customer Number: 4169990000\n" +
+                "Food Truck: Ideal Catering\n" +
+                "Seller Name: David\n" +
+                "Seller Number: 6478863531\n" +
+                "Food List: Pizza : $5.0\n" +
+                "Total Price: $5.0\n" +
+                "Status: order completed\n" +
+                "Rating: 9.5";
         assert result2.equals(answer2);
     }
 }
