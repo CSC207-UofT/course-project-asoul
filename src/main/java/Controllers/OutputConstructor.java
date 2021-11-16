@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entities.Order;
 import Exceptions.IncorrectCredentialsException;
 import Use_case.FoodTruckManager;
 import Use_case.UserManager;
@@ -12,14 +13,16 @@ public class OutputConstructor {
     private final UserInformationScene us;
     private final FoodTruckScene fts;
     private final RegisterScene rs;
+    private final OrderScene os;
 
     public OutputConstructor(LoginScene ls, MarketScene ms, UserInformationScene us, FoodTruckScene fts,
-                             RegisterScene rs) {
+                             RegisterScene rs, OrderScene os) {
         this.fts = fts;
         this.ls = ls;
         this.ms = ms;
         this.us = us;
         this.rs = rs;
+        this.os = os;
     }
 
 
@@ -99,7 +102,12 @@ public class OutputConstructor {
 
     private String foodTruckSceneOutputGenerator(String inputFeedback) {
         return fts.foodTruckName + "\n" + "rating : " + FoodTruckManager.getRating(fts.foodTruckName) + "\n" +
-                FoodTruckManager.getMenu(fts.foodTruckName) + "\n----------------Cart---------------" + fts.cart;
+                FoodTruckManager.getMenu(fts.foodTruckName) + "\n----------------Cart---------------" ; //+ fts.printCart();
+    }
+
+    private String orderSceneOutputGenerator(String inputFeedback){
+        return os.OrderID + "\n" + os.printOrder();
+
     }
 
     private String registerSceneOutputGenerator(String inputFeedback) {

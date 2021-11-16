@@ -175,6 +175,33 @@ public class FoodTruckManager{
     }
 
     /**
+     * Food Truck Rating System
+     * TODO, Implement the controller part
+     */
+    public static void calculateRating(String name){
+        if (foodTrucks.containsKey(name)){
+            String sellerName = foodTrucks.get(name).getSeller();
+            ArrayList<String> orderList = UserManager.getOrderHistoryByName(sellerName);
+            double totalRating = 0.0;
+            int count = 0;
+            int i = 0;
+            while(i < 100 && i < orderList.size()){
+                if (OrderManager.getOrder(orderList.get(i)).getRatingRaw() >= 0 &&
+                        OrderManager.getOrder(orderList.get(i)).getRatingRaw() <= 10){
+                    totalRating += OrderManager.getOrder(orderList.get(i)).getRatingRaw();
+                    count ++;
+                    i++;
+                }
+                else{
+                    i++;
+                }
+            }
+            double rating = totalRating / count;
+            foodTrucks.get(name).updateRating(rating);
+        }
+    }
+
+    /**
      * @param id the id of the specific food truck.
      *           <p>
      *           Get the rating of the specific food truck. Return false if the food truck is not in the list.

@@ -156,7 +156,7 @@ public class OrderManager {
      * @param id     the id of the order we want to rate
      * @return return true if rating updated successfully, return false otherwise
      */
-    public boolean rateOrder(double rating, String id) {
+    public static boolean rateOrder(double rating, String id) {
         return getOrder(id).rateOrder(rating);
     }
 
@@ -164,7 +164,7 @@ public class OrderManager {
      * @param id the Entities.Order's id.
      * @return The order with the given id. Return null is the id is not exist.
      */
-    public Order getOrder(String id) {
+    public static Order getOrder(String id) {
         if (orders.containsKey(id)) {
             return orders.get(id);
         }

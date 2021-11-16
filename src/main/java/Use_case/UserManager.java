@@ -8,6 +8,7 @@ import Exceptions.IncorrectOldPasswordException;
 
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -102,6 +103,19 @@ public class UserManager{
         User newUser = new User(accName, password, nickname, phoneNum);
         userMap.put(accName, newUser);
         return true;
+    }
+
+    /**
+     * Return the list of OrderHistory given a User account name.
+     */
+    public static ArrayList<String> getOrderHistoryByName(String accName){
+        if(userMap.containsKey(accName)){
+            return userMap.get(accName).getOrderHistory();
+        }
+        else {
+            //TODO Raise Exception here
+            return new ArrayList<>();
+        }
     }
 
 

@@ -106,7 +106,12 @@ public class FoodTruck implements Serializable {
     //     return "The menu of this food truck: " + " \n" + this.menu.toString();
     // }
 
-    // TODO: Implement a rating system
+
+    /**
+     * Update the rating of the food truck given a rating.
+     * @param rating
+     */
+    public void updateRating(double rating){this.rating = rating;}
 
     /**
      * Below are Getter methods for all instance variables
