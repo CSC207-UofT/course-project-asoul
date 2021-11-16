@@ -11,6 +11,7 @@ public class TestUserManager {
         assert UserManager.checkUserExist("a");
     }
 
+
     @org.junit.Test
     public void loginTest() throws IncorrectCredentialsException {
         UserManager userManager = new UserManager();
