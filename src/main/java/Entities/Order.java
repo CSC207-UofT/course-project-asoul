@@ -104,11 +104,9 @@ public class Order implements Serializable {
      * @return A string
      */
     public String toString() {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String formattedTime = this.getTime().format(format);
         try {
             return "Order Id: " + this.getId() + "\n" +
-                    "Order Time: " + formattedTime + "\n" +
+                    "Order Time: " + this.getFormattedTime() + "\n" +
                     "Customer Name: " + this.getCustomerName() + "\n" +
                     "Customer Number: " + this.getCustomerNumber() + "\n" +
                     "Food Truck: " + this.getFoodTruck().getTruckName() + "\n" +
@@ -122,6 +120,16 @@ public class Order implements Serializable {
             e.printStackTrace();
             return "Invalid Rating";
         }
+    }
+
+    /**
+     * A string represents the order time.
+     *
+     * @return A string
+     */
+    public String getFormattedTime() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return this.getTime().format(format);
     }
 
 
