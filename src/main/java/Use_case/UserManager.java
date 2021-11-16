@@ -23,7 +23,6 @@ public class UserManager{
      *                                       such account name.
      */
     public static void login(String accName, String password) throws IncorrectCredentialsException {
-        System.out.println(FoodTruckManager.foodTrucks.keySet());
         if (userMap.containsKey(accName)) {
             if (userMap.get(accName).login(password)) {
                 return;

@@ -56,4 +56,11 @@ public class LoginScene extends Scene {
         this.clearFields();
 //        this.refreshOutputState();
     }
+
+    @Override
+    protected void switchScene(String name) {
+        super.switchScene(name);
+        this.clearFields();
+//        this.refreshOutputState();
+    }
 }

@@ -131,9 +131,32 @@ public class FoodTruckManager{
         } else {
             FoodMenu menu = new FoodMenu();
 
-            FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", "", "",
-                    "", sellerName, menu);
+            String location = "Bahen Center for Information Technology";
+            String serviceTimeStart = "9:00";
+            String serviceTimeEnd = "20:00";
+
+            FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", location, serviceTimeStart,
+                    serviceTimeEnd, sellerName, menu);
             foodTrucks.put(sellerName, new_truck);
+            ArrayList<String> label1 = new ArrayList<>();
+            label1.add("Fast food");
+            Food food1 = new Food("Hamburger", 5.50, 1, label1, "Pretty delicious legend Hamburger!");
+            ArrayList<String> label2 = new ArrayList<>();
+            label2.add("Italian");
+            Food food2 = new Food("Pizza", 10.50, 2, label2, "Pretty delicious and traditional Italian pizza!");
+            ArrayList<String> label3 = new ArrayList<>();
+            label3.add("Drinks");
+            Food food3 = new Food("Coca Cola", 1.80, 3, label3, "Cool and relaxing!");
+            ArrayList<String> label4 = new ArrayList<>();
+            label4.add("Fast food");
+            label4.add("Crisp");
+            Food food4 = new Food("Poutine", 6.50, 4, label4, "Pretty delicious crisp Poutine!");
+
+            addFoodToMenu(food1, sellerName);
+            addFoodToMenu(food2, sellerName);
+            addFoodToMenu(food3, sellerName);
+            addFoodToMenu(food4, sellerName);
+
             return new_truck;
         }
     }
@@ -179,13 +202,6 @@ public class FoodTruckManager{
         information.put("accountName", getSeller(id).getAccountName());
         information.put("phoneNumber", getSeller(id).getPhoneNumber());
         return information;
-    }
-
-    /**
-     * @return All food existing FoodTrucks.
-     */
-    public HashMap<String, FoodTruck> getFoodTrucks() {
-        return foodTrucks;
     }
 
     /**

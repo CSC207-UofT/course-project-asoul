@@ -67,6 +67,7 @@ public class UserInformationScene extends Scene {
     public void changeNickname(String nickname) {
         UserManager.setNickname(this.username, nickname);
     }
+
     void changePassword() throws UnmatchedPasswordException {
         String oldPassword = this.fields.get("old_password");
         String newPassword = this.fields.get("new_password");

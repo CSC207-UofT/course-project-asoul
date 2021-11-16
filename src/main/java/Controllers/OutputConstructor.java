@@ -128,8 +128,10 @@ public class OutputConstructor {
     }
 
     public static String registerGeneralInfo(RegisterScene scene) {
+        String password = scene.fields.get("password");
+        String p = "*".repeat(password.length());
         return "Username: " + scene.fields.get("username") + "\n" +
-                "Password: " + scene.fields.get("password") + "\n" +
+                "Password: " + p + "\n" +
                 "Nickname: " + scene.fields.get("nickname") + "\n" +
                 "Phone number: " + scene.fields.get("phone_number");
     }
@@ -137,7 +139,9 @@ public class OutputConstructor {
 
 
     public static String loginGeneralInfo(LoginScene scene) {
+        String password = scene.fields.get("password");
+        String p = "*".repeat(password.length());
         return "Username: " + scene.fields.get("username") + "\n" +
-                "Password: " + scene.fields.get("password") + "\n";
+                "Password: " + p + "\n";
     }
 }
