@@ -1,6 +1,5 @@
 package Controllers;
 
-
 import java.util.Map;
 
 public class TestInputHandler {
