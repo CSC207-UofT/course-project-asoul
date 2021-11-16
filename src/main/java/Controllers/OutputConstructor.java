@@ -102,7 +102,7 @@ public class OutputConstructor {
 
     private String foodTruckSceneOutputGenerator(String inputFeedback) {
         return fts.foodTruckName + "\n" + "rating : " + FoodTruckManager.getRating(fts.foodTruckName) + "\n" +
-                FoodTruckManager.getMenu(fts.foodTruckName) + "\n----------------Cart---------------" + fts.printCart();
+                FoodTruckManager.getMenu(fts.foodTruckName) + "\n----------------Cart---------------" ; //+ fts.printCart();
     }
 
     private String orderSceneOutputGenerator(String inputFeedback){
