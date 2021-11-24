@@ -1,9 +1,10 @@
 package Use_case;
 
 import Entities.*;
+import Serialization.Deserializer;
+import Serialization.Serializer;
 
 import java.io.*;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -14,9 +15,9 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class FoodTruckManager{
-
     protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
-
+    private static final Serializer ftSerializer = new Serializer("./data/foodtruck info", foodTrucks);
+    private static final Deserializer ftDeserializer = new Deserializer("./data/foodtruck info", foodTrucks);
     /**
      * @param id     the id of the food truck whose status is going to be changed.
      *               <p>
@@ -61,10 +62,9 @@ public class FoodTruckManager{
      *
      * @param food      The food want to add or update.
      * @param truckName The name of the given truck
-     * @return true if we add the food. false if we update the food.
      */
-    public static boolean addFoodToMenu(Food food, String truckName) { // we are going to use the return value later.
-        return getFoodTruckById(truckName).addFoodToMenu(food);
+    public static void addFoodToMenu(Food food, String truckName) { // we are going to use the return value later.
+        getFoodTruckById(truckName).addFoodToMenu(food);
     }
 
     /**
@@ -276,21 +276,11 @@ public class FoodTruckManager{
         return foodTrucks.get(id);
     }
 
-    @SuppressWarnings("unchecked")
     public static void constructFoodTruckDataBase() throws IOException, ClassNotFoundException {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/foodtruck info"));
-            foodTrucks = (HashMap<String, FoodTruck>) ois.readObject();
-            ois.close();
-        }catch (EOFException e){
-            // Do Nothing, no foodtruck has been registered yet
-        }
+        ftDeserializer.deserialize();
     }
 
     public static void saveFoodTruckDataBase() throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/foodtruck info"));
-        oos.writeObject(foodTrucks);
-        oos.flush();
-        oos.close();
+        ftSerializer.serialize();
     }
 }

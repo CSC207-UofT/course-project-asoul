@@ -4,6 +4,8 @@ import Entities.Food;
 import Entities.FoodMenu;
 import Entities.FoodTruck;
 import Entities.Order;
+import Serialization.Deserializer;
+import Serialization.Serializer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,7 +18,8 @@ import java.util.HashMap;
 public class OrderManager {
 
     protected static HashMap<String, Order> orders = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
-
+    private static final Serializer oSerializer = new Serializer("./data/order info", orders);
+    private static final Deserializer oDeserializer = new Deserializer("./data/order info", orders);
     /**
      * Find the id of the newest order.
      *
@@ -171,21 +174,11 @@ public class OrderManager {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     public static void constructOrderDataBase() throws IOException, ClassNotFoundException {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/order info"));
-            orders = (HashMap<String, Order>) ois.readObject();
-            ois.close();
-        } catch (EOFException e) {
-            // Do nothing, no order has been created
-        }
+        oDeserializer.deserialize();
     }
 
     public static void saveOrderDataBase() throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/order info.txt"));
-        oos.writeObject(orders);
-        oos.flush();
-        oos.close();
+        oSerializer.serialize();
     }
 }

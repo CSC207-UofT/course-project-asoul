@@ -5,6 +5,8 @@ import Entities.Order;
 import Entities.User;
 import Exceptions.IncorrectCredentialsException;
 import Exceptions.IncorrectOldPasswordException;
+import Serialization.Deserializer;
+import Serialization.Serializer;
 
 
 import java.io.*;
@@ -16,7 +18,8 @@ import java.util.HashMap;
  */
 public class UserManager{
     protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to Entities.User object.
-
+    private static final Serializer uSerializer = new Serializer("./data/user info", userMap);
+    private static final Deserializer uDeserializer = new Deserializer("./data/user info", userMap);
     /**
      * @param accName  A String that represents the account Name.
      * @param password A String of password that the user typed in.
@@ -172,21 +175,11 @@ public class UserManager{
         return true;
     }
 
-    @SuppressWarnings("unchecked")
     public static void constructUserDataBase() throws IOException, ClassNotFoundException {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/user info"));
-            userMap = (HashMap<String, User>) ois.readObject();
-            ois.close();
-        }catch(EOFException e){
-            // Do nothing, no seller has been registered
-        }
+        uDeserializer.deserialize();
     }
 
     public static void saveUserDataBase() throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/user info"));
-        oos.writeObject(userMap);
-        oos.flush();
-        oos.close();
+        uSerializer.serialize();
     }
 }

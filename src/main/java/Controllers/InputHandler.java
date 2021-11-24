@@ -58,24 +58,32 @@ public class InputHandler {
 
     private String registerSceneHandler(String[] arr) {
         switch (arr[0]) {
-            case "U": rs.fillInField("username", arr[1]);
+            case "U":
+                rs.fillInField("username", arr[1]);
                 return "username received";
 
-            case "P": rs.fillInField("password", arr[1]);
+            case "P":
+                rs.fillInField("password", arr[1]);
                 return "password received";
-            case "T": rs.fillInField("user_type", arr[1]);
+            case "T":
+                rs.fillInField("user_type", arr[1]);
                 return "user_type received";
 
-            case "N": rs.fillInField("nickname", arr[1]);
+            case "N":
+                rs.fillInField("nickname", arr[1]);
                 return "nickname received";
 
-            case "PN": rs.fillInField("phone_number", arr[1]);
+            case "PN":
+                rs.fillInField("phone_number", arr[1]);
                 return "phone_number received";
 
-            case "confirm": rs.registerUser();
+            case "confirm":
+                rs.registerUser();
                 return "confirm received";
-            case "register": rs.registerUser();
-                return "start register";
+            case "login":
+                rs.clearFields();
+                rs.switchScene("Login");
+                return "";
             default:
                 return "input invalid"; //TODO
         }
@@ -162,28 +170,28 @@ public class InputHandler {
 
 
 
-    public String logInSceneInputHandler(String[] arr) throws UnknownCommandException, IncorrectCredentialsException {
-////        commandChecker(ls, arr[0]); TODO
-////        if (first) {
-////            OutputConstructor.programStart();
-////        }
-//
-//        switch (arr[0]) {
-//            case "register":
-//                registerCommand(arr);
-//            break;
-//            case "help":
-//                OutputConstructor.printCurrSceneCommands(ls);
-//            break;
-//            case "login": {
-//                do {
-//                    loginCommand(arr);
-//                } while ((arr[0].equals("confirm"))); //TODO: may introduce bugs
-//                ls.switchScene(usc);
-//            }
-//        }
-        return  "";
-
+    public String logInSceneInputHandler(String[] arr) throws IncorrectCredentialsException {
+        switch (arr[0]) {
+            case "register":
+                ls.switchScene(rs);
+                ls.clearFields();
+                return "";
+            case "U":
+                ls.fillInField("username", arr[1]);
+                return "username received";
+            case "P":
+                ls.fillInField("password", arr[1]);
+                return "password received";
+            case "confirm":
+                try {
+                    ls.userLogin();
+                    return "confirm received";
+                }catch(IncorrectCredentialsException e){
+                    return "error";
+                }
+            default:
+                return "";
+        }
     }
 
     public void registerCommand(String[] arr) {

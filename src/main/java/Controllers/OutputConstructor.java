@@ -46,7 +46,9 @@ public class OutputConstructor {
                 inputFeedback.equals("")) {
             return loginGeneralInfo(ls);
         } else if (inputFeedback.equals("confirm received")) {
-            return this.ls.userLogin();
+            return "";
+        } else if (inputFeedback.equals("error")) {
+            return "Incorrect credentials entered!\n" + loginGeneralInfo(ls);
         } else {
             return "";
         }

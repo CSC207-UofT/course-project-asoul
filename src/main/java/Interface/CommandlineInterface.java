@@ -24,7 +24,8 @@ public class CommandlineInterface {
         do {
             try {
                 String input = br.readLine();
-                String output = constructor.outputGeneralGenerator(handler.handlingGeneralInput(input));
+                String feedback = handler.handlingGeneralInput(input);
+                String output = constructor.outputGeneralGenerator(feedback);
                 System.out.println(output);
                 System.out.print(">>> ");
             } catch (Exception e) {

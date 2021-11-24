@@ -38,23 +38,6 @@ public class FoodTruckScene extends Scene {
         this.cusName = name;
     }
 
-/*    public void handleInput(String input) {
-        String[] text = input.split(" ");
-        if (input.equals("back")) {
-            cart = new ArrayList<>();
-            this.switchScene(Scene.allScenes.get("Market"));
-        } else if (input.equals("check out")) {
-            ArrayList<Food> foodList = om.getMenuFood(this.cart, this.foodTruck);
-            HashMap<String, String> info = ftm.getFoodTruckDetail(foodTruckName);
-            orderID = OrderManager.createOrder(this.foodTruck, foodList, cm.getNickname(cusName), cm.getPhoneNumber(cusName),
-                    sm.getNickname(info.get("seller")), sm.getPhoneNumber(info.get("seller")));
-        } else if (text[0].equals("select")) {
-            String[] foods = Arrays.copyOfRange(text, 1, text.length);
-            Collections.addAll(cart, foods);
-        }
-    }*/
-
-
     public void selectFood(int id, int num){
         int i = 0;
         while (!(i == num)){
@@ -62,8 +45,6 @@ public class FoodTruckScene extends Scene {
             cart.add(id);
         }
     }
-
-
 
     public void removeFood(int id, int num){
         int i = 0;
@@ -74,7 +55,6 @@ public class FoodTruckScene extends Scene {
             }
         }
     }
-
 
     public boolean checkValidFood(int id){
         return FoodTruckManager.checkFoodFromFTMenu(id, foodTruckName);
