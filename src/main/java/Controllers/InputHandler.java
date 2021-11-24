@@ -1,7 +1,7 @@
 package Controllers;
 
+import DefaultSceneImplementation.*;
 import Exceptions.IncorrectCredentialsException;
-import Exceptions.InvalidInput;
 import Exceptions.UnknownCommandException;
 
 import java.util.Arrays;
@@ -44,11 +44,11 @@ public class InputHandler {
         }
         commandChecker(Scene.getActiveScene(), arr[0]);
        switch (Scene.activeScene.getClass().getName()) {
-            case "Controllers.LoginScene" : return logInSceneInputHandler(arr);
-            case "Controllers.UserInformationScene" : return userInformationSceneHandler(arr);
-            case "Controllers.MarketScene" : return marketSceneHandler(arr);
-            case "Controllers.FoodTruckScene" : return foodTruckSceneHandler(arr);
-            case "Controllers.RegisterScene" : return registerSceneHandler(arr);
+            case "DefaultSceneImplementation.LoginScene" : return logInSceneInputHandler(arr);
+            case "DefaultSceneImplementation.UserInformationScene" : return userInformationSceneHandler(arr);
+            case "DefaultSceneImplementation.MarketScene" : return marketSceneHandler(arr);
+            case "DefaultSceneImplementation.FoodTruckScene" : return foodTruckSceneHandler(arr);
+            case "DefaultSceneImplementation.RegisterScene" : return registerSceneHandler(arr);
             default : //TODO: add more cases.
                 return "No active scene";
         }

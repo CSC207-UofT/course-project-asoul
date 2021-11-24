@@ -1,8 +1,8 @@
-package Controllers;
+package DefaultSceneImplementation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
+import Controllers.Scene;
 import Exceptions.IncorrectCredentialsException;
 import Use_case.UserManager;
 

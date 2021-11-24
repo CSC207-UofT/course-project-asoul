@@ -18,7 +18,7 @@ abstract public class Scene{
     protected String name;
     // private HashMap<String, State> stateMap;
 
-    public Scene(String name) {
+    protected Scene(String name) {
         this.name = name;
         this.fields = new HashMap<>();
         this.commandSet = new HashSet<>();

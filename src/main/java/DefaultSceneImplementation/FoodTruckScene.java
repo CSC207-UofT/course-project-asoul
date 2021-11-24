@@ -1,5 +1,6 @@
-package Controllers;
+package DefaultSceneImplementation;
 
+import Controllers.Scene;
 import Use_case.FoodTruckManager;
 import Use_case.OrderManager;
 import Use_case.UserManager;

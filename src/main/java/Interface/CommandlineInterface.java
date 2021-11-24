@@ -1,6 +1,7 @@
 package Interface;
 
 import Controllers.*;
+import DefaultSceneImplementation.*;
 import Exceptions.IncorrectCredentialsException;
 
 import java.io.*;

@@ -1,8 +1,7 @@
-package Controllers;
+package DefaultSceneImplementation;
 
+import Controllers.Scene;
 import Exceptions.UnknownFoodTruckException;
-
-import java.util.HashMap;
 
 public class MarketScene extends Scene {
     public boolean unknownFoodTruckError;

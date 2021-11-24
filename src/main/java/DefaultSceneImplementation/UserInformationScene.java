@@ -1,5 +1,7 @@
-package Controllers;
+package DefaultSceneImplementation;
 
+import Controllers.Scene;
+import DefaultSceneImplementation.MarketScene;
 import Exceptions.IncorrectOldPasswordException;
 import Exceptions.UnmatchedPasswordException;
 import Use_case.UserManager;

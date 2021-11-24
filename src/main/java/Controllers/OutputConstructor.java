@@ -1,5 +1,6 @@
 package Controllers;
 
+import DefaultSceneImplementation.*;
 import Exceptions.IncorrectCredentialsException;
 import Use_case.FoodTruckManager;
 import Use_case.UserManager;
@@ -27,15 +28,15 @@ public class OutputConstructor {
 
     public String outputGeneralGenerator(String inputFeedback) throws IncorrectCredentialsException {
         switch (Scene.activeScene.getClass().getName()) {
-            case "Controllers.LoginScene":
+            case "DefaultSceneImplementation.LoginScene":
                 return logInSceneOutputGenerator(inputFeedback);
-            case "Controllers.UserInformationScene":
+            case "DefaultSceneImplementation.UserInformationScene":
                 return userInformationSceneOutputGenerator(inputFeedback);
-            case "Controllers.MarketScene":
+            case "DefaultSceneImplementation.MarketScene":
                 return marketSceneOutputGenerator(inputFeedback);
-            case "Controllers.FoodTruckScene":
+            case "DefaultSceneImplementation.FoodTruckScene":
                 return foodTruckSceneOutputGenerator(inputFeedback);
-            case "Controllers.RegisterScene":
+            case "DefaultSceneImplementation.RegisterScene":
                 return registerSceneOutputGenerator(inputFeedback); //TODO: add more cases.
         }
         return ""; //TODO;
