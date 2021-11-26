@@ -1,8 +1,8 @@
 package Controllers;
 
 import DefaultSceneImplementation.*;
-import Exceptions.IncorrectCredentialsException;
-import Exceptions.UnknownCommandException;
+import exceptions.IncorrectCredentialsException;
+import exceptions.UnknownCommandException;
 
 import java.util.Arrays;
 import java.util.List;

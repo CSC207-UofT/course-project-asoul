@@ -1,9 +1,9 @@
 package Controllers;
 
 import DefaultSceneImplementation.*;
-import Exceptions.IncorrectCredentialsException;
-import Use_case.FoodTruckManager;
-import Use_case.UserManager;
+import exceptions.IncorrectCredentialsException;
+import use_case.FoodTruckManager;
+import use_case.UserManager;
 
 import java.util.HashMap;
 

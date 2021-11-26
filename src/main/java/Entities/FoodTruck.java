@@ -84,8 +84,6 @@ public class FoodTruck implements Serializable {
     }
 
 
-    // public boolean renameTruck(String name){ } (TODO but wait for database)
-
     //A string description of the Entities.Food Truck (name, location, rating...)
     @Override
     public String toString() {
@@ -100,16 +98,27 @@ public class FoodTruck implements Serializable {
         }
     }
 
-    // Display the food truck's corresponding menu items
+    /**
+     * Set food truck to active state.
+     */
+    public void activateTruck() {
+        this.active = true;
+    }
 
-    // public String displayMenu() {
-    //     return "The menu of this food truck: " + " \n" + this.menu.toString();
-    // }
+    /**
+     * Deactivate this food truck.
+     */
+    public void deactivateTruck() {
+        this.active = false;
+    }
 
+    public String displayMenu() {
+        return this.menu.toString();
+    }
 
     /**
      * Update the rating of the food truck given a rating.
-     * @param rating
+     * @param rating new rating of the food truck.
      */
     public void updateRating(double rating){this.rating = rating;}
 

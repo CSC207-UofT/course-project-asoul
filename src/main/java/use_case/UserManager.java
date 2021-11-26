@@ -1,16 +1,13 @@
-package Use_case;
+package use_case;
 
 import Entities.FoodTruck;
 import Entities.Order;
 import Entities.User;
-import Exceptions.IncorrectCredentialsException;
-import Exceptions.IncorrectOldPasswordException;
-import Serialization.Deserializer;
-import Serialization.Serializer;
+import exceptions.*;
+import serialization.Deserializer;
+import serialization.Serializer;
 
-
-import java.io.*;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -20,6 +17,7 @@ public class UserManager{
     protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to Entities.User object.
     private static final Serializer uSerializer = new Serializer("./data/user info", userMap);
     private static final Deserializer uDeserializer = new Deserializer("./data/user info", userMap);
+
     /**
      * @param accName  A String that represents the account Name.
      * @param password A String of password that the user typed in.
@@ -40,9 +38,13 @@ public class UserManager{
      * @param money       The amount of money the user wants to add.
      */
 
-    public static void addMoney(String accountName, int money) {
+    public static void addMoney(String accountName, int money) throws IncorrectArgumentException {
         User user = userMap.get(accountName);
-        user.addMoney(money);
+        boolean addSuccess = user.addMoney(money);
+        if (!addSuccess) {
+            throw new IncorrectArgumentException();
+        }
+
     }
 
     /**
@@ -50,9 +52,12 @@ public class UserManager{
      * @param money       The amount of money the user wants to withdraw.
      */
 
-    public void withdrawMoney(String accountName, int money) {
+    public void withdrawMoney(String accountName, int money) throws IncorrectArgumentException {
         User user = userMap.get(accountName);
-        user.withdrawMoney(money);
+        boolean withSuccess = user.withdrawMoney(money);
+        if (!withSuccess) {
+            throw new IncorrectArgumentException();
+        }
     }
 
     /**
@@ -143,7 +148,9 @@ public class UserManager{
         userMap.get(accName).setPhoneNumber(phoneNumber);
     }
 
-    public static void setPassword(String username, String newPassword, String oldPassword) throws IncorrectOldPasswordException {
+    public static void setPassword(String username, String accessKey, String newPassword, String oldPassword)
+            throws IncorrectOldPasswordException, UnauthorizedAccessException{
+        accessCheck(username, accessKey);
         userMap.get(username).setPassword(newPassword, oldPassword);
     }
 
@@ -159,18 +166,28 @@ public class UserManager{
         return userMap.get(accName).getAccountBalance();
     }
 
-    public static boolean pay(String payer, String payee, String password, double amount){
+    /**
+     * @param payer the account name of the payer.
+     * @param payee the account name of payee.
+     * @param password the buyer's password.
+     * @param amount the amount of money buyer will pay.
+     * @return true if pay is successful.
+     */
+    public static boolean pay(String payer, String payee, String password, double amount, String accessKey) throws UnauthorizedAccessException{
+        accessCheck(payer, accessKey);
         User buyer = UserManager.userMap.get(payer);
         User seller = UserManager.userMap.get(payee);
         double balance = buyer.getAccountBalance();
+        if (amount < 0) {
+            return false;
+        }
         if(balance < amount){
             return false; // buyer does not have enough money to pay
         }
-        if(!password.equals(buyer.getPassword())){
+        if (!password.equals(buyer.getPassword())){
             return false;
         }
-        double newBalance = balance - amount;
-        buyer.setAccountBalance(newBalance);
+        buyer.withdrawMoney(amount);
         seller.addMoney(amount);
         return true;
     }
@@ -181,5 +198,40 @@ public class UserManager{
 
     public static void saveUserDataBase() throws IOException {
         uSerializer.serialize();
+    }
+
+    private static void addBuyOrder(String user, String orderID){
+        User us = userMap.get(user);
+        us.storeBuyOrder(orderID);
+    }
+
+    private static void addSellOrder(String user, String orderID){
+        User us = userMap.get(user);
+        us.storeSellOrder(orderID);
+    }
+
+    public static void updateOrderHistory(String orderID) throws UnknownUserException {
+        Order order = OrderManager.getOrder(orderID);
+        String buyer = Objects.requireNonNull(order).getCustomerName();
+        String seller = order.getSellerName();
+        if (userMap.containsKey(buyer) && userMap.containsKey(seller)) {
+            addBuyOrder(buyer, orderID);
+            addSellOrder(seller, orderID);
+        } else {
+            throw new UnknownUserException();
+        }
+    }
+
+    public static void completeOrder(String orderID, String username, String accessKey) throws UnauthorizedAccessException{
+        accessCheck(username, accessKey);
+        Order order = OrderManager.orders.get(orderID);
+        String seller = order.getSellerName();
+        if(seller.equals(username)) {
+            order.changeOrderStatus();
+            FoodTruck ft = FoodTruckManager.foodTrucks.get(username);
+            ft.removeOrderWithID(orderID);
+        }else{
+            throw new UnauthorizedAccessException();
+        }
     }
 }

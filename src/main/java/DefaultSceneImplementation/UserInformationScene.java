@@ -1,10 +1,9 @@
 package DefaultSceneImplementation;
 
 import Controllers.Scene;
-import DefaultSceneImplementation.MarketScene;
-import Exceptions.IncorrectOldPasswordException;
-import Exceptions.UnmatchedPasswordException;
-import Use_case.UserManager;
+import exceptions.IncorrectOldPasswordException;
+import exceptions.UnmatchedPasswordException;
+import use_case.UserManager;
 import Utilities.State;
 
 import java.util.HashMap;

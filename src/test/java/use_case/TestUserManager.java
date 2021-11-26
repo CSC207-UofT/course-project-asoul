@@ -1,6 +1,6 @@
-package Use_case;
+package use_case;
 
-import Exceptions.IncorrectCredentialsException;
+import exceptions.IncorrectCredentialsException;
 
 public class TestUserManager {
     @org.junit.Test

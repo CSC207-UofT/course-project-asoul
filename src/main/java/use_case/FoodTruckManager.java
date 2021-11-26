@@ -1,8 +1,10 @@
-package Use_case;
+package use_case;
 
 import Entities.*;
-import Serialization.Deserializer;
-import Serialization.Serializer;
+import exceptions.UnknownFoodTruckException;
+import exceptions.UnknownUserException;
+import serialization.Deserializer;
+import serialization.Serializer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,19 +20,31 @@ public class FoodTruckManager{
     protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
     private static final Serializer ftSerializer = new Serializer("./data/foodtruck info", foodTrucks);
     private static final Deserializer ftDeserializer = new Deserializer("./data/foodtruck info", foodTrucks);
+
     /**
-     * @param id     the id of the food truck whose status is going to be changed.
-     *               <p>
-     *               Change the status of the specific food truck.
-     * @return Return true if successfully changed.
+     *
+     * @param id name of the food truck
+     * @throws UnknownFoodTruckException if the truck doesn't exist.
      */
-    public static boolean changeStatus(String id) {
-        if (foodTrucks.containsKey(id)) {
-            foodTrucks.get(id).changeStatus();
-            return true;
-        } else {
-            return false;
+    public static void activateTruck(String id) throws UnknownFoodTruckException {
+        if (!foodTrucks.containsKey(id)) {
+            throw new UnknownFoodTruckException();
         }
+        FoodTruck truck = foodTrucks.get(id);
+        truck.activateTruck();
+    }
+
+    /**
+     *
+     * @param id name of the food truck
+     * @throws UnknownFoodTruckException if the truck doesn't exist.
+     */
+    public static void deactivateTruck(String id) throws UnknownFoodTruckException {
+        if (!foodTrucks.containsKey(id)) {
+            throw new UnknownFoodTruckException();
+        }
+        FoodTruck truck = foodTrucks.get(id);
+        truck.deactivateTruck();
     }
 
     /**

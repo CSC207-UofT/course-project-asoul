@@ -1,12 +1,10 @@
 package DefaultSceneImplementation;
 
 import Controllers.Scene;
-import Use_case.FoodTruckManager;
-import Use_case.UserManager;
+import use_case.FoodTruckManager;
+import use_case.UserManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class RegisterScene extends Scene {
     private final HashMap<String, String> displayMap;
