@@ -9,12 +9,16 @@ import serialization.Serializer;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Objects;
 
+import helper.RandomStringGenerator;
 /**
  * A Use_case.UserManager that manages all the Users.
  */
 public class UserManager{
     protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to Entities.User object.
+    protected static HashMap<String, User> loggedInUsers = new HashMap<>();
     private static final Serializer uSerializer = new Serializer("./data/user info", userMap);
     private static final Deserializer uDeserializer = new Deserializer("./data/user info", userMap);
 
@@ -24,13 +28,30 @@ public class UserManager{
      * @throws IncorrectCredentialsException Exception if the password doesn't match the account name or there is no
      *                                       such account name.
      */
-    public static void login(String accName, String password) throws IncorrectCredentialsException {
-        if (userMap.containsKey(accName)) {
-            if (userMap.get(accName).login(password)) {
-                return;
+    public static String login(String accName, String password) throws IncorrectCredentialsException {
+        try{
+            User user = userMap.get(accName);
+            String psw = user.getPassword();
+            if(psw.equals(password)){
+                RandomStringGenerator rg = new RandomStringGenerator();
+                String key = rg.generateRandomString();
+                while(loggedInUsers.containsKey(key)){ // Make sure the key is unique
+                    key = rg.generateRandomString();
+                }
+                loggedInUsers.put(key, user);
+                return key;
+            }else{
+                throw new IncorrectCredentialsException(); // Incorrect password entered
             }
+        }catch (NullPointerException e){ // User does not exist
+            throw new IncorrectCredentialsException();
         }
-        throw new IncorrectCredentialsException();
+    }
+
+    public static void userExist(String accName) throws UnknownUserException{
+        if(!userMap.containsKey(accName)){
+            throw new UnknownUserException();
+        }
     }
 
     /**
@@ -45,6 +66,17 @@ public class UserManager{
             throw new IncorrectArgumentException();
         }
 
+    }
+
+    protected static void accessCheck(String username, String accessKey) throws UnauthorizedAccessException{
+        User user = loggedInUsers.get(accessKey);
+        try{
+            if(!user.getAccountName().equals(username)){
+                throw new UnauthorizedAccessException(); // Access key and username does not match
+            }
+        }catch (NullPointerException e){ // User does not exist or is not logged in
+            throw new UnauthorizedAccessException();
+        }
     }
 
     /**
@@ -70,30 +102,6 @@ public class UserManager{
         return user.checkBalance();
     }
 
-    /**
-     * @param userName A user's account name.
-     * @return A map that from the user's information keyword to the user's information.
-     */
-    public static HashMap<String, String> getUserByAccountName(String userName) {
-        User user = userMap.get(userName);
-        HashMap<String, String> userInfoMap = new HashMap<>();
-        userInfoMap.put("accName", user.getAccountName());
-        userInfoMap.put("accBalance", "" + user.getAccountBalance());
-        userInfoMap.put("password", user.getPassword());
-        userInfoMap.put("nickname", user.getNickname());
-        userInfoMap.put("phoneNum", user.getPhoneNumber());
-
-        /*
-        StringBuilder orderHistoryString = new StringBuilder();
-        for (String orderID : user.getOrderHistory()) {
-            Order order =
-            orderHistoryString.append(order.toString()).append("\n");
-        }
-        userInfoMap.put("orderHistory", orderHistoryString.toString());
-        */
-        return userInfoMap;
-    }
-
 
     /**
      * @param accName  The account name user wants to have.
@@ -116,14 +124,28 @@ public class UserManager{
     /**
      * Return the list of OrderHistory given a User account name.
      */
-    public static ArrayList<String> getOrderHistoryByName(String accName){
-        if(userMap.containsKey(accName)){
-            return userMap.get(accName).getOrderHistory();
-        }
-        else {
-            //TODO Raise Exception here
-            return new ArrayList<>();
-        }
+    public static HashSet<String> getBuyOrderHistory(String accName, String accessKey) throws UnauthorizedAccessException{
+        accessCheck(accName, accessKey);
+        User user = loggedInUsers.get(accessKey);
+        return user.getBuyOrderHistory();
+    }
+
+    protected static HashSet<String> getBuyOrderHistory(String accName) throws UnknownUserException{
+        userExist(accName);
+        User user = userMap.get(accName);
+        return user.getBuyOrderHistory();
+    }
+
+    public static HashSet<String> getSellOrderHistory(String accName, String accessKey) throws UnauthorizedAccessException{
+        accessCheck(accName, accessKey);
+        User user = loggedInUsers.get(accessKey);
+        return user.getSellOrderHistory();
+    }
+
+    protected static HashSet<String> getSellOrderHistory(String accName) throws UnknownUserException{
+        userExist(accName);
+        User user = userMap.get(accName);
+        return user.getSellOrderHistory();
     }
 
 
@@ -135,16 +157,19 @@ public class UserManager{
         return userMap.containsKey(accountName);
     }
 
-    // the account name must exist, I do not
-    public static void deleteUser(String accountName) {
-        userMap.remove(accountName);
+    // the account name must exist
+    public static void logOutUser(String loginKey, String username) throws UnauthorizedAccessException {
+        accessCheck(loginKey, username);
+        loggedInUsers.remove(loginKey);
     }
 
-    public static void setNickname(String accName, String nickname) {
+    public static void setNickname(String accName, String accessKey, String nickname) throws UnauthorizedAccessException{
+        accessCheck(accName, accessKey);
         userMap.get(accName).setNickname(nickname);
     }
 
-    public static void setPhoneNumber(String accName, String phoneNumber) {
+    public static void setPhoneNumber(String accName, String accessKey, String phoneNumber) throws UnauthorizedAccessException{
+        accessCheck(accName, accessKey);
         userMap.get(accName).setPhoneNumber(phoneNumber);
     }
 
@@ -154,15 +179,18 @@ public class UserManager{
         userMap.get(username).setPassword(newPassword, oldPassword);
     }
 
-    public static String getNickname(String accName) {
+    public static String getNickname(String accName, String accessKey) throws UnauthorizedAccessException{
+        accessCheck(accName, accessKey);
         return userMap.get(accName).getNickname();
     }
 
-    public static String getPhoneNumber(String accName) {
+    public static String getPhoneNumber(String accName, String accessKey) throws UnauthorizedAccessException{
+        accessCheck(accName, accessKey);
         return userMap.get(accName).getPhoneNumber();
     }
 
-    public static double getBalance(String accName) {
+    public static double getBalance(String accName, String accessKey) throws UnauthorizedAccessException{
+        accessCheck(accName, accessKey);
         return userMap.get(accName).getAccountBalance();
     }
 

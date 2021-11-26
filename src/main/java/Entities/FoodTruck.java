@@ -3,7 +3,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.HashSet;
 /**
  * Java class representation for Entities.FoodTruck instance
  */
@@ -16,7 +16,7 @@ public class FoodTruck implements Serializable {
     private final String seller; // The Entities.Seller who owns the Entities.Food Truck
     private double rating; // Rating of the Entities.Food Truck
     // we are going to change it in the rating system. So it can't be final.
-    private final ArrayList<Integer> orderQueue; // List of Active Orders
+    private final HashSet<String> orderQueue; // List of Active Orders
     private final FoodMenu menu; //Menu of the Entities.Food Truck
     /**
      * Construct an instance of a Entities.FoodTruck
@@ -37,7 +37,7 @@ public class FoodTruck implements Serializable {
         this.serviceTimeEnd = serviceTimeEnd;
         this.seller = seller;
         this.menu = menu;
-        this.orderQueue = new ArrayList<>();
+        this.orderQueue = new HashSet<>();
         this.active = false;
     }
 
@@ -68,19 +68,13 @@ public class FoodTruck implements Serializable {
         return this.menu.removeFood(food);
     }
 
-    public void addOrderToQueue(Order order) {
-        this.orderQueue.add(order.getId());
+    public void addOrderToQueue(String orderID) {
+        this.orderQueue.add(orderID);
     }
 
     // Remove the Entities.Order from orderQueue with the given id, return the removed Entities.Order
-    public int removeOrderWithID(int id) { // we are going to use the return value later.
-        for (int orderID : this.orderQueue) {
-            if (orderID == id) {
-                this.orderQueue.remove(orderID);
-                return orderID;
-            }
-        }
-        return -1; // Add Error here, we should not have reached here if the given id is correct.
+    public void removeOrderWithID(String id) { // we are going to use the return value later.
+        this.orderQueue.remove(id);
     }
 
 
@@ -156,7 +150,7 @@ public class FoodTruck implements Serializable {
         return this.menu;
     }
 
-    public ArrayList<Integer> getOrderQueue() {
+    public HashSet<String> getOrderQueue() {
         return this.orderQueue;
     }
 }

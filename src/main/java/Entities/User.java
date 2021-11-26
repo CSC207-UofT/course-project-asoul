@@ -37,35 +37,6 @@ public class User implements Serializable {
                 this.getNickname() + "; PhoneNumber: " + this.getPhoneNumber() + ".";
     }
 
-    /**
-     * Login to the account.
-     *
-     * @param password The password of this Entities.User account
-     * @return Return True if the account is logged in and False otherwise.
-     */
-    public boolean login(String password) {
-        if (this.password.equals(password)) {
-            this.login = true;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    /**
-     * Logout to the account.
-     *
-     * @return Return True if the account is logged out and False otherwise.v
-     */
-    public boolean logout() {
-        if (!this.login) {
-            return false;
-        } else {
-            this.login = false;
-            return true;
-        }
-    }
 
     /**
      * Add money to this Entities.User's account balance.
@@ -124,6 +95,10 @@ public class User implements Serializable {
 
     public void storeBuyOrder(String orderID) { // we are going to use the return value later.
         this.buyOrderHistory.add(orderID);
+    }
+
+    public void storeSellOrder(String orderID) { // we are going to use the return value later.
+        this.sellOrderHistory.add(orderID);
     }
     /**
      * Getting for all the instance variables

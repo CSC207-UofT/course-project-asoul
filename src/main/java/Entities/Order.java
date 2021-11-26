@@ -11,8 +11,7 @@ import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
  */
 
 public class Order implements Serializable {
-    private final int id; // a unique id for the order
-    private final FoodTruck foodTruck; // private Entities.FoodTruck foodTruck;
+    private final FoodTruck foodTruck; // private FoodTruck foodTruck;
     private final ArrayList<Food> foodList; // a list of foods ordered by the customers
     private final double totalPrice; // total price
     private final String customerName; // name of the customer who ordered the food
@@ -35,8 +34,7 @@ public class Order implements Serializable {
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
     public Order(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
-                 String customerNumber, String sellerName, String sellerNumber, int id) {
-        this.id = id;
+                 String customerNumber, String sellerName, String sellerNumber) {
         this.foodTruck = foodTruck;
         this.foodList = foodList; // Aliasing problem??
         this.totalPrice = calculateTotalPrice();
@@ -70,14 +68,9 @@ public class Order implements Serializable {
      *
      * @return Whether the status being changed successfully.
      */
-    public String changeOrderStatus() throws Exception {
+    public void changeOrderStatus(){
         if (this.status.equals("in progress")) {
             this.status = "order completed";
-            return "Change Successfully";
-        } else if (this.status.equals("order completed")) {
-            return "Change Failed";
-        } else {
-            throw new Exception("Invalid Status");
         }
     }
 
@@ -104,22 +97,16 @@ public class Order implements Serializable {
      * @return A string
      */
     public String toString() {
-        try {
-            return "Order Id: " + this.getId() + "\n" +
-                    "Order Time: " + this.getFormattedTime() + "\n" +
-                    "Customer Name: " + this.getCustomerName() + "\n" +
-                    "Customer Number: " + this.getCustomerNumber() + "\n" +
-                    "Food Truck: " + this.getFoodTruck().getTruckName() + "\n" +
-                    "Seller Name: " + this.getSellerName() + "\n" +
-                    "Seller Number: " + this.getSellerNumber() + "\n" +
-                    "Food List: " + this.getFoodList() + "\n" +
-                    "Total Price: $" + this.getTotalPrice() + "\n" +
-                    "Status: " + this.getStatus() + "\n" +
-                    "Rating: " + this.getRating();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Invalid Rating";
-        }
+        return "Order Time: " + this.getFormattedTime() + "\n" +
+                "Customer Name: " + this.getCustomerName() + "\n" +
+                "Customer Number: " + this.getCustomerNumber() + "\n" +
+                "Food Truck: " + this.getFoodTruck().getTruckName() + "\n" +
+                "Seller Name: " + this.getSellerName() + "\n" +
+                "Seller Number: " + this.getSellerNumber() + "\n" +
+                "Food List: " + this.getFoodList() + "\n" +
+                "Total Price: $" + this.getTotalPrice() + "\n" +
+                "Status: " + this.getStatus() + "\n" +
+                "Rating: " + this.getRating();
     }
 
     /**
@@ -131,12 +118,6 @@ public class Order implements Serializable {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return this.getTime().format(format);
     }
-
-
-    public int getId() {
-        return this.id;
-    }
-
 
     public FoodTruck getFoodTruck() {
         return this.foodTruck;
@@ -179,14 +160,8 @@ public class Order implements Serializable {
 
     public double getRatingRaw(){return this.rating; }
 
-    public Object getRating() throws Exception {
-        if (this.rating == -0.1) {
-            return "No Rating";
-        } else if (0 <= this.rating & this.rating <= 10) {
-            return this.rating;
-        } else {
-            throw new Exception("Invalid Rating");
-        }
+    public double getRating(){
+        return this.rating;
     }
 
 

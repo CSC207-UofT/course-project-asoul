@@ -10,30 +10,16 @@ import serialization.Serializer;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * A Use_case.OrderManager that manages all the Orders.
  */
 
 public class OrderManager {
-
-    protected static HashMap<String, Order> orders = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
+    protected static HashMap<String, Order> orders = new HashMap<>(); //
     private static final Serializer oSerializer = new Serializer("./data/order info", orders);
     private static final Deserializer oDeserializer = new Deserializer("./data/order info", orders);
-    /**
-     * Find the id of the newest order.
-     *
-     * @return The id of the newest order. If there is no existing order, return 0.
-     */
-    public static int getNewestOrder() {
-        int id = 0;
-        for (Order k : orders.values()) {
-            if (k.getId() > id) {
-                id = k.getId();
-            }
-        }
-        return id;
-    }
 
     /**
      * Create an order and add it to the list.
@@ -49,9 +35,9 @@ public class OrderManager {
 
     public static int createOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
                                   String customerNumber, String sellerName, String sellerNumber) {
-        int id = getNewestOrder() + 1;
+        int id = orders.size() + 1;
         Order new_order = new Order(foodTruck, foodList, customerName,
-                customerNumber, sellerName, sellerNumber, id);
+                customerNumber, sellerName, sellerNumber);
         orders.put(Integer.toString(id), new_order);
         return id;
     }
@@ -84,8 +70,8 @@ public class OrderManager {
      *
      * @return Whether the status being changed successfully.
      */
-    public String changeOrderStatus(String id) throws Exception {
-        return getOrder(id).changeOrderStatus();
+    public void changeOrderStatus(String id) {
+        Objects.requireNonNull(getOrder(id)).changeOrderStatus();
     }
 
     /**
@@ -129,12 +115,11 @@ public class OrderManager {
 
     /**
      * @param foods     the list of foods' name
-     * @param trucks    A FoodTruckManager stores all trucks.
      * @param truckName The truck name of the truck
      * @return The total price of the given food in the truck
      */
-    public double getTotalPrice(ArrayList<String> foods, FoodTruckManager trucks, String truckName) {
-        FoodTruck truck = trucks.getFoodTruckById(truckName);
+    public double getTotalPrice(ArrayList<String> foods, String truckName) {
+        FoodTruck truck = FoodTruckManager.getFoodTruckById(truckName);
         return getTotalPrice(foods, truck);
     }
 

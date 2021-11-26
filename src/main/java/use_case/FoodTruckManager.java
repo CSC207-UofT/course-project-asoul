@@ -7,9 +7,7 @@ import serialization.Deserializer;
 import serialization.Serializer;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -192,26 +190,23 @@ public class FoodTruckManager{
      * Food Truck Rating System
      * TODO, Implement the controller part
      */
-    public static void calculateRating(String name){
-        if (foodTrucks.containsKey(name)){
-            String sellerName = foodTrucks.get(name).getSeller();
-            ArrayList<String> orderList = UserManager.getOrderHistoryByName(sellerName);
+    public static void calculateRating(String sellerName) throws UnknownUserException {
+        if (foodTrucks.containsKey(sellerName)){
+            HashSet<String> orders = UserManager.getSellOrderHistory(sellerName);
             double totalRating = 0.0;
             int count = 0;
             int i = 0;
-            while(i < 100 && i < orderList.size()){
-                if (OrderManager.getOrder(orderList.get(i)).getRatingRaw() >= 0 &&
-                        OrderManager.getOrder(orderList.get(i)).getRatingRaw() <= 10){
-                    totalRating += OrderManager.getOrder(orderList.get(i)).getRatingRaw();
+            Iterator<String> iterator = orders.iterator();
+            while(i < 100 && iterator.hasNext()){
+                if (Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw() >= 0 &&
+                        Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw() <= 10){
+                    totalRating += Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw();
                     count ++;
-                    i++;
                 }
-                else{
-                    i++;
-                }
+                i++;
             }
             double rating = totalRating / count;
-            foodTrucks.get(name).updateRating(rating);
+            foodTrucks.get(sellerName).updateRating(rating);
         }
     }
 

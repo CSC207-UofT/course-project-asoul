@@ -49,10 +49,6 @@ public class UserInformationScene extends Scene {
         this.commandSet.add("add_fund");
     }
 
-    private HashMap<String, State> declareStates(){
-        return null; // TODO: Define states of this scene here
-    }
-
     void refreshOutputState() { // reset output flags
         this.invalidFundError = false;
         this.changeNicknameSuccess = false;
