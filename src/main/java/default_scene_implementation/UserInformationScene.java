@@ -1,6 +1,6 @@
-package DefaultSceneImplementation;
+package default_scene_implementation;
 
-import Controllers.Scene;
+import controllers.Scene;
 import exceptions.IncorrectOldPasswordException;
 import exceptions.UnmatchedPasswordException;
 import use_case.UserManager;

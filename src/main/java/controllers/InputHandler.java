@@ -1,6 +1,6 @@
-package Controllers;
+package controllers;
 
-import DefaultSceneImplementation.*;
+import default_scene_implementation.*;
 import exceptions.IncorrectCredentialsException;
 import exceptions.UnknownCommandException;
 
