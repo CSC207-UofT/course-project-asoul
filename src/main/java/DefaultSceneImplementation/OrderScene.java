@@ -1,8 +1,6 @@
 package DefaultSceneImplementation;
 import Controllers.Scene;
-import Use_case.FoodTruckManager;
-import Use_case.OrderManager;
-import Use_case.UserManager;
+import use_case.OrderManager;
 
 public class OrderScene extends Scene {
     public String OrderID;

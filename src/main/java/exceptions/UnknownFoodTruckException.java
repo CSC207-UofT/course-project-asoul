@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class UnknownFoodTruckException extends Exception {
     public UnknownFoodTruckException() {

@@ -1,9 +1,9 @@
 package Entities;
 
-import Exceptions.IncorrectOldPasswordException;
+import exceptions.IncorrectOldPasswordException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class User implements Serializable {
     private final String accountName; //The account name of this Entities.User
@@ -11,8 +11,8 @@ public class User implements Serializable {
     private String password; //The string representing the password of this Entities.User's account
     private String nickname; //The nickname of this Entities.User
     private String phoneNumber; //A string that represents the phone number of this Entities.User
-    private boolean login; //Login status. True if logged in, False otherwise.
-    private ArrayList<String> orderHistory;
+    private final HashSet<String> buyOrderHistory;
+    private final HashSet<String> sellOrderHistory;
 
     /**
      * Construct an instance of a Entities.User
@@ -27,9 +27,9 @@ public class User implements Serializable {
         this.password = password;
         this.nickname = nickname;
         this.phoneNumber = phoneNumber;
-        this.orderHistory = new ArrayList<>();
+        this.buyOrderHistory = new HashSet<>();
         accountBalance = 0.0;
-        login = false;
+        this.sellOrderHistory = new HashSet<>();
     }
 
     public String toString() {
@@ -74,12 +74,11 @@ public class User implements Serializable {
      * @return Return True if successfully added and False otherwise.
      */
     public boolean addMoney(double money) { // we are going to use the return value later.
-        try {
-            this.accountBalance += money;
-        } catch (Exception e) {
-            return false;
+        if (money >= 0.0) {
+            this.accountBalance = this.accountBalance + money;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -98,14 +97,14 @@ public class User implements Serializable {
      * @return Return True if successfully withdrawn and False otherwise.
      */
     public boolean withdrawMoney(double money) { // we are going to use the return value later.
-        if (this.accountBalance < money) {
-            return false;
-        } else {
-            this.accountBalance -= money;
-            return true;
+        if (money >= 0.0) {
+            if (this.accountBalance >= money) {
+                this.accountBalance = this.accountBalance - money;
+                return true;
+            }
         }
+        return false;
     }
-    public void setAccountBalance(double amount){this.accountBalance = amount;}
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
@@ -123,13 +122,8 @@ public class User implements Serializable {
         }
     }
 
-    public boolean storeOrder(String orderID) { // we are going to use the return value later.
-        try {
-            this.orderHistory.add(orderID);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+    public void storeBuyOrder(String orderID) { // we are going to use the return value later.
+        this.buyOrderHistory.add(orderID);
     }
     /**
      * Getting for all the instance variables
@@ -155,11 +149,11 @@ public class User implements Serializable {
         return this.phoneNumber;
     }
 
-    public boolean getLoginStatus() {
-        return this.login;
+    public HashSet<String> getBuyOrderHistory() {
+        return buyOrderHistory;
     }
 
-    public ArrayList<String> getOrderHistory() {
-        return orderHistory;
+    public HashSet<String> getSellOrderHistory() {
+        return sellOrderHistory;
     }
 }

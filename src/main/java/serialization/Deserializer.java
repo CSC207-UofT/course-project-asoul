@@ -1,4 +1,4 @@
-package Serialization;
+package serialization;
 import java.io.*;
 
 public class Deserializer {

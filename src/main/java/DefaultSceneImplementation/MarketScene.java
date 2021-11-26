@@ -1,7 +1,7 @@
 package DefaultSceneImplementation;
 
 import Controllers.Scene;
-import Exceptions.UnknownFoodTruckException;
+import exceptions.UnknownFoodTruckException;
 
 public class MarketScene extends Scene {
     public boolean unknownFoodTruckError;

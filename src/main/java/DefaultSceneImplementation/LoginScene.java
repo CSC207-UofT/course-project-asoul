@@ -3,8 +3,8 @@ package DefaultSceneImplementation;
 import java.util.HashMap;
 
 import Controllers.Scene;
-import Exceptions.IncorrectCredentialsException;
-import Use_case.UserManager;
+import exceptions.IncorrectCredentialsException;
+import use_case.UserManager;
 
 public class LoginScene extends Scene {
     // Output States
