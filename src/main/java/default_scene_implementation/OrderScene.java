@@ -1,5 +1,5 @@
-package DefaultSceneImplementation;
-import Controllers.Scene;
+package default_scene_implementation;
+import controllers.Scene;
 import use_case.OrderManager;
 
 public class OrderScene extends Scene {

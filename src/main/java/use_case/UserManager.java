@@ -1,8 +1,8 @@
 package use_case;
 
-import Entities.FoodTruck;
-import Entities.Order;
-import Entities.User;
+import entities.FoodTruck;
+import entities.Order;
+import entities.User;
 import exceptions.*;
 import serialization.Deserializer;
 import serialization.Serializer;

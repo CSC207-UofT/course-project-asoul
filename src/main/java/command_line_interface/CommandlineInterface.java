@@ -1,7 +1,7 @@
 package command_line_interface;
 
-import Controllers.*;
-import DefaultSceneImplementation.*;
+import controllers.*;
+import default_scene_implementation.*;
 import exceptions.IncorrectCredentialsException;
 
 import java.io.*;

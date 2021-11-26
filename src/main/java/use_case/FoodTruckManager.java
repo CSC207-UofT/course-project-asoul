@@ -1,6 +1,6 @@
 package use_case;
 
-import Entities.*;
+import entities.*;
 import exceptions.UnknownFoodTruckException;
 import exceptions.UnknownUserException;
 import serialization.Deserializer;

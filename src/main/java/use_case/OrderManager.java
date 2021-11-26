@@ -1,9 +1,9 @@
 package use_case;
 
-import Entities.Food;
-import Entities.FoodMenu;
-import Entities.FoodTruck;
-import Entities.Order;
+import entities.Food;
+import entities.FoodMenu;
+import entities.FoodTruck;
+import entities.Order;
 import serialization.Deserializer;
 import serialization.Serializer;
 

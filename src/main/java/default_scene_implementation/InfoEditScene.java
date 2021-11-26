@@ -1,6 +1,6 @@
-package DefaultSceneImplementation;
+package default_scene_implementation;
 
-import Controllers.Scene;
+import controllers.Scene;
 
 public class InfoEditScene extends Scene {
     public InfoEditScene() {

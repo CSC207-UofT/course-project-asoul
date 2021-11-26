@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import use_case.FoodTruckManager;
 import use_case.OrderManager;

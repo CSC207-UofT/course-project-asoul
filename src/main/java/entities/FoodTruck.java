@@ -1,8 +1,7 @@
-package Entities;
+package entities;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 /**
  * Java class representation for Entities.FoodTruck instance
