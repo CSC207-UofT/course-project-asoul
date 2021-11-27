@@ -12,7 +12,7 @@ A Seller will have to register a corresponding (or more if needed) Food Truck un
 
 A Customer can place an Order on the app by choosing Food from a list of Food Truck, but before that, the Customer needs to add balance to the app. The Customer can also choose the pickup time of the Order, and rate the Order once it is completed, which later will be reflected onto the Food Truck’s rating. A Customer is also entitled to their own order history which they can review at any time.
 
-## Details of Key Entities
+## Details of Key entities
 ### Customer
 Customers need to create an account that includes their account name, an account password, contact number and account balance. Customers are required to add money to their accounts to order food, or withdraw money from their balance if they wish to.
 Customers can either order food on their phone and pick up their food now or schedule another pickup time. Customers can also check their order status, such as scheduled(haven’t started) progress, or done. If customers’ order has been started yet, they should be able to cancel it. Customers can check the rate of a food truck and rate a food truck after they ordered from that food truck. Customers can also check how many orders there are in front of theirs. Customers can view their order history as well. Moreover, customers can cancel their accounts.
