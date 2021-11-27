@@ -6,7 +6,6 @@ import Use_case.UserManager;
 public class OrderScene extends Scene{
     public String OrderID;
 
-
     public OrderScene() {
         super("Order");
     }

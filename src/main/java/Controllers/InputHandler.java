@@ -170,7 +170,7 @@ public class InputHandler {
 
 
 
-    public String logInSceneInputHandler(String[] arr) throws IncorrectCredentialsException {
+    public String logInSceneInputHandler(String[] arr){
         switch (arr[0]) {
             case "register":
                 ls.switchScene(rs);

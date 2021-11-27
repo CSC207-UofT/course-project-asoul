@@ -19,8 +19,6 @@ public class CommandlineInterface {
         Scene.setActiveScene(loginScene);
         OutputConstructor constructor = new OutputConstructor(loginScene, ms, us, fts, rs, os);
         Scene.init();
-        System.out.println(constructor.outputGeneralGenerator(""));
-        System.out.print(">>> ");
         do {
             try {
                 String input = br.readLine();
