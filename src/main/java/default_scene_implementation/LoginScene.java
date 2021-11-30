@@ -3,48 +3,71 @@ package default_scene_implementation;
 
 import controllers.Scene;
 import exceptions.IncorrectCredentialsException;
+import exceptions.UnauthorizedAccessException;
+import exceptions.UnknownCommandException;
 import singleton_pattern.Singleton;
 import use_case.UserManager;
 
 class LoginScene extends Scene {
     private final static LoginScene ls = new LoginScene();
-    // Output States
-//    private boolean unknownCommandError;
-//    private boolean incorrectCredentialError;
-//    private boolean help;
-//    private boolean register;
-//    private boolean successRegistration;
-    private final HashMap<String, String> displayMap;
 
     private LoginScene() {
         super("Login");
         this.fields.put("username", "");
         this.fields.put("password", "");
-        this.fields.put("nickname", "");
-        this.fields.put("phone_number", "");
-        this.displayMap = new HashMap<>();
-        this.displayMap.put("username", "Username");
-        this.displayMap.put("password", "Password");
-        this.displayMap.put("nickname", "Nickname");
-        this.displayMap.put("user_type", "Entities.User Type");
-        this.displayMap.put("phone_number", "Phone Number");
-        this.commandSet.add("U");
-        this.commandSet.add("P");
-        this.commandSet.add("confirm");
-        this.commandSet.add("register");
-        this.commandSet.add("exit");
-//        this.unknownCommandError = false;
-//        this.incorrectCredentialError = false;
-//        this.help = false;
-//        this.register = false;
-//        this.successRegistration = false;
+        this.setHelpMessage("\n\nAll commands:\n" +
+                "help -> View all commands on this page\n" +
+                "U + [Space] + [your username] -> Enter your username\n" +
+                "P + [Space] + [your password] -> Enter your password\n" +
+                "confirm -> Login with the information you entered\n");
     }
 
     public static Singleton getInstance(){
         return ls;
     }
 
-    public String userLogin() throws IncorrectCredentialsException { // attempt to login
+    public void handleInputString(String input){
+        String[] text = input.split(" ");
+        switch (text[0]) {
+            case "U":
+                this.fillInField("username", text[1]);
+                break;
+            case "P":
+                this.fillInField("password", text[1]);
+                break;
+            case "confirm":
+                try {
+                    this.userLogin();
+                } catch (IncorrectCredentialsException | UnauthorizedAccessException e) {
+                    this.state.append(e.getMessage()).append("\n");
+                }
+                break;
+            case "register":
+                this.switchScene((Scene)RegisterScene.getInstance());
+                break;
+            case "help":
+                this.state.append(this.getHelpMessage());
+                break;
+            case "exit":
+                Scene.exit = true;
+                break;
+            default:
+                this.state.append((new UnknownCommandException()).getMessage()).append("\n");
+                break;
+        }
+    }
+
+    public String constructOutputString() {
+        StringBuilder outputString = new StringBuilder();
+        String enteredPassword = "*".repeat(this.fields.get("password").length());
+        String enteredUsername = this.fields.get("username");
+        outputString.append("Username: ").append(enteredUsername).append("\n");
+        outputString.append("Password: ").append(enteredPassword).append("\n");
+        outputString.append(this.state);
+        return outputString.toString();
+    }
+
+    public void userLogin() throws IncorrectCredentialsException, UnauthorizedAccessException { // attempt to login
         String username = this.fields.get("username");
         String password = this.fields.get("password");
         String key = UserManager.login(username, password);
@@ -55,20 +78,5 @@ class LoginScene extends Scene {
         infoEditScene.setUserInfo(username, key);
         FoodTruckEditScene truckEditScene = (FoodTruckEditScene) FoodTruckEditScene.getInstance();
         truckEditScene.setUserInfo(username, key);
-    }
-
-
-    @Override
-    protected void switchScene(Scene scene) {
-        super.switchScene(scene);
-        this.clearFields();
-//        this.refreshOutputState();
-    }
-
-    @Override
-    protected void switchScene(String name) {
-        super.switchScene(name);
-        this.clearFields();
-//        this.refreshOutputState();
     }
 }

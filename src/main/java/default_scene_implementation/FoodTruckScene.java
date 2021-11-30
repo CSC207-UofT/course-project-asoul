@@ -1,7 +1,7 @@
 package default_scene_implementation;
 
 import controllers.Scene;
-import observer_pattern.Observer;
+import exceptions.UnknownCommandException;
 import singleton_pattern.Singleton;
 import use_case.FoodTruckManager;
 
@@ -30,7 +30,15 @@ class FoodTruckScene extends Scene {
 //                ftm.getMenu(foodTruckName) + "\n----------------Cart---------------" + cart;
 //    }
 
+    @Override
+    public void handleInputString(String input){
 
+    }
+
+    @Override
+    public String constructOutputString(){
+        return "";
+    }
     /**
      * set Foodtruck name to name
      */

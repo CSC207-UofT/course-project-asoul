@@ -16,6 +16,16 @@ class OrderScene extends Scene {
         return os;
     }
 
+    @Override
+    public void handleInputString(String input){
+
+    }
+
+    @Override
+    public String constructOutputString(){
+        return "";
+    }
+
     public void rateOrder(Double rating){
         OrderManager.rateOrder(rating, OrderID);
     }

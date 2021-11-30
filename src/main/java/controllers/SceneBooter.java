@@ -35,8 +35,10 @@ public abstract class SceneBooter implements Observable {
         FoodTruckManager.constructFoodTruckDataBase();
         UserManager.constructUserDataBase();
         OrderManager.constructOrderDataBase();
-        notifyObservers();
     };
+    protected Scene getActiveScene(){
+        return Scene.activeScene;
+    }
 
     protected void setActiveScene(Scene scene){
         Scene.activeScene = scene;

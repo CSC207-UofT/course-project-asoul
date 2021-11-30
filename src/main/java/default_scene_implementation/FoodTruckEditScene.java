@@ -15,4 +15,18 @@ class FoodTruckEditScene extends Scene {
     public static Singleton getInstance(){
         return ies;
     }
+
+    @Override
+    public void handleInputString(String input){
+
+    }
+
+    @Override
+    public String constructOutputString(){
+        return "";
+    }
+
+    public void setUserInfo(String username, String key) throws UnauthorizedAccessException {
+        //
+    }
 }

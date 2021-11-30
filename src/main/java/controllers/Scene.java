@@ -15,18 +15,29 @@ import java.util.HashSet;
 
 abstract public class Scene implements Singleton{
     protected static boolean exit = false;
-    protected static final HashMap<String, Scene> allScenes = new HashMap<>();
     protected static Scene activeScene;
+
     // instance fields
     protected HashMap<String, String> fields; // Input fields will be stored here
     protected HashSet<String> commandSet; // These methods will be called by user typed commands
     protected String name;
+    protected StringBuilder state;
+    private String helpMessage;
 
     protected Scene(String name) {
         this.name = name;
         this.fields = new HashMap<>();
         this.commandSet = new HashSet<>();
-        Scene.allScenes.put(name, this);
+        this.state = new StringBuilder();
+        this.helpMessage = "";
+    }
+
+    protected void setHelpMessage(String message){
+        this.helpMessage = message;
+    }
+
+    protected String getHelpMessage(){
+        return this.helpMessage;
     }
 
     protected void fillInField(String field, String text) {
@@ -37,13 +48,12 @@ abstract public class Scene implements Singleton{
         this.fields.replaceAll((key, value) -> "");
     }
 
+    public abstract void handleInputString(String input);
+
+    public abstract String constructOutputString();
+
     protected void switchScene(Scene scene) {
         Scene.activeScene = scene;
-    } // switch to another scene
-
-    protected void switchScene(String name) {
-        Scene.activeScene = Scene.allScenes.get(name);
+        this.clearFields();
     }
-
-//    abstract public String constructOutputString();
 }

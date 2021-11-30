@@ -115,8 +115,8 @@ public class UserManager{
      * @param phoneNum The user's phone number.
      * @return true if the user created successfully.
      */
-    public boolean createUser(String accName, String password,
-                              String nickname, String phoneNum) {
+    public static boolean createUser(String accName, String password,
+                                     String nickname, String phoneNum) {
         if (userMap.containsKey(accName)) {
             return false;
         }

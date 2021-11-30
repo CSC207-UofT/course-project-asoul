@@ -13,6 +13,7 @@ public class CommandlineInterface implements Observer {
     
     public CommandlineInterface(){
         sceneBooter = new DefaultBooter();
+        subscribe(sceneBooter);
         output = "";
     }
 

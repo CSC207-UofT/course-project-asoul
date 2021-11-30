@@ -1,59 +1,84 @@
 package default_scene_implementation;
 
 import controllers.Scene;
+import exceptions.UnknownCommandException;
 import singleton_pattern.Singleton;
-import use_case.FoodTruckManager;
+import java.util.ArrayList;
 import use_case.UserManager;
 
-import java.util.HashMap;
-
 class RegisterScene extends Scene {
-    private final static RegisterScene rs = new RegisterScene();
-    private final HashMap<String, String> displayMap;
-    private final UserManager userManager = new UserManager();
-    private final FoodTruckManager foodTruckManager = new FoodTruckManager();
+    private static final RegisterScene rs = new RegisterScene();
 
     private RegisterScene() {
         super("Register");
-        this.fields.put("username", "");
-        this.fields.put("password", "");
-        this.fields.put("nickname", "");
-        this.fields.put("phone_number", "");
-        this.displayMap = new HashMap<>();
-        this.displayMap.put("username", "Username");
-        this.displayMap.put("password", "Password");
-        this.displayMap.put("nickname", "Nickname");
-        this.displayMap.put("phone_number", "Phone Number");
-        commandSet.add("U"); //TODO: modify
-        commandSet.add("P");
-        commandSet.add("N");
-        commandSet.add("PN");
-        commandSet.add("confirm");
-        commandSet.add("register");
-        commandSet.add("login");
+        this.fields.put("Username", "");
+        this.fields.put("Password", "");
+        this.fields.put("Nickname", "");
+        this.fields.put("Phone Number", "");
+
+        this.setHelpMessage("\n\nAll commands:" +
+                "help -> View all commands on this page\n" +
+                "U + [Space] + [your username] -> Enter your username\n" +
+                "P + [Space] + [your password] -> Enter your password\n" +
+                "N + [Space] + [Nickname] -> Enter the nickname for your new account\n" +
+                "PN + [Space] + [Phone Number] -> Enter the phone number for your new account\n" +
+                "confirm -> Create a new user with the information you entered\n" +
+                "login -> Start logging in\n");
     }
 
     public static Singleton getInstance(){
         return rs;
     }
 
-    public String registerUser() { // Create new users
-        String username = this.fields.get("username");
-        String password = this.fields.get("password");
-        String nickname = this.fields.get("nickname");
-        String phoneNumber = this.fields.get("phone_number"); //TODO: let use cases throw Exceptions.
-        userManager.createUser(username, password, nickname, phoneNumber); // TODO: Entities.User creation exception handling
-        this.clearFields();
-        return "register success";
-        //TODO: return register failure
+    public void handleInputString(String input){
+        String[] arr = input.split(" ");
+        switch (arr[0]) {
+            case "U":
+                fillInField("Username", arr[1]);
+                break;
+            case "P":
+                fillInField("Password", arr[1]);
+                break;
+            case "N":
+                fillInField("Nickname", arr[1]);
+                break;
+            case "PN":
+                fillInField("Phone Number", arr[1]);
+                break;
+            case "confirm":
+                registerUser();
+                break;
+            case "login":
+                switchScene((Scene)LoginScene.getInstance());
+                break;
+            default:
+                this.state.append((new UnknownCommandException()).getMessage()).append("\n");
+                break;
+        }
     }
 
-    @Override
-    protected void switchScene(Scene scene) {
-        super.switchScene(scene);
-        this.clearFields();
-}
-    public String getfieldString() {
-        return this.fields.toString();
+    public String constructOutputString() {
+        StringBuilder outputString = new StringBuilder();
+        ArrayList<String> requiredFields = new ArrayList<>(this.fields.keySet());
+        for (String field : requiredFields) {
+            String content = fields.get(field);
+            outputString.append("\n").append(field).append(": ").append(content);
+        }
+        outputString.append("\n");
+        outputString.append(state);
+        return outputString.toString();
+    }
+
+    public void registerUser() { // Create new users
+        String username = this.fields.get("Username");
+        String password = this.fields.get("Password");
+        String nickname = this.fields.get("Nickname");
+        String phoneNumber = this.fields.get("Phone Number");
+        if(UserManager.createUser(username, password, nickname, phoneNumber)){
+            this.clearFields();
+            this.state.append("Successfully registered new user, you can now proceed to log in!\n");
+        }else{
+            this.state.append("User with the given username has already been registered!\n");
+        }
     }
 }

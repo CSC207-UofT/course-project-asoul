@@ -10,36 +10,35 @@ import java.util.HashMap;
 class UserInformationScene extends Scene {
     private final static UserInformationScene us = new UserInformationScene();
     public String username;
+    public String nickname;
+    public String phoneNum;
+    public String truckName;
+    public double accBalance;
+    private String accessKey;
+    private String buyOrderHistory;
+    private String sellOrderHistory;
+
 
     // Output State
 
     private UserInformationScene() {
         super("UserInformation");
         this.username = "";
-        this.invalidFundError = false;
-        this.changeNicknameSuccess = false;
-        this.incorrectOldPasswordError = false;
-        this.unmatchedPasswordError = false;
-        this.changePasswordSuccess = false;
-        this.changingPassword = false;
-        this.fields.put("old_password", "");
-        this.fields.put("new_password", "");
-        this.fields.put("confirm_password", "");
-        this.displayMap = new HashMap<>();
-        this.displayMap.put("old_password", "Old Password");
-        this.displayMap.put("new_password", "New Password");
-        this.displayMap.put("confirm_password", "Confirm Password");
-        this.commandSet.add("sign_out");
-        this.commandSet.add("view_market");
-        this.commandSet.add("change_password");
-        this.commandSet.add("change_nickname");
-        this.commandSet.add("change_phone_number");
-        this.commandSet.add("O");
-        this.commandSet.add("N");
-        this.commandSet.add("C");
-        this.commandSet.add("confirm");
-        this.commandSet.add("back");
-        this.commandSet.add("add_fund");
+        this.accessKey = "";
+        this.nickname = "";
+        this.phoneNum = "";
+        this.truckName = "";
+        this.accBalance = 0;
+        this.buyOrderHistory = "";
+        this.sellOrderHistory = "";
+        this.setHelpMessage("\n\nAll commands:\n" +
+                "help -> View all commands on this page\n" +
+                "view_market -> View all food trucks\n" +
+                "change_user_info -> Change user information\n" +
+                "change_truck_info -> Change user's food truck information\n" +
+                "add_money + [Space] + [amount of money] -> add money to balance\n" +
+                "withdraw_money + [Space] + [amount of money] -> withdraw money from balance\n" +
+                "view_order + [Space] + [order id] -> view the order\n");
     }
 
     public static Singleton getInstance(){
@@ -122,9 +121,8 @@ class UserInformationScene extends Scene {
     }
 
     public void viewMarket() {
-        this.switchScene("Market");
-        MarketScene scene = (MarketScene) Scene.allScenes.get("Market");
-        scene.setUsername(this.username);
+        MarketScene scene = (MarketScene) MarketScene.getInstance();
+        this.switchScene(scene);
     }
 
     public void changeUserInfo() {
@@ -137,8 +135,9 @@ class UserInformationScene extends Scene {
         this.switchScene(scene);
     }
 
-    public void addFund(String fund) {
-        UserManager.addMoney(this.username, Integer.parseInt(fund));
+    public void addFund(double fund) throws IncorrectArgumentException {
+        UserManager.addMoney(username, fund);
+        updateUserInfo();
     }
     public void withdrawFund(double fund) throws IncorrectArgumentException {
         UserManager.withdrawMoney(username, fund);

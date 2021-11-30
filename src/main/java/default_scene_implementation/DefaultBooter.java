@@ -1,9 +1,7 @@
 package default_scene_implementation;
 import controllers.SceneBooter;
-import observer_pattern.Observer;
 
 import java.io.IOException;
-import java.util.HashSet;
 
 public class DefaultBooter extends SceneBooter{
 
@@ -12,16 +10,19 @@ public class DefaultBooter extends SceneBooter{
         super.boot();
         LoginScene ls = (LoginScene)LoginScene.getInstance();
         setActiveScene(ls);
+        notifyObservers();
     }
 
     @Override
     public String outputInString(){
-        return "";
+        return getActiveScene().constructOutputString();
     }
 
     @Override
     public void handleInputInString(String input){
-
+        super.handleInputInString(input);
+        getActiveScene().handleInputString(input);
+        notifyObservers();
     }
     // TODO: Add io methods for android interface
 }

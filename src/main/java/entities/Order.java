@@ -157,8 +157,6 @@ public class Order implements Serializable {
         return this.sellerNumber;
     }
 
-    public double getRatingRaw(){return this.rating; }
-
     public double getRating(){
         return this.rating;
     }

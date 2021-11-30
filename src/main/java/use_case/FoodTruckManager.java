@@ -115,10 +115,6 @@ public class FoodTruckManager{
         return getFoodTruckById(truckName).getMenu().isThereSameNameFoodId(ID);
     }
 
-    // TODO: updateOrderHistory()
-    // It's better to change the code in the Entities.FoodTruck.updateOrderHistory().
-    // Since when we update OrderHistory we don't only add order.
-
     // TODO: renameTruck()
     public static boolean renameTruck(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
         UserManager.accessCheck(userAccountName, accessKey);
@@ -150,33 +146,13 @@ public class FoodTruckManager{
         if(!foodTrucks.containsKey(sellerName)){
             FoodMenu menu = new FoodMenu();
 
-            String location = "Bahen Center for Information Technology";
-            String serviceTimeStart = "9:00";
-            String serviceTimeEnd = "20:00";
+            String location = "";
+            String serviceTimeStart = "";
+            String serviceTimeEnd = "";
 
             FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", location, serviceTimeStart,
                     serviceTimeEnd, sellerName, menu);
             foodTrucks.put(sellerName, new_truck);
-            ArrayList<String> label1 = new ArrayList<>();
-            label1.add("Fast food");
-            Food food1 = new Food("Hamburger", 5.50, 1, label1, "Pretty delicious legend Hamburger!");
-            ArrayList<String> label2 = new ArrayList<>();
-            label2.add("Italian");
-            Food food2 = new Food("Pizza", 10.50, 2, label2, "Pretty delicious and traditional Italian pizza!");
-            ArrayList<String> label3 = new ArrayList<>();
-            label3.add("Drinks");
-            Food food3 = new Food("Coca Cola", 1.80, 3, label3, "Cool and relaxing!");
-            ArrayList<String> label4 = new ArrayList<>();
-            label4.add("Fast food");
-            label4.add("Crisp");
-            Food food4 = new Food("Poutine", 6.50, 4, label4, "Pretty delicious crisp Poutine!");
-
-            addFoodToMenu(food1, sellerName);
-            addFoodToMenu(food2, sellerName);
-            addFoodToMenu(food3, sellerName);
-            addFoodToMenu(food4, sellerName);
-
-            return new_truck;
         }
     }
 
@@ -205,9 +181,9 @@ public class FoodTruckManager{
             int i = 0;
             Iterator<String> iterator = orders.iterator();
             while(i < 100 && iterator.hasNext()){
-                if (Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw() >= 0 &&
-                        Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw() <= 10){
-                    totalRating += Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw();
+                if (Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating() >= 0 &&
+                        Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating() <= 10){
+                    totalRating += Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating();
                     count ++;
                 }
                 i++;
