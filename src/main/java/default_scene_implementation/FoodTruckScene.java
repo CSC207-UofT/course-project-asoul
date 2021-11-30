@@ -1,22 +1,28 @@
 package default_scene_implementation;
 
 import controllers.Scene;
+import observer_pattern.Observer;
+import singleton_pattern.Singleton;
 import use_case.FoodTruckManager;
 
 import java.util.ArrayList;
 
-public class FoodTruckScene extends Scene {
+class FoodTruckScene extends Scene {
+    private static final FoodTruckScene fts = new FoodTruckScene();
     public String foodTruckName;
     private ArrayList<Integer> cart;
     private String cusName;
     private int orderID; // we are going to use it later, so it can't be local variable.
     private boolean checkOut; // we are going to use it later, so it can't be local variable.
 
-    public FoodTruckScene() {
+    private FoodTruckScene() {
         super("Entities.FoodTruck");
         checkOut = false;
     }
 
+    public static Singleton getInstance(){
+        return fts;
+    }
 
 //    @Override
 //    public String constructOutputString() {
@@ -60,7 +66,7 @@ public class FoodTruckScene extends Scene {
     }
 
 
- //   public int chekOut(String password){
+    //   public int chekOut(String password){
  //       Double cartTotal =  FoodTruckManager.checkOut(foodTruckName, cart);
  //       String seller = FoodTruckManager.getUserByFTName(foodTruckName);
  //       if (UserManager.pay(cusName, seller, password, cartTotal)){

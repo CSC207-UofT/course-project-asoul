@@ -56,7 +56,7 @@ public class OutputConstructor {
     }
 
     private String userInformationSceneOutputGenerator(String inputFeedback) {
-        HashMap<String, String> userInfo = UserManager.getUserByAccountName(us.username);
+        HashMap<String, String> userInfo = UserManager.getUser(us.username);
         StringBuilder outputString = new StringBuilder();
         if (!us.changingPassword) {
             outputString.append("------------------------User Information---------------------------");

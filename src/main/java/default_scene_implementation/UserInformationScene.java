@@ -3,12 +3,13 @@ package default_scene_implementation;
 import controllers.Scene;
 import exceptions.IncorrectOldPasswordException;
 import exceptions.UnmatchedPasswordException;
+import singleton_pattern.Singleton;
 import use_case.UserManager;
-import Utilities.State;
 
 import java.util.HashMap;
 
-public class UserInformationScene extends Scene {
+class UserInformationScene extends Scene {
+    private final static UserInformationScene us = new UserInformationScene();
     public String username;
 
     // Output State
@@ -20,7 +21,7 @@ public class UserInformationScene extends Scene {
     public boolean changingPassword;
     public final HashMap<String, String> displayMap;
 
-    public UserInformationScene() {
+    private UserInformationScene() {
         super("UserInformation");
         this.username = "";
         this.invalidFundError = false;
@@ -47,6 +48,10 @@ public class UserInformationScene extends Scene {
         this.commandSet.add("confirm");
         this.commandSet.add("back");
         this.commandSet.add("add_fund");
+    }
+
+    public static Singleton getInstance(){
+        return us;
     }
 
     void refreshOutputState() { // reset output flags

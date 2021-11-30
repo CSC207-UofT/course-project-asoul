@@ -228,6 +228,7 @@ public class UserManager{
         uSerializer.serialize();
     }
 
+    // These two methods should only be called from within the class for convenience purposes
     private static void addBuyOrder(String user, String orderID){
         User us = userMap.get(user);
         us.storeBuyOrder(orderID);
@@ -250,7 +251,7 @@ public class UserManager{
         }
     }
 
-    public static void completeOrder(String orderID, String username, String accessKey) throws UnauthorizedAccessException{
+    public static void completeOrder(String orderID, String username, String accessKey) throws UnauthorizedAccessException, NullPointerException{
         accessCheck(username, accessKey);
         Order order = OrderManager.orders.get(orderID);
         String seller = order.getSellerName();

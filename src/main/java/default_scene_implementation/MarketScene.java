@@ -2,17 +2,23 @@ package default_scene_implementation;
 
 import controllers.Scene;
 import exceptions.UnknownFoodTruckException;
+import singleton_pattern.Singleton;
 
-public class MarketScene extends Scene {
+class MarketScene extends Scene {
+    private final static MarketScene ms = new MarketScene();
     public boolean unknownFoodTruckError;
     private String username;
 
-    public MarketScene() {
+    private MarketScene() {
         super("Market");
         this.unknownFoodTruckError = false;
         this.username = "";
         this.commandSet.add("view_user_info");
         this.commandSet.add("select");
+    }
+
+    public static Singleton getInstance(){
+        return ms;
     }
 
     public void refreshOutputState() {

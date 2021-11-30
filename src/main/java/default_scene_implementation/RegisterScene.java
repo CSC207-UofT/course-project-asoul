@@ -1,17 +1,19 @@
 package default_scene_implementation;
 
 import controllers.Scene;
+import singleton_pattern.Singleton;
 import use_case.FoodTruckManager;
 import use_case.UserManager;
 
 import java.util.HashMap;
 
-public class RegisterScene extends Scene {
+class RegisterScene extends Scene {
+    private final static RegisterScene rs = new RegisterScene();
     private final HashMap<String, String> displayMap;
     private final UserManager userManager = new UserManager();
     private final FoodTruckManager foodTruckManager = new FoodTruckManager();
 
-    public RegisterScene() {
+    private RegisterScene() {
         super("Register");
         this.fields.put("username", "");
         this.fields.put("password", "");
@@ -29,7 +31,12 @@ public class RegisterScene extends Scene {
         commandSet.add("confirm");
         commandSet.add("register");
         commandSet.add("login");
-}
+    }
+
+    public static Singleton getInstance(){
+        return rs;
+    }
+
     public String registerUser() { // Create new users
         String username = this.fields.get("username");
         String password = this.fields.get("password");

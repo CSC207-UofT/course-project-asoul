@@ -4,9 +4,11 @@ import java.util.HashMap;
 
 import controllers.Scene;
 import exceptions.IncorrectCredentialsException;
+import singleton_pattern.Singleton;
 import use_case.UserManager;
 
-public class LoginScene extends Scene {
+class LoginScene extends Scene {
+    private final static LoginScene ls = new LoginScene();
     // Output States
 //    private boolean unknownCommandError;
 //    private boolean incorrectCredentialError;
@@ -15,7 +17,7 @@ public class LoginScene extends Scene {
 //    private boolean successRegistration;
     private final HashMap<String, String> displayMap;
 
-    public LoginScene() {
+    private LoginScene() {
         super("Login");
         this.fields.put("username", "");
         this.fields.put("password", "");
@@ -37,6 +39,10 @@ public class LoginScene extends Scene {
 //        this.help = false;
 //        this.register = false;
 //        this.successRegistration = false;
+    }
+
+    public static Singleton getInstance(){
+        return ls;
     }
 
     public String userLogin() throws IncorrectCredentialsException { // attempt to login
