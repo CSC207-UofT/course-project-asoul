@@ -46,7 +46,9 @@ public abstract class SceneBooter implements Observable {
 
     public abstract String outputInString();
 
-    public abstract void handleInputInString(String input);
+    public void handleInputInString(String input){
+        Scene.activeScene.state.setLength(0);
+    }
 
     public void terminate() throws IOException {
         FoodTruckManager.saveFoodTruckDataBase();

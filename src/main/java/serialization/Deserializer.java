@@ -4,11 +4,6 @@ import java.io.*;
 public class Deserializer {
     Serializable obj;
 
-    public Deserializer(String filePath, Serializable obj){
-        this.path = filePath;
-        this.obj = obj;
-    }
-
     public void deserialize(String path) throws ClassNotFoundException, IOException {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
@@ -23,5 +18,9 @@ public class Deserializer {
         }catch (EOFException e){
             // Do nothing
         }
+    }
+
+    public Serializable getObject(){
+        return obj;
     }
 }

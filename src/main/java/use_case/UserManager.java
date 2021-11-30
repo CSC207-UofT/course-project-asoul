@@ -19,8 +19,8 @@ import helper.RandomStringGenerator;
 public class UserManager{
     protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to User object.
     protected static HashMap<String, User> loggedInUsers = new HashMap<>();
-    private static final Serializer uSerializer = new Serializer("./data/user info", userMap);
-    private static final Deserializer uDeserializer = new Deserializer("./data/user info", userMap);
+    private static final Serializer uSerializer = new Serializer();
+    private static final Deserializer uDeserializer = new Deserializer();
 
     /**
      * @param accName  A String that represents the account Name.
@@ -225,8 +225,13 @@ public class UserManager{
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     public static void constructUserDataBase() throws IOException, ClassNotFoundException {
-        uDeserializer.deserialize();
+        uDeserializer.deserialize("./data/user info");
+        HashMap<String, User> m = (HashMap<String, User>) uDeserializer.getObject();
+        if(m != null){
+            userMap = m;
+        }
     }
 
     public static void saveUserDataBase() throws IOException {

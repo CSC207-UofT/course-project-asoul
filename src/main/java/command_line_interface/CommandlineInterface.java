@@ -3,6 +3,7 @@ package command_line_interface;
 import controllers.SceneBooter;
 import default_scene_implementation.*;
 import exceptions.IncorrectCredentialsException;
+import exceptions.IncorrectArgumentException;
 import observer_pattern.Observer;
 
 import java.io.*;
@@ -22,7 +23,7 @@ public class CommandlineInterface implements Observer {
         output = sceneBooter.outputInString();
     }
     
-    public static void main(String[] args) throws IOException, ClassNotFoundException, IncorrectCredentialsException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException{
         CommandlineInterface cm = new CommandlineInterface();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         cm.sceneBooter.boot();
@@ -31,8 +32,8 @@ public class CommandlineInterface implements Observer {
                 System.out.println(cm.output);
                 System.out.print(">>> ");
                 cm.sceneBooter.handleInputInString(br.readLine());
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Entered number of arguments does not match the expectation or is empty");
             }
         } while (cm.sceneBooter.isRunning());
         cm.sceneBooter.terminate();

@@ -1,9 +1,6 @@
 package use_case;
 
-import entities.Food;
-import entities.FoodMenu;
-import entities.FoodTruck;
-import entities.Order;
+import entities.*;
 import serialization.Deserializer;
 import serialization.Serializer;
 
@@ -155,8 +152,13 @@ public class OrderManager {
         return orders.get(id);
     }
 
+    @SuppressWarnings("unchecked")
     public static void constructOrderDataBase() throws IOException, ClassNotFoundException {
-        oDeserializer.deserialize();
+        oDeserializer.deserialize("./data/order info");
+        HashMap<String, Order> m = (HashMap<String, Order>) oDeserializer.getObject();
+        if(m != null){
+            orders = m;
+        }
     }
 
     public static void saveOrderDataBase() throws IOException {

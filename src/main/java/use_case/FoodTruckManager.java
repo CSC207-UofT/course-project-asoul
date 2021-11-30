@@ -268,8 +268,13 @@ public class FoodTruckManager{
         return foodTrucks.get(id);
     }
 
+    @SuppressWarnings("unchecked")
     public static void constructFoodTruckDataBase() throws IOException, ClassNotFoundException {
-        ftDeserializer.deserialize();
+        ftDeserializer.deserialize("./data/foodtruck info");
+        HashMap<String, FoodTruck> m = (HashMap<String, FoodTruck>) ftDeserializer.getObject();
+        if(m != null){
+            foodTrucks = m;
+        }
     }
 
     public static void saveFoodTruckDataBase() throws IOException {
