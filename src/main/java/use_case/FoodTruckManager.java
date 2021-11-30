@@ -1,6 +1,7 @@
 package use_case;
 
 import entities.*;
+import exceptions.UnauthorizedAccessException;
 import exceptions.UnknownFoodTruckException;
 import exceptions.UnknownUserException;
 import serialization.Deserializer;
@@ -15,9 +16,9 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class FoodTruckManager{
-    protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
-    private static final Serializer ftSerializer = new Serializer("./data/foodtruck info", foodTrucks);
-    private static final Deserializer ftDeserializer = new Deserializer("./data/foodtruck info", foodTrucks);
+    protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping User's account name to the FoodTrucks.
+    private static final Serializer ftSerializer = new Serializer();
+    private static final Deserializer ftDeserializer = new Deserializer();
 
     /**
      *
@@ -102,6 +103,7 @@ public class FoodTruckManager{
     public static boolean removeFoodFromMenu(Food food, String truckName) {
         return getFoodTruckById(truckName).removeFoodFromMenu(food);
     }
+
     /**
      * With the given foodtruck's name, remove food to menu if food object is in menu.
      *
@@ -118,6 +120,13 @@ public class FoodTruckManager{
     // Since when we update OrderHistory we don't only add order.
 
     // TODO: renameTruck()
+    public static boolean renameTruck(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
+        UserManager.accessCheck(userAccountName, accessKey);
+        if (foodTrucks.containsKey(userAccountName)) {
+            foodTrucks.get(userAccountName).changeTruckName(newTruckName);
+            return true;
+        } return false;
+    }
 
     /**
      * @param id the id of the specific food truck.
@@ -137,10 +146,8 @@ public class FoodTruckManager{
      * @return the created food truck
      */
 
-    public static FoodTruck createEmptyFoodTruck(String sellerName) { // Called when creating a new user
-        if (foodTrucks.containsKey(sellerName)) {
-            return null;
-        } else {
+    public static void createEmptyFoodTruck(String sellerName) { // Called when creating a new user
+        if(!foodTrucks.containsKey(sellerName)){
             FoodMenu menu = new FoodMenu();
 
             String location = "Bahen Center for Information Technology";
@@ -290,6 +297,6 @@ public class FoodTruckManager{
     }
 
     public static void saveFoodTruckDataBase() throws IOException {
-        ftSerializer.serialize();
+        ftSerializer.serialize("./data/foodtruck info", foodTrucks);
     }
 }

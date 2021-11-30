@@ -1,8 +1,7 @@
 package default_scene_implementation;
 
 import controllers.Scene;
-import exceptions.IncorrectOldPasswordException;
-import exceptions.UnmatchedPasswordException;
+import exceptions.*;
 import singleton_pattern.Singleton;
 import use_case.UserManager;
 
@@ -13,13 +12,6 @@ class UserInformationScene extends Scene {
     public String username;
 
     // Output State
-    public boolean invalidFundError;
-    public boolean changeNicknameSuccess;
-    public boolean incorrectOldPasswordError;
-    public boolean unmatchedPasswordError;
-    public boolean changePasswordSuccess;
-    public boolean changingPassword;
-    public final HashMap<String, String> displayMap;
 
     private UserInformationScene() {
         super("UserInformation");
@@ -54,35 +46,78 @@ class UserInformationScene extends Scene {
         return us;
     }
 
-    void refreshOutputState() { // reset output flags
-        this.invalidFundError = false;
-        this.changeNicknameSuccess = false;
-        this.incorrectOldPasswordError = false;
-        this.unmatchedPasswordError = false;
-        this.changePasswordSuccess = false;
+    public void handleInputString(String input){
+        String[] text = input.split(" ");
+        switch (text[0]) {
+            case "view_market":
+                this.viewMarket();
+            case "help":
+                this.state.append(this.getHelpMessage());
+                break;
+            case "exit":
+                Scene.exit = true;
+                break;
+            case "sign_out":
+                try{
+                    UserManager.logOut(username, accessKey);
+                    switchScene((LoginScene) LoginScene.getInstance());
+                }catch (UnauthorizedAccessException e) {
+                    state.append(e.getMessage()).append("\n");
+                }
+                break;
+            case "change_user_info":
+                changeUserInfo();
+                break;
+            case "change_truck_info":
+                changeTruckInfo();
+                break;
+            case "add_money":
+                try {
+                    double money = Double.parseDouble(text[1]);
+                    addFund(money);
+                } catch (NumberFormatException | IncorrectArgumentException e) {
+                    this.state.append((new IncorrectArgumentException()).getMessage());
+                }
+                break;
+            case "withdraw_money":
+                try {
+                    double money = Double.parseDouble(text[1]);
+                    withdrawFund(money);
+                } catch (NumberFormatException | IncorrectArgumentException e) {
+                    this.state.append((new IncorrectArgumentException()).getMessage());
+                }
+                break;
+            case "view_order":
+                // TODO
+                break;
+            default:
+                this.state.append((new UnknownCommandException()).getMessage()).append("\n");
+                break;
+        }
     }
 
-    public void changePhoneNumber(String phoneNumber) {
-        UserManager.setPhoneNumber(this.username, phoneNumber);
+    @Override
+    public String constructOutputString(){
+        return "Username: " + username + "\n" +
+                "Nickname: " + nickname + "\n" +
+                "Phone Number: " + phoneNum + "\n" +
+                "Truck Name: " + truckName + "\n" +
+                "Account Balance: " + accBalance + "\n" +
+                "Buy order history: " + buyOrderHistory + "\n" +
+                "Sell order history: " + sellOrderHistory + "\n" +
+                this.state;
     }
 
-    public void changeNickname(String nickname) {
-        UserManager.setNickname(this.username, nickname);
-    }
-
-    void changePassword() throws UnmatchedPasswordException {
-        String oldPassword = this.fields.get("old_password");
-        String newPassword = this.fields.get("new_password");
-        String confirmPassword = this.fields.get("confirm_password");
+    public void updateUserInfo(){
         try {
-            if (!confirmPassword.equals(newPassword)) {
-                throw new UnmatchedPasswordException();
-            }
-            UserManager.setPassword(this.username, newPassword, oldPassword);
-            this.changePasswordSuccess = true;
-            this.changingPassword = false;
-        } catch (IncorrectOldPasswordException e) {
-            this.incorrectOldPasswordError = true;
+            this.truckName = UserManager.getTruckName(username, accessKey);
+            this.nickname = UserManager.getNickname(username, accessKey);
+            this.accBalance = UserManager.getBalance(username, accessKey);
+            this.phoneNum = UserManager.getPhoneNumber(username, accessKey);
+            this.sellOrderHistory = UserManager.getSellOrderHistory(username, accessKey).toString();
+            this.buyOrderHistory = UserManager.getBuyOrderHistory(username, accessKey).toString();
+        }catch(UnauthorizedAccessException e){
+            this.state.append(e.getMessage());
         }
     }
 
@@ -92,11 +127,28 @@ class UserInformationScene extends Scene {
         scene.setUsername(this.username);
     }
 
+    public void changeUserInfo() {
+        UserInfoEditScene scene = (UserInfoEditScene) UserInfoEditScene.getInstance();
+        this.switchScene(scene);
+    }
+
+    public void changeTruckInfo() {
+        FoodTruckEditScene scene = (FoodTruckEditScene) FoodTruckEditScene.getInstance();
+        this.switchScene(scene);
+    }
+
     public void addFund(String fund) {
         UserManager.addMoney(this.username, Integer.parseInt(fund));
     }
-
-    public void setUserInfo(String username) {
-        this.username = username;
+    public void withdrawFund(double fund) throws IncorrectArgumentException {
+        UserManager.withdrawMoney(username, fund);
+        updateUserInfo();
     }
+
+    public void setUserInfo(String username, String key){
+        this.username = username;
+        this.accessKey = key;
+        this.updateUserInfo();
+    }
+
 }

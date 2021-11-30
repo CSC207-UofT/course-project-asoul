@@ -1,6 +1,5 @@
 package default_scene_implementation;
 
-import java.util.HashMap;
 
 import controllers.Scene;
 import exceptions.IncorrectCredentialsException;
@@ -48,11 +47,14 @@ class LoginScene extends Scene {
     public String userLogin() throws IncorrectCredentialsException { // attempt to login
         String username = this.fields.get("username");
         String password = this.fields.get("password");
-        UserManager.login(username, password);
-        this.switchScene("UserInformation");
-        UserInformationScene s = (UserInformationScene) Scene.allScenes.get("UserInformation");
-        s.setUserInfo(username);
-        return "login success";
+        String key = UserManager.login(username, password);
+        UserInformationScene s = (UserInformationScene)UserInformationScene.getInstance();
+        s.setUserInfo(username, key); //set all scenes
+        this.switchScene(s);
+        UserInfoEditScene infoEditScene = (UserInfoEditScene)UserInfoEditScene.getInstance();
+        infoEditScene.setUserInfo(username, key);
+        FoodTruckEditScene truckEditScene = (FoodTruckEditScene) FoodTruckEditScene.getInstance();
+        truckEditScene.setUserInfo(username, key);
     }
 
 

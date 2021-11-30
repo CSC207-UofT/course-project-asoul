@@ -7,7 +7,7 @@ import java.util.HashSet;
  * Java class representation for Entities.FoodTruck instance
  */
 public class FoodTruck implements Serializable {
-    private final String truckName; // The name of the Entities.Food Truck
+    private String truckName; // The name of the Entities.Food Truck
     private final String location; //The location of the Entities.Food Truck, can't be changed once set
     private final String serviceTimeStart; //Starting service time
     private final String serviceTimeEnd; //Ending service time
@@ -96,6 +96,14 @@ public class FoodTruck implements Serializable {
      */
     public void activateTruck() {
         this.active = true;
+    }
+
+    /**
+     *
+     * @param newName the new name user wants to assign to this truck.
+     */
+    public void changeTruckName(String newName) {
+        this.truckName = newName;
     }
 
     /**

@@ -18,8 +18,8 @@ import java.util.Objects;
 
 public class OrderManager {
     protected static HashMap<String, Order> orders = new HashMap<>(); //
-    private static final Serializer oSerializer = new Serializer("./data/order info", orders);
-    private static final Deserializer oDeserializer = new Deserializer("./data/order info", orders);
+    private static final Serializer oSerializer = new Serializer();
+    private static final Deserializer oDeserializer = new Deserializer();
 
     /**
      * Create an order and add it to the list.
@@ -160,6 +160,6 @@ public class OrderManager {
     }
 
     public static void saveOrderDataBase() throws IOException {
-        oSerializer.serialize();
+        oSerializer.serialize("./data/order info", orders);
     }
 }
