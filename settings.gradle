@@ -1,0 +1,2 @@
+rootProject.name = "asoul_android"
+include ':app'
