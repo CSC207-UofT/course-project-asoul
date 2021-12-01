@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/course-project-asoul.iml" filepath="$PROJECT_DIR$/.idea/course-project-asoul.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/test/test.iml" filepath="$PROJECT_DIR$/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/asoul_android.iml" filepath="$PROJECT_DIR$/.idea/modules/asoul_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/asoul_android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/asoul_android.app.iml" />
     </modules>
   </component>
 </project>
