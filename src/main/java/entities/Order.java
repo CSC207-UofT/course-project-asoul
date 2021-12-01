@@ -7,7 +7,7 @@ import java.time.LocalDateTime; // Import the LocalDateTime class
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
 
 /**
- * An order
+ * An order.
  */
 
 public class Order implements Serializable {
@@ -66,7 +66,6 @@ public class Order implements Serializable {
      * E.g. when current status is "order completed", call changeOrderStatus again
      * will not change the status and "Change Failed" will be returned.
      *
-     * @return Whether the status being changed successfully.
      */
     public void changeOrderStatus(){
         if (this.status.equals("in progress")) {
@@ -157,8 +156,6 @@ public class Order implements Serializable {
     public String getSellerNumber() {
         return this.sellerNumber;
     }
-
-    public double getRatingRaw(){return this.rating; }
 
     public double getRating(){
         return this.rating;

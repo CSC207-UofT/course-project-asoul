@@ -17,10 +17,10 @@ import helper.RandomStringGenerator;
  * A Use_case.UserManager that manages all the Users.
  */
 public class UserManager{
-    protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to Entities.User object.
+    protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to User object.
     protected static HashMap<String, User> loggedInUsers = new HashMap<>();
-    private static final Serializer uSerializer = new Serializer("./data/user info", userMap);
-    private static final Deserializer uDeserializer = new Deserializer("./data/user info", userMap);
+    private static final Serializer uSerializer = new Serializer();
+    private static final Deserializer uDeserializer = new Deserializer();
 
     /**
      * @param accName  A String that represents the account Name.
@@ -48,6 +48,11 @@ public class UserManager{
         }
     }
 
+    public static void logOut(String username, String accessKey) throws UnauthorizedAccessException {
+        accessCheck(username, accessKey);
+        loggedInUsers.remove(accessKey);
+    }
+
     public static void userExist(String accName) throws UnknownUserException{
         if(!userMap.containsKey(accName)){
             throw new UnknownUserException();
@@ -59,7 +64,7 @@ public class UserManager{
      * @param money       The amount of money the user wants to add.
      */
 
-    public static void addMoney(String accountName, int money) throws IncorrectArgumentException {
+    public static void addMoney(String accountName, double money) throws IncorrectArgumentException {
         User user = userMap.get(accountName);
         boolean addSuccess = user.addMoney(money);
         if (!addSuccess) {
@@ -84,7 +89,7 @@ public class UserManager{
      * @param money       The amount of money the user wants to withdraw.
      */
 
-    public void withdrawMoney(String accountName, int money) throws IncorrectArgumentException {
+    public static void withdrawMoney(String accountName, double money) throws IncorrectArgumentException {
         User user = userMap.get(accountName);
         boolean withSuccess = user.withdrawMoney(money);
         if (!withSuccess) {
@@ -110,8 +115,8 @@ public class UserManager{
      * @param phoneNum The user's phone number.
      * @return true if the user created successfully.
      */
-    public boolean createUser(String accName, String password,
-                              String nickname, String phoneNum) {
+    public static boolean createUser(String accName, String password,
+                                     String nickname, String phoneNum) {
         if (userMap.containsKey(accName)) {
             return false;
         }
@@ -220,14 +225,20 @@ public class UserManager{
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     public static void constructUserDataBase() throws IOException, ClassNotFoundException {
-        uDeserializer.deserialize();
+        uDeserializer.deserialize("./data/user info");
+        HashMap<String, User> m = (HashMap<String, User>) uDeserializer.getObject();
+        if(m != null){
+            userMap = m;
+        }
     }
 
     public static void saveUserDataBase() throws IOException {
-        uSerializer.serialize();
+        uSerializer.serialize("./data/user info", userMap);
     }
 
+    // These two methods should only be called from within the class for convenience purposes
     private static void addBuyOrder(String user, String orderID){
         User us = userMap.get(user);
         us.storeBuyOrder(orderID);
@@ -250,7 +261,13 @@ public class UserManager{
         }
     }
 
-    public static void completeOrder(String orderID, String username, String accessKey) throws UnauthorizedAccessException{
+    public static String getTruckName(String username, String accessKey) throws UnauthorizedAccessException {
+        accessCheck(username, accessKey);
+        FoodTruck ft = FoodTruckManager.foodTrucks.get(username);
+        return ft.getTruckName();
+    }
+
+    public static void completeOrder(String orderID, String username, String accessKey) throws UnauthorizedAccessException, NullPointerException{
         accessCheck(username, accessKey);
         Order order = OrderManager.orders.get(orderID);
         String seller = order.getSellerName();
