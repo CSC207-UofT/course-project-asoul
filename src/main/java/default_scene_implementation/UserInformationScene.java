@@ -18,9 +18,8 @@ class UserInformationScene extends Scene {
     private String accessKey;
     private String buyOrderHistory;
     private String sellOrderHistory;
+    private String truckActive;
 
-
-    // Output State
 
     private UserInformationScene() {
         super("UserInformation");
@@ -29,6 +28,7 @@ class UserInformationScene extends Scene {
         this.nickname = "";
         this.phoneNum = "";
         this.truckName = "";
+        this.truckActive = "";
         this.accBalance = 0;
         this.buyOrderHistory = "";
         this.sellOrderHistory = "";
@@ -52,6 +52,7 @@ class UserInformationScene extends Scene {
         switch (text[0]) {
             case "view_market":
                 this.viewMarket();
+                break;
             case "help":
                 this.state.append(this.getHelpMessage());
                 break;
@@ -112,10 +113,12 @@ class UserInformationScene extends Scene {
 
     @Override
     public String constructOutputString(){
-        return "Username: " + username + "\n" +
+        return "------------------------------User Information----------------------------------\n" +
+                "Username: " + username + "\n" +
                 "Nickname: " + nickname + "\n" +
                 "Phone Number: " + phoneNum + "\n" +
                 "Truck Name: " + truckName + "\n" +
+                "Truck Status: " + truckActive + "\n" +
                 "Account Balance: " + accBalance + "\n" +
                 "Buy order history: " + buyOrderHistory + "\n" +
                 "Sell order history: " + sellOrderHistory + "\n" +
@@ -130,6 +133,13 @@ class UserInformationScene extends Scene {
             this.phoneNum = UserManager.getPhoneNumber(username, accessKey);
             this.sellOrderHistory = UserManager.getSellOrderHistory(username, accessKey).toString();
             this.buyOrderHistory = UserManager.getBuyOrderHistory(username, accessKey).toString();
+            boolean flag = FoodTruckManager.isActive(username, accessKey);
+            if(flag){
+                this.truckActive = "Activated";
+            }else{
+                this.truckActive = "Deactivated";
+            }
+
         }catch(UnauthorizedAccessException e){
             this.state.append(e.getMessage());
         }
@@ -138,6 +148,7 @@ class UserInformationScene extends Scene {
     public void viewMarket() {
         MarketScene scene = (MarketScene) MarketScene.getInstance();
         this.switchScene(scene);
+        this.state.setLength(0);
     }
 
     public void changeUserInfo() {

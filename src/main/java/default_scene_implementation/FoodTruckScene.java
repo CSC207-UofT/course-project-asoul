@@ -1,6 +1,8 @@
 package default_scene_implementation;
 
 import controllers.Scene;
+import exceptions.IncorrectCredentialsException;
+import exceptions.UnauthorizedAccessException;
 import exceptions.UnknownCommandException;
 import singleton_pattern.Singleton;
 import use_case.FoodTruckManager;
@@ -11,7 +13,8 @@ class FoodTruckScene extends Scene {
     private static final FoodTruckScene fts = new FoodTruckScene();
     public String foodTruckName;
     private ArrayList<Integer> cart;
-    private String cusName;
+    private String username;
+    private String accessKey;
     private int orderID; // we are going to use it later, so it can't be local variable.
     private boolean checkOut; // we are going to use it later, so it can't be local variable.
 
@@ -24,20 +27,27 @@ class FoodTruckScene extends Scene {
         return fts;
     }
 
-//    @Override
-//    public String constructOutputString() {
-//        return foodTruckName + "\n" + "rating : " + ftm.getRating(foodTruckName) + "\n" +
-//                ftm.getMenu(foodTruckName) + "\n----------------Cart---------------" + cart;
-//    }
-
     @Override
     public void handleInputString(String input){
-
+        String[] text = input.split(" ");
+        switch (text[0]) {
+            case "back":
+                switchScene((MarketScene)MarketScene.getInstance());
+            case "help":
+                this.state.append(this.getHelpMessage());
+                break;
+            case "exit":
+                Scene.exit = true;
+                break;
+            default:
+                this.state.append((new UnknownCommandException()).getMessage()).append("\n");
+                break;
+        }
     }
 
     @Override
     public String constructOutputString(){
-        return "";
+        return "FoodTruckScene";
     }
     /**
      * set Foodtruck name to name
@@ -47,8 +57,9 @@ class FoodTruckScene extends Scene {
         this.foodTruckName = name;
     }
 
-    public void setUsername(String name) {
-        this.cusName = name;
+    public void setUserInfo(String name, String accessKey) {
+        this.username = name;
+        this.accessKey = accessKey;
     }
 
     public void selectFood(int id, int num){
