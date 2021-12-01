@@ -3,6 +3,7 @@ package default_scene_implementation;
 import controllers.Scene;
 import exceptions.*;
 import singleton_pattern.Singleton;
+import use_case.FoodTruckManager;
 import use_case.UserManager;
 
 import java.util.HashMap;
@@ -38,7 +39,8 @@ class UserInformationScene extends Scene {
                 "change_truck_info -> Change user's food truck information\n" +
                 "add_money + [Space] + [amount of money] -> add money to balance\n" +
                 "withdraw_money + [Space] + [amount of money] -> withdraw money from balance\n" +
-                "view_order + [Space] + [order id] -> view the order\n");
+                "view_order + [Space] + [order id] -> view the order\n" +
+                "change_truck_status -> Change Truck Status.");
     }
 
     public static Singleton getInstance(){
@@ -88,6 +90,19 @@ class UserInformationScene extends Scene {
                 break;
             case "view_order":
                 // TODO
+                break;
+            case "change_truck_status":
+                try {
+                    if (FoodTruckManager.isActive(username, accessKey)) {
+                        FoodTruckManager.deactivateTruck(username);
+                    } else{
+                        FoodTruckManager.activateTruck(username);
+                    }
+                    updateUserInfo();
+                }
+                catch (UnauthorizedAccessException | UnknownFoodTruckException e) {
+                        this.state.append(e.getMessage());
+                }
                 break;
             default:
                 this.state.append((new UnknownCommandException()).getMessage()).append("\n");
