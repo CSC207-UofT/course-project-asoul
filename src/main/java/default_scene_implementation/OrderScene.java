@@ -1,13 +1,29 @@
 package default_scene_implementation;
 import controllers.Scene;
+import singleton_pattern.Singleton;
 import use_case.OrderManager;
 
-public class OrderScene extends Scene {
+class OrderScene extends Scene {
+    private final static OrderScene os = new OrderScene();
+
     public String OrderID;
 
-
-    public OrderScene() {
+    private OrderScene() {
         super("Order");
+    }
+
+    public static Singleton getInstance(){
+        return os;
+    }
+
+    @Override
+    public void handleInputString(String input){
+
+    }
+
+    @Override
+    public String constructOutputString(){
+        return "";
     }
 
     public void rateOrder(Double rating){

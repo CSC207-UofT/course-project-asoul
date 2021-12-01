@@ -1,6 +1,7 @@
 package use_case;
 
 import entities.*;
+import exceptions.UnauthorizedAccessException;
 import exceptions.UnknownFoodTruckException;
 import exceptions.UnknownUserException;
 import serialization.Deserializer;
@@ -15,9 +16,14 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class FoodTruckManager{
-    protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping FoodTrucks' id to the FoodTrucks.
-    private static final Serializer ftSerializer = new Serializer("./data/foodtruck info", foodTrucks);
-    private static final Deserializer ftDeserializer = new Deserializer("./data/foodtruck info", foodTrucks);
+    protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping User's account name to the FoodTrucks.
+    private static final Serializer ftSerializer = new Serializer();
+    private static final Deserializer ftDeserializer = new Deserializer();
+
+
+    public static boolean existsTruck(String name){
+        return foodTrucks.containsKey(name);
+    }
 
     /**
      *
@@ -102,6 +108,7 @@ public class FoodTruckManager{
     public static boolean removeFoodFromMenu(Food food, String truckName) {
         return getFoodTruckById(truckName).removeFoodFromMenu(food);
     }
+
     /**
      * With the given foodtruck's name, remove food to menu if food object is in menu.
      *
@@ -113,11 +120,14 @@ public class FoodTruckManager{
         return getFoodTruckById(truckName).getMenu().isThereSameNameFoodId(ID);
     }
 
-    // TODO: updateOrderHistory()
-    // It's better to change the code in the Entities.FoodTruck.updateOrderHistory().
-    // Since when we update OrderHistory we don't only add order.
-
     // TODO: renameTruck()
+    public static boolean renameTruck(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
+        UserManager.accessCheck(userAccountName, accessKey);
+        if (foodTrucks.containsKey(userAccountName)) {
+            foodTrucks.get(userAccountName).changeTruckName(newTruckName);
+            return true;
+        } return false;
+    }
 
     /**
      * @param id the id of the specific food truck.
@@ -137,10 +147,8 @@ public class FoodTruckManager{
      * @return the created food truck
      */
 
-    public static FoodTruck createEmptyFoodTruck(String sellerName) { // Called when creating a new user
-        if (foodTrucks.containsKey(sellerName)) {
-            return null;
-        } else {
+    public static void createEmptyFoodTruck(String sellerName) { // Called when creating a new user
+        if(!foodTrucks.containsKey(sellerName)){
             FoodMenu menu = new FoodMenu();
 
             String location = "Bahen Center for Information Technology";
@@ -150,6 +158,7 @@ public class FoodTruckManager{
             FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", location, serviceTimeStart,
                     serviceTimeEnd, sellerName, menu);
             foodTrucks.put(sellerName, new_truck);
+
             ArrayList<String> label1 = new ArrayList<>();
             label1.add("Fast food");
             Food food1 = new Food("Hamburger", 5.50, 1, label1, "Pretty delicious legend Hamburger!");
@@ -168,8 +177,6 @@ public class FoodTruckManager{
             addFoodToMenu(food2, sellerName);
             addFoodToMenu(food3, sellerName);
             addFoodToMenu(food4, sellerName);
-
-            return new_truck;
         }
     }
 
@@ -198,9 +205,9 @@ public class FoodTruckManager{
             int i = 0;
             Iterator<String> iterator = orders.iterator();
             while(i < 100 && iterator.hasNext()){
-                if (Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw() >= 0 &&
-                        Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw() <= 10){
-                    totalRating += Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRatingRaw();
+                if (Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating() >= 0 &&
+                        Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating() <= 10){
+                    totalRating += Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating();
                     count ++;
                 }
                 i++;
@@ -265,16 +272,24 @@ public class FoodTruckManager{
      */
     public static HashMap<String, String> getAllFoodTruckDescription() {
         HashMap<String, String> information = new HashMap<>();
-        for (String id : getExistFoodTruckName())
+        for (String id : foodTrucks.keySet()) {
             information.put(id, getFoodTruckById(id).toString());
+        }
         return information;
     }
 
     /**
-     * @return A set contains all current FoodTrucks' names.
+     * @return A map that from the FoodTruck's id to FoodTruck's brief description for all active trucks.
      */
-    public static Set<String> getExistFoodTruckName() {
-        return foodTrucks.keySet();
+    public static HashMap<String, String> getActiveFoodTruckDescription() {
+        HashMap<String, String> information = new HashMap<>();
+        for (String id : foodTrucks.keySet()) {
+            FoodTruck ft = foodTrucks.get(id);
+            if (ft.isActive()) {
+                information.put(id, getFoodTruckById(id).toString());
+            }
+        }
+        return information;
     }
 
     /**
@@ -285,11 +300,21 @@ public class FoodTruckManager{
         return foodTrucks.get(id);
     }
 
+    public static boolean isActive(String id, String accessKey) throws UnauthorizedAccessException{
+        UserManager.accessCheck(id, accessKey);
+        return foodTrucks.get(id).isActive();
+    }
+
+    @SuppressWarnings("unchecked")
     public static void constructFoodTruckDataBase() throws IOException, ClassNotFoundException {
-        ftDeserializer.deserialize();
+        ftDeserializer.deserialize("./data/foodtruck info");
+        HashMap<String, FoodTruck> m = (HashMap<String, FoodTruck>) ftDeserializer.getObject();
+        if(m != null){
+            foodTrucks = m;
+        }
     }
 
     public static void saveFoodTruckDataBase() throws IOException {
-        ftSerializer.serialize();
+        ftSerializer.serialize("./data/foodtruck info", foodTrucks);
     }
 }

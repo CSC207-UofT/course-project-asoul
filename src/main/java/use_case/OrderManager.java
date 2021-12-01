@@ -1,9 +1,6 @@
 package use_case;
 
-import entities.Food;
-import entities.FoodMenu;
-import entities.FoodTruck;
-import entities.Order;
+import entities.*;
 import serialization.Deserializer;
 import serialization.Serializer;
 
@@ -18,8 +15,8 @@ import java.util.Objects;
 
 public class OrderManager {
     protected static HashMap<String, Order> orders = new HashMap<>(); //
-    private static final Serializer oSerializer = new Serializer("./data/order info", orders);
-    private static final Deserializer oDeserializer = new Deserializer("./data/order info", orders);
+    private static final Serializer oSerializer = new Serializer();
+    private static final Deserializer oDeserializer = new Deserializer();
 
     /**
      * Create an order and add it to the list.
@@ -45,7 +42,6 @@ public class OrderManager {
     /**
      * Create an order and add it to the list.
      *
-     * @param trucks         A FoodTruckManager stores all trucks.
      * @param truckName      The truck name of the truck
      * @param foods          a list of foods' name ordered by the customers
      * @param customerName   name of the customer who ordered the food
@@ -55,10 +51,10 @@ public class OrderManager {
      * @return the id of new order
      */
 
-    public int createOrder(FoodTruckManager trucks, String truckName, ArrayList<String> foods, String
+    public int createOrder(String truckName, ArrayList<String> foods, String
             customerName,
                            String customerNumber, String sellerName, String sellerNumber) {
-        FoodTruck foodTruck = trucks.getFoodTruckById(truckName);
+        FoodTruck foodTruck = FoodTruckManager.getFoodTruckById(truckName);
         ArrayList<Food> foodList = getMenuFood(foods, foodTruck);
         return createOrder(foodTruck, foodList, customerName, customerNumber, sellerName, sellerNumber);
     }
@@ -95,7 +91,7 @@ public class OrderManager {
      * @return An ArrayList of Entities.Food from the given foods' names.
      */
     public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruckManager trucks, String truckName) {
-        FoodTruck truck = trucks.getFoodTruckById(truckName);
+        FoodTruck truck = FoodTruckManager.getFoodTruckById(truckName);
         return getMenuFood(foods, truck);
     }
 
@@ -117,22 +113,21 @@ public class OrderManager {
      * @param foods     the list of foods' name
      * @param truckName The truck name of the truck
      * @return The total price of the given food in the truck
+     * @throws NullPointerException If the foodtruck with specified id does not exist
      */
-    public double getTotalPrice(ArrayList<String> foods, String truckName) {
+    public double getTotalPrice(ArrayList<String> foods, String truckName) throws NullPointerException{
         FoodTruck truck = FoodTruckManager.getFoodTruckById(truckName);
         return getTotalPrice(foods, truck);
     }
 
     /**
-     * @param id the Entities.Order's id.
-     * @return A map that from the Entities.Order's id to the Entities.Order's information. If the Entities.Order doesn't
-     * exist, return an empty map.
+     * @param id the order's id.
+     * @return A map that from the order's id to order's information.
+     * @throws NullPointerException If the order with specified id does not exist
      */
-    public HashMap<String, String> getOrderDetail(String id) {
+    public HashMap<String, String> getOrderDetail(String id) throws NullPointerException{
         HashMap<String, String> information = new HashMap<>();
-        if (orders.containsKey(id)) {
-            information.put(id, getOrder(id).toString());
-        }
+        information.put(id, getOrder(id).toString());
         return information;
     }
 
@@ -143,8 +138,9 @@ public class OrderManager {
      * @param rating should be a double <= 10 & >= 0
      * @param id     the id of the order we want to rate
      * @return return true if rating updated successfully, return false otherwise
+     * @throws NullPointerException If the order with specified id does not exist
      */
-    public static boolean rateOrder(double rating, String id) {
+    public static boolean rateOrder(double rating, String id) throws NullPointerException{
         return getOrder(id).rateOrder(rating);
     }
 
@@ -153,17 +149,19 @@ public class OrderManager {
      * @return The order with the given id. Return null is the id is not exist.
      */
     public static Order getOrder(String id) {
-        if (orders.containsKey(id)) {
-            return orders.get(id);
-        }
-        return null;
+        return orders.get(id);
     }
 
+    @SuppressWarnings("unchecked")
     public static void constructOrderDataBase() throws IOException, ClassNotFoundException {
-        oDeserializer.deserialize();
+        oDeserializer.deserialize("./data/order info");
+        HashMap<String, Order> m = (HashMap<String, Order>) oDeserializer.getObject();
+        if(m != null){
+            orders = m;
+        }
     }
 
     public static void saveOrderDataBase() throws IOException {
-        oSerializer.serialize();
+        oSerializer.serialize("./data/order info", orders);
     }
 }

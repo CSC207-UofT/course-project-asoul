@@ -1,5 +1,6 @@
 package use_case;
 
+import exceptions.IncorrectArgumentException;
 import exceptions.IncorrectCredentialsException;
 
 public class TestUserManager {
@@ -28,7 +29,7 @@ public class TestUserManager {
     }
 
     @org.junit.Test
-    public void withdrawMoneyTest() {
+    public void withdrawMoneyTest() throws IncorrectArgumentException {
         UserManager userManager = new UserManager();
         userManager.createUser("a", "b", "c", "c");
         userManager.withdrawMoney("a", 50);
