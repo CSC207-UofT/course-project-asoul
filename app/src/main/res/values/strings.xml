@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">asoul_android</string>
+    <string name="app_name">projectasoulandroid</string>
+    <string name="sign_in_with_username">Sign in with username</string>
+    <string name="asoul">ASOUL</string>
+    <string name="enter_password">enter your password</string>
+    <string name="sign_in">sign in</string>
 </resources>
