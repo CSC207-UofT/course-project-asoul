@@ -4,4 +4,6 @@
     <string name="asoul">ASOUL</string>
     <string name="enter_password">enter your password</string>
     <string name="sign_in">sign in</string>
+    <string name="or_if_you_do_not_have_an_account">...or if you do not have an account:</string>
+    <string name="register">REGISTER</string>
 </resources>
