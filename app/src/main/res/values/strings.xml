@@ -8,4 +8,14 @@
     <string name="register">REGISTER</string>
     <string name="welcome">Welcome!</string>
     <string name="arrow_right"><![CDATA[--->]]></string>
+    <string name="please_provide_the_basic_information_below">Please provide the basic information below:</string>
+    <string name="username">Username:</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="enter_your_phone_number_only_numbers">Enter your phone number (only numbers)</string>
+    <string name="enter_your_nickname">Enter your nickname</string>
+    <string name="phone_num">Phone #:</string>
+    <string name="nickname">Nickname:</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="password">Password:</string>
+    <string name="or_go_back_to">...or go back to..</string>
 </resources>
