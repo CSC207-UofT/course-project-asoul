@@ -15,16 +15,8 @@
             android:textStyle="italic"
             android:gravity="center"
     />
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Welcome!"
-            android:layout_marginTop="80sp"
-            android:textSize="30sp"
-            android:gravity="center"
-    />
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:layout_marginTop="20sp"
+              android:layout_marginTop="100sp"
               android:hint="@string/sign_in_with_username"
               android:gravity="center"
               android:inputType="text"/>
