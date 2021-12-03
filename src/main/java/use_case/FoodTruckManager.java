@@ -65,13 +65,13 @@ public class FoodTruckManager{
      */
     public static boolean addFoodToMenu(String foodName, double price,
                                  ArrayList<String> label, String descriptions, String truckName) {
-        ArrayList<Integer> ids = getFoodTruckById(truckName).getMenu().getFoodIds();
+        ArrayList<Integer> ids = foodTrucks.get(truckName).getMenu().getFoodIds();
         int i = ThreadLocalRandom.current().nextInt(0, 99 + 1);
         while (ids.contains(i)) {
             i = ThreadLocalRandom.current().nextInt(0, 99 + 1);
         }
         Food food = new Food(foodName, price, i, label, descriptions);
-        return getFoodTruckById(truckName).addFoodToMenu(food);
+        return foodTrucks.get(truckName).addFoodToMenu(food);
     }
 
     /**
@@ -82,7 +82,7 @@ public class FoodTruckManager{
      * @param truckName The name of the given truck
      */
     public static void addFoodToMenu(Food food, String truckName) { // we are going to use the return value later.
-        getFoodTruckById(truckName).addFoodToMenu(food);
+        foodTrucks.get(truckName).addFoodToMenu(food);
     }
 
     /**
@@ -95,7 +95,7 @@ public class FoodTruckManager{
     public static boolean removeFoodFromMenu(String foodName, String truckName) {
         ArrayList<String> label = new ArrayList<>();
         Food food = new Food(foodName, 0, 0, label, "");
-        return getFoodTruckById(truckName).removeFoodFromMenu(food);
+        return foodTrucks.get(truckName).removeFoodFromMenu(food);
     }
 
     /**
@@ -106,7 +106,7 @@ public class FoodTruckManager{
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
     public static boolean removeFoodFromMenu(Food food, String truckName) {
-        return getFoodTruckById(truckName).removeFoodFromMenu(food);
+        return foodTrucks.get(truckName).removeFoodFromMenu(food);
     }
 
     /**
@@ -117,15 +117,27 @@ public class FoodTruckManager{
      * @return true if the food ID is in the given foodtruck's menu, false otherwise.
      */
     public static boolean checkFoodFromFTMenu(int ID, String truckName){
-        return getFoodTruckById(truckName).getMenu().isThereSameNameFoodId(ID);
+        return foodTrucks.get(truckName).getMenu().isThereSameNameFoodId(ID);
     }
 
     public static void setTruckName(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
         UserManager.accessCheck(userAccountName, accessKey);
-        if (foodTrucks.containsKey(userAccountName)) {
-            foodTrucks.get(userAccountName).changeTruckName(newTruckName);
-            return true;
-        } return false;
+        foodTrucks.get(userAccountName).setTruckName(newTruckName);
+    }
+
+    public static void setStartTime(String time, String username, String accessKey) throws UnauthorizedAccessException{
+        UserManager.accessCheck(username, accessKey);
+        foodTrucks.get(username).setServiceTimeStart(time);
+    }
+
+    public static void setEndTime(String time, String username, String accessKey) throws UnauthorizedAccessException{
+        UserManager.accessCheck(username, accessKey);
+        foodTrucks.get(username).setServiceTimeEnd(time);
+    }
+
+    public static void setAddress(String address, String username, String accessKey) throws UnauthorizedAccessException{
+        UserManager.accessCheck(username, accessKey);
+        foodTrucks.get(username).setAddress(address);
     }
 
     /**
@@ -221,19 +233,19 @@ public class FoodTruckManager{
      *           <p>
      *           Get the rating of the specific food truck. Return false if the food truck is not in the list.
      */
-    public static Object getRating(String id) {
-        if (foodTrucks.containsKey(id)) {
-            return foodTrucks.get(id).getRating();
-        } else {
-            return false;
-        }
+    public static double getRating(String id) {
+        return foodTrucks.get(id).getRating();
     }
 
     /**
      * @return The seller of the Entities.FoodTruck.
      */
     public static User getSeller(String id) {
-        return UserManager.userMap.get(getFoodTruckById(id).getSeller());
+        return UserManager.userMap.get(foodTrucks.get(id).getSeller());
+    }
+
+    public static String getTruckName(String id){
+        return foodTrucks.get(id).getTruckName();
     }
 
     /**
@@ -254,7 +266,7 @@ public class FoodTruckManager{
     public static HashMap<String, String> getFoodTruckDetail(String id) {
         HashMap<String, String> information = new HashMap<>();
         if (foodTrucks.containsKey(id)) {
-            FoodTruck truck = getFoodTruckById(id);
+            FoodTruck truck = foodTrucks.get(id);
             information.put("id/truckName", truck.getTruckName());
             information.put("location", truck.getLocation());
             information.put("serviceTime", truck.displayServiceTime());
@@ -272,7 +284,7 @@ public class FoodTruckManager{
     public static HashMap<String, String> getAllFoodTruckDescription() {
         HashMap<String, String> information = new HashMap<>();
         for (String id : foodTrucks.keySet()) {
-            information.put(id, getFoodTruckById(id).toString());
+            information.put(id, foodTrucks.get(id).toString());
         }
         return information;
     }
@@ -285,18 +297,10 @@ public class FoodTruckManager{
         for (String id : foodTrucks.keySet()) {
             FoodTruck ft = foodTrucks.get(id);
             if (ft.isActive()) {
-                information.put(id, getFoodTruckById(id).toString());
+                information.put(id, foodTrucks.get(id).toString());
             }
         }
         return information;
-    }
-
-    /**
-     * @param id the Entities.FoodTruck's id
-     * @return The food truck with the id.
-     */
-    public static FoodTruck getFoodTruckById(String id) {
-        return foodTrucks.get(id);
     }
 
     public static boolean isActive(String id, String accessKey) throws UnauthorizedAccessException{

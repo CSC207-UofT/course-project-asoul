@@ -9,8 +9,8 @@ import java.util.HashSet;
 public class FoodTruck implements Serializable {
     private String truckName; // The name of the Entities.Food Truck
     private final String location; //The location of the Entities.Food Truck, can't be changed once set
-    private final String serviceTimeStart; //Starting service time
-    private final String serviceTimeEnd; //Ending service time
+    private String serviceTimeStart; //Starting service time
+    private String serviceTimeEnd; //Ending service time
     private boolean active = false; //Whether the Entities.Food Truck is currently operating
     private final String seller; // The Entities.Seller who owns the Entities.Food Truck
     private double rating; // Rating of the Entities.Food Truck
@@ -102,8 +102,20 @@ public class FoodTruck implements Serializable {
      *
      * @param newName the new name user wants to assign to this truck.
      */
-    public void changeTruckName(String newName) {
+    public void setTruckName(String newName) {
         this.truckName = newName;
+    }
+
+    public void setServiceTimeStart(String time){
+        this.serviceTimeStart = time;
+    }
+
+    public void setServiceTimeEnd(String time){
+        this.serviceTimeEnd = time;
+    }
+
+    public void setAddress(String address){
+        this.serviceTimeStart = address;
     }
 
     /**

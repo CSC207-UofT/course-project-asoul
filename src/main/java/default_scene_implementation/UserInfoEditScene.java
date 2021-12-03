@@ -16,7 +16,7 @@ public class UserInfoEditScene extends Scene {
 
 
     private UserInfoEditScene() {
-        super("UserInfoEdit");
+        super();
         this.fields.put("Old Password", "");
         this.fields.put("New Password", "");
         this.fields.put("Phone Number", "");

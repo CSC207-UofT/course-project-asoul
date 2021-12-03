@@ -19,7 +19,7 @@ class FoodTruckScene extends Scene {
     private boolean checkOut; // we are going to use it later, so it can't be local variable.
 
     private FoodTruckScene() {
-        super("Entities.FoodTruck");
+        super();
         checkOut = false;
     }
 

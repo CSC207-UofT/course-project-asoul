@@ -9,7 +9,7 @@ class OrderScene extends Scene {
     public String OrderID;
 
     private OrderScene() {
-        super("Order");
+        super();
     }
 
     public static Singleton getInstance(){

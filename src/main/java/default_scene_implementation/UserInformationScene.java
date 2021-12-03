@@ -22,7 +22,7 @@ class UserInformationScene extends Scene {
 
 
     private UserInformationScene() {
-        super("UserInformation");
+        super();
         this.username = "";
         this.accessKey = "";
         this.nickname = "";

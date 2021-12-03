@@ -8,8 +8,8 @@ import java.util.HashSet;
 
 public abstract class Sorter implements Singleton{
 
-    public ArrayList<String> sort(HashMap<String, String> userRatingMap){
-        HashMap<String, HashSet<String>> reveredMap = processMap(userRatingMap); // process map
+    public ArrayList<String> sort(HashMap<String, String> sortingMap){ // Key = seller name of the truck
+        HashMap<String, HashSet<String>> reveredMap = processMap(sortingMap); // process map
 
         ArrayList<String> keyArrayList = new ArrayList<>(reveredMap.keySet());
         String[] keyArray = (String[]) keyArrayList.toArray();
