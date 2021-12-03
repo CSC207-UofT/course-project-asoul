@@ -120,8 +120,7 @@ public class FoodTruckManager{
         return getFoodTruckById(truckName).getMenu().isThereSameNameFoodId(ID);
     }
 
-    // TODO: renameTruck()
-    public static boolean renameTruck(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
+    public static void setTruckName(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
         UserManager.accessCheck(userAccountName, accessKey);
         if (foodTrucks.containsKey(userAccountName)) {
             foodTrucks.get(userAccountName).changeTruckName(newTruckName);

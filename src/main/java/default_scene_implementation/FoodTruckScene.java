@@ -33,6 +33,7 @@ class FoodTruckScene extends Scene {
         switch (text[0]) {
             case "back":
                 switchScene((MarketScene)MarketScene.getInstance());
+                break;
             case "help":
                 this.state.append(this.getHelpMessage());
                 break;
