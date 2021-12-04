@@ -1,18 +1,21 @@
 package entities;
 
 import exceptions.IncorrectOldPasswordException;
+import exceptions.UnknownOrderException;
 
 import java.io.Serializable;
 import java.util.HashSet;
 
 public class User implements Serializable {
-    private final String accountName; //The account name of this Entities.User
-    private double accountBalance; //The current account balance of this Entities.User (in double)
-    private String password; //The string representing the password of this Entities.User's account
-    private String nickname; //The nickname of this Entities.User
-    private String phoneNumber; //A string that represents the phone number of this Entities.User
-    private final HashSet<String> buyOrderHistory;
-    private final HashSet<String> sellOrderHistory;
+    private final String accountName; //The account name of this User
+    private double accountBalance; //The current account balance of this User (in double)
+    private String password; //The string representing the password of this User's account
+    private String nickname; //The nickname of this User
+    private String phoneNumber; //A string that represents the phone number of this User
+    private final HashSet<String> buyOrderHistory; // order id
+    private final HashSet<String> sellOrderHistory; // order id
+    private final HashSet<String> buyInProgress; //order id
+    private final HashSet<String> sellInProgress; //order id
 
     /**
      * Construct an instance of a Entities.User
@@ -30,6 +33,8 @@ public class User implements Serializable {
         this.buyOrderHistory = new HashSet<>();
         accountBalance = 0.0;
         this.sellOrderHistory = new HashSet<>();
+        this.sellInProgress = new HashSet<>();
+        this.buyInProgress = new HashSet<>();
     }
 
     public String toString() {
@@ -93,6 +98,20 @@ public class User implements Serializable {
         }
     }
 
+    public void buyInProgressToHistory(String id) throws UnknownOrderException {
+        if (buyInProgress.contains(id)){
+        this.buyInProgress.remove(id);
+        this.buyOrderHistory.add(id);}
+        throw new UnknownOrderException();
+    }
+
+    public void sellInProgressToHistory(String id) throws UnknownOrderException {
+        if (sellInProgress.contains(id)){
+            this.sellInProgress.remove(id);
+            this.sellOrderHistory.add(id);}
+        throw new UnknownOrderException();
+    }
+
     public void storeBuyOrder(String orderID) { // we are going to use the return value later.
         this.buyOrderHistory.add(orderID);
     }
@@ -130,5 +149,13 @@ public class User implements Serializable {
 
     public HashSet<String> getSellOrderHistory() {
         return sellOrderHistory;
+    }
+
+    public HashSet<String> getBuyInProgress() {
+        return buyInProgress;
+    }
+
+    public HashSet<String> getSellInProgress() {
+        return sellInProgress;
     }
 }

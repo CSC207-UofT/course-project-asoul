@@ -2,27 +2,19 @@ package sorters;
 
 import singleton_pattern.Singleton;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 public abstract class Sorter implements Singleton{
 
     public ArrayList<String> sort(HashMap<String, String> sortingMap){ // Key = seller name of the truck
-        HashMap<String, HashSet<String>> reveredMap = processMap(sortingMap); // process map
 
+        // reverse the Map
+        HashMap<String, HashSet<String>> reveredMap = processMap(sortingMap);
+        // convert map to array
         ArrayList<String> keyArrayList = new ArrayList<>(reveredMap.keySet());
-        String[] keyArray = (String[]) keyArrayList.toArray();
-        ArrayList<String> result = new ArrayList<>(reveredMap.keySet());
-        int i = 0;
-        int max = reveredMap.keySet().size();
-        int a = 0;
-        while (i < max - 2) {
-            a = compare(keyArray[i], keyArray[i+1]);
-            updateArrayList(a, keyArray[i], keyArray[i+1], result, reveredMap);
-            i = i + 1;
-        }
-        return result;
+        // sort key array
+        ArrayList<String> sortedArrayList = sortKeyArrayList(keyArrayList);
+        return constructOutput(sortedArrayList, reveredMap);
     }
 
 
@@ -42,20 +34,13 @@ public abstract class Sorter implements Singleton{
         return reversedMap;
     }
 
+    abstract ArrayList<String> sortKeyArrayList(ArrayList<String> list);
 
-    protected void updateArrayList(int a, String former, String latter, ArrayList<String> array,
-                                   HashMap<String, HashSet<String>> reveredMap){
-
-
-        if (a >= 0) {
-            array.addAll(reveredMap.get(former));
-            array.addAll(reveredMap.get(latter));
-        } else {
-            array.addAll(reveredMap.get(latter));
-            array.addAll(reveredMap.get(former));
+    private ArrayList<String> constructOutput(ArrayList<String> list, HashMap<String, HashSet<String>> map) {
+        ArrayList<String> result = new ArrayList<>();
+        for (String e: list) {
+            result.addAll(map.get(e));
         }
+        return result;
     }
-
-    abstract int compare(String a, String b);
-
 }

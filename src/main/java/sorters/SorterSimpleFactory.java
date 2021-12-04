@@ -10,15 +10,15 @@ public class SorterSimpleFactory {
         switch (s) {
             case "rating":
                 return RatingSorter.getInstance();
-            case "name length":
-                return NameLengthSorterNonIncreasing.getInstance();
+            case "name_length":
+                return NameSorter.getInstance();
             default:
                 throw new UnknownSorterException();
         }
     }
 
     public static boolean containsSorter(String s){
-        String[] sorters = {"rating", "name length"};
+        String[] sorters = {"rating", "name_length"};
         return Arrays.asList(sorters).contains(s);
     }
 }

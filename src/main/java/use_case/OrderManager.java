@@ -54,7 +54,7 @@ public class OrderManager {
     public int createOrder(String truckName, ArrayList<String> foods, String
             customerName,
                            String customerNumber, String sellerName, String sellerNumber) {
-        FoodTruck foodTruck = FoodTruckManager.getFoodTruckById(truckName);
+        FoodTruck foodTruck = FoodTruckManager.foodTrucks.get(truckName);
         ArrayList<Food> foodList = getMenuFood(foods, foodTruck);
         return createOrder(foodTruck, foodList, customerName, customerNumber, sellerName, sellerNumber);
     }
@@ -91,7 +91,7 @@ public class OrderManager {
      * @return An ArrayList of Entities.Food from the given foods' names.
      */
     public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruckManager trucks, String truckName) {
-        FoodTruck truck = FoodTruckManager.getFoodTruckById(truckName);
+        FoodTruck truck = FoodTruckManager.foodTrucks.get(truckName);
         return getMenuFood(foods, truck);
     }
 
@@ -116,7 +116,7 @@ public class OrderManager {
      * @throws NullPointerException If the foodtruck with specified id does not exist
      */
     public double getTotalPrice(ArrayList<String> foods, String truckName) throws NullPointerException{
-        FoodTruck truck = FoodTruckManager.getFoodTruckById(truckName);
+        FoodTruck truck = FoodTruckManager.foodTrucks.get(truckName);
         return getTotalPrice(foods, truck);
     }
 

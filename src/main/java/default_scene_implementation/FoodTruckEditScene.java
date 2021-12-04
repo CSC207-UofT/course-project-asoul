@@ -45,6 +45,7 @@ class FoodTruckEditScene extends Scene {
                 break;
             case "truck_name":
                 this.fillInField("New Truck Name", text[1]);
+                break;
             case "start":
                 try{
                     String newTime = generateTime(text[1], text[2]);
@@ -66,6 +67,7 @@ class FoodTruckEditScene extends Scene {
                 break;
             case "location":
                 this.fillInField("New Location", text[1]);
+                break;
             case "confirm":
                 try {
                     if (!fields.get("New Truck Name").equals("")) {
