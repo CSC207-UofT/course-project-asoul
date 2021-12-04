@@ -1,11 +1,7 @@
 package use_case;
 
 import entities.*;
-import exceptions.UnauthorizedAccessException;
-import exceptions.UnknownFoodTruckException;
-import exceptions.UnknownUserException;
-import exceptions.FoodIdCollisionException;
-import exceptions.CollidedFoodException;
+import exceptions.*;
 import serialization.Deserializer;
 import serialization.Serializer;
 
@@ -242,8 +238,18 @@ public class FoodTruckManager{
         return information;
     }
 
-    public static String getFoodName(String username, String id){
+    public static String getFoodName(String username, String id) throws UnknownFoodTruckException, UnknownFoodException {
+        if(!foodTrucks.containsKey(username)){
+            throw new UnknownFoodTruckException();
+        }
         return foodTrucks.get(username).getMenu().getFood(id).getFoodName();
+    }
+
+    public static double getFoodPrice(String username, String id) throws UnknownFoodException{
+        if(!foodTrucks.containsKey(username)){
+            throw new UnknownFoodException();
+        }
+        return foodTrucks.get(username).getMenu().getFoodPrice(id);
     }
 
     /**
@@ -251,18 +257,8 @@ public class FoodTruckManager{
      * @return A map that from the Entities.FoodTruck's id to the Entities.FoodTruck's detailed information. If the truck doesn't
      * exist, return an empty map.
      */
-    public static HashMap<String, String> getFoodTruckDetail(String id) {
-        HashMap<String, String> information = new HashMap<>();
-        if (foodTrucks.containsKey(id)) {
-            FoodTruck truck = foodTrucks.get(id);
-            information.put("id/truckName", truck.getTruckName());
-            information.put("location", truck.getLocation());
-            information.put("serviceTime", truck.displayServiceTime());
-            information.put("active", String.valueOf(truck.isActive()));
-            information.put("seller", truck.getSeller().toString());
-            information.put("rating", String.valueOf(truck.getRating()));
-            information.put("menu", truck.getMenu().toString());
-        }
+    public static String getFoodTruckDetail(String id) throws UnknownFoodTruckException{
+
         return information;
     }
 

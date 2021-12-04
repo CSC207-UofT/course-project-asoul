@@ -97,6 +97,13 @@ public class FoodTruck implements Serializable {
         }
     }
 
+    public String getDetailedDescription() {
+        StringBuilder sb = new StringBuilder();
+        String f = String.format("Truck Name: \n"))
+        sb.append(String.format()
+        return sb.toString();
+    }
+
     /**
      * Set food truck to active state.
      */
