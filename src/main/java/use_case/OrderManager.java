@@ -1,6 +1,7 @@
 package use_case;
 
 import entities.*;
+import exceptions.UnknownFoodException;
 import serialization.Deserializer;
 import serialization.Serializer;
 
@@ -53,7 +54,7 @@ public class OrderManager {
 
     public int createOrder(String truckName, ArrayList<String> foods, String
             customerName,
-                           String customerNumber, String sellerName, String sellerNumber) {
+                           String customerNumber, String sellerName, String sellerNumber) throws UnknownFoodException {
         FoodTruck foodTruck = FoodTruckManager.foodTrucks.get(truckName);
         ArrayList<Food> foodList = getMenuFood(foods, foodTruck);
         return createOrder(foodTruck, foodList, customerName, customerNumber, sellerName, sellerNumber);
@@ -75,7 +76,7 @@ public class OrderManager {
      * @param truck where these foods from
      * @return An ArrayList of Entities.Food from the given foods' names.
      */
-    public static ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) {
+    public static ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) throws UnknownFoodException {
         FoodMenu menu = truck.getMenu();
         ArrayList<Food> wish_food = new ArrayList<>();
         for (String item : foods) {
@@ -90,7 +91,7 @@ public class OrderManager {
      * @param truckName The truck name of the truck
      * @return An ArrayList of Entities.Food from the given foods' names.
      */
-    public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruckManager trucks, String truckName) {
+    public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruckManager trucks, String truckName) throws UnknownFoodException {
         FoodTruck truck = FoodTruckManager.foodTrucks.get(truckName);
         return getMenuFood(foods, truck);
     }
@@ -100,7 +101,7 @@ public class OrderManager {
      * @param truck where these foods from
      * @return The total price of the given food in the truck
      */
-    public double getTotalPrice(ArrayList<String> foods, FoodTruck truck) {
+    public double getTotalPrice(ArrayList<String> foods, FoodTruck truck) throws UnknownFoodException {
         FoodMenu menu = truck.getMenu();
         double total_price = 0;
         for (String item : foods) {
@@ -115,7 +116,7 @@ public class OrderManager {
      * @return The total price of the given food in the truck
      * @throws NullPointerException If the foodtruck with specified id does not exist
      */
-    public double getTotalPrice(ArrayList<String> foods, String truckName) throws NullPointerException{
+    public double getTotalPrice(ArrayList<String> foods, String truckName) throws NullPointerException, UnknownFoodException {
         FoodTruck truck = FoodTruckManager.foodTrucks.get(truckName);
         return getTotalPrice(foods, truck);
     }

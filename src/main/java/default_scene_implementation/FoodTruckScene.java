@@ -10,7 +10,7 @@ import use_case.FoodTruckManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.jar.JarEntry;
+import java.util.HashSet;
 
 class FoodTruckScene extends Scene {
     private static final FoodTruckScene fts = new FoodTruckScene();
@@ -50,6 +50,7 @@ class FoodTruckScene extends Scene {
                 }
                 break;
             case "remove":
+
                 break;
             case "confirm":
                 break;
@@ -68,9 +69,14 @@ class FoodTruckScene extends Scene {
         sb.append("------------------Your Cart--------------------\n");
         // Print Cart
         for(String key: cart.keySet()){
-            String foodName = FoodTruckManager.getFoodName(foodtruck, key);
-            String quantity = cart.get(key).toString();
-            sb.append(foodName).append(": ").append(quantity).append("\n");
+            try {
+                String foodName = FoodTruckManager.getFoodName(foodtruck, key);
+                int quantity = cart.get(key);
+                double price = FoodTruckManager.getFoodPrice(foodtruck, key);
+                sb.append(String.format("ID: %s Item: %s Price: %f Quantity: %d", key, foodName, price, quantity));
+            }catch (Exception e){
+                state.append(e.getMessage()).append("\n");
+            }
         }
         sb.append("\n");
 
@@ -80,7 +86,7 @@ class FoodTruckScene extends Scene {
 
     public void addFoodToCart(String key, int quantity){
         if(!FoodTruckManager.hasFoodId(key, foodtruck)){
-            this.state.append("");
+            this.state.append("Selected food does not exist in the menu!\n");
         }
         cart.put(key, quantity);
     }
