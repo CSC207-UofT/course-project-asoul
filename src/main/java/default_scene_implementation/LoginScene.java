@@ -80,5 +80,7 @@ class LoginScene extends Scene {
         truckEditScene.setUserInfo(username, key);
         FoodTruckScene ftc = (FoodTruckScene) FoodTruckScene.getInstance();
         ftc.setUserInfo(username, key);
+        MenuEditScene menuEditScene = (MenuEditScene) MenuEditScene.getInstance();
+        menuEditScene.setUserInfo(username);
     }
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import exceptions.FoodIdCollisionException;
 import exceptions.CollidedFoodException;
+import exceptions.UnknownFoodException;
 
 /**
  * A menu at a food truck (list of all the foods a food truck sells)
@@ -62,16 +63,14 @@ public class FoodMenu implements Serializable {
     /**
      * remove food with the same name of the given food from menu if the food is in menu.
      *
-     * @param food The food want to remove.
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
-    public boolean removeFood(Food food) {
-        return removeFood(food.getFoodName());
-    }
 
-    public boolean removeFood(String name){
-        if(foodMap.containsKey(name)){
-            foodMap.remove(name);
+    public boolean removeFood(String id){
+        Food fd = foodMap.get(id);
+        if(foodMap.containsKey(id)){
+            foodMap.remove(id);
+            foodSet.remove(fd);
             return true;
         }
         return false;
@@ -92,7 +91,17 @@ public class FoodMenu implements Serializable {
         return result.toString().trim();
     }
 
-    public Food getFood(String id) {
+    public Food getFood(String id) throws UnknownFoodException {
+        if(!foodMap.containsKey(id)){
+            throw new UnknownFoodException();
+        }
         return foodMap.get(id);
+    }
+
+    public double getFoodPrice(String id) throws UnknownFoodException {
+        if(!foodMap.containsKey(id)){
+            throw new UnknownFoodException();
+        }
+        return foodMap.get(id).getPrice();
     }
 }
