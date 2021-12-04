@@ -10,7 +10,6 @@ public class Deserializer {
             obj = (Serializable) ois.readObject();
             ois.close();
         }catch (InvalidClassException e){
-            System.out.println("Overwrite!");
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path)); // Clear the file if its corrupted
             oos.writeObject("");
             oos.flush();

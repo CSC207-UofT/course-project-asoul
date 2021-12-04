@@ -3,6 +3,8 @@ package entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import exceptions.CollidedFoodException;
+import exceptions.FoodIdCollisionException;
 /**
  * Java class representation for Entities.FoodTruck instance
  */
@@ -53,8 +55,8 @@ public class FoodTruck implements Serializable {
      * @param food The food want to add or update.
      * @return true if we add the food. false if we update the food.
      */
-    public boolean addFoodToMenu(Food food) {
-        return this.menu.addFood(food);
+    public void addFoodToMenu(Food food, String id) throws CollidedFoodException, FoodIdCollisionException {
+        this.menu.addFood(food, id);
     }
 
     /**
@@ -64,6 +66,10 @@ public class FoodTruck implements Serializable {
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
     public boolean removeFoodFromMenu(Food food) {
+        return this.menu.removeFood(food);
+    }
+
+    public boolean removeFoodFromMenu(String food) {
         return this.menu.removeFood(food);
     }
 
@@ -149,7 +155,7 @@ public class FoodTruck implements Serializable {
 
     // Return a String showing the service window of this Entities.Food Truck
     public String displayServiceTime() {
-        return "The service time for this food truck is :"
+        return "The service time for this food truck is: "
                 + this.serviceTimeStart + "-" + this.serviceTimeEnd + ".";
     }
 

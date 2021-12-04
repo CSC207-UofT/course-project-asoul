@@ -79,7 +79,7 @@ public class OrderManager {
         FoodMenu menu = truck.getMenu();
         ArrayList<Food> wish_food = new ArrayList<>();
         for (String item : foods) {
-            wish_food.add(menu.createCopy(item));
+            wish_food.add(menu.getFood(item));
         }
         return wish_food;
     }
@@ -104,7 +104,7 @@ public class OrderManager {
         FoodMenu menu = truck.getMenu();
         double total_price = 0;
         for (String item : foods) {
-            total_price += menu.createCopy(item).getPrice();
+            total_price += menu.getFood(item).getPrice();
         }
         return total_price;
     }

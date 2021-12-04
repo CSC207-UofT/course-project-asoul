@@ -120,9 +120,14 @@ public class UserManager{
         if (userMap.containsKey(accName)) {
             return false;
         }
-        FoodTruckManager.createEmptyFoodTruck(accName);
-        User newUser = new User(accName, password, nickname, phoneNum);
-        userMap.put(accName, newUser);
+        try {
+            FoodTruckManager.createEmptyFoodTruck(accName);
+            User newUser = new User(accName, password, nickname, phoneNum);
+            userMap.put(accName, newUser);
+        }catch (Exception e){
+            e.printStackTrace();
+            // Do nothing, this scenario can never happen
+        }
         return true;
     }
 

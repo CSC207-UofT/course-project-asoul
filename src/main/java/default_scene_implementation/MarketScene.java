@@ -28,7 +28,7 @@ class MarketScene extends Scene {
                 "back -> Go back to user info page\n" +
                 "select + [Space] + [Foodtruck id] -> view the food menu of the specified foodtruck and prepare for ordering\n" +
                 "sort_by + [Space] + [Sorting method] -> Sort the foodtrucks with specified method (See next line for possible methods)\n" +
-                "        Sorting Methods: 'name length', 'rating'\n");
+                "        Sorting Methods: 'name_length', 'rating'\n");
     }
 
     private void updateInfo(){
@@ -43,7 +43,7 @@ class MarketScene extends Scene {
             for(String key: info.keySet()){
                 items.put(key, Double.toString(FoodTruckManager.getRating(key)));
             }
-        }else if(sorter.equals("name length")){
+        }else if(sorter.equals("name_length")){
             for(String key: info.keySet()){
                 items.put(key, FoodTruckManager.getTruckName(key));
             }
@@ -85,6 +85,8 @@ class MarketScene extends Scene {
             }else{
                 this.state.append((new UnknownSorterException()).getMessage()).append("\n");
             }
+        }else if(text[0].equals("help")){
+            this.state.append(this.getHelpMessage());
         }else{
             this.state.append((new UnknownCommandException()).getMessage()).append("\n");
         }
@@ -94,12 +96,12 @@ class MarketScene extends Scene {
     public String constructOutputString(){
         updateInfo();
         StringBuilder outputString = new StringBuilder("------------------------Market---------------------------");
-        for (int i = 1; i <= info.size(); i++) { //TODO: Sorting
+        for (int i = 1; i <= info.size(); i++) {
             String key = pointer.get(i);
             String content = info.get(key);
             outputString.append("\n\nTruck ID: ").append(i).append("\n").append(content);
         }
-        outputString.append("\n\n");
+        outputString.append("\n");
         outputString.append(state);
 
         return outputString.toString();
@@ -114,10 +116,10 @@ class MarketScene extends Scene {
         try{
             int i = Integer.parseInt(id);
             String name = pointer.get(i);
-            fc.setFoodTruck(name);
+            fc.setFoodtruck(name);
         }catch (NumberFormatException e){
             if(FoodTruckManager.existsTruck(id)){
-                fc.setFoodTruck(id);
+                fc.setFoodtruck(id);
             }else{
                 state.append("Unknown id entered! Please enter the name of the foodtruck or its displayed id\n");
             }
