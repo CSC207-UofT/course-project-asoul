@@ -20,12 +20,10 @@ abstract public class Scene implements Singleton{
     // instance fields
     protected HashMap<String, String> fields; // Input fields will be stored here
     protected HashSet<String> commandSet; // These methods will be called by user typed commands
-    protected String name;
     protected StringBuilder state;
     private String helpMessage;
 
-    protected Scene(String name) {
-        this.name = name;
+    protected Scene() {
         this.fields = new HashMap<>();
         this.commandSet = new HashSet<>();
         this.state = new StringBuilder();

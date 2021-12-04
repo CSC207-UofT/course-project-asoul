@@ -3,14 +3,16 @@ package entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import exceptions.CollidedFoodException;
+import exceptions.FoodIdCollisionException;
 /**
  * Java class representation for Entities.FoodTruck instance
  */
 public class FoodTruck implements Serializable {
     private String truckName; // The name of the Entities.Food Truck
-    private final String location; //The location of the Entities.Food Truck, can't be changed once set
-    private final String serviceTimeStart; //Starting service time
-    private final String serviceTimeEnd; //Ending service time
+    private String location; //The location of the Entities.Food Truck, can't be changed once set
+    private String serviceTimeStart; //Starting service time
+    private String serviceTimeEnd; //Ending service time
     private boolean active = false; //Whether the Entities.Food Truck is currently operating
     private final String seller; // The Entities.Seller who owns the Entities.Food Truck
     private double rating; // Rating of the Entities.Food Truck
@@ -53,8 +55,8 @@ public class FoodTruck implements Serializable {
      * @param food The food want to add or update.
      * @return true if we add the food. false if we update the food.
      */
-    public boolean addFoodToMenu(Food food) {
-        return this.menu.addFood(food);
+    public void addFoodToMenu(Food food, String id) throws CollidedFoodException, FoodIdCollisionException {
+        this.menu.addFood(food, id);
     }
 
     /**
@@ -64,6 +66,10 @@ public class FoodTruck implements Serializable {
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
     public boolean removeFoodFromMenu(Food food) {
+        return this.menu.removeFood(food);
+    }
+
+    public boolean removeFoodFromMenu(String food) {
         return this.menu.removeFood(food);
     }
 
@@ -102,8 +108,20 @@ public class FoodTruck implements Serializable {
      *
      * @param newName the new name user wants to assign to this truck.
      */
-    public void changeTruckName(String newName) {
+    public void setTruckName(String newName) {
         this.truckName = newName;
+    }
+
+    public void setServiceTimeStart(String time){
+        this.serviceTimeStart = time;
+    }
+
+    public void setServiceTimeEnd(String time){
+        this.serviceTimeEnd = time;
+    }
+
+    public void setAddress(String address){
+        this.location = address;
     }
 
     /**
@@ -137,7 +155,7 @@ public class FoodTruck implements Serializable {
 
     // Return a String showing the service window of this Entities.Food Truck
     public String displayServiceTime() {
-        return "The service time for this food truck is :"
+        return "The service time for this food truck is: "
                 + this.serviceTimeStart + "-" + this.serviceTimeEnd + ".";
     }
 

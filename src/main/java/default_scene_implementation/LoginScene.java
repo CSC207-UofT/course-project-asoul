@@ -12,7 +12,7 @@ class LoginScene extends Scene {
     private final static LoginScene ls = new LoginScene();
 
     private LoginScene() {
-        super("Login");
+        super();
         this.fields.put("username", "");
         this.fields.put("password", "");
         this.setHelpMessage("\n\nAll commands:\n" +

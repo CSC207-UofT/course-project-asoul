@@ -10,7 +10,7 @@ class RegisterScene extends Scene {
     private static final RegisterScene rs = new RegisterScene();
 
     private RegisterScene() {
-        super("Register");
+        super();
         this.fields.put("Username", "");
         this.fields.put("Password", "");
         this.fields.put("Nickname", "");
