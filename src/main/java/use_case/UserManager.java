@@ -133,9 +133,9 @@ public class UserManager{
             return false;
         }
         try {
-            FoodTruckManager.createEmptyFoodTruck(accName);
             User newUser = new User(accName, password, nickname, phoneNum);
             userMap.put(accName, newUser);
+            FoodTruckManager.createEmptyFoodTruck(accName);
         }catch (Exception e){
             e.printStackTrace();
             // Do nothing, this scenario can never happen
@@ -291,8 +291,6 @@ public class UserManager{
         String seller = order.getSellerName();
         if(seller.equals(username)) {
             order.changeOrderStatus();
-            FoodTruck ft = FoodTruckManager.foodTrucks.get(username);
-            ft.removeOrderWithID(orderID);
         }else{
             throw new UnauthorizedAccessException();
         }

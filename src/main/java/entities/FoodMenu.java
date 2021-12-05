@@ -85,7 +85,7 @@ public class FoodMenu implements Serializable {
         StringBuilder result = new StringBuilder();
         for (String name : this.foodMap.keySet() ){
             Food food = foodMap.get(name);
-            result.append(food.getFoodName()).append(" : $").append(food.getPrice()).append("\n").append("    ")
+            result.append("ID: ").append(name).append(" ").append(food.getFoodName()).append(" : $").append(food.getPrice()).append("\n").append("    ")
                     .append(food.getDescriptions()).append("\n");
         }
         return result.toString().trim();

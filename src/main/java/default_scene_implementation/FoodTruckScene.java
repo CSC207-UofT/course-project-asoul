@@ -1,10 +1,7 @@
 package default_scene_implementation;
 
 import controllers.Scene;
-import exceptions.IncorrectArgumentException;
-import exceptions.IncorrectCredentialsException;
-import exceptions.UnauthorizedAccessException;
-import exceptions.UnknownCommandException;
+import exceptions.*;
 import singleton_pattern.Singleton;
 import use_case.FoodTruckManager;
 import java.util.HashMap;
@@ -20,6 +17,12 @@ class FoodTruckScene extends Scene {
         super();
         foodtruck = "";
         cart = new HashMap<>();
+        setHelpMessage("select + [Food id] + [Quantity] -> add food to your cart\n" +
+                "remove + [Food id] + [Quantity] -> Remove food from your cart\n" +
+                "clear_cart -> Empty your cart\n" +
+                "back -> Back to market\n" +
+                "confirm -> Proceed to checkout\n"
+        );
     }
 
     public static Singleton getInstance(){
@@ -39,7 +42,7 @@ class FoodTruckScene extends Scene {
             case "exit":
                 Scene.exit = true;
                 break;
-            case "add":
+            case "select":
                 try {
                     this.addFoodToCart(text[1], Integer.parseInt(text[2]));
                 }catch (NumberFormatException e){
@@ -47,12 +50,17 @@ class FoodTruckScene extends Scene {
                 }
                 break;
             case "remove":
-
+                try {
+                    this.removeFoodFromCart(text[1], Integer.parseInt(text[2]));
+                }catch (NumberFormatException e){
+                    this.state.append((new IncorrectArgumentException()).getMessage()).append("\n");
+                }
                 break;
             case "clear_cart":
                 cart.clear();
                 break;
             case "confirm":
+                this.placeOrder();
                 break;
             default:
                 this.state.append((new UnknownCommandException()).getMessage()).append("\n");
@@ -65,7 +73,12 @@ class FoodTruckScene extends Scene {
         StringBuilder sb = new StringBuilder();
 
         // Display Foodtruck menu
-        sb.append(FoodTruckManager.getFoodTruckDetail(foodtruck)).append("\n\n");
+        try {
+            sb.append(FoodTruckManager.getFoodTruckDetail(foodtruck)).append("\n\n");
+        }catch (UnknownFoodTruckException e){
+            state.append(e.getMessage()).append("\n");
+        }
+
         sb.append("------------------Your Cart--------------------\n");
         // Print Cart
         for(String key: cart.keySet()){
@@ -86,20 +99,38 @@ class FoodTruckScene extends Scene {
             state.append(e.getMessage()).append("\n");
         }
         sb.append("\n");
-
-        sb.append(getHelpMessage()).append("\n");
+        sb.append(state.toString()).append("\n");
         return sb.toString();
     }
 
     private void addFoodToCart(String key, int quantity){
         if(!FoodTruckManager.hasFoodId(key, foodtruck)){
             this.state.append("Selected food does not exist in the menu!\n");
+            return;
+        }
+        if(quantity <= 0){
+            this.state.append((new IllegalArgumentException()).getMessage());
         }
         cart.put(key, quantity);
     }
 
-    public void removeFoodFromCart(String key){
-        cart.remove(key);
+    public void removeFoodFromCart(String key, int quantity){
+        if(!cart.containsKey(key)){
+            this.state.append("The food does not appear to be in your cart!\n");
+            return;
+        }
+        if(quantity < 0){
+            this.state.append((new IllegalArgumentException()).getMessage());
+            return;
+        }
+        int q = cart.get(key);
+        int amount = q - quantity;
+        if(amount <= 0){
+            cart.remove(key);
+        }else{
+            cart.put(key, amount);
+        }
+
     }
 
     public void setUserInfo(String name, String accessKey) {
@@ -109,5 +140,20 @@ class FoodTruckScene extends Scene {
 
     public void setFoodtruck(String name){
         foodtruck = name;
+    }
+
+    private void placeOrder(){
+        if(cart.size() == 0){
+            state.append("Your cart is empty! Please add some food before proceeding to checkout!\n");
+            return;
+        }
+        try {
+            FoodTruckManager.placeOrder(username, accessKey, foodtruck, cart);
+            switchScene((Scene) UserInformationScene.getInstance());
+            this.cart.clear();
+        }catch (UnknownFoodTruckException | UnknownFoodException | UnauthorizedAccessException |
+                InsufficientBalanceException | IncorrectArgumentException | UnknownUserException e){
+            state.append(e.getMessage()).append("\n");
+        }
     }
 }

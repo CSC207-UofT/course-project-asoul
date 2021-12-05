@@ -20,7 +20,6 @@ public class FoodTruck implements Serializable {
     private final String seller; // The Entities.Seller who owns the Entities.Food Truck
     private double rating; // Rating of the Entities.Food Truck
     // we are going to change it in the rating system. So it can't be final.
-    private final HashSet<String> orderQueue; // List of Active Orders
     private final FoodMenu menu; //Menu of the Entities.Food Truck
     /**
      * Construct an instance of a Entities.FoodTruck
@@ -41,7 +40,6 @@ public class FoodTruck implements Serializable {
         this.serviceTimeEnd = serviceTimeEnd;
         this.seller = seller;
         this.menu = menu;
-        this.orderQueue = new HashSet<>();
         this.active = false;
     }
 
@@ -63,29 +61,14 @@ public class FoodTruck implements Serializable {
     }
 
     /**
-     * remove food from menu if food object is in menu.
+     * remove food from menu if food with specified id is in menu.
      *
-     * @param food The food want to remove.
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
-    public boolean removeFoodFromMenu(Food food) {
-        return this.menu.removeFood(food);
+
+    public boolean removeFoodFromMenu(String id) {
+        return this.menu.removeFood(id);
     }
-
-    public boolean removeFoodFromMenu(String food) {
-        return this.menu.removeFood(food);
-    }
-
-    public void addOrderToQueue(String orderID) {
-        this.orderQueue.add(orderID);
-    }
-
-    // Remove the Entities.Order from orderQueue with the given id, return the removed Entities.Order
-    public void removeOrderWithID(String id) { // we are going to use the return value later.
-        this.orderQueue.remove(id);
-    }
-
-
     //A string description of the Entities.Food Truck (name, location, rating...)
     @Override
     public String toString() {
@@ -102,8 +85,16 @@ public class FoodTruck implements Serializable {
 
     public String getDetailedDescription() {
         StringBuilder sb = new StringBuilder();
-        String f = String.format("Truck Name: \n"))
-        sb.append(String.format()
+        String f = String.format("Truck Name: %s\n" +
+                "Service Time Start: %s\n" +
+                "Service Time End: %s\n" +
+                "Address: %s\n" +
+                "Owner: %s\n" +
+                "rating: %f\n", truckName,  serviceTimeStart, serviceTimeEnd, location, seller, rating
+        );
+        sb.append(f).append("\n\n");
+        sb.append("-----------Menu-----------\n");
+        sb.append(menu.toString()).append("\n");
         return sb.toString();
     }
 
@@ -193,9 +184,5 @@ public class FoodTruck implements Serializable {
 
     public FoodMenu getMenu() {
         return this.menu;
-    }
-
-    public HashSet<String> getOrderQueue() {
-        return this.orderQueue;
     }
 }

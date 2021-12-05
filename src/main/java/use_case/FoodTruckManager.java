@@ -87,17 +87,6 @@ public class FoodTruckManager{
     }
 
     /**
-     * With the given foodtruck's name, remove food to menu if food object is in menu.
-     *
-     * @param food      The food want to remove.
-     * @param username The name of the given truck
-     * @return true if the food is removed successfully. false if the food is not in the menu.
-     */
-    public static boolean removeFoodFromMenu(Food food, String username) {
-        return foodTrucks.get(username).removeFoodFromMenu(food);
-    }
-
-    /**
      * With the given foodtruck's name, remove food from menu if food object is in menu.
      *
      * @param name      The food name ID want to check.
@@ -148,16 +137,19 @@ public class FoodTruckManager{
      * @return the created food truck
      */
 
-    public static void createEmptyFoodTruck(String sellerName) throws CollidedFoodException, FoodIdCollisionException{ // Called when creating a new user
+    static void createEmptyFoodTruck(String sellerName) throws CollidedFoodException, FoodIdCollisionException, UnknownUserException{ // Called when creating a new user
         if(!foodTrucks.containsKey(sellerName)){
             FoodMenu menu = new FoodMenu();
 
             String location = "Bahen Center for Information Technology";
             String serviceTimeStart = "9:00";
             String serviceTimeEnd = "20:00";
-
-            FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", location, serviceTimeStart,
-                    serviceTimeEnd, sellerName, menu);
+            if(!UserManager.userMap.containsKey(sellerName)){
+                throw new UnknownUserException();
+            }
+            String nickname = UserManager.userMap.get(sellerName).getNickname();
+            FoodTruck new_truck = new FoodTruck(nickname + "'s foodtruck", location, serviceTimeStart,
+                    serviceTimeEnd, nickname, menu);
             foodTrucks.put(sellerName, new_truck);
 
             Food food1 = new Food("Hamburger", 5.50, "Pretty delicious legend Hamburger!");
@@ -170,18 +162,6 @@ public class FoodTruckManager{
             addFoodToMenu(food3, "3", sellerName);
             addFoodToMenu(food4, "4", sellerName);
         }
-    }
-
-
-    /**
-     * @param id the id of the specific food truck.
-     * @return Get the order queue of the specific food truck. Return false if the food truck doesn't exist.
-     */
-    public static Object getOrderQueue(String id) throws UnknownFoodTruckException {
-        if (foodTrucks.containsKey(id)) {
-            return foodTrucks.get(id).getOrderQueue();
-        } throw new UnknownFoodTruckException();
-
     }
 
     /**
@@ -257,8 +237,10 @@ public class FoodTruckManager{
      * exist, return an empty map.
      */
     public static String getFoodTruckDetail(String id) throws UnknownFoodTruckException{
-
-        return information;
+        if(!foodTrucks.containsKey(id)){
+            throw new UnknownFoodTruckException();
+        }
+        return foodTrucks.get(id).getDetailedDescription();
     }
 
     /**
