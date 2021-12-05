@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/login_bg"
-        tools:context=".MainActivity" android:orientation="vertical">
+        tools:context="Activities.MainActivity" android:orientation="vertical">
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
             android:layout_marginTop="250sp"
             android:textSize="50sp"
             android:textStyle="italic"
-            />
+    />
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/btnLoginPage"
             android:layout_marginLeft="155sp"
