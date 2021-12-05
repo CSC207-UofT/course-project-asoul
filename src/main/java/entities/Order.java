@@ -1,6 +1,8 @@
 package entities;
 
 
+import exceptions.IncorrectArgumentException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.time.LocalDateTime; // Import the LocalDateTime class
@@ -12,9 +14,11 @@ import java.util.HashMap;
 
 public class Order implements Serializable {
     private final String summary;
-    private final String customerName; // name of the customer who ordered the food
-    private final String customerNumber; // contact number of the customer who ordered the food
-    private final String sellerName; // name of the seller who owns the food truck
+    private final String buyerName; // name of the customer who ordered the food
+    private final String seller;
+    private final String buyer;
+    private final String buyerNumber; // contact number of the customer who ordered the food
+    private final String sellerName; // Nickname of the seller who owns the food truck
     private final String sellerNumber; // contact number of the seller who owns the food truck
     private double rating;// customer can rate their order from 0 ~ 10. (if the customer didn't rate, rating
     // for the order will be a default -0.1)
@@ -29,13 +33,15 @@ public class Order implements Serializable {
      * @param sellerName     name of the seller who owns the food truck
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
-    public Order(String summary, String customerName,
-                 String customerNumber, String sellerName, String sellerNumber) {
+    public Order(String summary, String customerName, String buyer,
+                 String customerNumber, String seller, String sellerName, String sellerNumber) {
         this.summary = summary;
-        this.customerName = customerName;
-        this.customerNumber = customerNumber;
+        this.buyerName = customerName;
+        this.buyerNumber = customerNumber;
         this.sellerName = sellerName;
         this.sellerNumber = sellerNumber;
+        this.buyer = buyer;
+        this.seller = seller;
         this.rating = 0;
         this.status = "in progress";
         this.time = LocalDateTime.now();
@@ -61,12 +67,12 @@ public class Order implements Serializable {
      * @param rating should be a double < 10 & > 0
      * @return return true if rating updated successfully, return false otherwise
      */
-    public boolean rateOrder(double rating) {
+    public void rateOrder(double rating) throws IncorrectArgumentException{
         if (0 <= rating & rating <= 10) {
             this.rating = rating;
-            return true;
+        }else{
+            throw new IncorrectArgumentException();
         }
-        return false;
     }
 
 
@@ -77,8 +83,8 @@ public class Order implements Serializable {
      */
     public String toString() {
         return "Order Time: " + this.getFormattedTime() + "\n" +
-                "Customer Name: " + this.getCustomerName() + "\n" +
-                "Customer Number: " + this.getCustomerNumber() + "\n" +
+                "Buyer Name: " + buyerName + "\n" +
+                "Buyer Number: " + buyerNumber + "\n" +
                 "Seller Name: " + this.getSellerName() + "\n" +
                 "Seller Number: " + this.getSellerNumber() + "\n" +
                 this.summary + "\n" +
@@ -102,15 +108,22 @@ public class Order implements Serializable {
     }
 
 
-    public String getCustomerName() {
-        return this.customerName;
+    public String getBuyerName() {
+        return this.buyerName;
     }
 
 
-    public String getCustomerNumber() {
-        return this.customerNumber;
+    public String getBuyerNumber() {
+        return this.buyerNumber;
     }
 
+    public String getBuyer(){
+        return this.buyer;
+    }
+
+    public String getSeller(){
+        return seller;
+    }
 
     public String getSellerName() {
         return this.sellerName;

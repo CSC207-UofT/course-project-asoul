@@ -121,8 +121,6 @@ class UserInformationScene extends Scene {
                 "Truck Name: " + truckName + "\n" +
                 "Truck Status: " + truckActive + "\n" +
                 "Account Balance: " + accBalance + "\n" +
-                "Buy order history: " + buyOrderHistory + "\n" +
-                "Sell order history: " + sellOrderHistory + "\n" +
                 this.state;
     }
 

@@ -74,6 +74,7 @@ class LoginScene extends Scene {
         UserInformationScene s = (UserInformationScene)UserInformationScene.getInstance();
         s.setUserInfo(username, key); //set all scenes
         this.switchScene(s);
+        // Scene setup
         UserInfoEditScene infoEditScene = (UserInfoEditScene)UserInfoEditScene.getInstance();
         infoEditScene.setUserInfo(username, key);
         FoodTruckEditScene truckEditScene = (FoodTruckEditScene) FoodTruckEditScene.getInstance();
@@ -82,5 +83,9 @@ class LoginScene extends Scene {
         ftc.setUserInfo(username, key);
         MenuEditScene menuEditScene = (MenuEditScene) MenuEditScene.getInstance();
         menuEditScene.setUserInfo(username);
+        OrderScene os = (OrderScene)OrderScene.getInstance();
+        os.setUserInfo(username, key);
+        OrderListScene ols = (OrderListScene)OrderListScene.getInstance();
+        ols.setOrderListInfo(username, key);
     }
 }

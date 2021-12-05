@@ -8,8 +8,6 @@ import serialization.Serializer;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Objects;
 import helper.RandomStringGenerator;
 /**
  * A Use_case.OrderManager that manages all the Orders.
@@ -45,7 +43,9 @@ public class OrderManager {
             ).append("\n");
         }
         sb.append("\n");
-        Order new_order = new Order(sb.toString(), customerName, bPhone, sellerName, sPhone);
+        String bNick = UserManager.getNickname(customerName);
+        String sNick = UserManager.getNickname(sellerName);
+        Order new_order = new Order(sb.toString(), customerName, bNick, bPhone, sellerName, sNick, sPhone);
         orders.put(id, new_order);
         try {
             UserManager.updateOrderHistory(id);
@@ -59,9 +59,8 @@ public class OrderManager {
      *
      * @param id the id of the specific order
      *
-     * @return Whether the status being changed successfully.
      */
-    public void changeOrderStatus(String username, String accessKey, String id) throws UnknownOrderException,
+    public static void changeOrderStatus(String username, String accessKey, String id) throws UnknownOrderException,
             UnauthorizedAccessException {
         UserManager.accessCheck(username, accessKey);
         if(!orders.containsKey(id)){
@@ -101,16 +100,14 @@ public class OrderManager {
 
     /**
      * @param id the order's id.
-     * @return A map that from the order's id to order's information.
-     * @throws NullPointerException If the order with specified id does not exist
+     * @return A String that represents the order's information
+     * @throws UnknownOrderException If the order with specified id does not exist
      */
-    public HashMap<String, String> getOrderDetail(String id) throws UnknownOrderException{
-        HashMap<String, String> information = new HashMap<>();
+    public static String getOrderDetail(String id) throws UnknownOrderException{
         if(!orders.containsKey(id)){
             throw new UnknownOrderException();
         }
-        information.put(id, orders.get(id).toString());
-        return information;
+        return orders.get(id).toString();
     }
 
     static Order getOrder(String id) throws UnknownOrderException{
@@ -129,11 +126,17 @@ public class OrderManager {
      * @return return true if rating updated successfully, return false otherwise
      * @throws NullPointerException If the order with specified id does not exist
      */
-    static boolean rateOrder(double rating, String id) throws UnknownOrderException {
+    public static void rateOrder(String username, String accessKey, double rating, String id) throws UnknownOrderException,
+            UnauthorizedAccessException, IncorrectArgumentException{
+        UserManager.accessCheck(username, accessKey);
         if(!orders.containsKey(id)){
             throw new UnknownOrderException();
         }
-        return orders.get(id).rateOrder(rating);
+        Order o = orders.get(id);
+        if(!o.getBuyer().equals(username)){
+            throw new UnauthorizedAccessException();
+        }
+        o.rateOrder(rating);
     }
 
     @SuppressWarnings("unchecked")

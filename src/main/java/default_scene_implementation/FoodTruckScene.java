@@ -34,6 +34,7 @@ class FoodTruckScene extends Scene {
         String[] text = input.split(" ");
         switch (text[0]) {
             case "back":
+                cart.clear();
                 switchScene((MarketScene)MarketScene.getInstance());
                 break;
             case "help":
@@ -150,7 +151,7 @@ class FoodTruckScene extends Scene {
         try {
             FoodTruckManager.placeOrder(username, accessKey, foodtruck, cart);
             switchScene((Scene) UserInformationScene.getInstance());
-            this.cart.clear();
+            this.cart.clear(); // Clear the cart if the action is successful
         }catch (UnknownFoodTruckException | UnknownFoodException | UnauthorizedAccessException |
                 InsufficientBalanceException | IncorrectArgumentException | UnknownUserException e){
             state.append(e.getMessage()).append("\n");

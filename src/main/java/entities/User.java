@@ -100,11 +100,21 @@ public class User implements Serializable {
         }
     }
 
-    public void buyInProgressToHistory(String id) throws UnknownOrderException {
-        if (buyInProgress.contains(id)){
-        this.buyInProgress.remove(id);
-        this.buyOrderHistory.add(id);}
+    public void completeOrder(String id) throws UnknownOrderException{
+        if(sellInProgress.contains(id)){
+            sellInProgressToHistory(id);
+            return;
+        }
+        if(buyInProgress.contains(id)){
+            buyInProgressToHistory(id);
+            return;
+        }
         throw new UnknownOrderException();
+    }
+
+    private void buyInProgressToHistory(String id)  {
+        this.buyInProgress.remove(id);
+        this.buyOrderHistory.add(id);
     }
 
     private void sellInProgressToHistory(String id)  {

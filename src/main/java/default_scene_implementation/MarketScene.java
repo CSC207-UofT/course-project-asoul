@@ -53,7 +53,7 @@ class MarketScene extends Scene {
 
     private void assignPointer(){
         int counter = 1;
-        pointer.replaceAll((key, value) -> "");
+        pointer.clear();
         try {
             ArrayList<String> sorted = sortTruckInfo();
             for (String name : sorted) {

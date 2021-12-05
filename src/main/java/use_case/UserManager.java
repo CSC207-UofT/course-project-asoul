@@ -10,7 +10,6 @@ import serialization.Serializer;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Objects;
 
 import helper.RandomStringGenerator;
 /**
@@ -53,7 +52,7 @@ public class UserManager{
         loggedInUsers.remove(accessKey);
     }
 
-    public static void userExist(String accName) throws UnknownUserException{
+    static void userExist(String accName) throws UnknownUserException{
         if(!userMap.containsKey(accName)){
             throw new UnknownUserException();
         }
@@ -108,17 +107,6 @@ public class UserManager{
         accessCheck(accountName, accessKey);
         withdrawMoney(accountName, money);
     }
-
-    /**
-     * @param accName The account name of user that wants to check their balance.
-     * @return The amount of money in the user's balance.
-     */
-
-    public double checkBalance(String accName) {
-        User user = userMap.get(accName);
-        return user.checkBalance();
-    }
-
 
     /**
      * @param accName  The account name user wants to have.
@@ -189,12 +177,6 @@ public class UserManager{
         return userMap.containsKey(accountName);
     }
 
-    // the account name must exist
-    public static void logOutUser(String loginKey, String username) throws UnauthorizedAccessException {
-        accessCheck(loginKey, username);
-        loggedInUsers.remove(loginKey);
-    }
-
     public static void setNickname(String accName, String accessKey, String nickname) throws UnauthorizedAccessException{
         accessCheck(accName, accessKey);
         userMap.get(accName).setNickname(nickname);
@@ -213,6 +195,13 @@ public class UserManager{
 
     public static String getNickname(String accName, String accessKey) throws UnauthorizedAccessException{
         accessCheck(accName, accessKey);
+        return userMap.get(accName).getNickname();
+    }
+
+    public static String getNickname(String accName) throws UnknownUserException{
+        if(!userMap.containsKey(accName)){
+            throw new UnknownUserException();
+        }
         return userMap.get(accName).getNickname();
     }
 
@@ -237,9 +226,8 @@ public class UserManager{
      * @param payer the account name of the payer.
      * @param payee the account name of payee.
      * @param amount the amount of money buyer will pay.
-     * @return true if pay is successful.
      */
-    public static boolean pay(String payer, String payee, double amount, String accessKey) throws
+    public static void pay(String payer, String payee, double amount, String accessKey) throws
             UnauthorizedAccessException, InsufficientBalanceException, UnknownUserException, IncorrectArgumentException{
         accessCheck(payer, accessKey);
         try {
@@ -247,7 +235,6 @@ public class UserManager{
             User seller = UserManager.userMap.get(payee);
             buyer.withdrawMoney(amount);
             seller.addMoney(amount);
-            return true;
         }catch (NullPointerException e){
             throw new UnknownUserException();
         }
@@ -295,12 +282,19 @@ public class UserManager{
         return ft.getTruckName();
     }
 
-    public static void completeOrder(String orderID, String username, String accessKey) throws UnauthorizedAccessException, NullPointerException{
+    public static void completeOrder(String orderID, String username, String accessKey) throws
+            UnauthorizedAccessException, UnknownUserException, UnknownOrderException{
         accessCheck(username, accessKey);
         Order order = OrderManager.orders.get(orderID);
-        String seller = order.getSellerName();
+        String seller = order.getSeller();
+        String buyer = order.getBuyer();
+        if(!userMap.containsKey(seller) || !userMap.containsKey(buyer)){
+            throw new UnknownUserException();
+        }
         if(seller.equals(username)) {
             order.changeOrderStatus();
+            userMap.get(seller).completeOrder(orderID);
+            userMap.get(buyer).completeOrder(orderID);
         }else{
             throw new UnauthorizedAccessException();
         }
