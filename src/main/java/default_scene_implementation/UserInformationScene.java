@@ -113,6 +113,7 @@ class UserInformationScene extends Scene {
 
     @Override
     public String constructOutputString(){
+        updateUserInfo();
         return "------------------------------User Information----------------------------------\n" +
                 "Username: " + username + "\n" +
                 "Nickname: " + nickname + "\n" +

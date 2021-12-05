@@ -57,7 +57,7 @@ class MenuEditScene extends Scene {
                             fields.get("Description"), fields.get("ID"), username);
                     clearFields();
                 } catch (UnfilledArgumentException | CollidedFoodException | FoodIdCollisionException e) {
-                    e.printStackTrace();
+                    this.state.append(e.getMessage());
                 }
                 break;
             case "delete":
@@ -65,7 +65,7 @@ class MenuEditScene extends Scene {
                     if(!FoodTruckManager.hasFoodId(text[1], username)){
                         throw new UnknownFoodException();
                     }
-                    FoodTruckManager.removeFoodFromMenu(this.fields.get("ID"), username);
+                    FoodTruckManager.removeFoodFromMenu(text[1], username);
                 } catch (UnknownFoodException e) {
                     state.append(e.getMessage());
                 }

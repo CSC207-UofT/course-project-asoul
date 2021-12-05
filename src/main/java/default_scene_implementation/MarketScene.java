@@ -27,7 +27,7 @@ class MarketScene extends Scene {
                 "help -> View all commands on this page\n" +
                 "back -> Go back to user info page\n" +
                 "select + [Space] + [Foodtruck id] -> view the food menu of the specified foodtruck and prepare for ordering\n" +
-                "sort_by + [Space] + [Sorting method] -> Sort the foodtrucks with specified method (See next line for possible methods)\n" +
+                "sort_by + [Space] + [Sorting method] -> Sort the food trucks with specified method (See next line for possible methods)\n" +
                 "        Sorting Methods: 'name_length', 'rating'\n");
     }
 
