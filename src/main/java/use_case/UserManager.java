@@ -170,6 +170,16 @@ public class UserManager{
         return user.getSellOrderHistory();
     }
 
+    public static HashSet<String> getBuyInProgress(String username, String accessKey) throws UnauthorizedAccessException {
+        accessCheck(username, accessKey);
+        return userMap.get(username).getBuyInProgress();
+    }
+
+    public static HashSet<String> getSellInProgress(String username, String accessKey) throws UnauthorizedAccessException {
+        accessCheck(username, accessKey);
+        return userMap.get(username).getSellInProgress();
+    }
+
 
     /**
      * @param accountName the account name that want to check exists or not.
@@ -269,7 +279,7 @@ public class UserManager{
 
     public static void updateOrderHistory(String orderID) throws UnknownUserException, UnknownOrderException {
         Order order = OrderManager.getOrder(orderID);
-        String buyer = order.getCustomerName();
+        String buyer = order.getBuyerName();
         String seller = order.getSellerName();
         if (userMap.containsKey(buyer) && userMap.containsKey(seller)) {
             addBuyOrder(buyer, orderID);

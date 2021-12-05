@@ -107,11 +107,9 @@ public class User implements Serializable {
         throw new UnknownOrderException();
     }
 
-    public void sellInProgressToHistory(String id) throws UnknownOrderException {
-        if (sellInProgress.contains(id)){
-            this.sellInProgress.remove(id);
-            this.sellOrderHistory.add(id);}
-        throw new UnknownOrderException();
+    private void sellInProgressToHistory(String id)  {
+        this.sellInProgress.remove(id);
+        this.sellOrderHistory.add(id);
     }
 
     public void storeBuyOrder(String orderID) { // we are going to use the return value later.

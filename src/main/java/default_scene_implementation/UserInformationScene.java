@@ -10,14 +10,12 @@ import java.util.HashMap;
 
 class UserInformationScene extends Scene {
     private final static UserInformationScene us = new UserInformationScene();
-    public String username;
-    public String nickname;
-    public String phoneNum;
-    public String truckName;
-    public double accBalance;
+    private String username;
+    private String nickname;
+    private String phoneNum;
+    private String truckName;
+    private double accBalance;
     private String accessKey;
-    private String buyOrderHistory;
-    private String sellOrderHistory;
     private String truckActive;
 
 
@@ -30,8 +28,6 @@ class UserInformationScene extends Scene {
         this.truckName = "";
         this.truckActive = "";
         this.accBalance = 0;
-        this.buyOrderHistory = "";
-        this.sellOrderHistory = "";
         this.setHelpMessage("\n\nAll commands:\n" +
                 "help -> View all commands on this page\n" +
                 "view_market -> View all food trucks\n" +
@@ -39,7 +35,7 @@ class UserInformationScene extends Scene {
                 "change_truck_info -> Change user's food truck information\n" +
                 "add_money + [Space] + [amount of money] -> add money to balance\n" +
                 "withdraw_money + [Space] + [amount of money] -> withdraw money from balance\n" +
-                "view_order + [Space] + [order id] -> view the order\n" +
+                "view_orders -> View all orders\n" +
                 "change_truck_status -> Change Truck Status.");
     }
 
@@ -93,8 +89,8 @@ class UserInformationScene extends Scene {
                     this.state.append(e.getMessage()).append("\n");
                 }
                 break;
-            case "view_order":
-                // TODO
+            case "view_orders":
+                viewOrders();
                 break;
             case "change_truck_status":
                 try {
@@ -136,8 +132,6 @@ class UserInformationScene extends Scene {
             this.nickname = UserManager.getNickname(username, accessKey);
             this.accBalance = UserManager.getBalance(username, accessKey);
             this.phoneNum = UserManager.getPhoneNumber(username, accessKey);
-            this.sellOrderHistory = UserManager.getSellOrderHistory(username, accessKey).toString();
-            this.buyOrderHistory = UserManager.getBuyOrderHistory(username, accessKey).toString();
             boolean flag = FoodTruckManager.isActive(username, accessKey);
             if(flag){
                 this.truckActive = "Activated";
@@ -158,6 +152,11 @@ class UserInformationScene extends Scene {
 
     public void changeUserInfo() {
         UserInfoEditScene scene = (UserInfoEditScene) UserInfoEditScene.getInstance();
+        this.switchScene(scene);
+    }
+
+    public void viewOrders() {
+        OrderListScene scene = (OrderListScene) OrderListScene.getInstance();
         this.switchScene(scene);
     }
 
