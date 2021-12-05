@@ -64,13 +64,18 @@ public class UserManager{
      * @param money       The amount of money the user wants to add.
      */
 
-    public static void addMoney(String accountName, double money) throws IncorrectArgumentException {
+    static void addMoney(String accountName, double money) throws IncorrectArgumentException {
         User user = userMap.get(accountName);
         boolean addSuccess = user.addMoney(money);
         if (!addSuccess) {
             throw new IncorrectArgumentException();
         }
+    }
 
+    public static void addMoney(String accountName, String accessKey, double money) throws IncorrectArgumentException,
+            UnauthorizedAccessException {
+        accessCheck(accountName, accessKey);
+        addMoney(accountName, money);
     }
 
     protected static void accessCheck(String username, String accessKey) throws UnauthorizedAccessException{
@@ -89,12 +94,19 @@ public class UserManager{
      * @param money       The amount of money the user wants to withdraw.
      */
 
-    public static void withdrawMoney(String accountName, double money) throws IncorrectArgumentException {
+    static void withdrawMoney(String accountName, double money) throws IncorrectArgumentException,
+            InsufficientBalanceException{
         User user = userMap.get(accountName);
-        boolean withSuccess = user.withdrawMoney(money);
-        if (!withSuccess) {
+        if(money < 0){
             throw new IncorrectArgumentException();
         }
+        user.withdrawMoney(money);
+    }
+
+    public static void withdrawMoney(String accountName, String accessKey, double money) throws IncorrectArgumentException,
+            InsufficientBalanceException, UnauthorizedAccessException{
+        accessCheck(accountName, accessKey);
+        withdrawMoney(accountName, money);
     }
 
     /**
@@ -199,6 +211,13 @@ public class UserManager{
         return userMap.get(accName).getPhoneNumber();
     }
 
+    static String getPhoneNumber(String accName) throws UnknownUserException{
+        if(userMap.containsKey(accName)){
+            return userMap.get(accName).getPhoneNumber();
+        }
+        throw new UnknownUserException();
+    }
+
     public static double getBalance(String accName, String accessKey) throws UnauthorizedAccessException{
         accessCheck(accName, accessKey);
         return userMap.get(accName).getAccountBalance();
@@ -207,27 +226,21 @@ public class UserManager{
     /**
      * @param payer the account name of the payer.
      * @param payee the account name of payee.
-     * @param password the buyer's password.
      * @param amount the amount of money buyer will pay.
      * @return true if pay is successful.
      */
-    public static boolean pay(String payer, String payee, String password, double amount, String accessKey) throws UnauthorizedAccessException{
+    public static boolean pay(String payer, String payee, double amount, String accessKey) throws
+            UnauthorizedAccessException, InsufficientBalanceException, UnknownUserException, IncorrectArgumentException{
         accessCheck(payer, accessKey);
-        User buyer = UserManager.userMap.get(payer);
-        User seller = UserManager.userMap.get(payee);
-        double balance = buyer.getAccountBalance();
-        if (amount < 0) {
-            return false;
+        try {
+            User buyer = UserManager.userMap.get(payer);
+            User seller = UserManager.userMap.get(payee);
+            buyer.withdrawMoney(amount);
+            seller.addMoney(amount);
+            return true;
+        }catch (NullPointerException e){
+            throw new UnknownUserException();
         }
-        if(balance < amount){
-            return false; // buyer does not have enough money to pay
-        }
-        if (!password.equals(buyer.getPassword())){
-            return false;
-        }
-        buyer.withdrawMoney(amount);
-        seller.addMoney(amount);
-        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -254,9 +267,9 @@ public class UserManager{
         us.storeSellOrder(orderID);
     }
 
-    public static void updateOrderHistory(String orderID) throws UnknownUserException {
+    public static void updateOrderHistory(String orderID) throws UnknownUserException, UnknownOrderException {
         Order order = OrderManager.getOrder(orderID);
-        String buyer = Objects.requireNonNull(order).getCustomerName();
+        String buyer = order.getCustomerName();
         String seller = order.getSellerName();
         if (userMap.containsKey(buyer) && userMap.containsKey(seller)) {
             addBuyOrder(buyer, orderID);

@@ -7,7 +7,7 @@ import serialization.Serializer;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import helper.RandomStringGenerator;
 
 /**
  * A Use_case.FoodTruckManager that manages all the FoodTrucks.
@@ -109,8 +109,8 @@ public class FoodTruckManager{
     }
 
     public static boolean hasFoodId(String id, String truckName){ // food id
-        return foodTrucks.get(truckName).getMenu().hasFood(id);
-    } //TODO
+        return foodTrucks.get(truckName).getMenu().hasFoodId(id);
+    }
 
     public static void setTruckName(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
         UserManager.accessCheck(userAccountName, accessKey);
@@ -186,9 +186,8 @@ public class FoodTruckManager{
 
     /**
      * Food Truck Rating System
-     * TODO, Implement the controller part
      */
-    public static void calculateRating(String sellerName) throws UnknownUserException {
+    public static void calculateRating(String sellerName) throws UnknownUserException, UnknownOrderException {
         if (foodTrucks.containsKey(sellerName)){
             HashSet<String> orders = UserManager.getSellOrderHistory(sellerName);
             double totalRating = 0.0;
@@ -245,9 +244,9 @@ public class FoodTruckManager{
         return foodTrucks.get(username).getMenu().getFood(id).getFoodName();
     }
 
-    public static double getFoodPrice(String username, String id) throws UnknownFoodException{
+    public static double getFoodPrice(String username, String id) throws UnknownFoodException, UnknownFoodTruckException{
         if(!foodTrucks.containsKey(username)){
-            throw new UnknownFoodException();
+            throw new UnknownFoodTruckException();
         }
         return foodTrucks.get(username).getMenu().getFoodPrice(id);
     }
@@ -290,6 +289,27 @@ public class FoodTruckManager{
     public static boolean isActive(String id, String accessKey) throws UnauthorizedAccessException{
         UserManager.accessCheck(id, accessKey);
         return foodTrucks.get(id).isActive();
+    }
+
+    public static double calculatePrice(String truck, HashMap<String, Integer> cart) throws UnknownFoodTruckException,
+            UnknownFoodException{
+        if(!foodTrucks.containsKey(truck)){
+            throw new UnknownFoodTruckException();
+        }
+        return foodTrucks.get(truck).calculatePrice(cart);
+    }
+
+    public static void placeOrder(String username, String accessKey, String seller, HashMap<String, Integer> cart)
+            throws UnauthorizedAccessException, UnknownFoodTruckException, UnknownFoodException, UnknownUserException,
+            InsufficientBalanceException, IncorrectArgumentException{
+        UserManager.accessCheck(username, accessKey);
+        if(!foodTrucks.containsKey(seller)){
+            throw new UnknownFoodTruckException();
+        }
+        FoodTruck ft = foodTrucks.get(seller);
+        double price = ft.calculatePrice(cart);
+        UserManager.pay(username, seller, price, accessKey);
+        OrderManager.createOrder(cart, username, seller);
     }
 
     @SuppressWarnings("unchecked")

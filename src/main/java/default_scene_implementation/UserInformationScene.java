@@ -79,6 +79,8 @@ class UserInformationScene extends Scene {
                     addFund(money);
                 } catch (NumberFormatException | IncorrectArgumentException e) {
                     this.state.append((new IncorrectArgumentException()).getMessage());
+                } catch (UnauthorizedAccessException e){
+                    this.state.append(e.getMessage()).append("\n");
                 }
                 break;
             case "withdraw_money":
@@ -87,6 +89,8 @@ class UserInformationScene extends Scene {
                     withdrawFund(money);
                 } catch (NumberFormatException | IncorrectArgumentException e) {
                     this.state.append((new IncorrectArgumentException()).getMessage());
+                } catch (InsufficientBalanceException | UnauthorizedAccessException e){
+                    this.state.append(e.getMessage()).append("\n");
                 }
                 break;
             case "view_order":
@@ -162,12 +166,13 @@ class UserInformationScene extends Scene {
         this.switchScene(scene);
     }
 
-    public void addFund(double fund) throws IncorrectArgumentException {
-        UserManager.addMoney(username, fund);
+    public void addFund(double fund) throws IncorrectArgumentException, UnauthorizedAccessException {
+        UserManager.addMoney(username, accessKey, fund);
         updateUserInfo();
     }
-    public void withdrawFund(double fund) throws IncorrectArgumentException {
-        UserManager.withdrawMoney(username, fund);
+    public void withdrawFund(double fund) throws IncorrectArgumentException,
+            InsufficientBalanceException, UnauthorizedAccessException{
+        UserManager.withdrawMoney(username, accessKey, fund);
         updateUserInfo();
     }
 

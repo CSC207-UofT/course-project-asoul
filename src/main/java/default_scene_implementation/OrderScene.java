@@ -27,7 +27,7 @@ class OrderScene extends Scene {
     }
 
     public void rateOrder(Double rating){
-        OrderManager.rateOrder(rating, OrderID);
+        // OrderManager.rateOrder(rating, OrderID);
     }
 
     public void setOrderID(int id){

@@ -7,10 +7,7 @@ import exceptions.UnauthorizedAccessException;
 import exceptions.UnknownCommandException;
 import singleton_pattern.Singleton;
 import use_case.FoodTruckManager;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 class FoodTruckScene extends Scene {
     private static final FoodTruckScene fts = new FoodTruckScene();
@@ -52,6 +49,9 @@ class FoodTruckScene extends Scene {
             case "remove":
 
                 break;
+            case "clear_cart":
+                cart.clear();
+                break;
             case "confirm":
                 break;
             default:
@@ -73,10 +73,17 @@ class FoodTruckScene extends Scene {
                 String foodName = FoodTruckManager.getFoodName(foodtruck, key);
                 int quantity = cart.get(key);
                 double price = FoodTruckManager.getFoodPrice(foodtruck, key);
-                sb.append(String.format("ID: %s Item: %s Price: %f Quantity: %d", key, foodName, price, quantity));
+                sb.append(String.format("ID: %s Item: %s Price: %f Quantity: %d", key, foodName, price, quantity)
+                ).append("\n");
             }catch (Exception e){
                 state.append(e.getMessage()).append("\n");
             }
+        }
+        try {
+            double price = FoodTruckManager.calculatePrice(foodtruck, cart);
+            sb.append("\nTotal Price: ").append(price).append("\n");
+        }catch (UnknownFoodTruckException | UnknownFoodException e){
+            state.append(e.getMessage()).append("\n");
         }
         sb.append("\n");
 
@@ -84,7 +91,7 @@ class FoodTruckScene extends Scene {
         return sb.toString();
     }
 
-    public void addFoodToCart(String key, int quantity){
+    private void addFoodToCart(String key, int quantity){
         if(!FoodTruckManager.hasFoodId(key, foodtruck)){
             this.state.append("Selected food does not exist in the menu!\n");
         }

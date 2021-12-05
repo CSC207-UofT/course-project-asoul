@@ -2,9 +2,12 @@ package entities;
 
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.HashMap;
 import exceptions.CollidedFoodException;
 import exceptions.FoodIdCollisionException;
+import exceptions.UnknownFoodException;
+import use_case.FoodTruckManager;
+
 /**
  * Java class representation for Entities.FoodTruck instance
  */
@@ -102,6 +105,16 @@ public class FoodTruck implements Serializable {
         String f = String.format("Truck Name: \n"))
         sb.append(String.format()
         return sb.toString();
+    }
+
+    public double calculatePrice(HashMap<String, Integer> cart) throws UnknownFoodException {
+        double total = 0;
+        for(String id: cart.keySet()){
+            int quantity = cart.get(id);
+            double price = menu.getFoodPrice(id);
+            total += (quantity * price);
+        }
+        return Math.round(total * 100.0) / 100.0;
     }
 
     /**

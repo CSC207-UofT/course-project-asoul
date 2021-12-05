@@ -5,15 +5,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.time.LocalDateTime; // Import the LocalDateTime class
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
-
+import java.util.HashMap;
 /**
  * An order.
  */
 
 public class Order implements Serializable {
-    private final FoodTruck foodTruck; // private FoodTruck foodTruck;
-    private final ArrayList<Food> foodList; // a list of foods ordered by the customers
-    private final double totalPrice; // total price
+    private final String summary;
     private final String customerName; // name of the customer who ordered the food
     private final String customerNumber; // contact number of the customer who ordered the food
     private final String sellerName; // name of the seller who owns the food truck
@@ -26,39 +24,21 @@ public class Order implements Serializable {
     /**
      * Construct a new order object
      *
-     * @param foodTruck      the foodtruck that is responsible for this order
-     * @param foodList       a list of foods ordered by the customers
      * @param customerName   name of the customer who ordered the food
      * @param customerNumber contact number of the customer who ordered the food
      * @param sellerName     name of the seller who owns the food truck
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
-    public Order(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
+    public Order(String summary, String customerName,
                  String customerNumber, String sellerName, String sellerNumber) {
-        this.foodTruck = foodTruck;
-        this.foodList = foodList; // Aliasing problem??
-        this.totalPrice = calculateTotalPrice();
+        this.summary = summary;
         this.customerName = customerName;
         this.customerNumber = customerNumber;
         this.sellerName = sellerName;
         this.sellerNumber = sellerNumber;
-        this.rating = -0.1;
+        this.rating = 0;
         this.status = "in progress";
         this.time = LocalDateTime.now();
-    }
-
-
-    /**
-     * Calculate the total price of the food list.
-     *
-     * @return The total price.
-     */
-    public double calculateTotalPrice() {
-        double price = 0.0;
-        for (Food f : this.foodList) {
-            price = price + f.getPrice();
-        }
-        return price;
     }
 
     /**
@@ -99,11 +79,9 @@ public class Order implements Serializable {
         return "Order Time: " + this.getFormattedTime() + "\n" +
                 "Customer Name: " + this.getCustomerName() + "\n" +
                 "Customer Number: " + this.getCustomerNumber() + "\n" +
-                "Food Truck: " + this.getFoodTruck().getTruckName() + "\n" +
                 "Seller Name: " + this.getSellerName() + "\n" +
                 "Seller Number: " + this.getSellerNumber() + "\n" +
-                "Food List: " + this.getFoodList() + "\n" +
-                "Total Price: $" + this.getTotalPrice() + "\n" +
+                this.summary + "\n" +
                 "Status: " + this.getStatus() + "\n" +
                 "Rating: " + this.getRating();
     }
@@ -116,15 +94,6 @@ public class Order implements Serializable {
     public String getFormattedTime() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return this.getTime().format(format);
-    }
-
-    public FoodTruck getFoodTruck() {
-        return this.foodTruck;
-    }
-
-
-    public Double getTotalPrice() {
-        return this.totalPrice;
     }
 
 
@@ -159,14 +128,5 @@ public class Order implements Serializable {
 
     public double getRating(){
         return this.rating;
-    }
-
-
-    public String getFoodList() {
-        StringBuilder result = new StringBuilder();
-        for (Food food : this.foodList) {
-            result.append(food.getFoodName()).append(" : $").append(food.getPrice()).append("\n");
-        }
-        return result.toString().trim();
     }
 }

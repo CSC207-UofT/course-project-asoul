@@ -1,6 +1,8 @@
 package entities;
 
+import exceptions.IncorrectArgumentException;
 import exceptions.IncorrectOldPasswordException;
+import exceptions.InsufficientBalanceException;
 import exceptions.UnknownOrderException;
 
 import java.io.Serializable;
@@ -72,14 +74,14 @@ public class User implements Serializable {
      * @param money The amount of money in double that will be withdrawn from the account balance.
      * @return Return True if successfully withdrawn and False otherwise.
      */
-    public boolean withdrawMoney(double money) { // we are going to use the return value later.
-        if (money >= 0.0) {
-            if (this.accountBalance >= money) {
-                this.accountBalance = this.accountBalance - money;
-                return true;
-            }
+    public void withdrawMoney(double money) throws InsufficientBalanceException, IncorrectArgumentException {
+        if(money < 0){
+            throw new IncorrectArgumentException();
         }
-        return false;
+        if(money > accountBalance){
+            throw new InsufficientBalanceException();
+        }
+        accountBalance -= money;
     }
 
     public void setNickname(String nickname) {

@@ -1,15 +1,16 @@
 package use_case;
 
 import entities.*;
-import exceptions.UnknownFoodException;
+import exceptions.*;
 import serialization.Deserializer;
 import serialization.Serializer;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
-
+import helper.RandomStringGenerator;
 /**
  * A Use_case.OrderManager that manages all the Orders.
  */
@@ -21,43 +22,36 @@ public class OrderManager {
 
     /**
      * Create an order and add it to the list.
-     *
-     * @param foodTruck      the foodtruck that is responsible for this order
-     * @param foodList       a list of foods ordered by the customers
+     * @param cart The items included in this order
      * @param customerName   name of the customer who ordered the food
-     * @param customerNumber contact number of the customer who ordered the food
      * @param sellerName     name of the seller who owns the food truck
-     * @param sellerNumber   contact number of the seller who owns the food truck
-     * @return the id of new order
      */
 
-    public static int createOrder(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
-                                  String customerNumber, String sellerName, String sellerNumber) {
-        int id = orders.size() + 1;
-        Order new_order = new Order(foodTruck, foodList, customerName,
-                customerNumber, sellerName, sellerNumber);
-        orders.put(Integer.toString(id), new_order);
-        return id;
-    }
-
-    /**
-     * Create an order and add it to the list.
-     *
-     * @param truckName      The truck name of the truck
-     * @param foods          a list of foods' name ordered by the customers
-     * @param customerName   name of the customer who ordered the food
-     * @param customerNumber contact number of the customer who ordered the food
-     * @param sellerName     name of the seller who owns the food truck
-     * @param sellerNumber   contact number of the seller who owns the food truck
-     * @return the id of new order
-     */
-
-    public int createOrder(String truckName, ArrayList<String> foods, String
-            customerName,
-                           String customerNumber, String sellerName, String sellerNumber) throws UnknownFoodException {
-        FoodTruck foodTruck = FoodTruckManager.foodTrucks.get(truckName);
-        ArrayList<Food> foodList = getMenuFood(foods, foodTruck);
-        return createOrder(foodTruck, foodList, customerName, customerNumber, sellerName, sellerNumber);
+    static void createOrder(HashMap<String, Integer> cart, String customerName, String sellerName)
+            throws UnknownFoodException, UnknownFoodTruckException, UnknownUserException {
+        RandomStringGenerator rs = new RandomStringGenerator();
+        String id = rs.generateRandomString();
+        while(orders.containsKey(id)){
+            id = rs.generateRandomString();
+        }
+        StringBuilder sb = new StringBuilder();
+        String bPhone = UserManager.getPhoneNumber(customerName);
+        String sPhone = UserManager.getPhoneNumber(sellerName);
+        for(String key: cart.keySet()){
+            String foodName = FoodTruckManager.getFoodName(sellerName, key);
+            String quantity = cart.get(key).toString();
+            String price = (Math.round(FoodTruckManager.getFoodPrice(sellerName, key) * 100.0) / 100.0) + "";
+            sb.append("Item: ").append(foodName).append("--------------").append(quantity).append(" X ").append(price
+            ).append("\n");
+        }
+        sb.append("\n");
+        Order new_order = new Order(sb.toString(), customerName, bPhone, sellerName, sPhone);
+        orders.put(id, new_order);
+        try {
+            UserManager.updateOrderHistory(id);
+        }catch (UnknownOrderException e){
+            e.printStackTrace(); // This situation is impossible
+        }
     }
 
     /**
@@ -67,8 +61,17 @@ public class OrderManager {
      *
      * @return Whether the status being changed successfully.
      */
-    public void changeOrderStatus(String id) {
-        Objects.requireNonNull(getOrder(id)).changeOrderStatus();
+    public void changeOrderStatus(String username, String accessKey, String id) throws UnknownOrderException,
+            UnauthorizedAccessException {
+        UserManager.accessCheck(username, accessKey);
+        if(!orders.containsKey(id)){
+            throw new UnknownOrderException();
+        }
+        Order o = orders.get(id);
+        if(!username.equals(o.getSellerName())){
+            throw new UnauthorizedAccessException();
+        }
+        orders.get(id).changeOrderStatus();
     }
 
     /**
@@ -97,39 +100,24 @@ public class OrderManager {
     }
 
     /**
-     * @param foods the list of foods' name
-     * @param truck where these foods from
-     * @return The total price of the given food in the truck
-     */
-    public double getTotalPrice(ArrayList<String> foods, FoodTruck truck) throws UnknownFoodException {
-        FoodMenu menu = truck.getMenu();
-        double total_price = 0;
-        for (String item : foods) {
-            total_price += menu.getFood(item).getPrice();
-        }
-        return total_price;
-    }
-
-    /**
-     * @param foods     the list of foods' name
-     * @param truckName The truck name of the truck
-     * @return The total price of the given food in the truck
-     * @throws NullPointerException If the foodtruck with specified id does not exist
-     */
-    public double getTotalPrice(ArrayList<String> foods, String truckName) throws NullPointerException, UnknownFoodException {
-        FoodTruck truck = FoodTruckManager.foodTrucks.get(truckName);
-        return getTotalPrice(foods, truck);
-    }
-
-    /**
      * @param id the order's id.
      * @return A map that from the order's id to order's information.
      * @throws NullPointerException If the order with specified id does not exist
      */
-    public HashMap<String, String> getOrderDetail(String id) throws NullPointerException{
+    public HashMap<String, String> getOrderDetail(String id) throws UnknownOrderException{
         HashMap<String, String> information = new HashMap<>();
-        information.put(id, getOrder(id).toString());
+        if(!orders.containsKey(id)){
+            throw new UnknownOrderException();
+        }
+        information.put(id, orders.get(id).toString());
         return information;
+    }
+
+    static Order getOrder(String id) throws UnknownOrderException{
+        if(!orders.containsKey(id)){
+            throw new UnknownOrderException();
+        }
+        return orders.get(id);
     }
 
     /**
@@ -141,16 +129,11 @@ public class OrderManager {
      * @return return true if rating updated successfully, return false otherwise
      * @throws NullPointerException If the order with specified id does not exist
      */
-    public static boolean rateOrder(double rating, String id) throws NullPointerException{
-        return getOrder(id).rateOrder(rating);
-    }
-
-    /**
-     * @param id the Entities.Order's id.
-     * @return The order with the given id. Return null is the id is not exist.
-     */
-    public static Order getOrder(String id) {
-        return orders.get(id);
+    static boolean rateOrder(double rating, String id) throws UnknownOrderException {
+        if(!orders.containsKey(id)){
+            throw new UnknownOrderException();
+        }
+        return orders.get(id).rateOrder(rating);
     }
 
     @SuppressWarnings("unchecked")
