@@ -1,10 +1,11 @@
-package com.example.projectasoulandroid;
+package com.example.asoul.Activities;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.asoul.R;
 
 public class MainActivity extends AppCompatActivity {
 

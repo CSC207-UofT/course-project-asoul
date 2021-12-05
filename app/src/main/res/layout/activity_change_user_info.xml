@@ -1,91 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".ChangeUserInfoActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="10dp"
+              tools:context=".Activities.ChangeUserInfoActivity">
 
     <TextView
-        android:id="@+id/cui_1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="User Information"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        />
+            android:id="@+id/cui_1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="User Information"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+    />
 
 
 
     <EditText
-        android:id="@+id/cui_nn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:hint="Nick name"
-        android:maxLines="1"
-        android:padding="5dp"
-        android:layout_marginTop="50dp"
-        />
+            android:id="@+id/cui_nn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:hint="Nick name"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:layout_marginTop="50dp"
+    />
 
     <EditText
-        android:id="@+id/cui_pn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:hint="Phone number"
-        android:maxLines="1"
-        android:padding="5dp"
-        android:layout_marginTop="50dp"
-        />
+            android:id="@+id/cui_pn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:hint="Phone number"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:layout_marginTop="50dp"
+    />
 
     <Button
-        android:id="@+id/cui_cuib"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="Change Information"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/cardview_shadow_start_color"
-        />
+            android:id="@+id/cui_cuib"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="Change Information"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+    />
 
     <TextView
-        android:id="@+id/cui_2"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="...or if you want to change password"
-        android:textColor="@color/black"
-        android:textStyle="italic"
-        android:textSize="15sp"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        />
+            android:id="@+id/cui_2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="...or if you want to change password"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            android:textSize="15sp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+    />
 
     <Button
-        android:id="@+id/cui_cpb"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="Change Password"
-        android:layout_marginTop="0dp"
-        android:backgroundTint="@color/cardview_shadow_start_color"
-        />
+            android:id="@+id/cui_cpb"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="Change Password"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+    />
 
     <Button
-        android:id="@+id/cui_back"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="Back"
-        android:layout_marginTop="140dp"
-        android:backgroundTint="@color/cardview_shadow_start_color"
-        android:layout_marginLeft="270dp"
-        />
+            android:id="@+id/cui_back"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Back"
+            android:layout_marginTop="140dp"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+            android:layout_marginStart="270dp"
+    />
 
 
 

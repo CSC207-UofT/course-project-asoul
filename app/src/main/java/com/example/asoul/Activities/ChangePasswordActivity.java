@@ -1,10 +1,11 @@
-package com.example.projectasoulandroid;
+package com.example.asoul.Activities;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.asoul.R;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -17,8 +18,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         mbBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = null;
-                intent = new Intent(ChangePasswordActivity.this, ChangeUserInfoActivity.class);
+                Intent intent = new Intent(ChangePasswordActivity.this, ChangeUserInfoActivity.class);
                 startActivity(intent);
             }
         });

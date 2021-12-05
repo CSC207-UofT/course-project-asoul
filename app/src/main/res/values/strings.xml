@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">projectasoulandroid</string>
+    <string name="app_name">ASOUL</string>
     <string name="sign_in_with_username">Sign in with username</string>
     <string name="asoul">ASOUL</string>
     <string name="enter_password">enter your password</string>
@@ -18,4 +18,10 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="password">Password:</string>
     <string name="or_go_back_to">...or go back to..</string>
+    <string name="add_fund">Add Fund</string>
+    <string name="withdraw_fund">Withdraw Fund</string>
+    <string name="edit_user_info">Edit User Info</string>
+    <string name="edit_truck_info">Edit Truck Info</string>
+    <string name="view_market">View Market</string>
+    <string name="view_order_history">View Order History</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.projectasoulandroid;
+package com.example.asoul;
 
 import org.junit.Test;
 

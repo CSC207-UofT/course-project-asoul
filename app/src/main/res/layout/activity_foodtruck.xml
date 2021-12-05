@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+
+    <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="300dp"
+            android:layout_height="550dp"
+            android:layout_marginBottom="75dp"
+            android:background="#59ACED"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.849"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="40dp"
+                tools:context=".MainActivity">
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+    <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="110dp"
+            android:layout_height="642dp"
+            android:layout_marginTop="75dp"
+            android:background="#59ACED"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="301dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="40dp"
+                tools:context=".MainActivity">
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <Button
+            android:id="@+id/ViewMarket"
+            android:layout_width="124dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="11dp"
+            android:text="Market"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/Checkout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+            android:id="@+id/Checkout"
+            android:layout_width="133dp"
+            android:layout_height="61dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="11dp"
+            android:text="Check Out"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/scrollView3"
+            app:layout_constraintStart_toEndOf="@+id/ViewMarket"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+            android:id="@+id/FoodtruckName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="239dp"
+            android:layout_marginBottom="46dp"
+            android:text="TruckName"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="59dp"
+            android:layout_marginBottom="39dp"
+            android:text="Cart"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/FoodtruckName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

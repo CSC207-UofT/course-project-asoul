@@ -1,10 +1,11 @@
-package com.example.projectasoulandroid;
+package com.example.asoul.Activities;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.asoul.R;
 
 public class ChangeUserInfoActivity extends AppCompatActivity {
 
@@ -18,8 +19,7 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
         mbChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = null;
-                intent = new Intent(ChangeUserInfoActivity.this, ChangePasswordActivity.class);
+                Intent intent = new Intent(ChangeUserInfoActivity.this, ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -28,7 +28,13 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
         //TODO: change user info
 
         Button mbBack = findViewById(R.id.cui_back);
-        //TODO: back to the front page
+        mbBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChangeUserInfoActivity.this, UserInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

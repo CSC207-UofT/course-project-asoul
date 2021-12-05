@@ -1,10 +1,11 @@
-package com.example.projectasoulandroid;
+package com.example.asoul.Activities;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.asoul.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -18,9 +19,9 @@ public class RegisterActivity extends AppCompatActivity {
         switchToLoginActivity = findViewById(R.id.btnLoginPage);
         switchToLoginActivity.setOnClickListener(new View.OnClickListener() {
 
-        @Override
-        public void onClick(View view) {setSwitchToLoginActivity();}
-    });
+            @Override
+            public void onClick(View view) {setSwitchToLoginActivity();}
+        });
     }
 
     private void setSwitchToLoginActivity(){
