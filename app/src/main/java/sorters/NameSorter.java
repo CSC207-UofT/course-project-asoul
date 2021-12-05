@@ -1,0 +1,22 @@
+package sorters;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class NameSorter extends Sorter{
+    private final static NameSorter ns = new NameSorter();
+
+
+
+    private NameSorter(){
+    }
+    static NameSorter getInstance() {
+        return ns;
+    }
+
+    @Override
+    protected ArrayList<String> sortKeyArrayList(ArrayList<String> list) {
+        return new ArrayList<String>(list);
+
+    }
+}
