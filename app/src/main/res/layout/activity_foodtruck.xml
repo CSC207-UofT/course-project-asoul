@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="40dp"
-                tools:context=".MainActivity">
+                tools:context=".Activities.FoodTruckActivity">
 
             <Button
                     android:text="Sushi"
