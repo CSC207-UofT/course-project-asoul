@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".Activities.ChangePasswordActivity">
+    tools:context=".Activities.ChangeMenuActivity">
 
     <TextView
-        android:id="@+id/cp_1"
+        android:id="@+id/cm_1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Change Password"
+        android:text="Edit Menu"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:layout_marginTop="10dp"
@@ -19,56 +20,74 @@
 
 
     <EditText
-        android:id="@+id/cp_op"
+        android:id="@+id/cm_fn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:hint="Old Password"
-        android:inputType="textPassword"
+        android:hint="Food name"
         android:maxLines="1"
         android:padding="5dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="35dp" />
+
 
     <EditText
-        android:id="@+id/cp_np"
+        android:id="@+id/cm_description"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:hint="New Password"
-        android:inputType="textPassword"
+        android:hint="Short Description"
         android:maxLines="1"
         android:padding="5dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="35dp" />
 
     <EditText
-        android:id="@+id/cp_confirm"
+        android:id="@+id/cm_price"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:hint="Confirm New Password"
-        android:inputType="textPassword"
+        android:hint="Price"
         android:maxLines="1"
         android:padding="5dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="35dp" />
+
+    <EditText
+        android:id="@+id/cm_id"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:hint="ID"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:layout_marginTop="35dp" />
 
     <Button
-        android:id="@+id/cp_cpb"
+        android:id="@+id/cm_addb"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:text="Change Password"
+        android:text="Add Food"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/cardview_shadow_start_color" />
 
     <Button
-        android:id="@+id/cp_back"
+        android:id="@+id/cm_deleteb"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="Delete Food"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/cardview_shadow_start_color" />
+
+    <Button
+        android:id="@+id/cm_back"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="Back"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="65dp"
         android:backgroundTint="@color/cardview_shadow_start_color"
         android:layout_marginStart="270dp" />
 
