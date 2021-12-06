@@ -24,4 +24,5 @@
     <string name="edit_truck_info">Edit Truck Info</string>
     <string name="view_market">View Market</string>
     <string name="view_order_history">View Order History</string>
+    <string name="cartcontent">cartContent</string>
 </resources>
