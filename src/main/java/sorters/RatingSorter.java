@@ -19,6 +19,7 @@ public class RatingSorter extends Sorter{
         for (double e: doubleList){
             result.add(Double.toString(e));
         }
+        Collections.reverse(result);
         return result;
     }
 

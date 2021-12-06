@@ -47,20 +47,20 @@ public class OrderListScene extends Scene {
                 switchScene((UserInformationScene)UserInformationScene.getInstance());
                 break;
             case "buy_in_progress":
-                switchScene(scene);
                 scene.setOrderID(buyInProgress.get(Integer.parseInt(text[1])));
+                switchScene(scene);
                 break;
             case "sell_in_progress":
-                switchScene(scene);
                 scene.setOrderID(sellInProgress.get(Integer.parseInt(text[1])));
+                switchScene(scene);
                 break;
             case "buy_history":
-                switchScene(scene);
                 scene.setOrderID(buyOrderHistory.get(Integer.parseInt(text[1])));
+                switchScene(scene);
                 break;
             case "sell_history":
-                switchScene(scene);
                 scene.setOrderID(sellOrderHistory.get(Integer.parseInt(text[1])));
+                switchScene(scene);
                 break;
             default:
                 this.state.append((new UnknownCommandException()).getMessage()).append("\n");
@@ -109,8 +109,8 @@ public class OrderListScene extends Scene {
     private String constructMapString(HashMap<Integer, String> map) throws UnknownOrderException {
         StringBuilder result = new StringBuilder();
         for (Integer i : map.keySet()){
-        String orderDescription = OrderManager.getOrderDescription(map.get(i));
-        result.append("ID: ").append(i).append(" ").append(orderDescription).append("  ");
+            String orderDescription = OrderManager.getOrderDescription(map.get(i));
+            result.append("ID: ").append(i).append(" ").append(orderDescription).append("  ");
         }
         return result.toString();
         

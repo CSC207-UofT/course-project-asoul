@@ -71,12 +71,12 @@ public class FoodTruck implements Serializable {
     @Override
     public String toString() {
         if (this.active) {
-            return this.truckName + "is located at " + this.location + "." + "\n" +
+            return this.truckName + " is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently operating." +
                     "\n" + "The rating of the food truck is " + getRating() + " out of " + getNumberOfRatings() +
-                    "orders.";
+                    " orders.";
         } else {
-            return this.truckName + "is located at " + this.location + "." + "\n" +
+            return this.truckName + " is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently not operating." +
                     "\n" + "The rating of the food truck is " + getRating() + " out of " + getNumberOfRatings() +
                     " orders.";

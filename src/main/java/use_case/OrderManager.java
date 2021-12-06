@@ -46,7 +46,8 @@ public class OrderManager {
         sb.append("Total: ").append(totalCost).append("\n");
         String bNick = UserManager.getNickname(customerName);
         String sNick = UserManager.getNickname(sellerName);
-        Order new_order = new Order(sb.toString(), customerName, bNick, bPhone, sellerName, sNick, sPhone);
+        String truckName = FoodTruckManager.getTruckName(sellerName);
+        Order new_order = new Order(sb.toString(), customerName, bNick, bPhone, sellerName, sNick, sPhone, truckName);
         orders.put(id, new_order);
         try {
             UserManager.updateOrderHistory(id);
@@ -146,7 +147,7 @@ public class OrderManager {
         }
         o.rateOrder(rating);
         try {
-            FoodTruckManager.updateRating(username, id, rating);
+            FoodTruckManager.updateRating(o.getSeller(), id, rating);
         }catch (UnknownUserException | UnknownFoodTruckException e){
             // Do nothing, this situation is impossible
         }
