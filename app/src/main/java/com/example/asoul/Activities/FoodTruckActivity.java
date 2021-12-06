@@ -86,6 +86,7 @@ public class FoodTruckActivity extends AppCompatActivity {
             }
         });
 
+
         food3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
