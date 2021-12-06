@@ -1,5 +1,4 @@
-package com.example.asoul.Entities;
-
+package entities;
 
 import exceptions.IncorrectArgumentException;
 
@@ -74,4 +73,3 @@ public class Food implements Comparable<Food>, Serializable {
         return 1;
     }
 }
-
