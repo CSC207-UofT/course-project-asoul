@@ -56,14 +56,14 @@
               android:textStyle="italic"
               android:layout_marginTop="15dp"
               />
+
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
               android:id="@+id/TruckName"
               android:textSize="20sp"
               app:layout_constraintTop_toBottomOf="@id/PhoneNumber"
               app:layout_constraintLeft_toLeftOf="parent"
               android:textStyle="italic"
-              />
-
+    />
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/btnEditUserInfo"
             android:backgroundTint="@color/white"

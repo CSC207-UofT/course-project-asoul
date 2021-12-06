@@ -8,18 +8,21 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.asoul.R;
-import entities.User;
 import exceptions.IncorrectCredentialsException;
+import helper.GlobalVariables;
 import use_case.UserManager;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
+    GlobalVariables globalVariables = (GlobalVariables) this.getApplication();
     Button switchToRegisterActivity;
     Button switchToUserInfoActivity;
     EditText username;
     EditText password;
-    String key;
     TextView errorMessage;
+    String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
                             password.getText().toString()
 
                     );
+                    GlobalVariables.setKey(key);
+                    GlobalVariables.setUsername(username.getText().toString());
                     switchToUserInfoActivities();
                 } catch (IncorrectCredentialsException e) {
                     errorMessage.setText(e.getMessage());
@@ -65,5 +70,4 @@ public class LoginActivity extends AppCompatActivity {
         Intent switchActivityIntent = new Intent(this, RegisterActivity.class);
         startActivity(switchActivityIntent);
     }
-
 }
