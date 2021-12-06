@@ -49,7 +49,7 @@ public class UserInfoActivity extends AppCompatActivity {
         }
         accBalance = findViewById(R.id.AccountBalance);
         try {
-            accBalance.setText("Account Balance: " + UserManager.getBalance(username, key));
+            accBalance.setText("Account Balance is 100" + UserManager.getBalance(username, key));
         } catch (UnauthorizedAccessException e) {
             e.printStackTrace();
         }
@@ -116,7 +116,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
     }
         private void setSwitchToViewOrderHistoryActivity(){
-        Intent switchActivityIntent = new Intent(this, OrderHistoryActivity.class);
+        Intent switchActivityIntent = new Intent(this, OrderActivity.class);
         startActivity(switchActivityIntent);
 
     }

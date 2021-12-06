@@ -1,142 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
-    tools:context="Activities.RegisterActivity"
-    android:orientation="vertical">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_bg"
+        tools:context="Activities.RegisterActivity" android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20sp"
-        android:text="@string/please_provide_the_basic_information_below"
-        android:textSize="20sp"
-        android:typeface="monospace" />
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0sp"
+            android:text="@string/please_provide_the_basic_information_below"
+            android:textSize="20sp"
+            android:typeface="monospace"
+    />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20sp"
-        android:gravity="center_vertical"
-        android:text="@string/username"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/ETRegisterUsername"
-        android:hint="@string/enter_your_username"
-        android:gravity="center"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:textColorHint="#F5F5F5"
-        android:importantForAutofill="no" />
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:text="@string/username"
+            android:textSize="22sp"
+            android:textStyle="bold"
+    />
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:id="@+id/ETRegisterUsername"
+              android:hint="@string/enter_your_username"
+              android:gravity="center"
+              android:inputType="text" android:minHeight="48dp"
+              android:textColorHint="#F5F5F5" android:importantForAutofill="no"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10sp"
-        android:gravity="center_vertical"
-        android:text="@string/password"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/ETRegisterPassword"
-        android:hint="@string/enter_your_password"
-        android:gravity="center"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:textColorHint="#F5F5F5"
-        android:importantForAutofill="no" />
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="@string/password"
+            android:textSize="22sp"
+            android:textStyle="bold"
+    />
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:id="@+id/ETRegisterPassword"
+              android:hint="@string/enter_your_password"
+              android:gravity="center"
+              android:inputType="textPassword" android:minHeight="48dp"
+              android:textColorHint="#F5F5F5" android:importantForAutofill="no"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10sp"
-        android:gravity="center_vertical"
-        android:text="@string/nickname"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/ETRegisterNickname"
-        android:hint="@string/enter_your_nickname"
-        android:gravity="center"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:textColorHint="#F5F5F5"
-        android:importantForAutofill="no" />
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="@string/nickname"
+            android:textSize="22sp"
+            android:textStyle="bold"
+    />
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:id="@+id/ETRegisterNickname"
+              android:hint="@string/enter_your_nickname"
+              android:gravity="center"
+              android:inputType="text" android:minHeight="48dp"
+              android:textColorHint="#F5F5F5" android:importantForAutofill="no"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10sp"
-        android:gravity="center_vertical"
-        android:text="@string/phone_num"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="@string/phone_num"
+            android:textSize="22sp"
+            android:textStyle="bold"
+    />
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:id="@+id/ETRegisterPhone"
+              android:hint="@string/enter_your_phone_number_only_numbers"
+              android:gravity="center"
+              android:inputType="phone" android:minHeight="48dp"
+              android:textColorHint="#F5F5F5" android:importantForAutofill="no"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/ETRegisterPhone"
-        android:hint="@string/enter_your_phone_number_only_numbers"
-        android:gravity="center"
-        android:inputType="phone"
-        android:minHeight="48dp"
-        android:textColorHint="#F5F5F5"
-        android:importantForAutofill="no" />
-
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:id="@+id/btnRegister"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:textColor="@color/black"
-        android:text="@string/register"
-        android:backgroundTint="@android:color/white"
-        android:textSize="16sp" />
-
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/btnRegister"
+            android:layout_marginStart="155sp"
+            android:layout_marginTop="10sp"
+            android:textColor="@color/black"
+            android:text="@string/register"
+            android:backgroundTint="@android:color/white"
+            android:textSize="16sp"
+    />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="@string/or_go_back_to"
-        android:textColor="#FAFAFA"
-        android:textSize="14sp"
-        android:textStyle="italic" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:id="@+id/btnLoginPage"
-        android:layout_gravity="center"
-        android:layout_marginTop="5sp"
-        android:textColor="@color/black"
-        android:text="@string/sign_in"
-        android:backgroundTint="@android:color/white"
-        android:textSize="16sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/registerState"
-        android:layout_marginTop="10sp"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70sp"
+            android:text="@string/or_go_back_to"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:layout_marginTop="10sp"
+            android:textColor="#FAFAFA"/>
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/btnLoginPage"
+            android:layout_marginStart="160sp"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/black"
+            android:text="@string/sign_in"
+            android:backgroundTint="@android:color/white"
+            android:textSize="16sp"
+    />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:id="@+id/registerState"
+              android:layout_marginTop="10sp"
+              android:textColor="@color/black"
+              android:backgroundTint="@color/white"
+              android:textSize="15sp"
 
 
-        />
+    />
 </LinearLayout>
