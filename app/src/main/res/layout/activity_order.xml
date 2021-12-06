@@ -22,7 +22,7 @@
         android:text="Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/BackToHistory"
+        android:id="@+id/BackToUserInfo"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar"
         app:layout_constraintLeft_toLeftOf="@id/ratingBar"/>
     <TextView
@@ -45,7 +45,15 @@
         android:layout_marginStart="10dp">
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/OrderDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
     </ScrollView>
     <TextView
         android:layout_width="wrap_content"
@@ -62,4 +70,13 @@
         android:id="@+id/ratingBar"
         app:layout_constraintLeft_toLeftOf="@+id/ConfirmOrder"
         app:layout_constraintTop_toBottomOf="@+id/ConfirmOrder"/>
+
+    <TextView
+        android:id="@+id/ErrorMessage"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/BackToUserInfo"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
