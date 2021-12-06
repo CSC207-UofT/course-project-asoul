@@ -26,12 +26,12 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        username = (EditText) findViewById(R.id.ETRegisterUsername);
-        password = (EditText) findViewById(R.id.ETRegisterPassword);
-        nickname = (EditText) findViewById(R.id.ETRegisterNickname);
-        phone = (EditText) findViewById(R.id.ETRegisterPhone);
-        registerState = (TextView) findViewById(R.id.registerState);
-        register = (Button) findViewById(R.id.btnRegister);
+        username = findViewById(R.id.ETRegisterUsername);
+        password = findViewById(R.id.ETRegisterPassword);
+        nickname = findViewById(R.id.ETRegisterNickname);
+        phone =  findViewById(R.id.ETRegisterPhone);
+        registerState = findViewById(R.id.registerState);
+        register = findViewById(R.id.btnRegister);
         register.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
