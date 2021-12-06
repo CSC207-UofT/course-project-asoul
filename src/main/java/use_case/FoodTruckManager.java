@@ -125,16 +125,6 @@ public class FoodTruckManager{
             FoodTruck new_truck = new FoodTruck(nickname + "'s foodtruck", location, serviceTimeStart,
                     serviceTimeEnd, nickname, menu);
             foodTrucks.put(sellerName, new_truck);
-
-            Food food1 = new Food("Hamburger", 5.50, "Pretty delicious legend Hamburger!");
-            Food food2 = new Food("Pizza", 10.50, "Pretty delicious and traditional Italian pizza!");
-            Food food3 = new Food("Coca Cola", 1.80, "Cool and relaxing!");
-            Food food4 = new Food("Poutine", 6.50, "Pretty delicious crisp Poutine!");
-
-            addFoodToMenu(food1, "1", sellerName);
-            addFoodToMenu(food2, "2", sellerName);
-            addFoodToMenu(food3, "3", sellerName);
-            addFoodToMenu(food4, "4", sellerName);
         }
     }
 
