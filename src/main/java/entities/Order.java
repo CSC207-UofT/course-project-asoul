@@ -20,6 +20,7 @@ public class Order implements Serializable {
     private final String buyerNumber; // contact number of the customer who ordered the food
     private final String sellerName; // Nickname of the seller who owns the food truck
     private final String sellerNumber; // contact number of the seller who owns the food truck
+    private final String truckName; // name of the truck
     private double rating;// customer can rate their order from 0 ~ 10. (if the customer didn't rate, rating
     // for the order will be a default -0.1)
     private String status; // the status can only be "in progress" or "order completed"
@@ -34,7 +35,7 @@ public class Order implements Serializable {
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
     public Order(String summary, String buyer, String buyerNick,
-                 String customerNumber, String seller, String sellerName, String sellerNumber) {
+                 String customerNumber, String seller, String sellerName, String sellerNumber, String truckName) {
         this.summary = summary;
         this.buyerName = buyerNick;
         this.buyerNumber = customerNumber;
@@ -44,6 +45,7 @@ public class Order implements Serializable {
         this.seller = seller;
         this.rating = 0;
         this.status = "in progress";
+        this.truckName = truckName;
         this.time = LocalDateTime.now();
     }
 

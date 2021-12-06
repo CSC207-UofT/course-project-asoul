@@ -1,5 +1,6 @@
 package sorters;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,7 +17,8 @@ public class NameSorter extends Sorter{
 
     @Override
     protected ArrayList<String> sortKeyArrayList(ArrayList<String> list) {
-        return new ArrayList<String>(list);
-
+        ArrayList<String> result = new ArrayList<>(list);
+        Collections.sort(result);
+        return result;
     }
 }

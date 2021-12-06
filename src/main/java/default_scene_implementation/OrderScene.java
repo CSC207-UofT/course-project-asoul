@@ -60,7 +60,7 @@ class OrderScene extends Scene {
         }catch (UnknownOrderException e){
             state.append(e.getMessage()).append("\n");
         }
-        sb.append("\n").append(state);
+        sb.append(state);
         return sb.toString();
     }
 
