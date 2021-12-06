@@ -132,22 +132,22 @@ public class MarketActivity extends AppCompatActivity {
 
     private void setSwitchToBlue(){
 
-        Intent switchToBlueActivityIntent = new Intent(this, LoginActivity.class);
+        Intent switchToBlueActivityIntent = new Intent(this, FoodTruckActivity.class);
         startActivity(switchToBlueActivityIntent);
     }
 
     private void setSwitchToYellow(){
-        Intent switchToYellowActivityIntent = new Intent(this, LoginActivity.class);
+        Intent switchToYellowActivityIntent = new Intent(this, FoodTruckActivity.class);
         startActivity(switchToYellowActivityIntent);
     }
 
     private void setSwitchToSushi(){
-        Intent switchToSushiActivityIntent = new Intent(this, LoginActivity.class);
+        Intent switchToSushiActivityIntent = new Intent(this, FoodTruckActivity.class);
         startActivity(switchToSushiActivityIntent);
     }
 
     private void setSwitchToBrown(){
-        Intent switchToBrownActivityIntent = new Intent(this, LoginActivity.class);
+        Intent switchToBrownActivityIntent = new Intent(this, FoodTruckActivity.class);
         startActivity(switchToBrownActivityIntent);
     }
 

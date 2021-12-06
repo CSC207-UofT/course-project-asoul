@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import com.example.asoul.R;
+import helper.GlobalVariables;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,9 @@ public class FoodTruckActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        GlobalVariables globalVariables = (GlobalVariables) this.getApplication();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodtruck);
 

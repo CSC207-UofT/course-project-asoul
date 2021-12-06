@@ -10,6 +10,8 @@ public class GlobalVariables extends Application {
 
     private static String globalKey;
     private static String globalUsername;
+    private String orderID;
+    private Double orderPrice;
 
 
     public GlobalVariables() {
@@ -32,4 +34,5 @@ public class GlobalVariables extends Application {
     public static void setUsername(String username){
          GlobalVariables.globalUsername = username;
     }
+
 }
