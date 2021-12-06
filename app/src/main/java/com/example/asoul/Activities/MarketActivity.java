@@ -207,18 +207,4 @@ public class MarketActivity extends AppCompatActivity {
             marketLayout.addView(newBtn);
         }
     }
-
-    public void viewFoodTruck(String id) throws UnknownFoodTruckException {
-        try{
-            int i = Integer.parseInt(id);
-            String name = pointer.get(i);
-            fc.setFoodtruck(name);
-        }catch (NumberFormatException e){
-            if(FoodTruckManager.existsTruck(id)){
-                fc.setFoodtruck(id);
-            }else{
-                state.append("Unknown id entered! Please enter the name of the foodtruck or its displayed id\n");
-            }
-        }
-    }
 }
