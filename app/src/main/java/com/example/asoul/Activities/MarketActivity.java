@@ -71,4 +71,7 @@ public class MarketActivity extends AppCompatActivity {
         Intent switchToExitActivityIntent = new Intent(this, LoginActivity.class);
         startActivity(switchToExitActivityIntent);
     }
+
+
+
 }
