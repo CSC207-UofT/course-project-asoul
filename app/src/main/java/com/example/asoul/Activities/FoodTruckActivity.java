@@ -104,7 +104,7 @@ public class FoodTruckActivity extends AppCompatActivity {
     }
 
     private void setSwitchToUserInfo(){
-        Intent switchToUserInfoActivityIntent = new Intent(this, UserInfoActivity.class);
+        Intent switchToUserInfoActivityIntent = new Intent(this, OrderActivity.class);
         startActivity(switchToUserInfoActivityIntent);
     }
 }
