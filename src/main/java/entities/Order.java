@@ -28,15 +28,15 @@ public class Order implements Serializable {
     /**
      * Construct a new order object
      *
-     * @param customerName   name of the customer who ordered the food
+     * @param buyerNick   name of the customer who ordered the food
      * @param customerNumber contact number of the customer who ordered the food
      * @param sellerName     name of the seller who owns the food truck
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
-    public Order(String summary, String customerName, String buyer,
+    public Order(String summary, String buyer, String buyerNick,
                  String customerNumber, String seller, String sellerName, String sellerNumber) {
         this.summary = summary;
-        this.buyerName = customerName;
+        this.buyerName = buyerNick;
         this.buyerNumber = customerNumber;
         this.sellerName = sellerName;
         this.sellerNumber = sellerNumber;
@@ -82,14 +82,25 @@ public class Order implements Serializable {
      * @return A string
      */
     public String toString() {
+        String s;
+        if(this.status.equals("in progress")){
+            s = "TBD";
+        }else{
+            s = rating + "";
+        }
         return "Order Time: " + this.getFormattedTime() + "\n" +
                 "Buyer Name: " + buyerName + "\n" +
                 "Buyer Number: " + buyerNumber + "\n" +
                 "Seller Name: " + this.getSellerName() + "\n" +
                 "Seller Number: " + this.getSellerNumber() + "\n" +
                 this.summary + "\n" +
-                "Status: " + this.getStatus() + "\n" +
-                "Rating: " + this.getRating();
+                "Status: " + this.status + "\n" +
+                "Rating: " + s + "\n";
+    }
+
+    public String getDescription(){
+        return "Date: " + this.getFormattedTime() + "\n" +
+                "TruckName: " + this.sellerName + "\n";
     }
 
     /**
@@ -112,7 +123,6 @@ public class Order implements Serializable {
         return this.buyerName;
     }
 
-
     public String getBuyerNumber() {
         return this.buyerNumber;
     }
@@ -128,7 +138,6 @@ public class Order implements Serializable {
     public String getSellerName() {
         return this.sellerName;
     }
-
 
     public String getStatus() {
         return this.status;

@@ -24,32 +24,6 @@ public class FoodTruckManager{
     }
 
     /**
-     *
-     * @param username username of a user
-     * @throws UnknownFoodTruckException if the truck doesn't exist.
-     */
-    public static void activateTruck(String username) throws UnknownFoodTruckException {
-        if (!foodTrucks.containsKey(username)) {
-            throw new UnknownFoodTruckException();
-        }
-        FoodTruck truck = foodTrucks.get(username);
-        truck.activateTruck();
-    }
-
-    /**
-     *
-     * @param username username of a user
-     * @throws UnknownFoodTruckException if the truck doesn't exist.
-     */
-    public static void deactivateTruck(String username) throws UnknownFoodTruckException {
-        if (!foodTrucks.containsKey(username)) {
-            throw new UnknownFoodTruckException();
-        }
-        FoodTruck truck = foodTrucks.get(username);
-        truck.deactivateTruck();
-    }
-
-    /**
      * With the given foodtruck's name, add food to menu if food object is not in menu.
      * If the food is in menu, update the food with the new one.
      *
@@ -167,24 +141,14 @@ public class FoodTruckManager{
     /**
      * Food Truck Rating System
      */
-    public static void calculateRating(String sellerName) throws UnknownUserException, UnknownOrderException {
-        if (foodTrucks.containsKey(sellerName)){
-            HashSet<String> orders = UserManager.getSellOrderHistory(sellerName);
-            double totalRating = 0.0;
-            int count = 0;
-            int i = 0;
-            Iterator<String> iterator = orders.iterator();
-            while(i < 100 && iterator.hasNext()){
-                if (Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating() >= 0 &&
-                        Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating() <= 10){
-                    totalRating += Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating();
-                    count ++;
-                }
-                i++;
-            }
-            double rating = totalRating / count;
-            foodTrucks.get(sellerName).updateRating(rating);
+    static void updateRating(String truck, String orderID, double rate) throws UnknownFoodTruckException,
+            UnknownOrderException, UnknownUserException, IncorrectArgumentException {
+        FoodTruck ft = getFoodTruck(truck);
+        User us = UserManager.getUser(truck);
+        if(!us.getSellOrderHistory().contains(orderID)){
+            throw new UnknownOrderException();
         }
+        ft.updateRating(orderID, rate);
     }
 
     /**
@@ -207,6 +171,13 @@ public class FoodTruckManager{
         return foodTrucks.get(id).getTruckName();
     }
 
+    static FoodTruck getFoodTruck(String id) throws UnknownFoodTruckException{
+        try{
+            return foodTrucks.get(id);
+        }catch(NullPointerException e){
+            throw new UnknownFoodTruckException();
+        }
+    }
     /**
      * @return The seller AccountName and PhoneNumber of the Entities.FoodTruck.
      */
@@ -229,6 +200,12 @@ public class FoodTruckManager{
             throw new UnknownFoodTruckException();
         }
         return foodTrucks.get(username).getMenu().getFoodPrice(id);
+    }
+
+    public static void changeTruckStatus(String username, String accessKey) throws UnknownFoodTruckException, UnauthorizedAccessException{
+        UserManager.accessCheck(username, accessKey);
+        FoodTruck ft = getFoodTruck(username);
+        ft.changeStatus();
     }
 
     /**

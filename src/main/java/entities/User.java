@@ -123,11 +123,11 @@ public class User implements Serializable {
     }
 
     public void storeBuyOrder(String orderID) { // we are going to use the return value later.
-        this.buyOrderHistory.add(orderID);
+        this.buyInProgress.add(orderID);
     }
 
     public void storeSellOrder(String orderID) { // we are going to use the return value later.
-        this.sellOrderHistory.add(orderID);
+        this.sellInProgress.add(orderID);
     }
     /**
      * Getting for all the instance variables

@@ -94,11 +94,7 @@ class UserInformationScene extends Scene {
                 break;
             case "change_truck_status":
                 try {
-                    if (FoodTruckManager.isActive(username, accessKey)) {
-                        FoodTruckManager.deactivateTruck(username);
-                    } else{
-                        FoodTruckManager.activateTruck(username);
-                    }
+                    FoodTruckManager.changeTruckStatus(username, accessKey);
                     updateUserInfo();
                 }
                 catch (UnauthorizedAccessException | UnknownFoodTruckException e) {

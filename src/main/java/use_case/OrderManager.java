@@ -40,9 +40,10 @@ public class OrderManager {
             String quantity = cart.get(key).toString();
             String price = (Math.round(FoodTruckManager.getFoodPrice(sellerName, key) * 100.0) / 100.0) + "";
             sb.append("Item: ").append(foodName).append("--------------").append(quantity).append(" X ").append(price
-            ).append("\n");
+            ).append("$\n");
         }
-        sb.append("\n");
+        String totalCost = FoodTruckManager.calculatePrice(sellerName, cart) + "";
+        sb.append("Total: ").append(totalCost).append("\n");
         String bNick = UserManager.getNickname(customerName);
         String sNick = UserManager.getNickname(sellerName);
         Order new_order = new Order(sb.toString(), customerName, bNick, bPhone, sellerName, sNick, sPhone);
@@ -110,6 +111,13 @@ public class OrderManager {
         return orders.get(id).toString();
     }
 
+    public static String getOrderDescription(String id) throws UnknownOrderException{
+        if(!orders.containsKey(id)){
+            throw new UnknownOrderException();
+        }
+        return orders.get(id).getDescription();
+    }
+
     static Order getOrder(String id) throws UnknownOrderException{
         if(!orders.containsKey(id)){
             throw new UnknownOrderException();
@@ -137,6 +145,11 @@ public class OrderManager {
             throw new UnauthorizedAccessException();
         }
         o.rateOrder(rating);
+        try {
+            FoodTruckManager.updateRating(username, id, rating);
+        }catch (UnknownUserException | UnknownFoodTruckException e){
+            // Do nothing, this situation is impossible
+        }
     }
 
     @SuppressWarnings("unchecked")

@@ -31,7 +31,7 @@ public class CommandlineInterface implements Observer {
                 System.out.println(cm.output);
                 System.out.print(">>> ");
                 cm.sceneBooter.handleInputInString(br.readLine());
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (Exception e) {
                 System.out.println((new IncorrectArgumentException()).getMessage());
             }
         } while (cm.sceneBooter.isRunning());

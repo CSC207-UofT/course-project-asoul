@@ -58,6 +58,14 @@ public class UserManager{
         }
     }
 
+    static User getUser(String username) throws UnknownUserException{
+        try{
+            return userMap.get(username);
+        }catch(NullPointerException e){
+            throw new UnknownUserException();
+        }
+    }
+
     /**
      * @param accountName The username of the user that wants to add money.
      * @param money       The amount of money the user wants to add.
@@ -266,8 +274,8 @@ public class UserManager{
 
     public static void updateOrderHistory(String orderID) throws UnknownUserException, UnknownOrderException {
         Order order = OrderManager.getOrder(orderID);
-        String buyer = order.getBuyerName();
-        String seller = order.getSellerName();
+        String buyer = order.getBuyer();
+        String seller = order.getSeller();
         if (userMap.containsKey(buyer) && userMap.containsKey(seller)) {
             addBuyOrder(buyer, orderID);
             addSellOrder(seller, orderID);

@@ -38,7 +38,7 @@ class OrderScene extends Scene {
                 completeOrder();
                 break;
             case "back":
-                this.switchScene((Scene)UserInformationScene.getInstance());
+                this.switchScene((Scene)OrderListScene.getInstance());
                 break;
             case "help":
                 this.state.append(this.getHelpMessage());

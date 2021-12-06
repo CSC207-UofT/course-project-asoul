@@ -3,10 +3,8 @@ package entities;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import exceptions.CollidedFoodException;
-import exceptions.FoodIdCollisionException;
-import exceptions.UnknownFoodException;
-import use_case.FoodTruckManager;
+
+import exceptions.*;
 
 /**
  * Java class representation for Entities.FoodTruck instance
@@ -18,9 +16,9 @@ public class FoodTruck implements Serializable {
     private String serviceTimeEnd; //Ending service time
     private boolean active = false; //Whether the Entities.Food Truck is currently operating
     private final String seller; // The Entities.Seller who owns the Entities.Food Truck
-    private double rating; // Rating of the Entities.Food Truck
     // we are going to change it in the rating system. So it can't be final.
     private final FoodMenu menu; //Menu of the Entities.Food Truck
+    private final HashMap<String, Double> ratings;
     /**
      * Construct an instance of a Entities.FoodTruck
      *
@@ -33,7 +31,6 @@ public class FoodTruck implements Serializable {
      */
     public FoodTruck(String truckName, String location, String serviceTimeStart,
                      String serviceTimeEnd, String seller, FoodMenu menu) {
-        this.rating = 0.0;
         this.truckName = truckName;
         this.location = location;
         this.serviceTimeStart = serviceTimeStart;
@@ -41,6 +38,7 @@ public class FoodTruck implements Serializable {
         this.seller = seller;
         this.menu = menu;
         this.active = false;
+        this.ratings = new HashMap<>();
     }
 
     /**
@@ -75,11 +73,13 @@ public class FoodTruck implements Serializable {
         if (this.active) {
             return this.truckName + "is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently operating." +
-                    "\n" + "The rating of the food truck is " + this.rating + ".";
+                    "\n" + "The rating of the food truck is " + getRating() + " out of " + getNumberOfRatings() +
+                    "orders.";
         } else {
             return this.truckName + "is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently not operating." +
-                    "\n" + "The rating of the food truck is " + this.rating + ".";
+                    "\n" + "The rating of the food truck is " + getRating() + " out of " + getNumberOfRatings() +
+                    " orders.";
         }
     }
 
@@ -90,7 +90,7 @@ public class FoodTruck implements Serializable {
                 "Service Time End: %s\n" +
                 "Address: %s\n" +
                 "Owner: %s\n" +
-                "rating: %f\n", truckName,  serviceTimeStart, serviceTimeEnd, location, seller, rating
+                "rating: %f\n", truckName,  serviceTimeStart, serviceTimeEnd, location, seller, getRating()
         );
         sb.append(f).append("\n\n");
         sb.append("-----------Menu-----------\n");
@@ -106,13 +106,6 @@ public class FoodTruck implements Serializable {
             total += (quantity * price);
         }
         return Math.round(total * 100.0) / 100.0;
-    }
-
-    /**
-     * Set food truck to active state.
-     */
-    public void activateTruck() {
-        this.active = true;
     }
 
     /**
@@ -138,9 +131,6 @@ public class FoodTruck implements Serializable {
     /**
      * Deactivate this food truck.
      */
-    public void deactivateTruck() {
-        this.active = false;
-    }
 
     public String displayMenu() {
         return this.menu.toString();
@@ -150,7 +140,12 @@ public class FoodTruck implements Serializable {
      * Update the rating of the food truck given a rating.
      * @param rating new rating of the food truck.
      */
-    public void updateRating(double rating){this.rating = rating;}
+    public void updateRating(String id, double rating) throws IncorrectArgumentException {
+        if(rating < 0 || rating > 10){
+            throw new IncorrectArgumentException();
+        }
+        this.ratings.put(id, rating);
+    }
 
     /**
      * Below are Getter methods for all instance variables
@@ -178,9 +173,19 @@ public class FoodTruck implements Serializable {
         return this.seller;
     }
 
-    public double getRating() {
-        return this.rating;
+    public int getNumberOfRatings(){
+        return ratings.size();
     }
+
+    public double getRating() {
+        double s = 0;
+        for(String id: ratings.keySet()){
+            s += ratings.get(id);
+        }
+        s = s / ratings.size();
+        return Math.round(s * 100.0) / 100.0;
+    }
+
 
     public FoodMenu getMenu() {
         return this.menu;
