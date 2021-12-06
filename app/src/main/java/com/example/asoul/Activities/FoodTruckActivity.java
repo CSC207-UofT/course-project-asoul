@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import com.example.asoul.R;
+import helper.GlobalVariables;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,9 @@ public class FoodTruckActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        GlobalVariables globalVariables = (GlobalVariables) this.getApplication();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodtruck);
 
@@ -82,6 +86,7 @@ public class FoodTruckActivity extends AppCompatActivity {
             }
         });
 
+
         food3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +105,7 @@ public class FoodTruckActivity extends AppCompatActivity {
     }
 
     private void setSwitchToUserInfo(){
-        Intent switchToUserInfoActivityIntent = new Intent(this, UserInfoActivity.class);
+        Intent switchToUserInfoActivityIntent = new Intent(this, OrderActivity.class);
         startActivity(switchToUserInfoActivityIntent);
     }
 }
