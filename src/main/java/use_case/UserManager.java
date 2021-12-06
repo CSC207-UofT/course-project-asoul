@@ -10,7 +10,6 @@ import serialization.Serializer;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Objects;
 
 import helper.RandomStringGenerator;
 /**
@@ -53,8 +52,16 @@ public class UserManager{
         loggedInUsers.remove(accessKey);
     }
 
-    public static void userExist(String accName) throws UnknownUserException{
+    static void userExist(String accName) throws UnknownUserException{
         if(!userMap.containsKey(accName)){
+            throw new UnknownUserException();
+        }
+    }
+
+    static User getUser(String username) throws UnknownUserException{
+        try{
+            return userMap.get(username);
+        }catch(NullPointerException e){
             throw new UnknownUserException();
         }
     }
@@ -64,13 +71,18 @@ public class UserManager{
      * @param money       The amount of money the user wants to add.
      */
 
-    public static void addMoney(String accountName, double money) throws IncorrectArgumentException {
+    static void addMoney(String accountName, double money) throws IncorrectArgumentException {
         User user = userMap.get(accountName);
         boolean addSuccess = user.addMoney(money);
         if (!addSuccess) {
             throw new IncorrectArgumentException();
         }
+    }
 
+    public static void addMoney(String accountName, String accessKey, double money) throws IncorrectArgumentException,
+            UnauthorizedAccessException {
+        accessCheck(accountName, accessKey);
+        addMoney(accountName, money);
     }
 
     protected static void accessCheck(String username, String accessKey) throws UnauthorizedAccessException{
@@ -89,24 +101,20 @@ public class UserManager{
      * @param money       The amount of money the user wants to withdraw.
      */
 
-    public static void withdrawMoney(String accountName, double money) throws IncorrectArgumentException {
+    static void withdrawMoney(String accountName, double money) throws IncorrectArgumentException,
+            InsufficientBalanceException{
         User user = userMap.get(accountName);
-        boolean withSuccess = user.withdrawMoney(money);
-        if (!withSuccess) {
+        if(money < 0){
             throw new IncorrectArgumentException();
         }
+        user.withdrawMoney(money);
     }
 
-    /**
-     * @param accName The account name of user that wants to check their balance.
-     * @return The amount of money in the user's balance.
-     */
-
-    public double checkBalance(String accName) {
-        User user = userMap.get(accName);
-        return user.checkBalance();
+    public static void withdrawMoney(String accountName, String accessKey, double money) throws IncorrectArgumentException,
+            InsufficientBalanceException, UnauthorizedAccessException{
+        accessCheck(accountName, accessKey);
+        withdrawMoney(accountName, money);
     }
-
 
     /**
      * @param accName  The account name user wants to have.
@@ -121,9 +129,9 @@ public class UserManager{
             return false;
         }
         try {
-            FoodTruckManager.createEmptyFoodTruck(accName);
             User newUser = new User(accName, password, nickname, phoneNum);
             userMap.put(accName, newUser);
+            FoodTruckManager.createEmptyFoodTruck(accName);
         }catch (Exception e){
             e.printStackTrace();
             // Do nothing, this scenario can never happen
@@ -158,6 +166,16 @@ public class UserManager{
         return user.getSellOrderHistory();
     }
 
+    public static HashSet<String> getBuyInProgress(String username, String accessKey) throws UnauthorizedAccessException {
+        accessCheck(username, accessKey);
+        return userMap.get(username).getBuyInProgress();
+    }
+
+    public static HashSet<String> getSellInProgress(String username, String accessKey) throws UnauthorizedAccessException {
+        accessCheck(username, accessKey);
+        return userMap.get(username).getSellInProgress();
+    }
+
 
     /**
      * @param accountName the account name that want to check exists or not.
@@ -165,12 +183,6 @@ public class UserManager{
      */
     public static boolean checkUserExist(String accountName) {
         return userMap.containsKey(accountName);
-    }
-
-    // the account name must exist
-    public static void logOutUser(String loginKey, String username) throws UnauthorizedAccessException {
-        accessCheck(loginKey, username);
-        loggedInUsers.remove(loginKey);
     }
 
     public static void setNickname(String accName, String accessKey, String nickname) throws UnauthorizedAccessException{
@@ -194,9 +206,23 @@ public class UserManager{
         return userMap.get(accName).getNickname();
     }
 
+    public static String getNickname(String accName) throws UnknownUserException{
+        if(!userMap.containsKey(accName)){
+            throw new UnknownUserException();
+        }
+        return userMap.get(accName).getNickname();
+    }
+
     public static String getPhoneNumber(String accName, String accessKey) throws UnauthorizedAccessException{
         accessCheck(accName, accessKey);
         return userMap.get(accName).getPhoneNumber();
+    }
+
+    static String getPhoneNumber(String accName) throws UnknownUserException{
+        if(userMap.containsKey(accName)){
+            return userMap.get(accName).getPhoneNumber();
+        }
+        throw new UnknownUserException();
     }
 
     public static double getBalance(String accName, String accessKey) throws UnauthorizedAccessException{
@@ -207,27 +233,19 @@ public class UserManager{
     /**
      * @param payer the account name of the payer.
      * @param payee the account name of payee.
-     * @param password the buyer's password.
      * @param amount the amount of money buyer will pay.
-     * @return true if pay is successful.
      */
-    public static boolean pay(String payer, String payee, String password, double amount, String accessKey) throws UnauthorizedAccessException{
+    public static void pay(String payer, String payee, double amount, String accessKey) throws
+            UnauthorizedAccessException, InsufficientBalanceException, UnknownUserException, IncorrectArgumentException{
         accessCheck(payer, accessKey);
-        User buyer = UserManager.userMap.get(payer);
-        User seller = UserManager.userMap.get(payee);
-        double balance = buyer.getAccountBalance();
-        if (amount < 0) {
-            return false;
+        try {
+            User buyer = UserManager.userMap.get(payer);
+            User seller = UserManager.userMap.get(payee);
+            buyer.withdrawMoney(amount);
+            seller.addMoney(amount);
+        }catch (NullPointerException e){
+            throw new UnknownUserException();
         }
-        if(balance < amount){
-            return false; // buyer does not have enough money to pay
-        }
-        if (!password.equals(buyer.getPassword())){
-            return false;
-        }
-        buyer.withdrawMoney(amount);
-        seller.addMoney(amount);
-        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -254,10 +272,10 @@ public class UserManager{
         us.storeSellOrder(orderID);
     }
 
-    public static void updateOrderHistory(String orderID) throws UnknownUserException {
+    public static void updateOrderHistory(String orderID) throws UnknownUserException, UnknownOrderException {
         Order order = OrderManager.getOrder(orderID);
-        String buyer = Objects.requireNonNull(order).getCustomerName();
-        String seller = order.getSellerName();
+        String buyer = order.getBuyer();
+        String seller = order.getSeller();
         if (userMap.containsKey(buyer) && userMap.containsKey(seller)) {
             addBuyOrder(buyer, orderID);
             addSellOrder(seller, orderID);
@@ -272,14 +290,19 @@ public class UserManager{
         return ft.getTruckName();
     }
 
-    public static void completeOrder(String orderID, String username, String accessKey) throws UnauthorizedAccessException, NullPointerException{
+    public static void completeOrder(String orderID, String username, String accessKey) throws
+            UnauthorizedAccessException, UnknownUserException, UnknownOrderException{
         accessCheck(username, accessKey);
         Order order = OrderManager.orders.get(orderID);
-        String seller = order.getSellerName();
+        String seller = order.getSeller();
+        String buyer = order.getBuyer();
+        if(!userMap.containsKey(seller) || !userMap.containsKey(buyer)){
+            throw new UnknownUserException();
+        }
         if(seller.equals(username)) {
             order.changeOrderStatus();
-            FoodTruck ft = FoodTruckManager.foodTrucks.get(username);
-            ft.removeOrderWithID(orderID);
+            userMap.get(seller).completeOrder(orderID);
+            userMap.get(buyer).completeOrder(orderID);
         }else{
             throw new UnauthorizedAccessException();
         }

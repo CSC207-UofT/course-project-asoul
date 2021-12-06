@@ -1,23 +1,26 @@
 package entities;
 
 
+import exceptions.IncorrectArgumentException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.time.LocalDateTime; // Import the LocalDateTime class
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
-
+import java.util.HashMap;
 /**
  * An order.
  */
 
 public class Order implements Serializable {
-    private final FoodTruck foodTruck; // private FoodTruck foodTruck;
-    private final ArrayList<Food> foodList; // a list of foods ordered by the customers
-    private final double totalPrice; // total price
-    private final String customerName; // name of the customer who ordered the food
-    private final String customerNumber; // contact number of the customer who ordered the food
-    private final String sellerName; // name of the seller who owns the food truck
+    private final String summary;
+    private final String buyerName; // name of the customer who ordered the food
+    private final String seller;
+    private final String buyer;
+    private final String buyerNumber; // contact number of the customer who ordered the food
+    private final String sellerName; // Nickname of the seller who owns the food truck
     private final String sellerNumber; // contact number of the seller who owns the food truck
+    private final String truckName; // name of the truck
     private double rating;// customer can rate their order from 0 ~ 10. (if the customer didn't rate, rating
     // for the order will be a default -0.1)
     private String status; // the status can only be "in progress" or "order completed"
@@ -26,39 +29,24 @@ public class Order implements Serializable {
     /**
      * Construct a new order object
      *
-     * @param foodTruck      the foodtruck that is responsible for this order
-     * @param foodList       a list of foods ordered by the customers
-     * @param customerName   name of the customer who ordered the food
+     * @param buyerNick   name of the customer who ordered the food
      * @param customerNumber contact number of the customer who ordered the food
      * @param sellerName     name of the seller who owns the food truck
      * @param sellerNumber   contact number of the seller who owns the food truck
      */
-    public Order(FoodTruck foodTruck, ArrayList<Food> foodList, String customerName,
-                 String customerNumber, String sellerName, String sellerNumber) {
-        this.foodTruck = foodTruck;
-        this.foodList = foodList; // Aliasing problem??
-        this.totalPrice = calculateTotalPrice();
-        this.customerName = customerName;
-        this.customerNumber = customerNumber;
+    public Order(String summary, String buyer, String buyerNick,
+                 String customerNumber, String seller, String sellerName, String sellerNumber, String truckName) {
+        this.summary = summary;
+        this.buyerName = buyerNick;
+        this.buyerNumber = customerNumber;
         this.sellerName = sellerName;
         this.sellerNumber = sellerNumber;
-        this.rating = -0.1;
+        this.buyer = buyer;
+        this.seller = seller;
+        this.rating = 0;
         this.status = "in progress";
+        this.truckName = truckName;
         this.time = LocalDateTime.now();
-    }
-
-
-    /**
-     * Calculate the total price of the food list.
-     *
-     * @return The total price.
-     */
-    public double calculateTotalPrice() {
-        double price = 0.0;
-        for (Food f : this.foodList) {
-            price = price + f.getPrice();
-        }
-        return price;
     }
 
     /**
@@ -81,12 +69,12 @@ public class Order implements Serializable {
      * @param rating should be a double < 10 & > 0
      * @return return true if rating updated successfully, return false otherwise
      */
-    public boolean rateOrder(double rating) {
+    public void rateOrder(double rating) throws IncorrectArgumentException{
         if (0 <= rating & rating <= 10) {
             this.rating = rating;
-            return true;
+        }else{
+            throw new IncorrectArgumentException();
         }
-        return false;
     }
 
 
@@ -96,16 +84,25 @@ public class Order implements Serializable {
      * @return A string
      */
     public String toString() {
+        String s;
+        if(this.status.equals("in progress")){
+            s = "TBD";
+        }else{
+            s = rating + "";
+        }
         return "Order Time: " + this.getFormattedTime() + "\n" +
-                "Customer Name: " + this.getCustomerName() + "\n" +
-                "Customer Number: " + this.getCustomerNumber() + "\n" +
-                "Food Truck: " + this.getFoodTruck().getTruckName() + "\n" +
+                "Buyer Name: " + buyerName + "\n" +
+                "Buyer Number: " + buyerNumber + "\n" +
                 "Seller Name: " + this.getSellerName() + "\n" +
                 "Seller Number: " + this.getSellerNumber() + "\n" +
-                "Food List: " + this.getFoodList() + "\n" +
-                "Total Price: $" + this.getTotalPrice() + "\n" +
-                "Status: " + this.getStatus() + "\n" +
-                "Rating: " + this.getRating();
+                this.summary + "\n" +
+                "Status: " + this.status + "\n" +
+                "Rating: " + s + "\n";
+    }
+
+    public String getDescription(){
+        return "Date: " + this.getFormattedTime() + "\n" +
+                "TruckName: " + this.sellerName + "\n";
     }
 
     /**
@@ -118,35 +115,31 @@ public class Order implements Serializable {
         return this.getTime().format(format);
     }
 
-    public FoodTruck getFoodTruck() {
-        return this.foodTruck;
-    }
-
-
-    public Double getTotalPrice() {
-        return this.totalPrice;
-    }
-
 
     public LocalDateTime getTime() {
         return this.time;
     }
 
 
-    public String getCustomerName() {
-        return this.customerName;
+    public String getBuyerName() {
+        return this.buyerName;
     }
 
-
-    public String getCustomerNumber() {
-        return this.customerNumber;
+    public String getBuyerNumber() {
+        return this.buyerNumber;
     }
 
+    public String getBuyer(){
+        return this.buyer;
+    }
+
+    public String getSeller(){
+        return seller;
+    }
 
     public String getSellerName() {
         return this.sellerName;
     }
-
 
     public String getStatus() {
         return this.status;
@@ -159,14 +152,5 @@ public class Order implements Serializable {
 
     public double getRating(){
         return this.rating;
-    }
-
-
-    public String getFoodList() {
-        StringBuilder result = new StringBuilder();
-        for (Food food : this.foodList) {
-            result.append(food.getFoodName()).append(" : $").append(food.getPrice()).append("\n");
-        }
-        return result.toString().trim();
     }
 }

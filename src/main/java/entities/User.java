@@ -1,6 +1,8 @@
 package entities;
 
+import exceptions.IncorrectArgumentException;
 import exceptions.IncorrectOldPasswordException;
+import exceptions.InsufficientBalanceException;
 import exceptions.UnknownOrderException;
 
 import java.io.Serializable;
@@ -72,14 +74,14 @@ public class User implements Serializable {
      * @param money The amount of money in double that will be withdrawn from the account balance.
      * @return Return True if successfully withdrawn and False otherwise.
      */
-    public boolean withdrawMoney(double money) { // we are going to use the return value later.
-        if (money >= 0.0) {
-            if (this.accountBalance >= money) {
-                this.accountBalance = this.accountBalance - money;
-                return true;
-            }
+    public void withdrawMoney(double money) throws InsufficientBalanceException, IncorrectArgumentException {
+        if(money < 0){
+            throw new IncorrectArgumentException();
         }
-        return false;
+        if(money > accountBalance){
+            throw new InsufficientBalanceException();
+        }
+        accountBalance -= money;
     }
 
     public void setNickname(String nickname) {
@@ -98,26 +100,34 @@ public class User implements Serializable {
         }
     }
 
-    public void buyInProgressToHistory(String id) throws UnknownOrderException {
-        if (buyInProgress.contains(id)){
-        this.buyInProgress.remove(id);
-        this.buyOrderHistory.add(id);}
+    public void completeOrder(String id) throws UnknownOrderException{
+        if(sellInProgress.contains(id)){
+            sellInProgressToHistory(id);
+            return;
+        }
+        if(buyInProgress.contains(id)){
+            buyInProgressToHistory(id);
+            return;
+        }
         throw new UnknownOrderException();
     }
 
-    public void sellInProgressToHistory(String id) throws UnknownOrderException {
-        if (sellInProgress.contains(id)){
-            this.sellInProgress.remove(id);
-            this.sellOrderHistory.add(id);}
-        throw new UnknownOrderException();
+    private void buyInProgressToHistory(String id)  {
+        this.buyInProgress.remove(id);
+        this.buyOrderHistory.add(id);
+    }
+
+    private void sellInProgressToHistory(String id)  {
+        this.sellInProgress.remove(id);
+        this.sellOrderHistory.add(id);
     }
 
     public void storeBuyOrder(String orderID) { // we are going to use the return value later.
-        this.buyOrderHistory.add(orderID);
+        this.buyInProgress.add(orderID);
     }
 
     public void storeSellOrder(String orderID) { // we are going to use the return value later.
-        this.sellOrderHistory.add(orderID);
+        this.sellInProgress.add(orderID);
     }
     /**
      * Getting for all the instance variables

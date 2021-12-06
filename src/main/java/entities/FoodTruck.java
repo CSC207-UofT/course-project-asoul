@@ -2,9 +2,10 @@ package entities;
 
 
 import java.io.Serializable;
-import java.util.HashSet;
-import exceptions.CollidedFoodException;
-import exceptions.FoodIdCollisionException;
+import java.util.HashMap;
+
+import exceptions.*;
+
 /**
  * Java class representation for Entities.FoodTruck instance
  */
@@ -15,10 +16,9 @@ public class FoodTruck implements Serializable {
     private String serviceTimeEnd; //Ending service time
     private boolean active = false; //Whether the Entities.Food Truck is currently operating
     private final String seller; // The Entities.Seller who owns the Entities.Food Truck
-    private double rating; // Rating of the Entities.Food Truck
     // we are going to change it in the rating system. So it can't be final.
-    private final HashSet<String> orderQueue; // List of Active Orders
     private final FoodMenu menu; //Menu of the Entities.Food Truck
+    private final HashMap<String, Double> ratings;
     /**
      * Construct an instance of a Entities.FoodTruck
      *
@@ -31,15 +31,14 @@ public class FoodTruck implements Serializable {
      */
     public FoodTruck(String truckName, String location, String serviceTimeStart,
                      String serviceTimeEnd, String seller, FoodMenu menu) {
-        this.rating = 0.0;
         this.truckName = truckName;
         this.location = location;
         this.serviceTimeStart = serviceTimeStart;
         this.serviceTimeEnd = serviceTimeEnd;
         this.seller = seller;
         this.menu = menu;
-        this.orderQueue = new HashSet<>();
         this.active = false;
+        this.ratings = new HashMap<>();
     }
 
     /**
@@ -60,48 +59,53 @@ public class FoodTruck implements Serializable {
     }
 
     /**
-     * remove food from menu if food object is in menu.
+     * remove food from menu if food with specified id is in menu.
      *
-     * @param food The food want to remove.
      * @return true if the food is removed successfully. false if the food is not in the menu.
      */
-    public boolean removeFoodFromMenu(Food food) {
-        return this.menu.removeFood(food);
+
+    public boolean removeFoodFromMenu(String id) {
+        return this.menu.removeFood(id);
     }
-
-    public boolean removeFoodFromMenu(String food) {
-        return this.menu.removeFood(food);
-    }
-
-    public void addOrderToQueue(String orderID) {
-        this.orderQueue.add(orderID);
-    }
-
-    // Remove the Entities.Order from orderQueue with the given id, return the removed Entities.Order
-    public void removeOrderWithID(String id) { // we are going to use the return value later.
-        this.orderQueue.remove(id);
-    }
-
-
     //A string description of the Entities.Food Truck (name, location, rating...)
     @Override
     public String toString() {
         if (this.active) {
-            return this.truckName + "is located at " + this.location + "." + "\n" +
+            return this.truckName + " is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently operating." +
-                    "\n" + "The rating of the food truck is " + this.rating + ".";
+                    "\n" + "The rating of the food truck is " + getRating() + " out of " + getNumberOfRatings() +
+                    " orders.";
         } else {
-            return this.truckName + "is located at " + this.location + "." + "\n" +
+            return this.truckName + " is located at " + this.location + "." + "\n" +
                     displayServiceTime() + "\n" + "The food truck is currently not operating." +
-                    "\n" + "The rating of the food truck is " + this.rating + ".";
+                    "\n" + "The rating of the food truck is " + getRating() + " out of " + getNumberOfRatings() +
+                    " orders.";
         }
     }
 
-    /**
-     * Set food truck to active state.
-     */
-    public void activateTruck() {
-        this.active = true;
+    public String getDetailedDescription() {
+        StringBuilder sb = new StringBuilder();
+        String f = String.format("Truck Name: %s\n" +
+                "Service Time Start: %s\n" +
+                "Service Time End: %s\n" +
+                "Address: %s\n" +
+                "Owner: %s\n" +
+                "rating: %f\n", truckName,  serviceTimeStart, serviceTimeEnd, location, seller, getRating()
+        );
+        sb.append(f).append("\n\n");
+        sb.append("-----------Menu-----------\n");
+        sb.append(menu.toString()).append("\n");
+        return sb.toString();
+    }
+
+    public double calculatePrice(HashMap<String, Integer> cart) throws UnknownFoodException {
+        double total = 0;
+        for(String id: cart.keySet()){
+            int quantity = cart.get(id);
+            double price = menu.getFoodPrice(id);
+            total += (quantity * price);
+        }
+        return Math.round(total * 100.0) / 100.0;
     }
 
     /**
@@ -127,9 +131,6 @@ public class FoodTruck implements Serializable {
     /**
      * Deactivate this food truck.
      */
-    public void deactivateTruck() {
-        this.active = false;
-    }
 
     public String displayMenu() {
         return this.menu.toString();
@@ -139,7 +140,12 @@ public class FoodTruck implements Serializable {
      * Update the rating of the food truck given a rating.
      * @param rating new rating of the food truck.
      */
-    public void updateRating(double rating){this.rating = rating;}
+    public void updateRating(String id, double rating) throws IncorrectArgumentException {
+        if(rating < 0 || rating > 10){
+            throw new IncorrectArgumentException();
+        }
+        this.ratings.put(id, rating);
+    }
 
     /**
      * Below are Getter methods for all instance variables
@@ -167,15 +173,21 @@ public class FoodTruck implements Serializable {
         return this.seller;
     }
 
-    public double getRating() {
-        return this.rating;
+    public int getNumberOfRatings(){
+        return ratings.size();
     }
+
+    public double getRating() {
+        double s = 0;
+        for(String id: ratings.keySet()){
+            s += ratings.get(id);
+        }
+        s = s / ratings.size();
+        return Math.round(s * 100.0) / 100.0;
+    }
+
 
     public FoodMenu getMenu() {
         return this.menu;
-    }
-
-    public HashSet<String> getOrderQueue() {
-        return this.orderQueue;
     }
 }

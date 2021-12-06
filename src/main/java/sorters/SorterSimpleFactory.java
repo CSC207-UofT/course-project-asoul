@@ -10,7 +10,7 @@ public class SorterSimpleFactory {
         switch (s) {
             case "rating":
                 return RatingSorter.getInstance();
-            case "name_length":
+            case "name":
                 return NameSorter.getInstance();
             default:
                 throw new UnknownSorterException();
@@ -18,7 +18,7 @@ public class SorterSimpleFactory {
     }
 
     public static boolean containsSorter(String s){
-        String[] sorters = {"rating", "name_length"};
+        String[] sorters = {"rating", "name"};
         return Arrays.asList(sorters).contains(s);
     }
 }

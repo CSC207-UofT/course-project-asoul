@@ -63,7 +63,7 @@ class FoodTruckEditScene extends Scene {
                 }
                 break;
             case "change_menu":
-                // switchScene((MenuEditScene)MenuEditScene.getInstance());
+                 switchScene((MenuEditScene)MenuEditScene.getInstance());
                 break;
             case "location":
                 this.fillInField("New Location", text[1]);
@@ -112,7 +112,7 @@ class FoodTruckEditScene extends Scene {
         return outputString.toString();
     }
 
-    public void setUserInfo(String username, String key) throws UnauthorizedAccessException {
+    public void setUserInfo(String username, String key) {
         this.username = username;
         this.accessKey = key;
     }
@@ -122,9 +122,9 @@ class FoodTruckEditScene extends Scene {
         int b = Integer.parseInt(hour);
         if (checkInRange(2, a) && checkInRange(12, b)) {
             if (a == 1) {
-                return b + ":00 " + "AM";
+                return b + ":00" + "AM";
             } else {
-                return b + ":00 " + "PM";
+                return b + ":00" + "PM";
             }
         }
         throw new IncorrectArgumentException();

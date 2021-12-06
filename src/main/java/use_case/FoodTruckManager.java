@@ -1,56 +1,26 @@
 package use_case;
 
 import entities.*;
-import exceptions.UnauthorizedAccessException;
-import exceptions.UnknownFoodTruckException;
-import exceptions.UnknownUserException;
-import exceptions.FoodIdCollisionException;
-import exceptions.CollidedFoodException;
+import exceptions.*;
 import serialization.Deserializer;
 import serialization.Serializer;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import helper.RandomStringGenerator;
 
 /**
  * A Use_case.FoodTruckManager that manages all the FoodTrucks.
  */
 
 public class FoodTruckManager{
-    protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping User's account name to the FoodTrucks.
+    protected static HashMap<String, FoodTruck> foodTrucks = new HashMap<>(); // a Hashmap mapping User's account name to the FoodTruck.
     private static final Serializer ftSerializer = new Serializer();
     private static final Deserializer ftDeserializer = new Deserializer();
 
 
-    public static boolean existsTruck(String name){
-        return foodTrucks.containsKey(name);
-    }
-
-    /**
-     *
-     * @param id name of the food truck
-     * @throws UnknownFoodTruckException if the truck doesn't exist.
-     */
-    public static void activateTruck(String id) throws UnknownFoodTruckException {
-        if (!foodTrucks.containsKey(id)) {
-            throw new UnknownFoodTruckException();
-        }
-        FoodTruck truck = foodTrucks.get(id);
-        truck.activateTruck();
-    }
-
-    /**
-     *
-     * @param id name of the food truck
-     * @throws UnknownFoodTruckException if the truck doesn't exist.
-     */
-    public static void deactivateTruck(String id) throws UnknownFoodTruckException {
-        if (!foodTrucks.containsKey(id)) {
-            throw new UnknownFoodTruckException();
-        }
-        FoodTruck truck = foodTrucks.get(id);
-        truck.deactivateTruck();
+    public static boolean existsTruck(String username){
+        return foodTrucks.containsKey(username);
     }
 
     /**
@@ -59,60 +29,50 @@ public class FoodTruckManager{
      *
      * @param foodName  The name of the food want to add or update
      * @param price     The price of the food item, in double
-     * @param truckName The name of the given truck
+     * @param username The name of the given truck
      */
-    public static void addFoodToMenu(String foodName, double price, String descriptions, String id, String truckName)
+    public static void addFoodToMenu(String foodName, String price, String descriptions, String id, String username)
             throws CollidedFoodException, FoodIdCollisionException{
-        Food food = new Food(foodName, price, descriptions);
-        foodTrucks.get(truckName).addFoodToMenu(food, id);
-    }
+        double numPrice = Double.parseDouble(price);
+        Food food = new Food(foodName, numPrice, descriptions);
+        foodTrucks.get(username).addFoodToMenu(food, id);
+    } //TODO
 
     /**
      * With the given foodtruck's name, add food to menu if food object is not in menu.
      * If the food is in menu, update the food with the new one.
      *
      * @param food      The food want to add or update.
-     * @param truckName The name of the given truck
+     * @param username The name of the given truck
      */
-    public static void addFoodToMenu(Food food, String id, String truckName) throws CollidedFoodException, FoodIdCollisionException{
-        foodTrucks.get(truckName).addFoodToMenu(food, id);
+    public static void addFoodToMenu(Food food, String id, String username) throws CollidedFoodException, FoodIdCollisionException{
+        foodTrucks.get(username).addFoodToMenu(food, id);
     }
 
     /**
      * With the given foodtruck's name, remove food to menu if food object is in menu.
      *
      * @param foodName  The name of the food want to add or update
-     * @param truckName The name of the given truck
+     * @param username The name of the given truck
      * @return true if we add the food. false if we update the food.
      */
-    public static boolean removeFoodFromMenu(String foodName, String truckName) {
-        return foodTrucks.get(truckName).removeFoodFromMenu(foodName);
-    }
-
-    /**
-     * With the given foodtruck's name, remove food to menu if food object is in menu.
-     *
-     * @param food      The food want to remove.
-     * @param truckName The name of the given truck
-     * @return true if the food is removed successfully. false if the food is not in the menu.
-     */
-    public static boolean removeFoodFromMenu(Food food, String truckName) {
-        return foodTrucks.get(truckName).removeFoodFromMenu(food);
+    public static boolean removeFoodFromMenu(String foodName, String username) {
+        return foodTrucks.get(username).removeFoodFromMenu(foodName);
     }
 
     /**
      * With the given foodtruck's name, remove food from menu if food object is in menu.
      *
      * @param name      The food name ID want to check.
-     * @param truckName The name of the given truck
+     * @param username The name of the given truck
      * @return true if the food ID is in the given foodtruck's menu, false otherwise.
      */
-    public static boolean hasFood(String name, String truckName){
-        return foodTrucks.get(truckName).getMenu().hasFood(name);
+    public static boolean hasFood(String name, String username){
+        return foodTrucks.get(username).getMenu().hasFood(name);
     }
 
-    public static boolean hasFoodId(String id, String truckName){
-        return foodTrucks.get(truckName).getMenu().hasFood(id);
+    public static boolean hasFoodId(String id, String truckName){ // food id
+        return foodTrucks.get(truckName).getMenu().hasFoodId(id);
     }
 
     public static void setTruckName(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
@@ -140,12 +100,10 @@ public class FoodTruckManager{
      * @return the menu of the specific food truck.
      * false if the food truck is not in the list.
      */
-    public static Object getMenu(String id) {
+    public static String getMenu(String id) throws UnknownFoodTruckException {
         if (foodTrucks.containsKey(id)) {
             return foodTrucks.get(id).getMenu().toString();
-        } else {
-            return false;
-        }
+        } throw new UnknownFoodTruckException();
     }
 
     /**
@@ -153,65 +111,34 @@ public class FoodTruckManager{
      * @return the created food truck
      */
 
-    public static void createEmptyFoodTruck(String sellerName) throws CollidedFoodException, FoodIdCollisionException{ // Called when creating a new user
+    static void createEmptyFoodTruck(String sellerName) throws CollidedFoodException, FoodIdCollisionException, UnknownUserException{ // Called when creating a new user
         if(!foodTrucks.containsKey(sellerName)){
             FoodMenu menu = new FoodMenu();
 
             String location = "Bahen Center for Information Technology";
             String serviceTimeStart = "9:00";
             String serviceTimeEnd = "20:00";
-
-            FoodTruck new_truck = new FoodTruck(sellerName + "'s foodtruck", location, serviceTimeStart,
-                    serviceTimeEnd, sellerName, menu);
+            if(!UserManager.userMap.containsKey(sellerName)){
+                throw new UnknownUserException();
+            }
+            String nickname = UserManager.userMap.get(sellerName).getNickname();
+            FoodTruck new_truck = new FoodTruck(nickname + "'s foodtruck", location, serviceTimeStart,
+                    serviceTimeEnd, nickname, menu);
             foodTrucks.put(sellerName, new_truck);
-
-            Food food1 = new Food("Hamburger", 5.50, "Pretty delicious legend Hamburger!");
-            Food food2 = new Food("Pizza", 10.50, "Pretty delicious and traditional Italian pizza!");
-            Food food3 = new Food("Coca Cola", 1.80, "Cool and relaxing!");
-            Food food4 = new Food("Poutine", 6.50, "Pretty delicious crisp Poutine!");
-
-            addFoodToMenu(food1, "1", sellerName);
-            addFoodToMenu(food2, "2", sellerName);
-            addFoodToMenu(food3, "3", sellerName);
-            addFoodToMenu(food4, "4", sellerName);
-        }
-    }
-
-
-    /**
-     * @param id the id of the specific food truck.
-     * @return Get the order queue of the specific food truck. Return false if the food truck doesn't exist.
-     */
-    public static Object getOrderQueue(String id) {
-        if (foodTrucks.containsKey(id)) {
-            return foodTrucks.get(id).getOrderQueue();
-        } else {
-            return false;
         }
     }
 
     /**
      * Food Truck Rating System
-     * TODO, Implement the controller part
      */
-    public static void calculateRating(String sellerName) throws UnknownUserException {
-        if (foodTrucks.containsKey(sellerName)){
-            HashSet<String> orders = UserManager.getSellOrderHistory(sellerName);
-            double totalRating = 0.0;
-            int count = 0;
-            int i = 0;
-            Iterator<String> iterator = orders.iterator();
-            while(i < 100 && iterator.hasNext()){
-                if (Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating() >= 0 &&
-                        Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating() <= 10){
-                    totalRating += Objects.requireNonNull(OrderManager.getOrder(iterator.next())).getRating();
-                    count ++;
-                }
-                i++;
-            }
-            double rating = totalRating / count;
-            foodTrucks.get(sellerName).updateRating(rating);
+    static void updateRating(String truck, String orderID, double rate) throws UnknownFoodTruckException,
+            UnknownOrderException, UnknownUserException, IncorrectArgumentException {
+        FoodTruck ft = getFoodTruck(truck);
+        User us = UserManager.getUser(truck);
+        if(!us.getSellOrderHistory().contains(orderID)){
+            throw new UnknownOrderException();
         }
+        ft.updateRating(orderID, rate);
     }
 
     /**
@@ -234,6 +161,13 @@ public class FoodTruckManager{
         return foodTrucks.get(id).getTruckName();
     }
 
+    static FoodTruck getFoodTruck(String id) throws UnknownFoodTruckException{
+        try{
+            return foodTrucks.get(id);
+        }catch(NullPointerException e){
+            throw new UnknownFoodTruckException();
+        }
+    }
     /**
      * @return The seller AccountName and PhoneNumber of the Entities.FoodTruck.
      */
@@ -244,8 +178,24 @@ public class FoodTruckManager{
         return information;
     }
 
-    public static String getFoodName(String username, String id){
+    public static String getFoodName(String username, String id) throws UnknownFoodTruckException, UnknownFoodException {
+        if(!foodTrucks.containsKey(username)){
+            throw new UnknownFoodTruckException();
+        }
         return foodTrucks.get(username).getMenu().getFood(id).getFoodName();
+    }
+
+    public static double getFoodPrice(String username, String id) throws UnknownFoodException, UnknownFoodTruckException{
+        if(!foodTrucks.containsKey(username)){
+            throw new UnknownFoodTruckException();
+        }
+        return foodTrucks.get(username).getMenu().getFoodPrice(id);
+    }
+
+    public static void changeTruckStatus(String username, String accessKey) throws UnknownFoodTruckException, UnauthorizedAccessException{
+        UserManager.accessCheck(username, accessKey);
+        FoodTruck ft = getFoodTruck(username);
+        ft.changeStatus();
     }
 
     /**
@@ -253,19 +203,11 @@ public class FoodTruckManager{
      * @return A map that from the Entities.FoodTruck's id to the Entities.FoodTruck's detailed information. If the truck doesn't
      * exist, return an empty map.
      */
-    public static HashMap<String, String> getFoodTruckDetail(String id) {
-        HashMap<String, String> information = new HashMap<>();
-        if (foodTrucks.containsKey(id)) {
-            FoodTruck truck = foodTrucks.get(id);
-            information.put("id/truckName", truck.getTruckName());
-            information.put("location", truck.getLocation());
-            information.put("serviceTime", truck.displayServiceTime());
-            information.put("active", String.valueOf(truck.isActive()));
-            information.put("seller", truck.getSeller().toString());
-            information.put("rating", String.valueOf(truck.getRating()));
-            information.put("menu", truck.getMenu().toString());
+    public static String getFoodTruckDetail(String id) throws UnknownFoodTruckException{
+        if(!foodTrucks.containsKey(id)){
+            throw new UnknownFoodTruckException();
         }
-        return information;
+        return foodTrucks.get(id).getDetailedDescription();
     }
 
     /**
@@ -296,6 +238,27 @@ public class FoodTruckManager{
     public static boolean isActive(String id, String accessKey) throws UnauthorizedAccessException{
         UserManager.accessCheck(id, accessKey);
         return foodTrucks.get(id).isActive();
+    }
+
+    public static double calculatePrice(String truck, HashMap<String, Integer> cart) throws UnknownFoodTruckException,
+            UnknownFoodException{
+        if(!foodTrucks.containsKey(truck)){
+            throw new UnknownFoodTruckException();
+        }
+        return foodTrucks.get(truck).calculatePrice(cart);
+    }
+
+    public static void placeOrder(String username, String accessKey, String seller, HashMap<String, Integer> cart)
+            throws UnauthorizedAccessException, UnknownFoodTruckException, UnknownFoodException, UnknownUserException,
+            InsufficientBalanceException, IncorrectArgumentException{
+        UserManager.accessCheck(username, accessKey);
+        if(!foodTrucks.containsKey(seller)){
+            throw new UnknownFoodTruckException();
+        }
+        FoodTruck ft = foodTrucks.get(seller);
+        double price = ft.calculatePrice(cart);
+        UserManager.pay(username, seller, price, accessKey);
+        OrderManager.createOrder(cart, username, seller);
     }
 
     @SuppressWarnings("unchecked")

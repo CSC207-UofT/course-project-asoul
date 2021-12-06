@@ -1,8 +1,6 @@
 package default_scene_implementation;
 
 import controllers.Scene;
-import entities.User;
-import exceptions.IncorrectCredentialsException;
 import exceptions.IncorrectOldPasswordException;
 import exceptions.UnauthorizedAccessException;
 import exceptions.UnknownCommandException;

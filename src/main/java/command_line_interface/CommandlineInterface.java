@@ -2,7 +2,6 @@ package command_line_interface;
 
 import controllers.SceneBooter;
 import default_scene_implementation.*;
-import exceptions.IncorrectCredentialsException;
 import exceptions.IncorrectArgumentException;
 import observer_pattern.Observer;
 
@@ -32,8 +31,8 @@ public class CommandlineInterface implements Observer {
                 System.out.println(cm.output);
                 System.out.print(">>> ");
                 cm.sceneBooter.handleInputInString(br.readLine());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Entered number of arguments does not match the expectation or is empty");
+            } catch (Exception e) {
+                System.out.println((new IncorrectArgumentException()).getMessage());
             }
         } while (cm.sceneBooter.isRunning());
         cm.sceneBooter.terminate();

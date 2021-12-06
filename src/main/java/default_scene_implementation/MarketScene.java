@@ -27,8 +27,8 @@ class MarketScene extends Scene {
                 "help -> View all commands on this page\n" +
                 "back -> Go back to user info page\n" +
                 "select + [Space] + [Foodtruck id] -> view the food menu of the specified foodtruck and prepare for ordering\n" +
-                "sort_by + [Space] + [Sorting method] -> Sort the foodtrucks with specified method (See next line for possible methods)\n" +
-                "        Sorting Methods: 'name_length', 'rating'\n");
+                "sort_by + [Space] + [Sorting method] -> Sort the food trucks with specified method (See next line for possible methods)\n" +
+                "        Sorting Methods: 'name', 'rating'\n");
     }
 
     private void updateInfo(){
@@ -43,7 +43,7 @@ class MarketScene extends Scene {
             for(String key: info.keySet()){
                 items.put(key, Double.toString(FoodTruckManager.getRating(key)));
             }
-        }else if(sorter.equals("name_length")){
+        }else if(sorter.equals("name")){
             for(String key: info.keySet()){
                 items.put(key, FoodTruckManager.getTruckName(key));
             }
@@ -53,7 +53,7 @@ class MarketScene extends Scene {
 
     private void assignPointer(){
         int counter = 1;
-        pointer.replaceAll((key, value) -> "");
+        pointer.clear();
         try {
             ArrayList<String> sorted = sortTruckInfo();
             for (String name : sorted) {

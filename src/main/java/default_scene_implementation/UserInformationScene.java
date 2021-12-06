@@ -10,14 +10,12 @@ import java.util.HashMap;
 
 class UserInformationScene extends Scene {
     private final static UserInformationScene us = new UserInformationScene();
-    public String username;
-    public String nickname;
-    public String phoneNum;
-    public String truckName;
-    public double accBalance;
+    private String username;
+    private String nickname;
+    private String phoneNum;
+    private String truckName;
+    private double accBalance;
     private String accessKey;
-    private String buyOrderHistory;
-    private String sellOrderHistory;
     private String truckActive;
 
 
@@ -30,8 +28,6 @@ class UserInformationScene extends Scene {
         this.truckName = "";
         this.truckActive = "";
         this.accBalance = 0;
-        this.buyOrderHistory = "";
-        this.sellOrderHistory = "";
         this.setHelpMessage("\n\nAll commands:\n" +
                 "help -> View all commands on this page\n" +
                 "view_market -> View all food trucks\n" +
@@ -39,7 +35,7 @@ class UserInformationScene extends Scene {
                 "change_truck_info -> Change user's food truck information\n" +
                 "add_money + [Space] + [amount of money] -> add money to balance\n" +
                 "withdraw_money + [Space] + [amount of money] -> withdraw money from balance\n" +
-                "view_order + [Space] + [order id] -> view the order\n" +
+                "view_orders -> View all orders\n" +
                 "change_truck_status -> Change Truck Status.");
     }
 
@@ -79,6 +75,8 @@ class UserInformationScene extends Scene {
                     addFund(money);
                 } catch (NumberFormatException | IncorrectArgumentException e) {
                     this.state.append((new IncorrectArgumentException()).getMessage());
+                } catch (UnauthorizedAccessException e){
+                    this.state.append(e.getMessage()).append("\n");
                 }
                 break;
             case "withdraw_money":
@@ -87,18 +85,16 @@ class UserInformationScene extends Scene {
                     withdrawFund(money);
                 } catch (NumberFormatException | IncorrectArgumentException e) {
                     this.state.append((new IncorrectArgumentException()).getMessage());
+                } catch (InsufficientBalanceException | UnauthorizedAccessException e){
+                    this.state.append(e.getMessage()).append("\n");
                 }
                 break;
-            case "view_order":
-                // TODO
+            case "view_orders":
+                viewOrders();
                 break;
             case "change_truck_status":
                 try {
-                    if (FoodTruckManager.isActive(username, accessKey)) {
-                        FoodTruckManager.deactivateTruck(username);
-                    } else{
-                        FoodTruckManager.activateTruck(username);
-                    }
+                    FoodTruckManager.changeTruckStatus(username, accessKey);
                     updateUserInfo();
                 }
                 catch (UnauthorizedAccessException | UnknownFoodTruckException e) {
@@ -113,6 +109,7 @@ class UserInformationScene extends Scene {
 
     @Override
     public String constructOutputString(){
+        updateUserInfo();
         return "------------------------------User Information----------------------------------\n" +
                 "Username: " + username + "\n" +
                 "Nickname: " + nickname + "\n" +
@@ -120,8 +117,6 @@ class UserInformationScene extends Scene {
                 "Truck Name: " + truckName + "\n" +
                 "Truck Status: " + truckActive + "\n" +
                 "Account Balance: " + accBalance + "\n" +
-                "Buy order history: " + buyOrderHistory + "\n" +
-                "Sell order history: " + sellOrderHistory + "\n" +
                 this.state;
     }
 
@@ -131,8 +126,6 @@ class UserInformationScene extends Scene {
             this.nickname = UserManager.getNickname(username, accessKey);
             this.accBalance = UserManager.getBalance(username, accessKey);
             this.phoneNum = UserManager.getPhoneNumber(username, accessKey);
-            this.sellOrderHistory = UserManager.getSellOrderHistory(username, accessKey).toString();
-            this.buyOrderHistory = UserManager.getBuyOrderHistory(username, accessKey).toString();
             boolean flag = FoodTruckManager.isActive(username, accessKey);
             if(flag){
                 this.truckActive = "Activated";
@@ -156,17 +149,23 @@ class UserInformationScene extends Scene {
         this.switchScene(scene);
     }
 
+    public void viewOrders() {
+        OrderListScene scene = (OrderListScene) OrderListScene.getInstance();
+        this.switchScene(scene);
+    }
+
     public void changeTruckInfo() {
         FoodTruckEditScene scene = (FoodTruckEditScene) FoodTruckEditScene.getInstance();
         this.switchScene(scene);
     }
 
-    public void addFund(double fund) throws IncorrectArgumentException {
-        UserManager.addMoney(username, fund);
+    public void addFund(double fund) throws IncorrectArgumentException, UnauthorizedAccessException {
+        UserManager.addMoney(username, accessKey, fund);
         updateUserInfo();
     }
-    public void withdrawFund(double fund) throws IncorrectArgumentException {
-        UserManager.withdrawMoney(username, fund);
+    public void withdrawFund(double fund) throws IncorrectArgumentException,
+            InsufficientBalanceException, UnauthorizedAccessException{
+        UserManager.withdrawMoney(username, accessKey, fund);
         updateUserInfo();
     }
 
