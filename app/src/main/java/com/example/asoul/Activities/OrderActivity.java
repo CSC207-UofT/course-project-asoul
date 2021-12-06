@@ -15,7 +15,7 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        switchToOrderHistory = findViewById(R.id.btnBack);
+        switchToOrderHistory = findViewById(R.id.BackToHistory);
         switchToOrderHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
