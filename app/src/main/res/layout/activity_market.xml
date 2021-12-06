@@ -3,7 +3,8 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+                                                   android:layout_height="match_parent"
+                                                    android:id="@+id/marketLayout">
 
 
     <ScrollView
@@ -52,18 +53,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
             <Button
-                    android:id="@+id/goToWhite"
+                    android:id="@+id/goToBrown"
                     android:layout_width="399dp"
                     android:layout_height="170dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Write Truck"
-                    android:textColor="#546E7A"
+                    android:text="Brown Truck"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/goToBlue" />
-
             <Button
                     android:id="@+id/goToYellow"
                     android:layout_width="399dp"
@@ -71,15 +68,14 @@
                     android:text="Yellow Truck"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/goToWhite" />
+                    app:layout_constraintTop_toBottomOf="@+id/goToBrown" />
 
             <Button
                     android:id="@+id/goToSushi"
-                    android:layout_width="400dp"
+                    android:layout_width="399dp"
                     android:layout_height="170dp"
                     android:text="Sushi Burrito"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/goToYellow" />
 
