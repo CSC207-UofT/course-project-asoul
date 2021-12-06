@@ -6,10 +6,13 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.asoul.R;
+import helper.GlobalVariables;
 
 public class MainActivity extends AppCompatActivity {
+    GlobalVariables globalVariables = (GlobalVariables) this.getApplication();
 
     Button switchToLoginActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

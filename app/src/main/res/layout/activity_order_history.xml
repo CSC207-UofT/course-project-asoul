@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/login_bg"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activities.OrderHistoryActivity">
+
+    <ScrollView
+        android:id="@+id/BuyHistory"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/BuyHistoryLabel">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/SellHistory"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SellHistoryLabel"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/OrderHistoryLabel"
+        android:text="Order History"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textStyle="italic"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/BuyHistoryLabel"
+        android:text="Purchase Order History:"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/OrderHistoryLabel"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:textSize="20dp"
+        android:id="@+id/SellHistoryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sell Order History:"
+        app:layout_constraintTop_toBottomOf="@id/BuyHistory"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/btnBackToUserInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back To User Info"
+        app:layout_constraintTop_toBottomOf="@id/SellHistory"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="20dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

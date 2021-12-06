@@ -17,11 +17,13 @@
     />
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
               android:layout_marginTop="100sp"
+              android:id="@+id/editTextUsername"
               android:hint="@string/sign_in_with_username"
               android:gravity="center"
               android:inputType="text"/>
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
               android:layout_marginTop="10sp"
+              android:id="@+id/editTextPassword"
               android:hint="@string/enter_password"
               android:gravity="center"
               android:inputType="textPassword"
@@ -54,4 +56,14 @@
             android:backgroundTint="@android:color/white"
             android:textSize="16sp"
     />
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:id="@+id/loginError"
+              android:layout_marginTop="20sp"
+              android:textColor="@color/black"
+              android:backgroundTint="@color/white"
+              android:textSize="25sp"
+
+              />
 </LinearLayout>
