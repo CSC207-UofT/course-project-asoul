@@ -3,6 +3,7 @@ package default_scene_implementation;
 import controllers.Scene;
 import exceptions.*;
 import singleton_pattern.Singleton;
+import use_case.OrderManager;
 import use_case.UserManager;
 
 import java.util.HashMap;
@@ -72,11 +73,16 @@ public class OrderListScene extends Scene {
     @Override
     public String constructOutputString() {
         updateMaps();
-        return "Buy Order History: \n" + buyOrderHistory + "\n" +
-                "Sell Order History: \n" + sellOrderHistory + "\n" +
-                "Buy In Progress: \n" + buyInProgress + "\n" +
-                "Sell In Progress: \n" + sellInProgress + "\n" +
-                this.state;
+        try {
+            
+        return "Buy Order History: \n" + constructMapString(buyOrderHistory) + "\n" +
+                "Sell Order History: \n" + constructMapString(sellOrderHistory) + "\n" +
+                "Buy In Progress: \n" + constructMapString(buyInProgress) + "\n" +
+                "Sell In Progress: \n" + constructMapString(sellInProgress) + "\n" +
+                this.state;}
+        catch (UnknownOrderException e) {
+            return state.append(e.getMessage()).toString();
+        }
     }
 
     public static Singleton getInstance(){
@@ -98,6 +104,16 @@ public class OrderListScene extends Scene {
             state.append(e.getMessage());
         }
 
+    }
+
+    private String constructMapString(HashMap<Integer, String> map) throws UnknownOrderException {
+        StringBuilder result = new StringBuilder();
+        for (Integer i : map.keySet()){
+        String orderDescription = OrderManager.getOrderDescription(map.get(i));
+        result.append("ID: ").append(i).append(" ").append(orderDescription).append("  ");
+        }
+        return result.toString();
+        
     }
 
     private HashMap<Integer, String> constructOrderMap(HashSet<String> set) {
