@@ -12,8 +12,6 @@ import android.os.Bundle;
 import com.example.asoul.R;
 import use_case.UserManager;
 
-import java.io.IOException;
-
 public class RegisterActivity extends AppCompatActivity {
 
     Button switchToLoginActivity;
@@ -39,17 +37,10 @@ public class RegisterActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                boolean result = UserManager.createUser(username.getText().toString(),
+                if (UserManager.createUser(username.getText().toString(),
                         password.getText().toString(),
                         nickname.getText().toString(),
-                        phone.getText().toString());
-                try {
-                    UserManager.saveUserDataBase();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if (result){
+                        phone.getText().toString())){
                     String success = "Successfully registered.\n Proceeding to log in...";
                     Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
                     // registerState.setText("Successfully registered new user, you can now proceed to log in!");
@@ -72,45 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            UserManager.saveUserDataBase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        try {
-            UserManager.saveUserDataBase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        try {
-            UserManager.saveUserDataBase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        try {
-            UserManager.saveUserDataBase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void setSwitchToLoginActivity(){
         Intent switchActivityIntent = new Intent(this, LoginActivity.class);
