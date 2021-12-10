@@ -26,8 +26,8 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         // Order Price Display
-        String OrderID = "" + GlobalVariables.getID();
-        String total_prize = GlobalVariables.getPrice();
+        String OrderID = "" + GlobalVariables.getOrderID();
+        Double total_prize = GlobalVariables.getOrderPrice();
         String print_total_prize = "Total Price: " + total_prize + "$";
         TextView txt = (TextView) findViewById(R.id.PriceLabel);
         txt.setText(print_total_prize);
