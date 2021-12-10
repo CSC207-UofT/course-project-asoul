@@ -7,7 +7,6 @@ import serialization.Serializer;
 
 import java.io.*;
 import java.util.*;
-import helper.RandomStringGenerator;
 
 /**
  * A Use_case.FoodTruckManager that manages all the FoodTrucks.
@@ -39,40 +38,17 @@ public class FoodTruckManager{
     } //TODO
 
     /**
-     * With the given foodtruck's name, add food to menu if food object is not in menu.
-     * If the food is in menu, update the food with the new one.
-     *
-     * @param food      The food want to add or update.
-     * @param username The name of the given truck
-     */
-    public static void addFoodToMenu(Food food, String id, String username) throws CollidedFoodException, FoodIdCollisionException{
-        foodTrucks.get(username).addFoodToMenu(food, id);
-    }
-
-    /**
      * With the given foodtruck's name, remove food to menu if food object is in menu.
      *
      * @param foodName  The name of the food want to add or update
      * @param username The name of the given truck
-     * @return true if we add the food. false if we update the food.
      */
-    public static boolean removeFoodFromMenu(String foodName, String username) {
-        return foodTrucks.get(username).removeFoodFromMenu(foodName);
+    public static void removeFoodFromMenu(String foodName, String username) {
+        foodTrucks.get(username).removeFoodFromMenu(foodName);
     }
 
-    /**
-     * With the given foodtruck's name, remove food from menu if food object is in menu.
-     *
-     * @param name      The food name ID want to check.
-     * @param username The name of the given truck
-     * @return true if the food ID is in the given foodtruck's menu, false otherwise.
-     */
-    public static boolean hasFood(String name, String username){
-        return foodTrucks.get(username).getMenu().hasFood(name);
-    }
-
-    public static boolean hasFoodId(String id, String truckName){ // food id
-        return foodTrucks.get(truckName).getMenu().hasFoodId(id);
+    public static boolean notHaveFoodId(String id, String truckName){ // food id
+        return !foodTrucks.get(truckName).getMenu().hasFoodId(id);
     }
 
     public static void setTruckName(String newTruckName, String userAccountName, String accessKey) throws UnauthorizedAccessException {
@@ -108,10 +84,9 @@ public class FoodTruckManager{
 
     /**
      * @param sellerName the owner of the food truck
-     * @return the created food truck
      */
 
-    static void createEmptyFoodTruck(String sellerName) throws CollidedFoodException, FoodIdCollisionException, UnknownUserException{ // Called when creating a new user
+    static void createEmptyFoodTruck(String sellerName) throws UnknownUserException{ // Called when creating a new user
         if(!foodTrucks.containsKey(sellerName)){
             FoodMenu menu = new FoodMenu();
 
@@ -150,13 +125,6 @@ public class FoodTruckManager{
         return foodTrucks.get(id).getRating();
     }
 
-    /**
-     * @return The seller of the Entities.FoodTruck.
-     */
-    public static User getSeller(String id) {
-        return UserManager.userMap.get(foodTrucks.get(id).getSeller());
-    }
-
     public static String getTruckName(String id){
         return foodTrucks.get(id).getTruckName();
     }
@@ -167,15 +135,6 @@ public class FoodTruckManager{
         }catch(NullPointerException e){
             throw new UnknownFoodTruckException();
         }
-    }
-    /**
-     * @return The seller AccountName and PhoneNumber of the Entities.FoodTruck.
-     */
-    public static HashMap<String, String> getSellerDetail(String id) {
-        HashMap<String, String> information = new HashMap<>();
-        information.put("accountName", getSeller(id).getAccountName());
-        information.put("phoneNumber", getSeller(id).getPhoneNumber());
-        return information;
     }
 
     public static String getFoodName(String username, String id) throws UnknownFoodTruckException, UnknownFoodException {
@@ -208,17 +167,6 @@ public class FoodTruckManager{
             throw new UnknownFoodTruckException();
         }
         return foodTrucks.get(id).getDetailedDescription();
-    }
-
-    /**
-     * @return A map that from the Entities.FoodTruck's id to the Entities.FoodTruck's briefly information for all trucks.
-     */
-    public static HashMap<String, String> getAllFoodTruckDescription() {
-        HashMap<String, String> information = new HashMap<>();
-        for (String id : foodTrucks.keySet()) {
-            information.put(id, foodTrucks.get(id).toString());
-        }
-        return information;
     }
 
     /**

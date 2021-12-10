@@ -60,19 +60,9 @@ public class User implements Serializable {
     }
 
     /**
-     * Check the current account balance
-     *
-     * @return Return the Balance of this Entities.User account in double.
-     */
-    public double checkBalance() {
-        return this.accountBalance;
-    }
-
-    /**
      * Withdraw money from this Entities.User's account balance.
      *
      * @param money The amount of money in double that will be withdrawn from the account balance.
-     * @return Return True if successfully withdrawn and False otherwise.
      */
     public void withdrawMoney(double money) throws InsufficientBalanceException, IncorrectArgumentException {
         if(money < 0){

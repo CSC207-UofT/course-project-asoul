@@ -21,25 +21,6 @@ public class FoodMenu implements Serializable {
         this.foodSet = new HashSet<>();
     }
 
-    /**
-     * return whether the menu have the food with same name as the given food.
-     *
-     * @param food The given food.
-     * @return true if there is the food with same name as the given food. false for not
-     */
-    public boolean hasFood(Food food) {
-        return foodSet.contains(food);
-    }
-
-    public boolean hasFood(String food) {
-        for(Food f: foodSet){
-            if(f.getFoodName().equals(food)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean hasFoodId(String id){
         return foodMap.containsKey(id);
     }

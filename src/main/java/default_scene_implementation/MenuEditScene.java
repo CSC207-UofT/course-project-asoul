@@ -62,7 +62,7 @@ class MenuEditScene extends Scene {
                 break;
             case "delete":
                 try{
-                    if(!FoodTruckManager.hasFoodId(text[1], username)){
+                    if(FoodTruckManager.notHaveFoodId(text[1], username)){
                         throw new UnknownFoodException();
                     }
                     FoodTruckManager.removeFoodFromMenu(text[1], username);

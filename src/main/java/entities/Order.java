@@ -4,10 +4,8 @@ package entities;
 import exceptions.IncorrectArgumentException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.time.LocalDateTime; // Import the LocalDateTime class
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
-import java.util.HashMap;
 /**
  * An order.
  */
@@ -67,7 +65,6 @@ public class Order implements Serializable {
      * otherwise
      *
      * @param rating should be a double < 10 & > 0
-     * @return return true if rating updated successfully, return false otherwise
      */
     public void rateOrder(double rating) throws IncorrectArgumentException{
         if (0 <= rating & rating <= 10) {
@@ -102,7 +99,7 @@ public class Order implements Serializable {
 
     public String getDescription(){
         return "Date: " + this.getFormattedTime() + "\n" +
-                "TruckName: " + this.sellerName + "\n";
+                "TruckName: " + this.truckName + "\n";
     }
 
     /**
@@ -120,15 +117,6 @@ public class Order implements Serializable {
         return this.time;
     }
 
-
-    public String getBuyerName() {
-        return this.buyerName;
-    }
-
-    public String getBuyerNumber() {
-        return this.buyerNumber;
-    }
-
     public String getBuyer(){
         return this.buyer;
     }
@@ -141,16 +129,8 @@ public class Order implements Serializable {
         return this.sellerName;
     }
 
-    public String getStatus() {
-        return this.status;
-    }
-
 
     public String getSellerNumber() {
         return this.sellerNumber;
-    }
-
-    public double getRating(){
-        return this.rating;
     }
 }

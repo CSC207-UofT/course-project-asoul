@@ -105,7 +105,7 @@ class FoodTruckScene extends Scene {
     }
 
     private void addFoodToCart(String key, int quantity){
-        if(!FoodTruckManager.hasFoodId(key, foodtruck)){
+        if(FoodTruckManager.notHaveFoodId(key, foodtruck)){
             this.state.append("Selected food does not exist in the menu!\n");
             return;
         }

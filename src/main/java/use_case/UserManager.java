@@ -52,12 +52,6 @@ public class UserManager{
         loggedInUsers.remove(accessKey);
     }
 
-    static void userExist(String accName) throws UnknownUserException{
-        if(!userMap.containsKey(accName)){
-            throw new UnknownUserException();
-        }
-    }
-
     static User getUser(String username) throws UnknownUserException{
         try{
             return userMap.get(username);
@@ -148,21 +142,9 @@ public class UserManager{
         return user.getBuyOrderHistory();
     }
 
-    protected static HashSet<String> getBuyOrderHistory(String accName) throws UnknownUserException{
-        userExist(accName);
-        User user = userMap.get(accName);
-        return user.getBuyOrderHistory();
-    }
-
     public static HashSet<String> getSellOrderHistory(String accName, String accessKey) throws UnauthorizedAccessException{
         accessCheck(accName, accessKey);
         User user = loggedInUsers.get(accessKey);
-        return user.getSellOrderHistory();
-    }
-
-    protected static HashSet<String> getSellOrderHistory(String accName) throws UnknownUserException{
-        userExist(accName);
-        User user = userMap.get(accName);
         return user.getSellOrderHistory();
     }
 
@@ -174,15 +156,6 @@ public class UserManager{
     public static HashSet<String> getSellInProgress(String username, String accessKey) throws UnauthorizedAccessException {
         accessCheck(username, accessKey);
         return userMap.get(username).getSellInProgress();
-    }
-
-
-    /**
-     * @param accountName the account name that want to check exists or not.
-     * @return true if the account name already exists.
-     */
-    public static boolean checkUserExist(String accountName) {
-        return userMap.containsKey(accountName);
     }
 
     public static void setNickname(String accName, String accessKey, String nickname) throws UnauthorizedAccessException{
