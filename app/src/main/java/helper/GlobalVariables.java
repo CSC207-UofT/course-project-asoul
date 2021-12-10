@@ -10,8 +10,8 @@ public class GlobalVariables extends Application {
 
     private static String globalKey;
     private static String globalUsername;
-    private String orderID;
-    private Double orderPrice;
+    private static String orderID;
+    private static Double orderPrice;
 
 
     public GlobalVariables() {
@@ -35,4 +35,15 @@ public class GlobalVariables extends Application {
          GlobalVariables.globalUsername = username;
     }
 
+    public static Double getOrderPrice() {return orderPrice; }
+
+    public static void setOrderPrice(Double orderPrice) {
+        GlobalVariables.orderPrice = orderPrice;
+    }
+
+    public static String getOrderID() {
+        return orderID;
+    }
+
+    public static void setOrderID(String orderID) {GlobalVariables.orderID = orderID;}
 }
