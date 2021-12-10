@@ -45,6 +45,9 @@ class RegisterScene extends Scene {
             case "PN":
                 fillInField("Phone Number", arr[1]);
                 break;
+            case "help":
+                this.state.append(getHelpMessage()).append("\n");
+                break;
             case "confirm":
                 registerUser();
                 break;
