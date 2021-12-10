@@ -13,7 +13,7 @@ import java.util.HashSet;
  * Booter fo
  */
 public abstract class SceneBooter implements Observable {
-    private HashSet<Observer> obs;
+    private final HashSet<Observer> obs;
 
     public SceneBooter(){
         obs = new HashSet<>();
