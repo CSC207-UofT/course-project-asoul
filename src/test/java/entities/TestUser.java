@@ -31,7 +31,7 @@ public class TestUser {
 
     @org.junit.Test
     public void testGetNickname() {
-        assert user.getAccountName().equals("yuanxiao");
+        assert user.getNickname().equals("yuanxiao");
     }
 
     @org.junit.Test
