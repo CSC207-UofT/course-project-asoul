@@ -9,7 +9,7 @@
     tools:context=".Activities.OrderActivity">
 
     <Button
-        android:text="Confirm Complete"
+        android:text="@string/confirm_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ConfirmOrder"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ratingBar"
         app:layout_constraintLeft_toLeftOf="@id/ratingBar"/>
     <TextView
-        android:text="Order"
+        android:text="@string/order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="50sp"
@@ -39,7 +39,7 @@
     <ScrollView
         android:id="@+id/orderReview"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         app:layout_constraintTop_toBottomOf="@+id/OrderLabel"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="10dp">
@@ -75,8 +75,8 @@
         android:id="@+id/ErrorMessage"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintTop_toBottomOf="@id/BackToUserInfo"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

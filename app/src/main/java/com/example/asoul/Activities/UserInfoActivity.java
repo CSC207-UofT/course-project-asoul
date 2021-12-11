@@ -21,6 +21,7 @@ public class UserInfoActivity extends AppCompatActivity {
     Button switchToChangeUserInfoActivity;
     Button switchToChangeTruckInfoActivity;
     Button switchToOrderHistoryActivity;
+    Button switchToChangeBalanceActivity;
     String key;
     String username;
     TextView welcomeContent;
@@ -89,30 +90,41 @@ public class UserInfoActivity extends AppCompatActivity {
             }
         });
 
-        }
-        private void setSwitchToMarketActivity(){
+        switchToChangeBalanceActivity = findViewById(R.id.btnAddFund);
+        switchToChangeBalanceActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSwitchToChangeBalanceActivity();
+            }
+        });
+
+    }
+    private void setSwitchToMarketActivity(){
         Intent switchActivityIntent = new Intent(this, MarketActivity.class);
         startActivity(switchActivityIntent);
 
     }
-        private void setSwitchToEditUserInfoActivity(){
+    private void setSwitchToEditUserInfoActivity(){
         Intent switchActivityIntent = new Intent(this, ChangeUserInfoActivity.class);
         startActivity(switchActivityIntent);
 
     }
-        private void setSwitchToEditTruckInfoActivity(){
+    private void setSwitchToEditTruckInfoActivity(){
         Intent switchActivityIntent = new Intent(this, ChangeTruckInfoActivity.class);
         startActivity(switchActivityIntent);
 
     }
-        private void setSwitchToViewOrderHistoryActivity(){
+    private void setSwitchToViewOrderHistoryActivity(){
         Intent switchActivityIntent = new Intent(this, OrderActivity.class);
         startActivity(switchActivityIntent);
 
     }
 
+    private void setSwitchToChangeBalanceActivity(){
+        Intent switchActivityIntent = new Intent(this, changeBalanceActivity.class);
+        startActivity(switchActivityIntent);
 
-
+    }
 
 
 }

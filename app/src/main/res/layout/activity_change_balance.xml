@@ -28,7 +28,7 @@
               android:hint="@string/enter_the_amount_you_want_to_add_withdraw"
               android:importantForAutofill="no"
               android:inputType="numberDecimal"
-    />
+              android:textColorHint="#311B92"/>
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/btnAddFundPage"
             android:backgroundTint="@color/white"

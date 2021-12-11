@@ -26,34 +26,37 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         // Order Price Display
-        String OrderID = "" + GlobalVariables.getOrderID();
-        Double total_prize = GlobalVariables.getOrderPrice();
+        //String OrderID = "" + GlobalVariables.getOrderID();
+        //Double total_prize = GlobalVariables.getOrderPrice()
+        Double total_prize = 100.0;
         String print_total_prize = "Total Price: " + total_prize + "$";
         TextView txt = (TextView) findViewById(R.id.PriceLabel);
         txt.setText(print_total_prize);
 
         // Text View for Order Detail
         try {
-            String orderDetail = OrderManager.getOrderDetail(OrderID);
+            //String orderDetail = OrderManager.getOrderDetail(OrderID);
+            String orderDetail = "This area will display the order detail";
             TextView txt2 = (TextView) findViewById(R.id.OrderDetail);
             txt2.setText(orderDetail);
-        }catch (Exception e){
+        } catch (Exception e) {
             switchToUserInfo();
         }
 
         // Error Message Text View
         TextView txt3 = (TextView) findViewById(R.id.ErrorMessage);
+        txt3.setText(ErrorMessage);
 
         OrderConfirmBtn = findViewById(R.id.ConfirmOrder);
         OrderConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    OrderManager.changeOrderStatus(GlobalVariables.getUsername(),
-                            GlobalVariables.getKey(), OrderID);
+                    //OrderManager.changeOrderStatus(GlobalVariables.getUsername(),
+                    //        GlobalVariables.getKey(), OrderID);
                     ErrorMessage = "You have change the Order Status Successfully!";
                     txt3.setText(ErrorMessage);
-                }catch (Exception e){
+                } catch (Exception e) {
                     ErrorMessage = "Unknown Error occurs to Change Order Status!";
                     txt3.setText(ErrorMessage);
                 }
@@ -69,23 +72,29 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        RatingBar simpleRatingBar = (RatingBar) findViewById(R.id.ratingBar);
-        float rating = simpleRatingBar.getRating();
-        double real_rating = (double) rating * 2;
-        try {
-            OrderManager.rateOrder(GlobalVariables.getUsername()
-                    , GlobalVariables.getKey(), real_rating, OrderID);
-            ErrorMessage = "Rate Success";
-            txt3.setText(ErrorMessage);
-        }catch (Exception e){
-            ErrorMessage = "Unknown Error occurs to Rating!";
-            txt3.setText(ErrorMessage);
-        }
-    }
 
+        RatingBar simpleRatingBar = (RatingBar) findViewById(R.id.ratingBar);
+        simpleRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                float rating = simpleRatingBar.getRating();
+                double real_rating = (double) rating * 2;
+                try {
+                    //OrderManager.rateOrder(GlobalVariables.getUsername()
+                    //        , GlobalVariables.getKey(), real_rating, OrderID);
+                    ErrorMessage = "Rate Success, Rate: " + real_rating;
+                    txt3.setText(ErrorMessage);
+                } catch (Exception e) {
+                    ErrorMessage = "Unknown Error occurs to Rating!";
+                    txt3.setText(ErrorMessage);
+                }
+            }
+        });
+
+
+    }
     private void switchToUserInfo() {
         Intent switchActivityIntent = new Intent(this, UserInfoActivity.class);
         startActivity(switchActivityIntent);
     }
-
 }

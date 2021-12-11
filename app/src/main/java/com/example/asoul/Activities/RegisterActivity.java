@@ -12,6 +12,8 @@ import android.os.Bundle;
 import com.example.asoul.R;
 import use_case.UserManager;
 
+import java.io.IOException;
+
 public class RegisterActivity extends AppCompatActivity {
 
     Button switchToLoginActivity;
@@ -41,6 +43,11 @@ public class RegisterActivity extends AppCompatActivity {
                         password.getText().toString(),
                         nickname.getText().toString(),
                         phone.getText().toString())){
+                    try {
+                        UserManager.saveUserDataBase();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     String success = "Successfully registered.\n Proceeding to log in...";
                     Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
                     // registerState.setText("Successfully registered new user, you can now proceed to log in!");

@@ -18,42 +18,38 @@ import java.util.ArrayList;
 
 public class FoodTruckActivity extends AppCompatActivity {
 
-    Button switchToMarket;
-    Button switchToUserInfo;
+    Button switchBackToMarket;
+    Button switchBackToUserInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodtruck);
 
-
-
-        switchToMarket = findViewById(R.id.food3);
-        switchToMarket.setOnClickListener(new View.OnClickListener() {
+        switchBackToMarket = findViewById(R.id.ViewMarket);
+        switchBackToMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSwitchToMarket();
+                setSwitchBackToMarket();
             }
         });
 
-        switchToUserInfo = findViewById(R.id.Checkout);
-        switchToUserInfo.setOnClickListener(new View.OnClickListener() {
+        switchBackToUserInfo = findViewById(R.id.Checkout);
+        switchBackToUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSwitchToOrderInfo();
+                setSwitchBackToOrderInfo();
             }
         });
 
     }
 
-    private void setSwitchToMarket(){
+    private void setSwitchBackToMarket(){
         Intent switchToBackMarketActivityIntent = new Intent(this, MarketActivity.class);
         startActivity(switchToBackMarketActivityIntent);
     }
 
-    private void setSwitchToOrderInfo(){
+    private void setSwitchBackToOrderInfo(){
         Intent switchToBackOrderActivityIntent = new Intent(this, OrderActivity.class);
         startActivity(switchToBackOrderActivityIntent);
     }
