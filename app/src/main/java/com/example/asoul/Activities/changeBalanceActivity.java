@@ -57,20 +57,16 @@ public class changeBalanceActivity extends AppCompatActivity {
             }
         });
 
-        withdrawFund.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View view) {
-                try {
-                    UserManager.withdrawMoney(username, key, Double.parseDouble(fundAmount.getText().toString()));
-                    fundAccessError.setText("Withdraw fund successful!");
-                } catch (IncorrectArgumentException e) {
-                    fundAccessError.setText("The argument entered is incorrect!");
-                } catch (UnauthorizedAccessException e) {
-                    fundAccessError.setText("Unauthorized access to the content!");
-                } catch (InsufficientBalanceException e) {
-                    fundAccessError.setText("Account balance is insufficient!");
-                }
+        withdrawFund.setOnClickListener(view -> {
+            try {
+                UserManager.withdrawMoney(username, key, Double.parseDouble(fundAmount.getText().toString()));
+                fundAccessError.setText("Withdraw fund successful!");
+            } catch (IncorrectArgumentException e) {
+                fundAccessError.setText("The argument entered is incorrect!");
+            } catch (UnauthorizedAccessException e) {
+                fundAccessError.setText("Unauthorized access to the content!");
+            } catch (InsufficientBalanceException e) {
+                fundAccessError.setText("Account balance is insufficient!");
             }
         });
 
