@@ -25,4 +25,7 @@
     <string name="view_market">View Market</string>
     <string name="view_order_history">View Order History</string>
     <string name="cartcontent">cartContent</string>
+    <string name="add_withdraw_fund">ADD / WITHDRAW FUND</string>
+    <string name="enter_the_amount_you_want_to_add_withdraw">Enter the amount you want to add / withdraw</string>
+    <string name="back">back</string>
 </resources>
