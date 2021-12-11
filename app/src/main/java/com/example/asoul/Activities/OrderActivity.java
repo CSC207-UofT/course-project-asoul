@@ -7,7 +7,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.asoul.R;
-import helper.GlobalVariables;
 
 public class OrderActivity extends AppCompatActivity {
     Button switchToOrderHistory;
