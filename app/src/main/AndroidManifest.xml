@@ -11,9 +11,13 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ASOUL">
         <activity
+                android:name=".Activities.FoodTruckActivity"
+                android:exported="true"/>
+        <activity
                 android:name=".Activities.changeBalanceActivity"
                 android:exported="true"/>
-        <activity android:name=".Activities.ChangeMenuActivity"/>
+        <activity android:name=".Activities.ChangeMenuActivity"
+                android:exported="true"/>
         <activity
                 android:name=".Activities.OrderHistoryActivity"
                 android:exported="true"/>

@@ -248,7 +248,7 @@ public class UserManager{
 
     @SuppressWarnings("unchecked")
     public static void constructUserDataBase() throws IOException, ClassNotFoundException {
-        uDeserializer.deserialize("./data/user info");
+        uDeserializer.deserialize("./data/user info.txt");
         HashMap<String, User> m = (HashMap<String, User>) uDeserializer.getObject();
         if(m != null){
             userMap = m;
@@ -256,7 +256,7 @@ public class UserManager{
     }
 
     public static void saveUserDataBase() throws IOException {
-        uSerializer.serialize("./data/user info", userMap);
+        uSerializer.serialize("./data/user info.txt", userMap);
     }
 
     // These two methods should only be called from within the class for convenience purposes

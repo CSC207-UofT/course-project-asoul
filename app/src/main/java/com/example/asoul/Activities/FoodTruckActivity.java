@@ -28,10 +28,8 @@ public class FoodTruckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodtruck);
 
-
-
-        switchToMarket = findViewById(R.id.food3);
-        switchToMarket.setOnClickListener(new View.OnClickListener() {
+        switchBackToMarket = findViewById(R.id.ViewMarket);
+        switchBackToMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSwitchToMarket();

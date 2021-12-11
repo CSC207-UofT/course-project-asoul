@@ -34,4 +34,11 @@
     <string name="idealButton">Ideal CATERING <br/> rating: 5/5 <br/> open hour: 10am ~ 8pm</string>
     <string name="mamaButton">MAMA\'s Hotdog <br/> rating: 2.3/5 <br/> open hour: 8am ~ 5pm</string>
     <string name="truckUnderConstruction">OOPS Truck under <br/> Construction :(</string>
+    <string name="edit_menu">Edit Menu</string>
+    <string name="food_name">Food name</string>
+    <string name="short_description">Short Description</string>
+    <string name="price">Price</string>
+    <string name="addwithdraw_fund">ADD/WITHDRAW FUND</string>
+    <string name="confirm_complete">Confirm Complete</string>
+    <string name="order">Order</string>
 </resources>
