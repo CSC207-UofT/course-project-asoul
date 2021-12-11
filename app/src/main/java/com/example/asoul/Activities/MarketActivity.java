@@ -22,20 +22,21 @@ public class MarketActivity extends AppCompatActivity {
     Button switchToUserEdit;
     Button switchToTruckEdit;
     Button switchToExit;
+    Button switchToYellow;
     Button switchToBlue;
     Button switchToSushi;
-    Button switchToBrown;
-    Button switchToYellow;
+    Button switchToMama;
+    Button switchToIdeal;
     private HashMap<String, String> info;
     private HashMap<Integer, String> pointer;
     private String sorter;
-    ConstraintLayout marketLayout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_market);
+
 
         switchToUserInfo = findViewById(R.id.Userinfo);
         switchToUserInfo.setOnClickListener(new View.OnClickListener() {
@@ -69,16 +70,7 @@ public class MarketActivity extends AppCompatActivity {
             }
         });
 
-        switchToSushi = findViewById(R.id.goToSushi);
-        switchToSushi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSwitchToSushi();
-            }
-        });
-
-
-        switchToBlue = findViewById(R.id.goToBlue);
+        switchToBlue = findViewById(R.id.blue);
         switchToBlue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,17 +78,7 @@ public class MarketActivity extends AppCompatActivity {
             }
         });
 
-
-        switchToBrown = findViewById(R.id.goToBrown);
-        switchToBrown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSwitchToBrown();
-            }
-        });
-
-
-        switchToYellow = findViewById(R.id.goToYellow);
+        switchToYellow = findViewById(R.id.yellow);
         switchToYellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,15 +86,39 @@ public class MarketActivity extends AppCompatActivity {
             }
         });
 
-        info = new HashMap<>();
-        pointer = new HashMap<>();
-        sorter = "";
-    }
+        switchToSushi = findViewById(R.id.sushi);
+        switchToSushi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSwitchToSushi();
+            }
+        });
 
+        switchToIdeal = findViewById(R.id.ideal);
+        switchToIdeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSwitchToIdeal();
+            }
+        });
+
+        switchToMama = findViewById(R.id.mama);
+        switchToMama.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSwitchToMama();
+            }
+        });
+    }
 
     private void setSwitchToUserInfoActivity(){
         Intent switchToUserActivityIntent = new Intent(this, UserInfoActivity.class);
         startActivity(switchToUserActivityIntent);
+    }
+
+    private void setSwitchToExit(){
+        Intent switchToExitIntent = new Intent(this, LoginActivity.class);
+        startActivity(switchToExitIntent);
     }
 
     private void setSwitchToUserEditActivity(){
@@ -125,13 +131,7 @@ public class MarketActivity extends AppCompatActivity {
         startActivity(switchToTruckEditActivityIntent);
     }
 
-    private void setSwitchToExit(){
-        Intent switchToExitActivityIntent = new Intent(this, LoginActivity.class);
-        startActivity(switchToExitActivityIntent);
-    }
-
     private void setSwitchToBlue(){
-
         Intent switchToBlueActivityIntent = new Intent(this, FoodTruckActivity.class);
         startActivity(switchToBlueActivityIntent);
     }
@@ -146,8 +146,13 @@ public class MarketActivity extends AppCompatActivity {
         startActivity(switchToSushiActivityIntent);
     }
 
-    private void setSwitchToBrown(){
-        Intent switchToBrownActivityIntent = new Intent(this, FoodTruckActivity.class);
-        startActivity(switchToBrownActivityIntent);
+    private void setSwitchToMama(){
+        Intent switchToMamaActivityIntent = new Intent(this, FoodTruckActivity.class);
+        startActivity(switchToMamaActivityIntent);
+    }
+
+    private void setSwitchToIdeal(){
+        Intent switchToIdealActivityIntent = new Intent(this, FoodTruckActivity.class);
+        startActivity(switchToIdealActivityIntent);
     }
 }
