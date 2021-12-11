@@ -53,16 +53,29 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
                 } else {
                     try {
-                        UserManager.setPassword(username,accessKey,newPassword,oldPassword);
+                        String old = UserManager.getPassword(username,accessKey);
+                        if (oldPassword.equals(old)) {
+                            try {
+                                UserManager.setPassword(username,accessKey,newPassword,oldPassword);
+                            } catch (IncorrectOldPasswordException e) {
+                                e.printStackTrace();
+                            } catch (UnauthorizedAccessException e) {
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ChangePasswordActivity.this, ChangeUserInfoActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
+                        }
                     } catch (IncorrectOldPasswordException e) {
                         e.printStackTrace();
                     } catch (UnauthorizedAccessException e) {
                         e.printStackTrace();
                     }
+
                     // 这里不应该抛exception，应该简单抛个toast
-                    Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ChangePasswordActivity.this, ChangeUserInfoActivity.class);
-                    startActivity(intent);
+
                 }
             }
         });

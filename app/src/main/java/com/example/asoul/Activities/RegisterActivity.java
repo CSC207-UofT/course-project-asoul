@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.asoul.R;
@@ -40,10 +41,15 @@ public class RegisterActivity extends AppCompatActivity {
                         password.getText().toString(),
                         nickname.getText().toString(),
                         phone.getText().toString())){
-                    registerState.setText("Successfully registered new user, you can now proceed to log in!");
+                    String success = "Successfully registered.\n Proceeding to log in...";
+                    Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
+                    // registerState.setText("Successfully registered new user, you can now proceed to log in!");
+                    setSwitchToLoginActivity();
                 }
                 else{
-                    registerState.setText("User with the given username has already been registered!");
+                    String fail = "Username has already been registered!";
+                    // registerState.setText("User with the given username has already been registered!");
+                    Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -53,7 +53,7 @@ public class FoodTruckActivity extends AppCompatActivity {
         switchToUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSwitchToUserInfo();
+                setSwitchToOrderInfo();
             }
         });
 
@@ -90,7 +90,7 @@ public class FoodTruckActivity extends AppCompatActivity {
         startActivity(switchToMarketActivityIntent);
     }
 
-    private void setSwitchToUserInfo(){
+    private void setSwitchToOrderInfo(){
         Intent switchToOrderActivityIntent = new Intent(this, OrderActivity.class);
         startActivity(switchToOrderActivityIntent);
     }
