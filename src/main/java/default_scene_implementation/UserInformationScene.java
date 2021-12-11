@@ -40,15 +40,14 @@ class UserInformationScene extends Scene {
                 change_truck_status -> Change Truck Status.""");
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return us;
     }
 
     /**
-     *
      * @param input Input from commandline interface.
      */
-    public void handleInputString(String input){
+    public void handleInputString(String input) {
         String[] text = input.split(" ");
         switch (text[0]) {
             case "view_market":
@@ -61,10 +60,10 @@ class UserInformationScene extends Scene {
                 Scene.exit = true;
                 break;
             case "sign_out":
-                try{
+                try {
                     UserManager.logOut(username, accessKey);
                     switchScene((LoginScene) LoginScene.getInstance());
-                }catch (UnauthorizedAccessException e) {
+                } catch (UnauthorizedAccessException e) {
                     state.append(e.getMessage()).append("\n");
                 }
                 break;
@@ -80,7 +79,7 @@ class UserInformationScene extends Scene {
                     addFund(money);
                 } catch (NumberFormatException | IncorrectArgumentException e) {
                     this.state.append((new IncorrectArgumentException()).getMessage());
-                } catch (UnauthorizedAccessException e){
+                } catch (UnauthorizedAccessException e) {
                     this.state.append(e.getMessage()).append("\n");
                 }
                 break;
@@ -90,7 +89,7 @@ class UserInformationScene extends Scene {
                     withdrawFund(money);
                 } catch (NumberFormatException | IncorrectArgumentException e) {
                     this.state.append((new IncorrectArgumentException()).getMessage());
-                } catch (InsufficientBalanceException | UnauthorizedAccessException e){
+                } catch (InsufficientBalanceException | UnauthorizedAccessException e) {
                     this.state.append(e.getMessage()).append("\n");
                 }
                 break;
@@ -101,9 +100,8 @@ class UserInformationScene extends Scene {
                 try {
                     FoodTruckManager.changeTruckStatus(username, accessKey);
                     updateUserInfo();
-                }
-                catch (UnauthorizedAccessException | UnknownFoodTruckException e) {
-                        this.state.append(e.getMessage());
+                } catch (UnauthorizedAccessException | UnknownFoodTruckException e) {
+                    this.state.append(e.getMessage());
                 }
                 break;
             default:
@@ -113,11 +111,10 @@ class UserInformationScene extends Scene {
     }
 
     /**
-     *
      * @return Output String to the commandline interface.
      */
     @Override
-    public String constructOutputString(){
+    public String constructOutputString() {
         updateUserInfo();
         return "------------------------------User Information----------------------------------\n" +
                 "Username: " + username + "\n" +
@@ -132,20 +129,20 @@ class UserInformationScene extends Scene {
     /**
      * Update the user information
      */
-    public void updateUserInfo(){
+    public void updateUserInfo() {
         try {
             this.truckName = UserManager.getTruckName(username, accessKey);
             this.nickname = UserManager.getNickname(username, accessKey);
             this.accBalance = UserManager.getBalance(username, accessKey);
             this.phoneNum = UserManager.getPhoneNumber(username, accessKey);
             boolean flag = FoodTruckManager.isActive(username, accessKey);
-            if(flag){
+            if (flag) {
                 this.truckActive = "Activated";
-            }else{
+            } else {
                 this.truckActive = "Deactivated";
             }
 
-        }catch(UnauthorizedAccessException e){
+        } catch (UnauthorizedAccessException e) {
             this.state.append(e.getMessage());
         }
     }
@@ -176,13 +173,14 @@ class UserInformationScene extends Scene {
         UserManager.addMoney(username, accessKey, fund);
         updateUserInfo();
     }
+
     public void withdrawFund(double fund) throws IncorrectArgumentException,
-            InsufficientBalanceException, UnauthorizedAccessException{
+            InsufficientBalanceException, UnauthorizedAccessException {
         UserManager.withdrawMoney(username, accessKey, fund);
         updateUserInfo();
     }
 
-    public void setUserInfo(String username, String key){
+    public void setUserInfo(String username, String key) {
         this.username = username;
         this.accessKey = key;
         this.updateUserInfo();

@@ -16,7 +16,7 @@ public class TestOrderManager {
     }
 
     @org.junit.Test
-    public void testCreateOrder()throws UnknownFoodException, UnknownFoodTruckException, UnknownUserException {
+    public void testCreateOrder() throws UnknownFoodException, UnknownFoodTruckException, UnknownUserException {
         int size = OrderManager.orders.size();
         OrderManager.createOrder(new HashMap<>(), "a", "a");
         assert OrderManager.orders.size() == size + 1;
@@ -25,7 +25,7 @@ public class TestOrderManager {
     @org.junit.Test
     public void testGetOrder() throws UnknownOrderException, UnknownFoodTruckException, UnknownUserException, UnknownFoodException {
         OrderManager.createOrder(new HashMap<>(), "a", "a");
-        Map.Entry<String,Order> entry = OrderManager.orders.entrySet().iterator().next();
+        Map.Entry<String, Order> entry = OrderManager.orders.entrySet().iterator().next();
         String key = entry.getKey();
         Order value = entry.getValue();
         assert value.getTime() == OrderManager.getOrder(key).getTime();
@@ -34,7 +34,7 @@ public class TestOrderManager {
     @org.junit.Test
     public void testGetOrderDetail() throws UnknownOrderException, UnknownFoodTruckException, UnknownUserException, UnknownFoodException {
         OrderManager.createOrder(new HashMap<>(), "a", "a");
-        Map.Entry<String,Order> entry = OrderManager.orders.entrySet().iterator().next();
+        Map.Entry<String, Order> entry = OrderManager.orders.entrySet().iterator().next();
         String key = entry.getKey();
         Order value = entry.getValue();
         assert value.toString().equals(OrderManager.getOrderDetail(key));
@@ -43,7 +43,7 @@ public class TestOrderManager {
     @org.junit.Test
     public void testGetDescription() throws UnknownOrderException, UnknownFoodTruckException, UnknownUserException, UnknownFoodException {
         OrderManager.createOrder(new HashMap<>(), "a", "a");
-        Map.Entry<String,Order> entry = OrderManager.orders.entrySet().iterator().next();
+        Map.Entry<String, Order> entry = OrderManager.orders.entrySet().iterator().next();
         String key = entry.getKey();
         Order value = entry.getValue();
         assert value.getDescription().equals(OrderManager.getOrderDescription(key));

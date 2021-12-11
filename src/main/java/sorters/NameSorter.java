@@ -1,14 +1,15 @@
 package sorters;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class NameSorter extends Sorter{
+public class NameSorter extends Sorter {
     private final static NameSorter ns = new NameSorter();
 
 
-
-    private NameSorter(){
+    private NameSorter() {
     }
+
     static NameSorter getInstance() {
         return ns;
     }

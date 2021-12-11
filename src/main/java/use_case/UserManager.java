@@ -12,10 +12,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import helper.RandomStringGenerator;
+
 /**
  * A Use_case.UserManager that manages all the Users.
  */
-public class UserManager{
+public class UserManager {
     protected static HashMap<String, User> userMap = new HashMap<>(); // A map from user's account name to User object.
     protected static HashMap<String, User> loggedInUsers = new HashMap<>();
     private static final Serializer uSerializer = new Serializer();
@@ -28,21 +29,21 @@ public class UserManager{
      *                                       such account name.
      */
     public static String login(String accName, String password) throws IncorrectCredentialsException {
-        try{
+        try {
             User user = userMap.get(accName);
             String psw = user.getPassword();
-            if(psw.equals(password)){
+            if (psw.equals(password)) {
                 RandomStringGenerator rg = new RandomStringGenerator();
                 String key = rg.generateRandomString();
-                while(loggedInUsers.containsKey(key)){ // Make sure the key is unique
+                while (loggedInUsers.containsKey(key)) { // Make sure the key is unique
                     key = rg.generateRandomString();
                 }
                 loggedInUsers.put(key, user);
                 return key;
-            }else{
+            } else {
                 throw new IncorrectCredentialsException(); // Incorrect password entered
             }
-        }catch (NullPointerException e){ // User does not exist
+        } catch (NullPointerException e) { // User does not exist
             throw new IncorrectCredentialsException();
         }
     }
@@ -52,10 +53,10 @@ public class UserManager{
         loggedInUsers.remove(accessKey);
     }
 
-    static User getUser(String username) throws UnknownUserException{
-        try{
+    static User getUser(String username) throws UnknownUserException {
+        try {
             return userMap.get(username);
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             throw new UnknownUserException();
         }
     }
@@ -79,13 +80,13 @@ public class UserManager{
         addMoney(accountName, money);
     }
 
-    protected static void accessCheck(String username, String accessKey) throws UnauthorizedAccessException{
+    protected static void accessCheck(String username, String accessKey) throws UnauthorizedAccessException {
         User user = loggedInUsers.get(accessKey);
-        try{
-            if(!user.getAccountName().equals(username)){
+        try {
+            if (!user.getAccountName().equals(username)) {
                 throw new UnauthorizedAccessException(); // Access key and username does not match
             }
-        }catch (NullPointerException e){ // User does not exist or is not logged in
+        } catch (NullPointerException e) { // User does not exist or is not logged in
             throw new UnauthorizedAccessException();
         }
     }
@@ -96,16 +97,16 @@ public class UserManager{
      */
 
     static void withdrawMoney(String accountName, double money) throws IncorrectArgumentException,
-            InsufficientBalanceException{
+            InsufficientBalanceException {
         User user = userMap.get(accountName);
-        if(money < 0){
+        if (money < 0) {
             throw new IncorrectArgumentException();
         }
         user.withdrawMoney(money);
     }
 
     public static void withdrawMoney(String accountName, String accessKey, double money) throws IncorrectArgumentException,
-            InsufficientBalanceException, UnauthorizedAccessException{
+            InsufficientBalanceException, UnauthorizedAccessException {
         accessCheck(accountName, accessKey);
         withdrawMoney(accountName, money);
     }
@@ -126,7 +127,7 @@ public class UserManager{
             User newUser = new User(accName, password, nickname, phoneNum);
             userMap.put(accName, newUser);
             FoodTruckManager.createEmptyFoodTruck(accName);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             // Do nothing, this scenario can never happen
         }
@@ -136,13 +137,13 @@ public class UserManager{
     /**
      * Return the list of OrderHistory given a User account name.
      */
-    public static HashSet<String> getBuyOrderHistory(String accName, String accessKey) throws UnauthorizedAccessException{
+    public static HashSet<String> getBuyOrderHistory(String accName, String accessKey) throws UnauthorizedAccessException {
         accessCheck(accName, accessKey);
         User user = loggedInUsers.get(accessKey);
         return user.getBuyOrderHistory();
     }
 
-    public static HashSet<String> getSellOrderHistory(String accName, String accessKey) throws UnauthorizedAccessException{
+    public static HashSet<String> getSellOrderHistory(String accName, String accessKey) throws UnauthorizedAccessException {
         accessCheck(accName, accessKey);
         User user = loggedInUsers.get(accessKey);
         return user.getSellOrderHistory();
@@ -158,65 +159,65 @@ public class UserManager{
         return userMap.get(username).getSellInProgress();
     }
 
-    public static void setNickname(String accName, String accessKey, String nickname) throws UnauthorizedAccessException{
+    public static void setNickname(String accName, String accessKey, String nickname) throws UnauthorizedAccessException {
         accessCheck(accName, accessKey);
         userMap.get(accName).setNickname(nickname);
     }
 
-    public static void setPhoneNumber(String accName, String accessKey, String phoneNumber) throws UnauthorizedAccessException{
+    public static void setPhoneNumber(String accName, String accessKey, String phoneNumber) throws UnauthorizedAccessException {
         accessCheck(accName, accessKey);
         userMap.get(accName).setPhoneNumber(phoneNumber);
     }
 
     public static void setPassword(String username, String accessKey, String newPassword, String oldPassword)
-            throws IncorrectOldPasswordException, UnauthorizedAccessException{
+            throws IncorrectOldPasswordException, UnauthorizedAccessException {
         accessCheck(username, accessKey);
         userMap.get(username).setPassword(newPassword, oldPassword);
     }
 
-    public static String getNickname(String accName, String accessKey) throws UnauthorizedAccessException{
+    public static String getNickname(String accName, String accessKey) throws UnauthorizedAccessException {
         accessCheck(accName, accessKey);
         return userMap.get(accName).getNickname();
     }
 
-    public static String getNickname(String accName) throws UnknownUserException{
-        if(!userMap.containsKey(accName)){
+    public static String getNickname(String accName) throws UnknownUserException {
+        if (!userMap.containsKey(accName)) {
             throw new UnknownUserException();
         }
         return userMap.get(accName).getNickname();
     }
 
-    public static String getPhoneNumber(String accName, String accessKey) throws UnauthorizedAccessException{
+    public static String getPhoneNumber(String accName, String accessKey) throws UnauthorizedAccessException {
         accessCheck(accName, accessKey);
         return userMap.get(accName).getPhoneNumber();
     }
 
-    static String getPhoneNumber(String accName) throws UnknownUserException{
-        if(userMap.containsKey(accName)){
+    static String getPhoneNumber(String accName) throws UnknownUserException {
+        if (userMap.containsKey(accName)) {
             return userMap.get(accName).getPhoneNumber();
         }
         throw new UnknownUserException();
     }
 
-    public static double getBalance(String accName, String accessKey) throws UnauthorizedAccessException{
+    public static double getBalance(String accName, String accessKey) throws UnauthorizedAccessException {
         accessCheck(accName, accessKey);
         return userMap.get(accName).getAccountBalance();
     }
 
     /**
-     * @param payer the account name of the payer.
-     * @param payee the account name of payee.
+     * @param payer  the account name of the payer.
+     * @param payee  the account name of payee.
      * @param amount the amount of money buyer will pay.
      */
     public static void pay(String payer, String payee, double amount, String accessKey) throws
-            UnauthorizedAccessException, InsufficientBalanceException, UnknownUserException, IncorrectArgumentException{
+            UnauthorizedAccessException, InsufficientBalanceException, UnknownUserException, IncorrectArgumentException {
         accessCheck(payer, accessKey);
         try {
             User buyer = UserManager.userMap.get(payer);
             User seller = UserManager.userMap.get(payee);
             buyer.withdrawMoney(amount);
             seller.addMoney(amount);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             throw new UnknownUserException();
         }
     }
@@ -225,7 +226,7 @@ public class UserManager{
     public static void constructUserDataBase() throws IOException, ClassNotFoundException {
         uDeserializer.deserialize("./data/user info");
         HashMap<String, User> m = (HashMap<String, User>) uDeserializer.getObject();
-        if(m != null){
+        if (m != null) {
             userMap = m;
         }
     }
@@ -235,12 +236,12 @@ public class UserManager{
     }
 
     // These two methods should only be called from within the class for convenience purposes
-    private static void addBuyOrder(String user, String orderID){
+    private static void addBuyOrder(String user, String orderID) {
         User us = userMap.get(user);
         us.storeBuyOrder(orderID);
     }
 
-    private static void addSellOrder(String user, String orderID){
+    private static void addSellOrder(String user, String orderID) {
         User us = userMap.get(user);
         us.storeSellOrder(orderID);
     }
@@ -264,19 +265,19 @@ public class UserManager{
     }
 
     public static void completeOrder(String orderID, String username, String accessKey) throws
-            UnauthorizedAccessException, UnknownUserException, UnknownOrderException{
+            UnauthorizedAccessException, UnknownUserException, UnknownOrderException {
         accessCheck(username, accessKey);
         Order order = OrderManager.orders.get(orderID);
         String seller = order.getSeller();
         String buyer = order.getBuyer();
-        if(!userMap.containsKey(seller) || !userMap.containsKey(buyer)){
+        if (!userMap.containsKey(seller) || !userMap.containsKey(buyer)) {
             throw new UnknownUserException();
         }
-        if(seller.equals(username)) {
+        if (seller.equals(username)) {
             order.changeOrderStatus();
             userMap.get(seller).completeOrder(orderID);
             userMap.get(buyer).completeOrder(orderID);
-        }else{
+        } else {
             throw new UnauthorizedAccessException();
         }
     }

@@ -32,7 +32,6 @@ class MenuEditScene extends Scene {
     }
 
     /**
-     *
      * @param input input from interface.
      */
     @Override
@@ -41,7 +40,7 @@ class MenuEditScene extends Scene {
         switch (text[0]) {
             case "back":
             case "confirm":
-                switchScene((FoodTruckEditScene)FoodTruckEditScene.getInstance());
+                switchScene((FoodTruckEditScene) FoodTruckEditScene.getInstance());
                 break;
             case "help":
                 this.state.append(this.getHelpMessage());
@@ -59,7 +58,7 @@ class MenuEditScene extends Scene {
                 this.fillInField("Price", text[1]);
                 break;
             case "add":
-                try{
+                try {
                     checkAllFilled();
                     FoodTruckManager.addFoodToMenu(fields.get("Food Name"), fields.get("Price"),
                             fields.get("Description"), fields.get("ID"), username);
@@ -69,8 +68,8 @@ class MenuEditScene extends Scene {
                 }
                 break;
             case "delete":
-                try{
-                    if(FoodTruckManager.notHaveFoodId(text[1], username)){
+                try {
+                    if (FoodTruckManager.notHaveFoodId(text[1], username)) {
                         throw new UnknownFoodException();
                     }
                     FoodTruckManager.removeFoodFromMenu(text[1], username);
@@ -85,7 +84,6 @@ class MenuEditScene extends Scene {
     }
 
     /**
-     *
      * @return output String to the interface.
      */
     @Override
@@ -96,8 +94,8 @@ class MenuEditScene extends Scene {
         String price = this.fields.get("Price");
         String id = this.fields.get("ID");
         try {
-        outputString.append("---------------Current Menu---------------\n").append(FoodTruckManager.getMenu(username)).append("\n").append("---------------------------------------------\n");}
-        catch (UnknownFoodTruckException e){
+            outputString.append("---------------Current Menu---------------\n").append(FoodTruckManager.getMenu(username)).append("\n").append("---------------------------------------------\n");
+        } catch (UnknownFoodTruckException e) {
             state.append(e.getMessage());
         }
         outputString.append("Food Name: ").append(name).append("\n");
@@ -108,7 +106,7 @@ class MenuEditScene extends Scene {
         return outputString.toString();
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return mes;
     }
 
@@ -117,12 +115,11 @@ class MenuEditScene extends Scene {
     }
 
     /**
-     *
      * @throws UnfilledArgumentException if some fields are not filled.
      */
     private void checkAllFilled() throws UnfilledArgumentException {
-        for (String key: fields.keySet()){
-            if (fields.get(key).equals("")){
+        for (String key : fields.keySet()) {
+            if (fields.get(key).equals("")) {
                 throw new UnfilledArgumentException();
             }
         }

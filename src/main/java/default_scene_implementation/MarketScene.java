@@ -18,7 +18,7 @@ class MarketScene extends Scene {
     private final HashMap<Integer, String> pointer;
     private String sorter;
 
-    private MarketScene(){
+    private MarketScene() {
         super();
         info = new HashMap<>();
         pointer = new HashMap<>();
@@ -38,25 +38,24 @@ class MarketScene extends Scene {
     /**
      * Update the food truck info.
      */
-    private void updateInfo(){
+    private void updateInfo() {
         info = FoodTruckManager.getActiveFoodTruckDescription();
         assignPointer();
     }
 
     /**
-     *
      * @return the sorted array of food truck name
      * @throws UnknownSorterException if the sorter doesn't exit.
      */
-    private ArrayList<String> sortTruckInfo()throws UnknownSorterException{
+    private ArrayList<String> sortTruckInfo() throws UnknownSorterException {
         Sorter s = SorterSimpleFactory.constructSorter(sorter);
         HashMap<String, String> items = new HashMap<>();
-        if(sorter.equals("rating")){
-            for(String key: info.keySet()){
+        if (sorter.equals("rating")) {
+            for (String key : info.keySet()) {
                 items.put(key, Double.toString(FoodTruckManager.getRating(key)));
             }
-        }else if(sorter.equals("name")){
-            for(String key: info.keySet()){
+        } else if (sorter.equals("name")) {
+            for (String key : info.keySet()) {
                 items.put(key, FoodTruckManager.getTruckName(key));
             }
         }
@@ -66,7 +65,7 @@ class MarketScene extends Scene {
     /**
      * helper method of sortTruckInfo
      */
-    private void assignPointer(){
+    private void assignPointer() {
         int counter = 1;
         pointer.clear();
         try {
@@ -75,7 +74,7 @@ class MarketScene extends Scene {
                 pointer.put(counter, name);
                 counter++;
             }
-        }catch (UnknownSorterException e){ // When Sorter is unknown, assign pointers by the order of the elements in the map
+        } catch (UnknownSorterException e) { // When Sorter is unknown, assign pointers by the order of the elements in the map
             for (String name : info.keySet()) {
                 pointer.put(counter, name);
                 counter++;
@@ -84,39 +83,37 @@ class MarketScene extends Scene {
     }
 
     /**
-     *
      * @param input input from interface.
      */
     @Override
-    public void handleInputString(String input){
+    public void handleInputString(String input) {
         String[] text = input.split(" ");
         if (input.equals("back")) {
-            this.switchScene((Scene)UserInformationScene.getInstance());
+            this.switchScene((Scene) UserInformationScene.getInstance());
         } else if (text[0].equals("select")) {
             try {
                 this.viewFoodTruck(text[1]);
             } catch (UnknownFoodTruckException e) {
                 this.state.append(e.getMessage());
             }
-        } else if(text[0].equals("sort_by")){
-            if(SorterSimpleFactory.containsSorter(text[1])){
+        } else if (text[0].equals("sort_by")) {
+            if (SorterSimpleFactory.containsSorter(text[1])) {
                 this.sorter = text[1];
-            }else{
+            } else {
                 this.state.append((new UnknownSorterException()).getMessage()).append("\n");
             }
-        }else if(text[0].equals("help")){
+        } else if (text[0].equals("help")) {
             this.state.append(this.getHelpMessage());
-        }else{
+        } else {
             this.state.append((new UnknownCommandException()).getMessage()).append("\n");
         }
     }
 
     /**
-     *
      * @return return output String to user.
      */
     @Override
-    public String constructOutputString(){
+    public String constructOutputString() {
         updateInfo();
         StringBuilder outputString = new StringBuilder("------------------------Market---------------------------");
         for (int i = 1; i <= info.size(); i++) {
@@ -130,20 +127,20 @@ class MarketScene extends Scene {
         return outputString.toString();
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return ms;
     }
 
     public void viewFoodTruck(String id) throws UnknownFoodTruckException { // Forward to foodtruck page
         FoodTruckScene fc = (FoodTruckScene) FoodTruckScene.getInstance();
-        try{
+        try {
             int i = Integer.parseInt(id);
             String name = pointer.get(i);
             fc.setFoodtruck(name);
-        }catch (NumberFormatException e){
-            if(FoodTruckManager.existsTruck(id)){
+        } catch (NumberFormatException e) {
+            if (FoodTruckManager.existsTruck(id)) {
                 fc.setFoodtruck(id);
-            }else{
+            } else {
                 state.append("Unknown id entered! Please enter the name of the foodtruck or its displayed id\n");
             }
         }

@@ -1,4 +1,5 @@
 package serialization;
+
 import java.io.*;
 
 public class Deserializer {
@@ -9,17 +10,17 @@ public class Deserializer {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
             obj = (Serializable) ois.readObject();
             ois.close();
-        }catch (InvalidClassException e){
+        } catch (InvalidClassException e) {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path)); // Clear the file if its corrupted
             oos.writeObject("");
             oos.flush();
             oos.close();
-        }catch (EOFException e){
+        } catch (EOFException e) {
             // Do nothing
         }
     }
 
-    public Serializable getObject(){
+    public Serializable getObject() {
         return obj;
     }
 }

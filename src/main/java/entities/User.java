@@ -65,17 +65,16 @@ public class User implements Serializable {
      * @param money The amount of money in double that will be withdrawn from the account balance.
      */
     public void withdrawMoney(double money) throws InsufficientBalanceException, IncorrectArgumentException {
-        if(money < 0){
+        if (money < 0) {
             throw new IncorrectArgumentException();
         }
-        if(money > accountBalance){
+        if (money > accountBalance) {
             throw new InsufficientBalanceException();
         }
         accountBalance -= money;
     }
 
     /**
-     *
      * @param nickname the new nickname the user wants to have.
      */
     public void setNickname(String nickname) {
@@ -83,7 +82,6 @@ public class User implements Serializable {
     }
 
     /**
-     *
      * @param phoneNumber user's new phone number.
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -91,7 +89,6 @@ public class User implements Serializable {
     }
 
     /**
-     *
      * @param newPassword user's new password.
      * @param oldPassword user's original password.
      * @throws IncorrectOldPasswordException if the old password is not correct.
@@ -105,16 +102,15 @@ public class User implements Serializable {
     }
 
     /**
-     *
      * @param id order id
      * @throws UnknownOrderException if there is no order with this id.
      */
-    public void completeOrder(String id) throws UnknownOrderException{
-        if(sellInProgress.contains(id)){
+    public void completeOrder(String id) throws UnknownOrderException {
+        if (sellInProgress.contains(id)) {
             sellInProgressToHistory(id);
             return;
         }
-        if(buyInProgress.contains(id)){
+        if (buyInProgress.contains(id)) {
             buyInProgressToHistory(id);
             return;
         }
@@ -122,12 +118,12 @@ public class User implements Serializable {
     }
 
     // the rests are getters.
-    private void buyInProgressToHistory(String id)  {
+    private void buyInProgressToHistory(String id) {
         this.buyInProgress.remove(id);
         this.buyOrderHistory.add(id);
     }
 
-    private void sellInProgressToHistory(String id)  {
+    private void sellInProgressToHistory(String id) {
         this.sellInProgress.remove(id);
         this.sellOrderHistory.add(id);
     }
@@ -139,6 +135,7 @@ public class User implements Serializable {
     public void storeSellOrder(String orderID) { // we are going to use the return value later.
         this.sellInProgress.add(orderID);
     }
+
     /**
      * Getting for all the instance variables
      */

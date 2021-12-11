@@ -1,10 +1,11 @@
 package controllers;
 
 import singleton_pattern.Singleton;
+
 import java.util.HashMap;
 
 
-abstract public class Scene implements Singleton{
+abstract public class Scene implements Singleton {
     protected static boolean exit = false;
     protected static Scene activeScene;
 
@@ -19,11 +20,11 @@ abstract public class Scene implements Singleton{
         this.helpMessage = "";
     }
 
-    protected void setHelpMessage(String message){
+    protected void setHelpMessage(String message) {
         this.helpMessage = message;
     }
 
-    protected String getHelpMessage(){
+    protected String getHelpMessage() {
         return this.helpMessage;
     }
 

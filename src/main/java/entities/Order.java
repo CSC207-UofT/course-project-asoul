@@ -6,6 +6,7 @@ import exceptions.IncorrectArgumentException;
 import java.io.Serializable;
 import java.time.LocalDateTime; // Import the LocalDateTime class
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
+
 /**
  * An order.
  */
@@ -27,7 +28,7 @@ public class Order implements Serializable {
     /**
      * Construct a new order object
      *
-     * @param buyerNick   name of the customer who ordered the food
+     * @param buyerNick      name of the customer who ordered the food
      * @param customerNumber contact number of the customer who ordered the food
      * @param sellerName     name of the seller who owns the food truck
      * @param sellerNumber   contact number of the seller who owns the food truck
@@ -51,9 +52,8 @@ public class Order implements Serializable {
      * change the current status of this order to the next status.
      * E.g. when current status is "order completed", call changeOrderStatus again
      * will not change the status and "Change Failed" will be returned.
-     *
      */
-    public void changeOrderStatus(){
+    public void changeOrderStatus() {
         if (this.status.equals("in progress")) {
             this.status = "order completed";
         }
@@ -66,10 +66,10 @@ public class Order implements Serializable {
      *
      * @param rating should be a double < 10 & > 0
      */
-    public void rateOrder(double rating) throws IncorrectArgumentException{
+    public void rateOrder(double rating) throws IncorrectArgumentException {
         if (0 <= rating & rating <= 10) {
             this.rating = rating;
-        }else{
+        } else {
             throw new IncorrectArgumentException();
         }
     }
@@ -82,9 +82,9 @@ public class Order implements Serializable {
      */
     public String toString() {
         String s;
-        if(this.status.equals("in progress")){
+        if (this.status.equals("in progress")) {
             s = "TBD";
-        }else{
+        } else {
             s = rating + "";
         }
         return "Order Time: " + this.getFormattedTime() + "\n" +
@@ -98,10 +98,9 @@ public class Order implements Serializable {
     }
 
     /**
-     *
      * @return this Order's description.
      */
-    public String getDescription(){
+    public String getDescription() {
         return "Date: " + this.getFormattedTime() + "\n" +
                 "TruckName: " + this.truckName + "\n";
     }
@@ -121,11 +120,11 @@ public class Order implements Serializable {
         return this.time;
     }
 
-    public String getBuyer(){
+    public String getBuyer() {
         return this.buyer;
     }
 
-    public String getSeller(){
+    public String getSeller() {
         return seller;
     }
 

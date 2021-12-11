@@ -1,4 +1,5 @@
 package default_scene_implementation;
+
 import controllers.Scene;
 import exceptions.*;
 import singleton_pattern.Singleton;
@@ -24,16 +25,15 @@ class OrderScene extends Scene {
         );
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return os;
     }
 
     /**
-     *
      * @param input input from commandline interface.
      */
     @Override
-    public void handleInputString(String input){
+    public void handleInputString(String input) {
         String[] text = input.split(" ");
         switch (text[0]) {
             case "rate" -> {
@@ -49,15 +49,14 @@ class OrderScene extends Scene {
     }
 
     /**
-     *
      * @return Output to commandline interface.
      */
     @Override
-    public String constructOutputString(){
+    public String constructOutputString() {
         StringBuilder sb = new StringBuilder();
-        try{
+        try {
             sb.append(OrderManager.getOrderDetail(order));
-        }catch (UnknownOrderException e){
+        } catch (UnknownOrderException e) {
             state.append(e.getMessage()).append("\n");
         }
         sb.append(state);
@@ -65,39 +64,37 @@ class OrderScene extends Scene {
     }
 
     /**
-     *
      * @param rating rating to the order.
      */
-    private void rateOrder(double rating){
+    private void rateOrder(double rating) {
         try {
             OrderManager.rateOrder(username, accessKey, rating, order);
-        }catch (IncorrectArgumentException | UnknownOrderException | UnauthorizedAccessException e){
+        } catch (IncorrectArgumentException | UnknownOrderException | UnauthorizedAccessException e) {
             state.append(e.getMessage()).append("\n");
         }
     }
 
     /**
-     *  Complete this order.
+     * Complete this order.
      */
-    private void completeOrder(){
-        try{
+    private void completeOrder() {
+        try {
             UserManager.completeOrder(order, username, accessKey);
-        }catch (UnauthorizedAccessException | UnknownUserException | UnknownOrderException e){
+        } catch (UnauthorizedAccessException | UnknownUserException | UnknownOrderException e) {
             state.append(e.getMessage()).append("\n");
         }
     }
 
     /**
-     *
-     * @param username username of the user.
+     * @param username  username of the user.
      * @param accessKey access key
      */
-    public void setUserInfo(String username, String accessKey){
+    public void setUserInfo(String username, String accessKey) {
         this.username = username;
         this.accessKey = accessKey;
     }
 
-    public void setOrderID(String id){
+    public void setOrderID(String id) {
         order = id;
     }
 }

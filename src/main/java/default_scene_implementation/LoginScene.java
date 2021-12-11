@@ -26,15 +26,14 @@ class LoginScene extends Scene {
                 """);
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return ls;
     }
 
     /**
-     *
      * @param input input from interface.
      */
-    public void handleInputString(String input){
+    public void handleInputString(String input) {
         String[] text = input.split(" ");
         switch (text[0]) {
             case "U":
@@ -51,7 +50,7 @@ class LoginScene extends Scene {
                 }
                 break;
             case "register":
-                this.switchScene((Scene)RegisterScene.getInstance());
+                this.switchScene((Scene) RegisterScene.getInstance());
                 break;
             case "help":
                 this.state.append(this.getHelpMessage());
@@ -66,7 +65,6 @@ class LoginScene extends Scene {
     }
 
     /**
-     *
      * @return output string to interface.
      */
     public String constructOutputString() {
@@ -80,19 +78,18 @@ class LoginScene extends Scene {
     }
 
     /**
-     *
      * @throws IncorrectCredentialsException if the password and username don't match
-     * @throws UnauthorizedAccessException if the user has no access to this functionality.
+     * @throws UnauthorizedAccessException   if the user has no access to this functionality.
      */
     public void userLogin() throws IncorrectCredentialsException, UnauthorizedAccessException { // attempt to login
         String username = this.fields.get("username");
         String password = this.fields.get("password");
         String key = UserManager.login(username, password);
-        UserInformationScene s = (UserInformationScene)UserInformationScene.getInstance();
+        UserInformationScene s = (UserInformationScene) UserInformationScene.getInstance();
         s.setUserInfo(username, key); //set all scenes
         this.switchScene(s);
         // Scene setup
-        UserInfoEditScene infoEditScene = (UserInfoEditScene)UserInfoEditScene.getInstance();
+        UserInfoEditScene infoEditScene = (UserInfoEditScene) UserInfoEditScene.getInstance();
         infoEditScene.setUserInfo(username, key);
         FoodTruckEditScene truckEditScene = (FoodTruckEditScene) FoodTruckEditScene.getInstance();
         truckEditScene.setUserInfo(username, key);
@@ -100,9 +97,9 @@ class LoginScene extends Scene {
         ftc.setUserInfo(username, key);
         MenuEditScene menuEditScene = (MenuEditScene) MenuEditScene.getInstance();
         menuEditScene.setUserInfo(username);
-        OrderScene os = (OrderScene)OrderScene.getInstance();
+        OrderScene os = (OrderScene) OrderScene.getInstance();
         os.setUserInfo(username, key);
-        OrderListScene ols = (OrderListScene)OrderListScene.getInstance();
+        OrderListScene ols = (OrderListScene) OrderListScene.getInstance();
         ols.setOrderListInfo(username, key);
     }
 }

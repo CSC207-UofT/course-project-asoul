@@ -20,7 +20,7 @@ public class TestFoodMenu {
 
 
     @org.junit.Test
-    public void addFoodTest() throws CollidedFoodException, FoodIdCollisionException{
+    public void addFoodTest() throws CollidedFoodException, FoodIdCollisionException {
         Food pizza = new Food("Pizza", 5.00, "One large slice of Hawaii Piazza");
         menu.addFood(pizza, "1");
 
@@ -44,7 +44,7 @@ public class TestFoodMenu {
     }
 
     @org.junit.Test
-    public void removeFoodFailedTest(){
+    public void removeFoodFailedTest() {
         assert !menu.hasFoodId("2");
         assert !menu.hasFoodId("1");
     }

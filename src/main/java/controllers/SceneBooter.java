@@ -15,13 +15,13 @@ import java.util.HashSet;
 public abstract class SceneBooter implements Observable {
     private final HashSet<Observer> obs;
 
-    public SceneBooter(){
+    public SceneBooter() {
         obs = new HashSet<>();
     }
 
     @Override
     public void notifyObservers() {
-        for(Observer o: obs){
+        for (Observer o : obs) {
             o.update();
         }
     }
@@ -36,17 +36,18 @@ public abstract class SceneBooter implements Observable {
         UserManager.constructUserDataBase();
         OrderManager.constructOrderDataBase();
     }
-    protected Scene getActiveScene(){
+
+    protected Scene getActiveScene() {
         return Scene.activeScene;
     }
 
-    protected void setActiveScene(Scene scene){
+    protected void setActiveScene(Scene scene) {
         Scene.activeScene = scene;
     }
 
     public abstract String outputInString();
 
-    public void handleInputInString(String input){
+    public void handleInputInString(String input) {
         Scene.activeScene.state.setLength(0);
     }
 
@@ -56,7 +57,7 @@ public abstract class SceneBooter implements Observable {
         OrderManager.saveOrderDataBase();
     }
 
-    public boolean isRunning(){
+    public boolean isRunning() {
         return !Scene.exit;
     }
 }

@@ -10,19 +10,19 @@ import java.io.*;
 public class CommandlineInterface implements Observer {
     String output;
     SceneBooter sceneBooter;
-    
-    public CommandlineInterface(){
+
+    public CommandlineInterface() {
         sceneBooter = new DefaultBooter();
         subscribe(sceneBooter);
         output = "";
     }
 
     @Override
-    public void update(){
+    public void update() {
         output = sceneBooter.outputInString();
     }
-    
-    public static void main(String[] args) throws IOException, ClassNotFoundException{
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         CommandlineInterface cm = new CommandlineInterface();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         cm.sceneBooter.boot();
