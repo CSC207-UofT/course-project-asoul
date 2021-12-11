@@ -49,14 +49,14 @@ public class TestFoodMenu {
     public void removeFoodFailedTest() throws UnknownFoodException {
         Food pizza = new Food("Pizza", 5.00, "One large slice of Hawaii Piazza");
 
-        assert !menu.removeFood("2");
+        assert !menu.hasFoodId("2");
         assert menu.hasFoodId("1");
         assert menu.getFood("1").compareTo(pizza) == 0;
     }
 
     @org.junit.Test
     public void removeFoodSuccessTest() {
-        assert menu.removeFood("1");
+        assert menu.hasFoodId("1");
         assert !menu.hasFoodId("1");
     }
 
