@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.asoul">
+          package="com.example.asoul">
 
     <application
             android:name="helper.GlobalVariables"
@@ -10,41 +10,44 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.ASOUL">
-        <activity android:name=".Activities.ChangeMenuActivity"></activity>
         <activity
-            android:name=".Activities.OrderHistoryActivity"
-            android:exported="true" />
+                android:name=".Activities.changeBalanceActivity"
+                android:exported="true"/>
+        <activity android:name=".Activities.ChangeMenuActivity"/>
         <activity
-            android:name=".Activities.ChangeTruckInfoActivity"
-            android:exported="true" />
+                android:name=".Activities.OrderHistoryActivity"
+                android:exported="true"/>
         <activity
-            android:name=".Activities.OrderActivity"
-            android:exported="true" />
+                android:name=".Activities.ChangeTruckInfoActivity"
+                android:exported="true"/>
         <activity
-            android:name=".Activities.ChangePasswordActivity"
-            android:exported="true" />
+                android:name=".Activities.OrderActivity"
+                android:exported="true"/>
         <activity
-            android:name=".Activities.ChangeUserInfoActivity"
-            android:exported="true" />
+                android:name=".Activities.ChangePasswordActivity"
+                android:exported="true"/>
         <activity
-            android:name=".Activities.UserInfoActivity"
-            android:exported="true" />
+                android:name=".Activities.ChangeUserInfoActivity"
+                android:exported="true"/>
         <activity
-            android:name=".Activities.MarketActivity"
-            android:exported="true"></activity>
+                android:name=".Activities.UserInfoActivity"
+                android:exported="true"/>
         <activity
-            android:name=".Activities.RegisterActivity"
-            android:exported="true"></activity>
+                android:name=".Activities.MarketActivity"
+                android:exported="true"/>
         <activity
-            android:name=".Activities.LoginActivity"
-            android:exported="true"></activity>
+                android:name=".Activities.RegisterActivity"
+                android:exported="true"/>
         <activity
-            android:name=".Activities.MainActivity"
-            android:exported="true">
+                android:name=".Activities.LoginActivity"
+                android:exported="true"/>
+        <activity
+                android:name=".Activities.MainActivity"
+                android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

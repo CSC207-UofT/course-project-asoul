@@ -25,6 +25,9 @@
     <string name="view_market">View Market</string>
     <string name="view_order_history">View Order History</string>
     <string name="cartcontent">cartContent</string>
+    <string name="add_withdraw_fund">ADD / WITHDRAW FUND</string>
+    <string name="enter_the_amount_you_want_to_add_withdraw">Enter the amount you want to add / withdraw</string>
+    <string name="back">back</string>
     <string name="blueButton">Blue Truck <br/> rating: 4.0/5 <br/> open hour: 10am ~ 10pm</string>
     <string name="yellowButton">Yellow Truck <br/> rating: 0.0/5 <br/> open hour: 9am ~ 8pm</string>
     <string name="sushiButton">Sushi Burrito <br/> rating: 4.8/5 <br/> open hour: 11am ~ 10pm</string>

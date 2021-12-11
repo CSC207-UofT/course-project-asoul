@@ -193,6 +193,12 @@ public class UserManager{
         userMap.get(username).setPassword(newPassword, oldPassword);
     }
 
+    public static String getPassword(String username, String accessKey)
+            throws IncorrectOldPasswordException, UnauthorizedAccessException{
+        accessCheck(username, accessKey);
+        return userMap.get(username).getPassword();
+    }
+
     public static String getNickname(String accName, String accessKey) throws UnauthorizedAccessException{
         accessCheck(accName, accessKey);
         return userMap.get(accName).getNickname();
