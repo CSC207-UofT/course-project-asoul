@@ -4,9 +4,9 @@ import singleton_pattern.Singleton;
 
 import java.util.*;
 
-public abstract class Sorter implements Singleton{
+public abstract class Sorter implements Singleton {
 
-    public ArrayList<String> sort(HashMap<String, String> sortingMap){ // Key = seller name of the truck
+    public ArrayList<String> sort(HashMap<String, String> sortingMap) { // Key = seller name of the truck
 
         // reverse the Map
         HashMap<String, HashSet<String>> reveredMap = processMap(sortingMap);
@@ -38,7 +38,7 @@ public abstract class Sorter implements Singleton{
 
     private ArrayList<String> constructOutput(ArrayList<String> list, HashMap<String, HashSet<String>> map) {
         ArrayList<String> result = new ArrayList<>();
-        for (String e: list) {
+        for (String e : list) {
             result.addAll(map.get(e));
         }
         return result;

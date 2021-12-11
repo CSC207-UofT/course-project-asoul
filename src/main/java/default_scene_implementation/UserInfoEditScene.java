@@ -33,12 +33,11 @@ public class UserInfoEditScene extends Scene {
         this.setHelpMessage(helpMessage);
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return editScene;
     }
 
     /**
-     *
      * @param input from commandline interface.
      */
     @Override
@@ -60,19 +59,20 @@ public class UserInfoEditScene extends Scene {
             case "confirm":
                 try {
                     if (!fields.get("New Password").equals("")) {
-                    UserManager.setPassword(username, accessKey, fields.get("New Password"), fields.get("Old Password"));}
+                        UserManager.setPassword(username, accessKey, fields.get("New Password"), fields.get("Old Password"));
+                    }
                     String phoneNumber = fields.get("Phone Number");
-                    if(phoneNumber.length() > 0){
+                    if (phoneNumber.length() > 0) {
                         UserManager.setPhoneNumber(username, accessKey, phoneNumber);
                     }
                     String nickname = fields.get("Nickname");
-                    if(nickname.length() > 0) {
+                    if (nickname.length() > 0) {
                         UserManager.setNickname(username, accessKey, nickname);
                     }
-                    UserInformationScene us = (UserInformationScene)UserInformationScene.getInstance();
+                    UserInformationScene us = (UserInformationScene) UserInformationScene.getInstance();
                     switchScene(us);
                     us.updateUserInfo();
-                }catch (UnauthorizedAccessException | IncorrectOldPasswordException e){
+                } catch (UnauthorizedAccessException | IncorrectOldPasswordException e) {
                     this.state.append(e.getMessage()).append("\n");
                 }
                 break;
@@ -80,7 +80,7 @@ public class UserInfoEditScene extends Scene {
                 this.state.append(this.getHelpMessage());
                 break;
             case "back":
-                switchScene((Scene)UserInformationScene.getInstance());
+                switchScene((Scene) UserInformationScene.getInstance());
                 break;
             default:
                 this.state.append((new UnknownCommandException()).getMessage()).append("\n");
@@ -90,7 +90,6 @@ public class UserInfoEditScene extends Scene {
     }
 
     /**
-     *
      * @return the output string to commandline interface.
      */
     @Override

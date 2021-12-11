@@ -3,7 +3,9 @@ package default_scene_implementation;
 import controllers.Scene;
 import exceptions.UnknownCommandException;
 import singleton_pattern.Singleton;
+
 import java.util.ArrayList;
+
 import use_case.UserManager;
 
 class RegisterScene extends Scene {
@@ -29,15 +31,14 @@ class RegisterScene extends Scene {
                 """);
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return rs;
     }
 
     /**
-     *
      * @param input input from commandline interface.
      */
-    public void handleInputString(String input){
+    public void handleInputString(String input) {
         String[] arr = input.split(" ");
         switch (arr[0]) {
             case "U" -> fillInField("Username", arr[1]);
@@ -52,7 +53,6 @@ class RegisterScene extends Scene {
     }
 
     /**
-     *
      * @return Output String to the interface.
      */
     public String constructOutputString() {
@@ -75,10 +75,10 @@ class RegisterScene extends Scene {
         String password = this.fields.get("Password");
         String nickname = this.fields.get("Nickname");
         String phoneNumber = this.fields.get("Phone Number");
-        if(UserManager.createUser(username, password, nickname, phoneNumber)){
+        if (UserManager.createUser(username, password, nickname, phoneNumber)) {
             this.clearFields();
             this.state.append("Successfully registered new user, you can now proceed to log in!\n");
-        }else{
+        } else {
             this.state.append("User with the given username has already been registered!\n");
         }
     }

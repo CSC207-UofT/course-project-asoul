@@ -14,7 +14,7 @@ public class SorterSimpleFactory {
         };
     }
 
-    public static boolean containsSorter(String s){
+    public static boolean containsSorter(String s) {
         String[] sorters = {"rating", "name"};
         return Arrays.asList(sorters).contains(s);
     }

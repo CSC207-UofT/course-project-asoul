@@ -33,20 +33,19 @@ class FoodTruckEditScene extends Scene {
         this.setHelpMessage(helpMessage);
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return ies;
     }
 
     /**
-     *
      * @param input input form commandline interface.
      */
     @Override
-    public void handleInputString(String input){
+    public void handleInputString(String input) {
         String[] text = input.split(" ");
         switch (text[0]) {
             case "back":
-                switchScene((UserInformationScene)UserInformationScene.getInstance());
+                switchScene((UserInformationScene) UserInformationScene.getInstance());
                 break;
             case "help":
                 this.state.append(this.getHelpMessage());
@@ -55,7 +54,7 @@ class FoodTruckEditScene extends Scene {
                 this.fillInField("New Truck Name", text[1]);
                 break;
             case "start":
-                try{
+                try {
                     String newTime = generateTime(text[1], text[2]);
                     this.fillInField("New Start Time", newTime);
                 } catch (IncorrectArgumentException e) {
@@ -63,7 +62,7 @@ class FoodTruckEditScene extends Scene {
                 }
                 break;
             case "end":
-                try{
+                try {
                     String newTime = generateTime(text[1], text[2]);
                     this.fillInField("New End Time", newTime);
                 } catch (IncorrectArgumentException e) {
@@ -71,7 +70,7 @@ class FoodTruckEditScene extends Scene {
                 }
                 break;
             case "change_menu":
-                 switchScene((MenuEditScene)MenuEditScene.getInstance());
+                switchScene((MenuEditScene) MenuEditScene.getInstance());
                 break;
             case "location":
                 this.fillInField("New Location", text[1]);
@@ -79,23 +78,24 @@ class FoodTruckEditScene extends Scene {
             case "confirm":
                 try {
                     if (!fields.get("New Truck Name").equals("")) {
-                        FoodTruckManager.setTruckName(fields.get("New Truck Name"), username, accessKey);}
+                        FoodTruckManager.setTruckName(fields.get("New Truck Name"), username, accessKey);
+                    }
                     String location = fields.get("New Location");
-                    if(location.length() > 0){
+                    if (location.length() > 0) {
                         FoodTruckManager.setAddress(location, username, accessKey);
                     }
                     String startTime = fields.get("New Start Time");
-                    if(startTime.length() > 0) {
+                    if (startTime.length() > 0) {
                         FoodTruckManager.setStartTime(startTime, username, accessKey);
                     }
                     String endTime = fields.get("New End Time");
-                    if(endTime.length() > 0) {
+                    if (endTime.length() > 0) {
                         FoodTruckManager.setEndTime(endTime, username, accessKey);
                     }
-                    UserInformationScene us = (UserInformationScene)UserInformationScene.getInstance();
-                    switchScene((UserInformationScene)UserInformationScene.getInstance());
+                    UserInformationScene us = (UserInformationScene) UserInformationScene.getInstance();
+                    switchScene((UserInformationScene) UserInformationScene.getInstance());
                     us.updateUserInfo();
-                }catch (UnauthorizedAccessException e){
+                } catch (UnauthorizedAccessException e) {
                     this.state.append(e.getMessage()).append("\n");
                 }
                 break;
@@ -106,11 +106,10 @@ class FoodTruckEditScene extends Scene {
     }
 
     /**
-     *
      * @return the output string of this string.
      */
     @Override
-    public String constructOutputString(){
+    public String constructOutputString() {
         StringBuilder outputString = new StringBuilder();
         String location = this.fields.get("New Location");
         String truckName = this.fields.get("New Truck Name");
@@ -125,9 +124,8 @@ class FoodTruckEditScene extends Scene {
     }
 
     /**
-     *
      * @param username username of the user
-     * @param key access key
+     * @param key      access key
      */
     public void setUserInfo(String username, String key) {
         this.username = username;
@@ -135,9 +133,8 @@ class FoodTruckEditScene extends Scene {
     }
 
     /**
-     *
      * @param midday decide it's AM or PM
-     * @param hour hour of the day
+     * @param hour   hour of the day
      * @return the string of new time
      * @throws IncorrectArgumentException if the arguments are incorrect.
      */
@@ -155,7 +152,6 @@ class FoodTruckEditScene extends Scene {
     }
 
     /**
-     *
      * @param large an upper bound
      * @param check a number
      * @return true if the number is between 1 and the upper bound.

@@ -7,7 +7,9 @@ import serialization.Serializer;
 
 import java.io.*;
 import java.util.HashMap;
+
 import helper.RandomStringGenerator;
+
 /**
  * A Use_case.OrderManager that manages all the Orders.
  */
@@ -19,22 +21,23 @@ public class OrderManager {
 
     /**
      * Create an order and add it to the list.
-     * @param cart The items included in this order
-     * @param customerName   name of the customer who ordered the food
-     * @param sellerName     name of the seller who owns the food truck
+     *
+     * @param cart         The items included in this order
+     * @param customerName name of the customer who ordered the food
+     * @param sellerName   name of the seller who owns the food truck
      */
 
     static void createOrder(HashMap<String, Integer> cart, String customerName, String sellerName)
             throws UnknownFoodException, UnknownFoodTruckException, UnknownUserException {
         RandomStringGenerator rs = new RandomStringGenerator();
         String id = rs.generateRandomString();
-        while(orders.containsKey(id)){
+        while (orders.containsKey(id)) {
             id = rs.generateRandomString();
         }
         StringBuilder sb = new StringBuilder();
         String bPhone = UserManager.getPhoneNumber(customerName);
         String sPhone = UserManager.getPhoneNumber(sellerName);
-        for(String key: cart.keySet()){
+        for (String key : cart.keySet()) {
             String foodName = FoodTruckManager.getFoodName(sellerName, key);
             String quantity = cart.get(key).toString();
             String price = (Math.round(FoodTruckManager.getFoodPrice(sellerName, key) * 100.0) / 100.0) + "";
@@ -50,7 +53,7 @@ public class OrderManager {
         orders.put(id, new_order);
         try {
             UserManager.updateOrderHistory(id);
-        }catch (UnknownOrderException e){
+        } catch (UnknownOrderException e) {
             e.printStackTrace(); // This situation is impossible
         }
     }
@@ -60,22 +63,22 @@ public class OrderManager {
      * @return A String that represents the order's information
      * @throws UnknownOrderException If the order with specified id does not exist
      */
-    public static String getOrderDetail(String id) throws UnknownOrderException{
-        if(!orders.containsKey(id)){
+    public static String getOrderDetail(String id) throws UnknownOrderException {
+        if (!orders.containsKey(id)) {
             throw new UnknownOrderException();
         }
         return orders.get(id).toString();
     }
 
-    public static String getOrderDescription(String id) throws UnknownOrderException{
-        if(!orders.containsKey(id)){
+    public static String getOrderDescription(String id) throws UnknownOrderException {
+        if (!orders.containsKey(id)) {
             throw new UnknownOrderException();
         }
         return orders.get(id).getDescription();
     }
 
-    static Order getOrder(String id) throws UnknownOrderException{
-        if(!orders.containsKey(id)){
+    static Order getOrder(String id) throws UnknownOrderException {
+        if (!orders.containsKey(id)) {
             throw new UnknownOrderException();
         }
         return orders.get(id);
@@ -87,24 +90,24 @@ public class OrderManager {
      *
      * @param rating should be a double <= 10 & >= 0
      * @param id     the id of the order we want to rate
-     * @throws UnknownOrderException If the order with specified id does not exist
+     * @throws UnknownOrderException       If the order with specified id does not exist
      * @throws UnauthorizedAccessException If the wrong accessKey is provided or the user does not exist
-     * @throws IncorrectArgumentException If the rating is not between 0 and 10
+     * @throws IncorrectArgumentException  If the rating is not between 0 and 10
      */
     public static void rateOrder(String username, String accessKey, double rating, String id) throws UnknownOrderException,
-            UnauthorizedAccessException, IncorrectArgumentException{
+            UnauthorizedAccessException, IncorrectArgumentException {
         UserManager.accessCheck(username, accessKey);
-        if(!orders.containsKey(id)){
+        if (!orders.containsKey(id)) {
             throw new UnknownOrderException();
         }
         Order o = orders.get(id);
-        if(!o.getBuyer().equals(username)){
+        if (!o.getBuyer().equals(username)) {
             throw new UnauthorizedAccessException();
         }
         o.rateOrder(rating);
         try {
             FoodTruckManager.updateRating(o.getSeller(), id, rating);
-        }catch (UnknownUserException | UnknownFoodTruckException e){
+        } catch (UnknownUserException | UnknownFoodTruckException e) {
             // Do nothing, this situation is impossible
         }
     }
@@ -113,7 +116,7 @@ public class OrderManager {
     public static void constructOrderDataBase() throws IOException, ClassNotFoundException {
         oDeserializer.deserialize("./data/order info");
         HashMap<String, Order> m = (HashMap<String, Order>) oDeserializer.getObject();
-        if(m != null){
+        if (m != null) {
             orders = m;
         }
     }

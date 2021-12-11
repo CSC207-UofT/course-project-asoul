@@ -60,7 +60,7 @@ public class TestFoodTruck {
     }
 
     @org.junit.Test
-    public void getMenuTest(){
+    public void getMenuTest() {
         FoodMenu menu = foodTruck.getMenu();
 
         assert !menu.hasFoodId("1");

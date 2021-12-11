@@ -7,7 +7,7 @@ public class TestUser {
     User user;
 
     @org.junit.Before
-    public void Setup(){
+    public void Setup() {
         user = new User("Yx", "yxyyds", "yuanxiao", "110108");
     }
 

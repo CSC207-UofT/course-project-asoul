@@ -19,6 +19,7 @@ public class FoodTruck implements Serializable {
     // we are going to change it in the rating system. So it can't be final.
     private final FoodMenu menu; //Menu of the Entities.Food Truck
     private final HashMap<String, Double> ratings;
+
     /**
      * Construct an instance of a Entities.FoodTruck
      *
@@ -59,12 +60,12 @@ public class FoodTruck implements Serializable {
 
     /**
      * remove food from menu if food with specified id is in menu.
-     *
      */
 
     public void removeFoodFromMenu(String id) {
         this.menu.removeFood(id);
     }
+
     //A string description of the Entities.Food Truck (name, location, rating...)
     @Override
     public String toString() {
@@ -82,7 +83,6 @@ public class FoodTruck implements Serializable {
     }
 
     /**
-     *
      * @return the String of the food truck's description.
      */
     public String getDetailedDescription() {
@@ -94,7 +94,7 @@ public class FoodTruck implements Serializable {
                 Address: %s
                 Owner: %s
                 rating: %f
-                """, truckName,  serviceTimeStart, serviceTimeEnd, location, seller, getRating()
+                """, truckName, serviceTimeStart, serviceTimeEnd, location, seller, getRating()
         );
         sb.append(f).append("\n\n");
         sb.append("-----------Menu-----------\n");
@@ -103,14 +103,13 @@ public class FoodTruck implements Serializable {
     }
 
     /**
-     *
      * @param cart hash map as a cart of food.
      * @return the total price of foods in the cart.
      * @throws UnknownFoodException if the cart contains foods that don't exit.
      */
     public double calculatePrice(HashMap<String, Integer> cart) throws UnknownFoodException {
         double total = 0;
-        for(String id: cart.keySet()){
+        for (String id : cart.keySet()) {
             int quantity = cart.get(id);
             double price = menu.getFoodPrice(id);
             total += (quantity * price);
@@ -119,31 +118,31 @@ public class FoodTruck implements Serializable {
     }
 
     /**
-     *
      * @param newName the new name user wants to assign to this truck.
      */
     public void setTruckName(String newName) {
         this.truckName = newName;
     }
 
-    public void setServiceTimeStart(String time){
+    public void setServiceTimeStart(String time) {
         this.serviceTimeStart = time;
     }
 
-    public void setServiceTimeEnd(String time){
+    public void setServiceTimeEnd(String time) {
         this.serviceTimeEnd = time;
     }
 
-    public void setAddress(String address){
+    public void setAddress(String address) {
         this.location = address;
     }
 
     /**
      * Update the rating of the food truck given a rating.
+     *
      * @param rating new rating of the food truck.
      */
     public void updateRating(String id, double rating) throws IncorrectArgumentException {
-        if(rating < 0 || rating > 10){
+        if (rating < 0 || rating > 10) {
             throw new IncorrectArgumentException();
         }
         this.ratings.put(id, rating);
@@ -168,20 +167,18 @@ public class FoodTruck implements Serializable {
     }
 
     /**
-     *
      * @return how many people rated this food truck.
      */
-    public int getNumberOfRatings(){
+    public int getNumberOfRatings() {
         return ratings.size();
     }
 
     /**
-     *
      * @return the rating of this food truck.
      */
     public double getRating() {
         double s = 0;
-        for(String id: ratings.keySet()){
+        for (String id : ratings.keySet()) {
             s += ratings.get(id);
         }
         s = s / ratings.size();

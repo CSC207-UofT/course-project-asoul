@@ -1,7 +1,7 @@
 package exceptions;
 
-public class CollidedFoodException extends Exception{
-    public CollidedFoodException(){
+public class CollidedFoodException extends Exception {
+    public CollidedFoodException() {
         super("Food Collided!");
     }
 }

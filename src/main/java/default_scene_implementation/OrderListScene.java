@@ -18,7 +18,7 @@ public class OrderListScene extends Scene {
     private String username;
     private String accessKey;
 
-    private OrderListScene(){
+    private OrderListScene() {
         super();
         this.username = "";
         this.accessKey = "";
@@ -40,13 +40,12 @@ public class OrderListScene extends Scene {
     }
 
     /**
-     *
      * @param input input from interface.
      */
     @Override
     public void handleInputString(String input) {
         String[] text = input.split(" ");
-        OrderScene scene = (OrderScene)OrderScene.getInstance();
+        OrderScene scene = (OrderScene) OrderScene.getInstance();
         switch (text[0]) {
             case "help" -> this.state.append(this.getHelpMessage());
             case "back" -> switchScene((UserInformationScene) UserInformationScene.getInstance());
@@ -73,29 +72,28 @@ public class OrderListScene extends Scene {
     }
 
     /**
-     *
      * @return output String to interface.
      */
     @Override
     public String constructOutputString() {
         updateMaps();
         try {
-            
-        return "Buy Order History: \n" + constructMapString(buyOrderHistory) + "\n" +
-                "Sell Order History: \n" + constructMapString(sellOrderHistory) + "\n" +
-                "Buy In Progress: \n" + constructMapString(buyInProgress) + "\n" +
-                "Sell In Progress: \n" + constructMapString(sellInProgress) + "\n" +
-                this.state;}
-        catch (UnknownOrderException e) {
+
+            return "Buy Order History: \n" + constructMapString(buyOrderHistory) + "\n" +
+                    "Sell Order History: \n" + constructMapString(sellOrderHistory) + "\n" +
+                    "Buy In Progress: \n" + constructMapString(buyInProgress) + "\n" +
+                    "Sell In Progress: \n" + constructMapString(sellInProgress) + "\n" +
+                    this.state;
+        } catch (UnknownOrderException e) {
             return state.append(e.getMessage()).toString();
         }
     }
 
-    public static Singleton getInstance(){
+    public static Singleton getInstance() {
         return uls;
     }
 
-    public void setOrderListInfo(String username, String key){
+    public void setOrderListInfo(String username, String key) {
         this.username = username;
         this.accessKey = key;
     }
@@ -104,44 +102,42 @@ public class OrderListScene extends Scene {
      * Update the OrderLists.
      */
     private void updateMaps() {
-        try{
-        sellInProgress = constructOrderMap(UserManager.getSellInProgress(username, accessKey));
-        buyInProgress = constructOrderMap(UserManager.getBuyInProgress(username, accessKey));
-        sellOrderHistory = constructOrderMap(UserManager.getSellOrderHistory(username, accessKey));
-        buyOrderHistory = constructOrderMap(UserManager.getBuyOrderHistory(username, accessKey));}
-        catch (UnauthorizedAccessException e) {
+        try {
+            sellInProgress = constructOrderMap(UserManager.getSellInProgress(username, accessKey));
+            buyInProgress = constructOrderMap(UserManager.getBuyInProgress(username, accessKey));
+            sellOrderHistory = constructOrderMap(UserManager.getSellOrderHistory(username, accessKey));
+            buyOrderHistory = constructOrderMap(UserManager.getBuyOrderHistory(username, accessKey));
+        } catch (UnauthorizedAccessException e) {
             state.append(e.getMessage());
         }
 
     }
 
     /**
-     *
      * @param map a map from an integer to a string of order description.
      * @return a string of this map
      * @throws UnknownOrderException if some orders are unknown.
      */
     private String constructMapString(HashMap<Integer, String> map) throws UnknownOrderException {
         StringBuilder result = new StringBuilder();
-        for (Integer i : map.keySet()){
+        for (Integer i : map.keySet()) {
             String orderDescription = OrderManager.getOrderDescription(map.get(i));
             result.append("ID: ").append(i).append(" ").append(orderDescription).append("  ");
         }
         return result.toString();
-        
+
     }
 
     /**
-     *
      * @param set a set of orders.
      * @return a hashmap from food ID to order description.
      */
     private HashMap<Integer, String> constructOrderMap(HashSet<String> set) {
         HashMap<Integer, String> result = new HashMap<>();
         Integer key = 1;
-        for (String element: set) {
+        for (String element : set) {
             result.put(key, element);
-            key ++;
+            key++;
         }
         return result;
     }

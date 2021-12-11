@@ -38,10 +38,10 @@ public class TestFoodTruckManager {
     }
 
     @org.junit.Test
-    public void getRatingTest() throws IncorrectCredentialsException{
+    public void getRatingTest() throws IncorrectCredentialsException {
         UserManager.createUser("a", "a", "a", "a");
         UserManager.login("a", "a");
-        assert FoodTruckManager.getRating("a")  != -100;
+        assert FoodTruckManager.getRating("a") != -100;
     }
 
     @org.junit.Test
@@ -63,13 +63,14 @@ public class TestFoodTruckManager {
         UserManager.createUser("a", "a", "a", "a");
         assert FoodTruckManager.getFoodTruckDetail("a") != null;
     }
+
     @org.junit.Test
     public void getFoodNameTest() {
-        try{
-        UserManager.createUser("a", "a", "a", "a");
-        UserManager.login("a", "a");
-        FoodTruckManager.getFoodName("a", "5");}
-        catch (Exception e){
+        try {
+            UserManager.createUser("a", "a", "a", "a");
+            UserManager.login("a", "a");
+            FoodTruckManager.getFoodName("a", "5");
+        } catch (Exception e) {
             assert true;
         }
     }
