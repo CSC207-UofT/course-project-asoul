@@ -70,7 +70,7 @@ public class TestFoodTruck {
 
     @org.junit.Test
     public void getMenuTest() throws UnknownFoodException {
-        Food burger = new Food("Burger", 9.99, "A standard Beef Burger.");
+        Food burger = new Food("Burge", 9.99, "A standard Beef Burger.");
         FoodMenu menu = foodTruck.getMenu();
 
         assert menu.hasFoodId("1");
@@ -80,7 +80,7 @@ public class TestFoodTruck {
 
     @org.junit.Test
     public void removeFoodFromMenuDefeatTest() throws UnknownFoodException {
-        Food burger = new Food("Burger", 9.99, "A standard Beef Burger.");
+        Food burger = new Food("Bur", 9.99, "A standard Beef Burger.");
         foodTruck.removeFoodFromMenu("2");
         assert foodTruck.getMenu().hasFoodId("1");
         assert foodTruck.getMenu().getFood("1").compareTo(burger) == 0;

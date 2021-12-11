@@ -22,19 +22,19 @@ public class TestFood {
 
     @org.junit.Test
     public void getDescriptionTest() {
-        Food n = new Food("Sandwich", 9.99, "Delicious Sandwich");
+        Food n = new Food("Sandwh", 9.99, "Delicious Sandwich");
         assert food.getDescriptions().equals("Delicious Sandwich");
     }
 
     @org.junit.Test
     public void compareToTest_1() {
-        Food n = new Food("Burger", 9.99, "Delicious burger");
+        Food n = new Food("DD", 9.99, "Delicious burger");
         assert food.compareTo(n) == 0;
     }
 
     @org.junit.Test
     public void compareToTest_2() {
-        Food n = new Food("Sandwich", 9.99, "Delicious Sandwich");
+        Food n = new Food("Sandwi", 9.99, "Delicious Sandwich");
         assert food.compareTo(n) > 0;
     }
 }
