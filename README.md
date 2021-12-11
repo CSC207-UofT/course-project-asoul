@@ -7,13 +7,13 @@ Here is a [demo](https://drive.google.com/file/d/1aCqhwBWwrBnrb5dMkkQCLdbaphxzIf
 <br />
 Thanks for your interests in ASOUL app, we are currently working on the market features and order features, so stay tuned. 
 
-<br />
+
 **Update:** 
 
   Current Status with the Android app and its reasons (important): we have created a runnable Android app with some of the functionalities mentioned above (namely all the login/register, user information, edit user info/truck info, and so on). Within the Android app, we have designed the layout page for every single scene. However, due to our lack of experience with creating android app, along with many unexpected gradle and setting problems, we were unable to fully implement all the features that our full program supports.
   
 
-<br />
+
 **Update:** 
 
   Because of the unexpected error (we guess it's maybe because of gradle setting), our serialization fucntion of the Android App doesn't work currently. We will trying to fix it and resume it.
