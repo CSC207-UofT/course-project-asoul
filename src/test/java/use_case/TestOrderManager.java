@@ -13,8 +13,8 @@ public class TestOrderManager {
 
     @org.junit.Before
     public void Setup() throws IncorrectCredentialsException {
-        UserManager.createUser("a", "123", "mike", "12345");
-        key = UserManager.login("a", "123");
+        UserManager.createUser("adfasdf", "123", "mike", "12345");
+        key = UserManager.login("adfasdf", "123");
     }
 
     @org.junit.Test

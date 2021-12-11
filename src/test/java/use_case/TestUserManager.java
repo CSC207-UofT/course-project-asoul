@@ -7,8 +7,8 @@ public class TestUserManager {
 
     @org.junit.Test
     public void createUserTest() throws Exception {
-        UserManager.createUser("a", "a", "tom", "a");
-        assert UserManager.getNickname("a").equals("tom");
+        UserManager.createUser("z", "a", "tom", "a");
+        assert UserManager.getNickname("z").equals("tom");
     }
 
     @org.junit.Test
