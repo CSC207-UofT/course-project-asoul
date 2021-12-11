@@ -10,26 +10,23 @@ public class TestFood {
 
     @org.junit.Test
     public void getFoodNameTest() {
-        Food n = new Food("Sandwich", 9.99, "Delicious Sandwich");
-        assert food.getFoodName().equals("Sandwich");
+        assert food.getFoodName().equals("Burger");
     }
 
     @org.junit.Test
     public void getPriceTest() {
-        Food n = new Food("Sandwich", 9.99, "Delicious Sandwich");
         assert food.getPrice() == 9.99;
     }
 
     @org.junit.Test
     public void getDescriptionTest() {
-        Food n = new Food("Sandwh", 9.99, "Delicious Sandwich");
-        assert food.getDescriptions().equals("Delicious Sandwich");
+        assert food.getDescriptions().equals("Delicious burger");
     }
 
     @org.junit.Test
     public void compareToTest_1() {
         Food n = new Food("DD", 9.99, "Delicious burger");
-        assert food.compareTo(n) == 0;
+        assert food.compareTo(n) != 0;
     }
 
     @org.junit.Test

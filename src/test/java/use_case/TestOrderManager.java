@@ -1,14 +1,12 @@
 package use_case;
 
 import entities.Order;
-import entities.User;
 import exceptions.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestOrderManager {
-    User user;
     String key;
 
     @org.junit.Before
