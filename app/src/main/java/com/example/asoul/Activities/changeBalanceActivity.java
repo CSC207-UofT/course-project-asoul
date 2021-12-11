@@ -15,7 +15,7 @@ import exceptions.UnauthorizedAccessException;
 import helper.GlobalVariables;
 import use_case.UserManager;
 
-public class changeBalanceActivity extends AppCompatActivity {
+public class ChangeBalanceActivity extends AppCompatActivity {
 
     EditText fundAmount;
     TextView fundAccessError;
