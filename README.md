@@ -6,7 +6,7 @@ course-project-asoul created by GitHub Classroom
     Here is a [demo](https://drive.google.com/file/d/1aCqhwBWwrBnrb5dMkkQCLdbaphxzIfyo/view?usp=sharing) of our Android app. We have designed layouts and partially implemented features. in particular, you can try our user system, rating system, and login system.
 
     Thanks for your interests in ASOUL app, we are currently working on the market features and order features, so stay tuned. 
-<br />
+
 
 **Update:** 
 
