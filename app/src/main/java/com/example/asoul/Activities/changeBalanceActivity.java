@@ -2,7 +2,6 @@ package com.example.asoul.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,8 +25,6 @@ public class changeBalanceActivity extends AppCompatActivity {
     String username;
 
 
-
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +32,7 @@ public class changeBalanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_balance);
 
         fundAmount = findViewById(R.id.ETAmount);
-        fundAccessError  = findViewById(R.id.fundAccessError);
+        fundAccessError = findViewById(R.id.fundAccessError);
         addFund = findViewById(R.id.btnAddFundPage);
         withdrawFund = findViewById(R.id.btnWithdrawFundPage);
         fromFundBackToUserInfo = findViewById(R.id.btnFromFundToUserInfo);

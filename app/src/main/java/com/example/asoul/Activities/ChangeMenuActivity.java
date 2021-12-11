@@ -1,7 +1,6 @@
 package com.example.asoul.Activities;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,52 +33,40 @@ public class ChangeMenuActivity extends AppCompatActivity {
         String fail = "Change failed. Please Try again.";
 
         String username = GlobalVariables.getUsername();
-        String accessKey = GlobalVariables.getKey();
 
         Button mbAddFood = findViewById(R.id.cm_addb);
-        mbAddFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (foodName.equals("") | description.equals("") | price.equals("") | id.equals("")) {
-                    Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
-                } else {
-                    try {
-                        FoodTruckManager.addFoodToMenu(foodName,price,description,id,username);
-                    } catch (CollidedFoodException e) {
-                        e.printStackTrace();
-                    } catch (FoodIdCollisionException e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
+        mbAddFood.setOnClickListener(v -> {
+            if (foodName.equals("") | description.equals("") | price.equals("") | id.equals("")) {
+                Toast.makeText(getApplicationContext(), fail, Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    FoodTruckManager.addFoodToMenu(foodName, price, description, id, username);
+                } catch (CollidedFoodException | FoodIdCollisionException e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(getApplicationContext(), success, Toast.LENGTH_SHORT).show();
             }
         });
         // May have some error since lack of try/catch
 
         Button mbDeleteFood = findViewById(R.id.cm_deleteb);
-        mbDeleteFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (foodName.equals("")) {
-                    Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
+        mbDeleteFood.setOnClickListener(v -> {
+            if (foodName.equals("")) {
+                Toast.makeText(getApplicationContext(), fail, Toast.LENGTH_SHORT).show();
+            } else {
+                boolean t = FoodTruckManager.removeFoodFromMenu(foodName, username);
+                if (!t) {
+                    Toast.makeText(getApplicationContext(), fail, Toast.LENGTH_SHORT).show();
                 } else {
-                    boolean t = FoodTruckManager.removeFoodFromMenu(foodName,username);
-                    if (!t) {
-                        Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(getApplicationContext(), success, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         Button mbBack = findViewById(R.id.cm_back);
-        mbBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChangeMenuActivity.this, ChangeTruckInfoActivity.class);
-                startActivity(intent);
-            }
+        mbBack.setOnClickListener(v -> {
+            Intent intent = new Intent(ChangeMenuActivity.this, ChangeTruckInfoActivity.class);
+            startActivity(intent);
         });
     }
 }

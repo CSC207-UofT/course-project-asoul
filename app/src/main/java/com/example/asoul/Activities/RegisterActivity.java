@@ -30,28 +30,27 @@ public class RegisterActivity extends AppCompatActivity {
         username = findViewById(R.id.ETRegisterUsername);
         password = findViewById(R.id.ETRegisterPassword);
         nickname = findViewById(R.id.ETRegisterNickname);
-        phone =  findViewById(R.id.ETRegisterPhone);
+        phone = findViewById(R.id.ETRegisterPhone);
         registerState = findViewById(R.id.registerState);
         register = findViewById(R.id.btnRegister);
         register.setOnClickListener(view -> {
             if (UserManager.createUser(username.getText().toString(),
                     password.getText().toString(),
                     nickname.getText().toString(),
-                    phone.getText().toString())){
+                    phone.getText().toString())) {
                 try {
                     UserManager.saveUserDataBase();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 String success = "Successfully registered.\n Proceeding to log in...";
-                Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), success, Toast.LENGTH_SHORT).show();
                 // registerState.setText("Successfully registered new user, you can now proceed to log in!");
                 setSwitchToLoginActivity();
-            }
-            else{
+            } else {
                 String fail = "Username has already been registered!";
                 // registerState.setText("User with the given username has already been registered!");
-                Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), fail, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -61,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void setSwitchToLoginActivity(){
+    private void setSwitchToLoginActivity() {
         Intent switchActivityIntent = new Intent(this, LoginActivity.class);
         startActivity(switchActivityIntent);
     }

@@ -6,7 +6,7 @@ This android app provides service for students to order food from FoodTrucks on 
 Here is a [demo](https://drive.google.com/file/d/1aCqhwBWwrBnrb5dMkkQCLdbaphxzIfyo/view?usp=sharing) of our Android app. We have designed layouts and partially implemented features. in particular, you can try our user system, rating system, and login system.
 <br />
 Thanks for your interests in ASOUL app, we are currently working on the market features and order features, so stay tuned. 
-
+<br />
 
 **Update:** 
 
@@ -17,3 +17,8 @@ Thanks for your interests in ASOUL app, we are currently working on the market f
 **Update:** 
 
   Because of the unexpected error (we guess it's maybe because of gradle setting), our serialization fucntion of the Android App doesn't work currently. We will trying to fix it and resume it.
+
+
+IMPORTANT NOTE FOR RUNNING:
+After you clone the repository and try to run it from your machine, you might encounter the error "SDK path" not defined. To fix this, simply define a file called local.properties under the project folder and define your SDK path inside. For more details on where your SDK path might be, please see:
+https://stackoverflow.com/questions/27620262/sdk-location-not-found-define-location-with-sdk-dir-in-the-local-properties-fil 

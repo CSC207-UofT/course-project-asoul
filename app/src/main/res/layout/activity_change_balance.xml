@@ -1,79 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Activities.changeBalanceActivity"
-        android:background="@drawable/login_bg">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.changeBalanceActivity"
+    android:background="@drawable/login_bg">
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:textSize="35sp"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintLeft_toLeftOf="parent"
-              android:textStyle="bold"
-              android:layout_marginTop="20sp"
-              android:text="@string/add_withdraw_fund"
-              android:backgroundTint="@color/white"
-              android:id="@+id/add_with_fund"
-    />
-    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
-              app:layout_constraintTop_toBottomOf="@+id/add_with_fund"
-              app:layout_constraintLeft_toLeftOf="parent"
-              android:layout_marginTop="40sp"
-              android:minHeight="25sp"
-              android:textSize="20sp"
-              android:id="@+id/ETAmount"
-              android:hint="@string/enter_the_amount_you_want_to_add_withdraw"
-              android:importantForAutofill="no"
-              android:inputType="numberDecimal"
-              android:textColorHint="#311B92"/>
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/btnAddFundPage"
-            android:backgroundTint="@color/white"
-            android:text="@string/add_fund"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/ETAmount"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginStart="20sp"
-            android:layout_marginTop="10sp"
-    />
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/btnWithdrawFundPage"
-            android:backgroundTint="@color/white"
-            android:text="@string/withdraw_fund"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/ETAmount"
-            app:layout_constraintLeft_toRightOf="@id/btnAddFundPage"
-            android:layout_marginStart="20sp"
-            android:layout_marginTop="10sp"
-    />
     <TextView
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:id="@+id/fundAccessError"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddFundPage"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textStyle="bold"
+        android:layout_marginTop="20sp"
+        android:text="@string/add_withdraw_fund"
+        android:backgroundTint="@color/white"
+        android:id="@+id/add_with_fund" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/add_with_fund"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="40sp"
+        android:minHeight="25sp"
+        android:textSize="20sp"
+        android:id="@+id/ETAmount"
+        android:hint="@string/enter_the_amount_you_want_to_add_withdraw"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:textColorHint="#311B92" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAddFundPage"
+        android:backgroundTint="@color/white"
+        android:text="@string/add_fund"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/ETAmount"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="10sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnWithdrawFundPage"
+        android:backgroundTint="@color/white"
+        android:text="@string/withdraw_fund"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/ETAmount"
+        app:layout_constraintLeft_toRightOf="@id/btnAddFundPage"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="10sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fundAccessError"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddFundPage"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20sp"
 
 
-    />
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/btnFromFundToUserInfo"
-            android:backgroundTint="@color/white"
-            android:text="@string/back"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/fundAccessError"
-            app:layout_constraintRight_toRightOf="@id/btnWithdrawFundPage"
-            android:layout_marginStart="20sp"
-            android:layout_marginTop="50sp"
-    />
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnFromFundToUserInfo"
+        android:backgroundTint="@color/white"
+        android:text="@string/back"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/fundAccessError"
+        app:layout_constraintRight_toRightOf="@id/btnWithdrawFundPage"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="50sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

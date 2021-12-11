@@ -1,69 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    tools:context="Activities.LoginActivity"
+    android:orientation="vertical">
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/login_bg"
-        tools:context="Activities.LoginActivity" android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:text="@string/asoul"
+        android:textSize="68sp"
+        android:textStyle="italic"
+        android:gravity="center" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100sp"
+        android:id="@+id/editTextUsername"
+        android:hint="@string/sign_in_with_username"
+        android:gravity="center"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:id="@+id/editTextPassword"
+        android:hint="@string/enter_password"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSignIn"
+        android:layout_marginStart="160sp"
+        android:layout_marginTop="20sp"
+        android:textColor="@color/black"
+        android:text="@string/sign_in"
+        android:backgroundTint="@android:color/white"
+        android:textSize="16sp" />
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/asoul"
-            android:textSize="68sp"
-            android:textStyle="italic"
-            android:gravity="center"
-    />
-    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:layout_marginTop="100sp"
-              android:id="@+id/editTextUsername"
-              android:hint="@string/sign_in_with_username"
-              android:gravity="center"
-              android:inputType="text" android:importantForAutofill="no"/>
-    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:layout_marginTop="10sp"
-              android:id="@+id/editTextPassword"
-              android:hint="@string/enter_password"
-              android:gravity="center"
-              android:inputType="textPassword"
-              android:importantForAutofill="no"/>
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/btnSignIn"
-            android:layout_marginStart="160sp"
-            android:layout_marginTop="20sp"
-            android:textColor="@color/black"
-            android:text="@string/sign_in"
-            android:backgroundTint="@android:color/white"
-            android:textSize="16sp"
-    />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/or_if_you_do_not_have_an_account"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:layout_marginTop="40sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRegisterPage"
+        android:layout_marginStart="155sp"
+        android:layout_marginTop="10sp"
+        android:textColor="@color/black"
+        android:text="@string/register"
+        android:backgroundTint="@android:color/white"
+        android:textSize="16sp" />
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/or_if_you_do_not_have_an_account"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:gravity="center"
-            android:layout_marginTop="40sp"
-    />
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/btnRegisterPage"
-            android:layout_marginStart="155sp"
-            android:layout_marginTop="10sp"
-            android:textColor="@color/black"
-            android:text="@string/register"
-            android:backgroundTint="@android:color/white"
-            android:textSize="16sp"
-    />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/loginError"
+        android:layout_marginTop="20sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
+        android:textSize="25sp"
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:layout_gravity="center"
-              android:id="@+id/loginError"
-              android:layout_marginTop="20sp"
-              android:textColor="@color/black"
-              android:backgroundTint="@color/white"
-              android:textSize="25sp"
-
-              />
+        />
 </LinearLayout>

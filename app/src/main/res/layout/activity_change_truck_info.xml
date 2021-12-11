@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,7 +11,7 @@
         android:id="@+id/cti_1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Truck Information"
+        android:text="@string/truck_information"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:layout_marginTop="10dp"
@@ -25,10 +24,12 @@
         android:layout_height="50dp"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:hint="Truck name"
+        android:hint="@string/truck_name"
         android:maxLines="1"
         android:padding="5dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:autofillHints=""
+        android:inputType="textAutoCorrect" />
 
 
     <EditText
@@ -37,10 +38,12 @@
         android:layout_height="50dp"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:hint="Start Time"
+        android:hint="@string/start_time"
         android:maxLines="1"
         android:padding="5dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:autofillHints=""
+        android:inputType="textAutoCorrect" />
 
     <EditText
         android:id="@+id/cti_et"
@@ -48,10 +51,13 @@
         android:layout_height="50dp"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:hint="End Time"
+        android:hint="@string/end_time"
         android:maxLines="1"
         android:padding="5dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:autofillHints=""
+        android:inputType="textAutoCorrect"
+        tools:ignore="TextFields" />
 
     <EditText
         android:id="@+id/cti_location"
@@ -59,17 +65,19 @@
         android:layout_height="50dp"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:hint="Location"
+        android:hint="@string/location"
         android:maxLines="1"
         android:padding="5dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:autofillHints=""
+        android:inputType="textAutoCorrect" />
 
     <Button
         android:id="@+id/cti_ctib"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:text="Change Information"
+        android:text="@string/change_information"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/cardview_shadow_start_color" />
 
@@ -77,7 +85,7 @@
         android:id="@+id/cti_2"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="...if you want to change menu"
+        android:text="@string/if_you_want_to_change_menu"
         android:textColor="@color/black"
         android:textStyle="italic"
         android:textSize="15sp"
@@ -89,7 +97,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:text="Change Menu"
+        android:text="@string/change_menu"
         android:layout_marginTop="0dp"
         android:backgroundTint="@color/cardview_shadow_start_color" />
 
@@ -97,7 +105,7 @@
         android:id="@+id/cti_back"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="Back"
+        android:text="@string/back"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/cardview_shadow_start_color"
         android:layout_marginStart="270dp" />

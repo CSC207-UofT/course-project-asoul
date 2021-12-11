@@ -5,7 +5,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.asoul.R;
-import helper.GlobalVariables;
 import use_case.UserManager;
 
 import java.io.IOException;
