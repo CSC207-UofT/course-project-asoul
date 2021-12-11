@@ -35,6 +35,7 @@ public class GlobalVariables extends Application {
          GlobalVariables.globalUsername = username;
     }
 
+    /*
     public static Double getOrderPrice() {return orderPrice; }
 
     public static void setOrderPrice(Double orderPrice) {
@@ -45,5 +46,5 @@ public class GlobalVariables extends Application {
         return orderID;
     }
 
-    public static void setOrderID(String orderID) {GlobalVariables.orderID = orderID;}
+    public static void setOrderID(String orderID) {GlobalVariables.orderID = orderID;}*/
 }

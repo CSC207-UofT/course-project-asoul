@@ -18,12 +18,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_history);
 
         switchToUserInfo = findViewById(R.id.btnBackToUserInfo);
-        switchToUserInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSwitchToUserInfoActivity();
-            }
-        });
+        switchToUserInfo.setOnClickListener(v -> setSwitchToUserInfoActivity());
     }
 
     private void setSwitchToUserInfoActivity(){

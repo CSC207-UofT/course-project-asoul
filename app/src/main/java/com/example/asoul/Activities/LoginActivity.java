@@ -14,7 +14,6 @@ import use_case.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
 
-    GlobalVariables globalVariables = (GlobalVariables) this.getApplication();
     Button switchToRegisterActivity;
     Button switchToUserInfoActivity;
     EditText username;

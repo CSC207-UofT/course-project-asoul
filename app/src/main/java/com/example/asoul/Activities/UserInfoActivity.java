@@ -14,7 +14,6 @@ import use_case.UserManager;
 
 public class UserInfoActivity extends AppCompatActivity {
 
-    GlobalVariables globalVariables = (GlobalVariables) this.getApplication();
 
     Button switchToMarketActivity;
     Button switchToChangeUserInfoActivity;
