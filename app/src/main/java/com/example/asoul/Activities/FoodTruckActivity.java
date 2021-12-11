@@ -20,11 +20,6 @@ public class FoodTruckActivity extends AppCompatActivity {
 
     Button switchToMarket;
     Button switchToUserInfo;
-    Button food0;
-    Button food1;
-    Button food2;
-    Button food3;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +27,6 @@ public class FoodTruckActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodtruck);
-
-        food0 = findViewById(R.id.food0);
-        food1 = findViewById(R.id.food1);
-        food2 = findViewById(R.id.food2);
-        food3 = findViewById(R.id.food3);
-
 
 
 
@@ -57,41 +46,15 @@ public class FoodTruckActivity extends AppCompatActivity {
             }
         });
 
-        food0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        food1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
-        food2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
-
-        food3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
     }
 
     private void setSwitchToMarket(){
-        Intent switchToMarketActivityIntent = new Intent(this, MarketActivity.class);
-        startActivity(switchToMarketActivityIntent);
+        Intent switchToBackMarketActivityIntent = new Intent(this, MarketActivity.class);
+        startActivity(switchToBackMarketActivityIntent);
     }
 
     private void setSwitchToOrderInfo(){
-        Intent switchToOrderActivityIntent = new Intent(this, OrderActivity.class);
-        startActivity(switchToOrderActivityIntent);
+        Intent switchToBackOrderActivityIntent = new Intent(this, OrderActivity.class);
+        startActivity(switchToBackOrderActivityIntent);
     }
 }
