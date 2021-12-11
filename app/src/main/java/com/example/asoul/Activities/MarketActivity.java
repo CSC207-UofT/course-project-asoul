@@ -27,9 +27,6 @@ public class MarketActivity extends AppCompatActivity {
     Button switchToSushi;
     Button switchToMama;
     Button switchToIdeal;
-    private HashMap<String, String> info;
-    private HashMap<Integer, String> pointer;
-    private String sorter;
 
 
     @Override
