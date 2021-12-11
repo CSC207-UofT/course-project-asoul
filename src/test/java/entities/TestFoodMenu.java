@@ -1,89 +1,63 @@
-//package Entities;
-//
-//import java.util.ArrayList;
-//
-//public class TestFoodMenu {
-//    FoodMenu menu;
-//    FoodMenu emptyMenu;
-//
-//
-//    @org.junit.Before
-//    public void Setup() {
-//        ArrayList<String> labels = new ArrayList<>();
-//        labels.add("Italian");
-//        labels.add("Fast food");
-//        ArrayList<String> labels2 = new ArrayList<>();
-//        labels2.add("Drinks");
-//
-//        Food pizza = new Food("Pizza", 5.00, 1, labels,
-//                "One large slice of Hawaii Piazza");
-//        Food coke = new Food("Coke", 2.00, 2, labels2, "500ml Coke");
-//
-//        ArrayList<Food> foodList = new ArrayList<>();
-//        foodList.add(pizza);
-//        foodList.add(coke);
-//        ArrayList<Food> foodList2 = new ArrayList<>();
-//
-//        menu = new FoodMenu(foodList);
-//        emptyMenu = new FoodMenu(foodList2);
-//    }
-//
-//
-//    @org.junit.Test
-//    public void addFoodTest() {
-//        ArrayList<String> labels = new ArrayList<>();
-//        labels.add("Italian");
-//        labels.add("Fast food");
-//        Food spaghetti = new Food("Spaghetti", 7.00, 3, labels, "spaghetti bolognese");
-//
-//        assert menu.addFood(spaghetti);
-//        assert menu.getFoodList().contains(spaghetti);
-//    }
-//
-//
-//    @org.junit.Test
-//    public void addFoodToEmptyMenuTest() {
-//        ArrayList<String> labels = new ArrayList<>();
-//        labels.add("Italian");
-//        labels.add("Fast food");
-//        Food spaghetti = new Food("Spaghetti", 7.00, 3, labels, "spaghetti bolognese");
-//
-//        assert emptyMenu.addFood(spaghetti);
-//        assert emptyMenu.getFoodList().contains(spaghetti);
-//    }
-//
-//
-//    @org.junit.Test
-//    public void addFoodModifyTest() {
-//        ArrayList<String> labels = new ArrayList<>();
-//        labels.add("Italian");
-//        labels.add("Fast food");
-//        Food pizza2 = new Food("Pizza", 6.00, 1, labels,
-//                "One large slice of Salami Piazza");
-//
-//        assert !menu.addFood(pizza2);
-//        assert menu.getFoodList().contains(pizza2);
-//        assert menu.getFoodList().size() == 2;
-//    }
-//
-//    @org.junit.Test
-//    public void removeFoodSuccessTest() {
-//        ArrayList<String> labels2 = new ArrayList<>();
-//        labels2.add("Drinks");
-//        Food coke = new Food("Coke", 2.00, 2, labels2, "500ml Coke");
-//
-//        assert menu.removeFood(coke);
-//        assert !menu.isThereSameNameFood(coke);
-//    }
-//
-//    @org.junit.Test
-//    public void removeFoodDefeatTest() {
-//        ArrayList<String> labels = new ArrayList<>();
-//        labels.add("Italian");
-//        labels.add("Fast food");
-//        Food spaghetti = new Food("Spaghetti", 7.00, 3, labels, "spaghetti bolognese");
-//
-//        assert !menu.removeFood(spaghetti);
-//        assert !menu.isThereSameNameFood(spaghetti);
-//    }
-//}
+package entities;
+
+import exceptions.CollidedFoodException;
+import exceptions.FoodIdCollisionException;
+import exceptions.UnknownFoodException;
+
+public class TestFoodMenu {
+    FoodMenu menu;
+
+
+    @org.junit.Before
+    public void Setup() {
+        menu = new FoodMenu();
+    }
+
+    @org.junit.Test
+    public void hasFoodIdTest() {
+        assert !menu.hasFoodId("1");
+    }
+
+
+    @org.junit.Test
+    public void addFoodTest() throws CollidedFoodException, FoodIdCollisionException, UnknownFoodException {
+        Food pizza = new Food("Pizza", 5.00, "One large slice of Hawaii Piazza");
+        menu.addFood(pizza, "1");
+
+        assert menu.hasFoodId("1");
+    }
+
+    @org.junit.Test
+    public void getFoodTest() throws CollidedFoodException, FoodIdCollisionException, UnknownFoodException {
+        Food pizza = new Food("Pizza", 5.00, "One large slice of Hawaii Piazza");
+        assert menu.getFood("1").compareTo(pizza) == 0;
+    }
+
+    @org.junit.Test
+    public void toStringTest() {
+        String result = "ID: " + "1" + " " + "Pizza" + " : $" + 5.00 + "\n" + "    " + "One large slice of Hawaii Piazza" + "\n";
+        assert menu.toString().equals(result);
+    }
+
+    @org.junit.Test
+    public void getFoodPriceTest() throws UnknownFoodException {
+        assert menu.getFoodPrice("1") == 5.00;
+    }
+
+
+    @org.junit.Test
+    public void removeFoodFailedTest() throws UnknownFoodException {
+        Food pizza = new Food("Pizza", 5.00, "One large slice of Hawaii Piazza");
+
+        assert !menu.removeFood("2");
+        assert menu.hasFoodId("1");
+        assert menu.getFood("1").compareTo(pizza) == 0;
+    }
+
+    @org.junit.Test
+    public void removeFoodSuccessTest() {
+        assert menu.removeFood("1");
+        assert !menu.hasFoodId("1");
+    }
+
+}
