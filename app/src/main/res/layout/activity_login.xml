@@ -20,17 +20,17 @@
               android:id="@+id/editTextUsername"
               android:hint="@string/sign_in_with_username"
               android:gravity="center"
-              android:inputType="text"/>
+              android:inputType="text" android:importantForAutofill="no"/>
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
               android:layout_marginTop="10sp"
               android:id="@+id/editTextPassword"
               android:hint="@string/enter_password"
               android:gravity="center"
               android:inputType="textPassword"
-    />
+              android:importantForAutofill="no"/>
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/btnSignIn"
-            android:layout_marginLeft="160sp"
+            android:layout_marginStart="160sp"
             android:layout_marginTop="20sp"
             android:textColor="@color/black"
             android:text="@string/sign_in"

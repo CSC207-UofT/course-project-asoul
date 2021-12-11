@@ -42,18 +42,14 @@ public class changeBalanceActivity extends AppCompatActivity {
         key = GlobalVariables.getKey();
         username = GlobalVariables.getUsername();
 
-        addFund.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View view) {
-                try {
-                    UserManager.addMoney(username, key, Double.parseDouble(fundAmount.getText().toString()));
-                    fundAccessError.setText("Add fund successful!");
-                } catch (IncorrectArgumentException e) {
-                    fundAccessError.setText("The argument entered is incorrect!");
-                } catch (UnauthorizedAccessException e) {
-                    fundAccessError.setText("Unauthorized access to the content!");
-                }
+        addFund.setOnClickListener(view -> {
+            try {
+                UserManager.addMoney(username, key, Double.parseDouble(fundAmount.getText().toString()));
+                fundAccessError.setText("Add fund successful!");
+            } catch (IncorrectArgumentException e) {
+                fundAccessError.setText("The argument entered is incorrect!");
+            } catch (UnauthorizedAccessException e) {
+                fundAccessError.setText("Unauthorized access to the content!");
             }
         });
 
@@ -70,12 +66,7 @@ public class changeBalanceActivity extends AppCompatActivity {
             }
         });
 
-        fromFundBackToUserInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchToUserInfoActivities();
-            }
-        });
+        fromFundBackToUserInfo.setOnClickListener(view -> switchToUserInfoActivities());
     }
 
     private void switchToUserInfoActivities() {

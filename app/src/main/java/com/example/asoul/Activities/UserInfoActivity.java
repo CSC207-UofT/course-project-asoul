@@ -2,7 +2,6 @@ package com.example.asoul.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,44 +58,19 @@ public class UserInfoActivity extends AppCompatActivity {
 
 
         switchToMarketActivity = findViewById(R.id.btnViewMarket);
-        switchToMarketActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSwitchToMarketActivity();
-            }
-        });
+        switchToMarketActivity.setOnClickListener(v -> setSwitchToMarketActivity());
 
         switchToChangeUserInfoActivity = findViewById(R.id.btnEditUserInfo);
-        switchToChangeUserInfoActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSwitchToEditUserInfoActivity();
-            }
-        });
+        switchToChangeUserInfoActivity.setOnClickListener(v -> setSwitchToEditUserInfoActivity());
 
         switchToChangeTruckInfoActivity = findViewById(R.id.btnEditTruckInfo);
-        switchToChangeTruckInfoActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSwitchToEditTruckInfoActivity();
-            }
-        });
+        switchToChangeTruckInfoActivity.setOnClickListener(v -> setSwitchToEditTruckInfoActivity());
 
         switchToOrderHistoryActivity = findViewById(R.id.btnOrderHistory);
-        switchToOrderHistoryActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSwitchToViewOrderHistoryActivity();
-            }
-        });
+        switchToOrderHistoryActivity.setOnClickListener(v -> setSwitchToViewOrderHistoryActivity());
 
         switchToChangeBalanceActivity = findViewById(R.id.btnAddFund);
-        switchToChangeBalanceActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSwitchToChangeBalanceActivity();
-            }
-        });
+        switchToChangeBalanceActivity.setOnClickListener(v -> setSwitchToChangeBalanceActivity());
 
     }
     private void setSwitchToMarketActivity(){

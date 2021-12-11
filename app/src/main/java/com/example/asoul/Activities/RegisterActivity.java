@@ -1,8 +1,6 @@
 package com.example.asoul.Activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,39 +33,31 @@ public class RegisterActivity extends AppCompatActivity {
         phone =  findViewById(R.id.ETRegisterPhone);
         registerState = findViewById(R.id.registerState);
         register = findViewById(R.id.btnRegister);
-        register.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View view) {
-                if (UserManager.createUser(username.getText().toString(),
-                        password.getText().toString(),
-                        nickname.getText().toString(),
-                        phone.getText().toString())){
-                    try {
-                        UserManager.saveUserDataBase();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    String success = "Successfully registered.\n Proceeding to log in...";
-                    Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
-                    // registerState.setText("Successfully registered new user, you can now proceed to log in!");
-                    setSwitchToLoginActivity();
+        register.setOnClickListener(view -> {
+            if (UserManager.createUser(username.getText().toString(),
+                    password.getText().toString(),
+                    nickname.getText().toString(),
+                    phone.getText().toString())){
+                try {
+                    UserManager.saveUserDataBase();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                else{
-                    String fail = "Username has already been registered!";
-                    // registerState.setText("User with the given username has already been registered!");
-                    Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
-                }
+                String success = "Successfully registered.\n Proceeding to log in...";
+                Toast.makeText(getApplicationContext(),success,Toast.LENGTH_SHORT).show();
+                // registerState.setText("Successfully registered new user, you can now proceed to log in!");
+                setSwitchToLoginActivity();
+            }
+            else{
+                String fail = "Username has already been registered!";
+                // registerState.setText("User with the given username has already been registered!");
+                Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
             }
         });
 
 
         switchToLoginActivity = findViewById(R.id.btnLoginPage);
-        switchToLoginActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setSwitchToLoginActivity();}
-        });
+        switchToLoginActivity.setOnClickListener(view -> setSwitchToLoginActivity());
     }
 
 
