@@ -25,4 +25,10 @@
     <string name="view_market">View Market</string>
     <string name="view_order_history">View Order History</string>
     <string name="cartcontent">cartContent</string>
+    <string name="blueButton">Blue Truck <br/> rating: 4.0/5 <br/> open hour: 10am ~ 10pm</string>
+    <string name="yellowButton">Yellow Truck <br/> rating: 0.0/5 <br/> open hour: 9am ~ 8pm</string>
+    <string name="sushiButton">Sushi Burrito <br/> rating: 4.8/5 <br/> open hour: 11am ~ 10pm</string>
+    <string name="idealButton">Ideal CATERING <br/> rating: 5/5 <br/> open hour: 10am ~ 8pm</string>
+    <string name="mamaButton">MAMA\'s Hotdog <br/> rating: 2.3/5 <br/> open hour: 8am ~ 5pm</string>
+    <string name="truckUnderConstruction">OOPS Truck under <br/> Construction :(</string>
 </resources>
