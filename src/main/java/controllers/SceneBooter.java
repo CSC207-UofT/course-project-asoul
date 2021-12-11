@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.HashSet;
 
 /**
- * Booter fo
+ * Booter of the program.
  */
 public abstract class SceneBooter implements Observable {
     private final HashSet<Observer> obs;
@@ -35,7 +35,7 @@ public abstract class SceneBooter implements Observable {
         FoodTruckManager.constructFoodTruckDataBase();
         UserManager.constructUserDataBase();
         OrderManager.constructOrderDataBase();
-    };
+    }
     protected Scene getActiveScene(){
         return Scene.activeScene;
     }
