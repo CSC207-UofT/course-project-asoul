@@ -1,67 +1,96 @@
 package entities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import exceptions.CollidedFoodException;
+import exceptions.FoodIdCollisionException;
+import exceptions.IncorrectArgumentException;
+import exceptions.UnknownFoodException;
+
+import java.util.HashMap;
 
 public class TestFoodTruck {
-//    FoodTruck foodTruck;
-//
-//    @org.junit.Before
-//    public void Setup() {
-//        foodTruck = new FoodTruck("Truck1", "207 St. George St",
-//                "9:30", "17:00",
-//                "acc1",
-//                new FoodMenu(new ArrayList<>()));
-//    }
-//
-//    @org.junit.Test
-//    public void changeStatusTest() {
-//        foodTruck.changeStatus();
-//        assert foodTruck.isActive();
-//    }
-//
-//    @org.junit.Test
-//    public void addFoodToMenuTest() {
-//        Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
-//                Arrays.asList("Fast Entities.Food", "Western")), "A standard Beef Burger.");
-//        assert foodTruck.addFoodToMenu(burger);
-//        ArrayList<Food> foodList1 = new ArrayList<>();
-//        foodList1.add(burger);
-//        assert foodTruck.getMenu().getFoodList().equals(foodList1);
-//    }
-//
-//    @org.junit.Test
-//    public void removeFoodFromMenuSuccessTest() {
-//        Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
-//                Arrays.asList("Fast Entities.Food", "Western")), "A standard Beef Burger.");
-//        foodTruck.addFoodToMenu(burger);
-//        assert foodTruck.removeFoodFromMenu(burger);
-//        ArrayList<Food> foodList1 = new ArrayList<>();
-//        assert foodTruck.getMenu().getFoodList().isEmpty();
-//    }
-//
-//    @org.junit.Test
-//    public void removeFoodFromMenuDefeatTest() {
-//        Food burger = new Food("Burger", 9.99, 1, new ArrayList<>(
-//                Arrays.asList("Fast Entities.Food", "Western")), "A standard Beef Burger.");
-//        assert !foodTruck.removeFoodFromMenu(burger);
-//        ArrayList<Food> foodList1 = new ArrayList<>();
-//        assert foodTruck.getMenu().getFoodList().isEmpty();
-//    }
-//
-//    @org.junit.Test
-//    public void addOrderToQueueTest() {
-//        Order order = new Order(foodTruck, new ArrayList<>(),
-//                "Bob", "1111", "Ava", "2222", 1);
-//        foodTruck.addOrderToQueue(order);
-//        assert foodTruck.getOrderQueue().contains(order.getId());
-//    }
-//
-//    @org.junit.Test
-//    public void removeOrderWithIDTest() {
-//        Order order = new Order(foodTruck, new ArrayList<>(),
-//                "Bob", "1111", "Ava", "2222", 1);
-//        foodTruck.removeOrderWithID(1);
-//        assert !foodTruck.getOrderQueue().contains(order.getId()) && foodTruck.getOrderQueue().size() == 0;
-//    }
+    FoodTruck foodTruck;
+
+    @org.junit.Before
+    public void Setup() {
+        foodTruck = new FoodTruck("Truck1", "207 St. George St",
+                "9:30", "17:00",
+                "acc1",
+                new FoodMenu());
+    }
+
+    @org.junit.Test
+    public void changeStatusTest() {
+        foodTruck.changeStatus();
+        assert foodTruck.isActive();
+    }
+
+    @org.junit.Test
+    public void addFoodToMenuTest() throws CollidedFoodException, FoodIdCollisionException, UnknownFoodException {
+        Food burger = new Food("Burger", 9.99, "A standard Beef Burger.");
+        foodTruck.addFoodToMenu(burger, "1");
+        assert foodTruck.getMenu().hasFoodId("1");
+        assert foodTruck.getMenu().getFood("1").compareTo(burger) == 0;
+    }
+
+    @org.junit.Test
+    public void displayServiceTimeTest() {
+        String serviceTime = "The service time for this food truck is: "
+                + "9:30" + "-" + "17:00" + ".";
+        assert foodTruck.displayServiceTime().equals(serviceTime);
+    }
+
+    @org.junit.Test
+    public void getRatingTest() throws IncorrectArgumentException {
+        foodTruck.updateRating("1", 8.0);
+        foodTruck.updateRating("1", 6.0);
+        foodTruck.updateRating("1", 7.0);
+        assert foodTruck.getRating() == 7.0;
+    }
+
+    @org.junit.Test
+    public void getNumberOfRatingsTest() {
+        assert foodTruck.getNumberOfRatings() == 3;
+    }
+
+    @org.junit.Test
+    public void toStringTest() {
+        String result = "Truck1" + " is located at " + "207 St. George St" + "." + "\n" +
+                foodTruck.displayServiceTime() + "\n" + "The food truck is currently operating." +
+                "\n" + "The rating of the food truck is " + foodTruck.getRating() + " out of " + foodTruck.getNumberOfRatings() +
+                " orders.";
+        assert foodTruck.toString().equals(result);
+    }
+
+    @org.junit.Test
+    public void calculatePriceTest() throws UnknownFoodException {
+        HashMap<String, Integer> cart = new HashMap<>();
+        cart.put("1", 3);
+        assert foodTruck.calculatePrice(cart) == 9.99 * 3;
+    }
+
+    @org.junit.Test
+    public void getMenuTest() throws UnknownFoodException {
+        Food burger = new Food("Burger", 9.99, "A standard Beef Burger.");
+        FoodMenu menu = foodTruck.getMenu();
+
+        assert menu.hasFoodId("1");
+        assert !menu.hasFoodId("2");
+        assert menu.getFood("1").compareTo(burger) == 0;
+    }
+
+    @org.junit.Test
+    public void removeFoodFromMenuDefeatTest() throws UnknownFoodException {
+        Food burger = new Food("Burger", 9.99, "A standard Beef Burger.");
+        foodTruck.removeFoodFromMenu("2");
+        assert foodTruck.getMenu().hasFoodId("1");
+        assert foodTruck.getMenu().getFood("1").compareTo(burger) == 0;
+    }
+
+    @org.junit.Test
+    public void removeFoodFromMenuSuccessTest() {
+        foodTruck.removeFoodFromMenu("1");
+        assert !foodTruck.getMenu().hasFoodId("1");
+    }
+
+
 }
