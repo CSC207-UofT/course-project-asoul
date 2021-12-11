@@ -44,17 +44,14 @@ public class FoodMenu implements Serializable {
     /**
      * remove food with the same name of the given food from menu if the food is in menu.
      *
-     * @return true if the food is removed successfully. false if the food is not in the menu.
      */
 
-    public boolean removeFood(String id){
+    public void removeFood(String id){
         Food fd = foodMap.get(id);
         if(foodMap.containsKey(id)){
             foodMap.remove(id);
             foodSet.remove(fd);
-            return true;
         }
-        return false;
     }
 
     /**
