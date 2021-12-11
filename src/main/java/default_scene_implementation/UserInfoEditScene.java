@@ -19,14 +19,17 @@ public class UserInfoEditScene extends Scene {
         this.fields.put("New Password", "");
         this.fields.put("Phone Number", "");
         this.fields.put("Nickname", "");
-        String helpMessage = "\n\n" + "All commands:\n" + "help -> View all commands on this page\n" +
-                "old_P + [Space] + [old password] -> Enter your old password\n" +
-                "new_P + [Space] + [new password] -> Enter your new password\n" +
-                "new_PN + [Space] + [new phone number] -> Enter your new phone number\n" +
-                "change_nickname + [Space] + [new nickname] -> Enter your new nickname\n" +
-                "confirm -> change old password to new password and change old phone number to" +
-                "new phone number\n" +
-                "back -> Discard changes and return to view user information page";
+        String helpMessage = """
+
+
+                All commands:
+                help -> View all commands on this page
+                old_P + [Space] + [old password] -> Enter your old password
+                new_P + [Space] + [new password] -> Enter your new password
+                new_PN + [Space] + [new phone number] -> Enter your new phone number
+                change_nickname + [Space] + [new nickname] -> Enter your new nickname
+                confirm -> change old password to new password and change old phone number tonew phone number
+                back -> Discard changes and return to view user information page""";
         this.setHelpMessage(helpMessage);
     }
 

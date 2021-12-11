@@ -15,15 +15,19 @@ class MenuEditScene extends Scene {
         this.fields.put("Description", "");
         this.fields.put("Price", "");
         this.fields.put("ID", "");
-        String helpMessage = "\n\n" + "All commands:\n" + "help -> View all commands on this page\n" +
-                "food_name + [Space] + [food name] -> Enter food name\n" +
-                "description + [Space] + [food description] -> Enter description of the food\n" +
-                "price + [Space] + [food price] -> Enter food price\n" +
-                "id + [Space] + [food id] -> Enter food id\n" +
-                "add -> Add food to menu(you must have entered food name, food description, food price, and food id to add food to menu)\n" +
-                "delete + [Space] + [food name] -> Delete the food\n" +
-                "confirm -> Save all changes about menu and back to user information page\n" +
-                "back -> Discard changes and return to edit food truck page";
+        String helpMessage = """
+
+
+                All commands:
+                help -> View all commands on this page
+                food_name + [Space] + [food name] -> Enter food name
+                description + [Space] + [food description] -> Enter description of the food
+                price + [Space] + [food price] -> Enter food price
+                id + [Space] + [food id] -> Enter food id
+                add -> Add food to menu(you must have entered food name, food description, food price, and food id to add food to menu)
+                delete + [Space] + [food name] -> Delete the food
+                confirm -> Save all changes about menu and back to user information page
+                back -> Discard changes and return to edit food truck page""";
         this.setHelpMessage(helpMessage);
     }
 

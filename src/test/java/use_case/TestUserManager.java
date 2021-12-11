@@ -8,7 +8,8 @@ public class TestUserManager {
     @org.junit.Test
     public void createUserTest() throws Exception {
         UserManager.createUser("a", "a", "tom", "a");
-        assert UserManager.getNickname("a").equals("tom");
+        String n = UserManager.getNickname("a");
+        assert n.equals("tom");
     }
 
     @org.junit.Test

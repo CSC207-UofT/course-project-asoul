@@ -26,13 +26,17 @@ public class OrderListScene extends Scene {
         buyOrderHistory = new HashMap<>();
         sellInProgress = new HashMap<>();
         buyInProgress = new HashMap<>();
-        this.setHelpMessage("\n\nAll commands:\n" +
-                "help -> View all commands on this page\n" +
-                "buy_in_progress + [Space] + [id] -> View the in progress buy order\n" +
-                "sell_in_progress + [Space] + [id] -> View the in progress sell order\n" +
-                "buy_history + [Space] + [id] -> View the history buy buy order\n" +
-                "sell_history + [Space] + [id] -> View the history sell buy order\n" +
-                "back -> View user information\n" );
+        this.setHelpMessage("""
+
+
+                All commands:
+                help -> View all commands on this page
+                buy_in_progress + [Space] + [id] -> View the in progress buy order
+                sell_in_progress + [Space] + [id] -> View the in progress sell order
+                buy_history + [Space] + [id] -> View the history buy buy order
+                sell_history + [Space] + [id] -> View the history sell buy order
+                back -> View user information
+                """);
     }
 
     /**
@@ -44,31 +48,25 @@ public class OrderListScene extends Scene {
         String[] text = input.split(" ");
         OrderScene scene = (OrderScene)OrderScene.getInstance();
         switch (text[0]) {
-            case "help":
-                this.state.append(this.getHelpMessage());
-                break;
-            case "back":
-                switchScene((UserInformationScene)UserInformationScene.getInstance());
-                break;
-            case "buy_in_progress":
+            case "help" -> this.state.append(this.getHelpMessage());
+            case "back" -> switchScene((UserInformationScene) UserInformationScene.getInstance());
+            case "buy_in_progress" -> {
                 scene.setOrderID(buyInProgress.get(Integer.parseInt(text[1])));
                 switchScene(scene);
-                break;
-            case "sell_in_progress":
+            }
+            case "sell_in_progress" -> {
                 scene.setOrderID(sellInProgress.get(Integer.parseInt(text[1])));
                 switchScene(scene);
-                break;
-            case "buy_history":
+            }
+            case "buy_history" -> {
                 scene.setOrderID(buyOrderHistory.get(Integer.parseInt(text[1])));
                 switchScene(scene);
-                break;
-            case "sell_history":
+            }
+            case "sell_history" -> {
                 scene.setOrderID(sellOrderHistory.get(Integer.parseInt(text[1])));
                 switchScene(scene);
-                break;
-            default:
-                this.state.append((new UnknownCommandException()).getMessage()).append("\n");
-                break;
+            }
+            default -> this.state.append((new UnknownCommandException()).getMessage()).append("\n");
         }
 
 

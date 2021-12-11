@@ -16,14 +16,17 @@ class RegisterScene extends Scene {
         this.fields.put("Nickname", "");
         this.fields.put("Phone Number", "");
 
-        this.setHelpMessage("\n\nAll commands:" +
-                "help -> View all commands on this page\n" +
-                "U + [Space] + [your username] -> Enter your username\n" +
-                "P + [Space] + [your password] -> Enter your password\n" +
-                "N + [Space] + [Nickname] -> Enter the nickname for your new account\n" +
-                "PN + [Space] + [Phone Number] -> Enter the phone number for your new account\n" +
-                "confirm -> Create a new user with the information you entered\n" +
-                "login -> Start logging in\n");
+        this.setHelpMessage("""
+
+
+                All commands:help -> View all commands on this page
+                U + [Space] + [your username] -> Enter your username
+                P + [Space] + [your password] -> Enter your password
+                N + [Space] + [Nickname] -> Enter the nickname for your new account
+                PN + [Space] + [Phone Number] -> Enter the phone number for your new account
+                confirm -> Create a new user with the information you entered
+                login -> Start logging in
+                """);
     }
 
     public static Singleton getInstance(){
@@ -37,30 +40,14 @@ class RegisterScene extends Scene {
     public void handleInputString(String input){
         String[] arr = input.split(" ");
         switch (arr[0]) {
-            case "U":
-                fillInField("Username", arr[1]);
-                break;
-            case "P":
-                fillInField("Password", arr[1]);
-                break;
-            case "N":
-                fillInField("Nickname", arr[1]);
-                break;
-            case "PN":
-                fillInField("Phone Number", arr[1]);
-                break;
-            case "help":
-                this.state.append(getHelpMessage()).append("\n");
-                break;
-            case "confirm":
-                registerUser();
-                break;
-            case "login":
-                switchScene((Scene)LoginScene.getInstance());
-                break;
-            default:
-                this.state.append((new UnknownCommandException()).getMessage()).append("\n");
-                break;
+            case "U" -> fillInField("Username", arr[1]);
+            case "P" -> fillInField("Password", arr[1]);
+            case "N" -> fillInField("Nickname", arr[1]);
+            case "PN" -> fillInField("Phone Number", arr[1]);
+            case "help" -> this.state.append(getHelpMessage()).append("\n");
+            case "confirm" -> registerUser();
+            case "login" -> switchScene((Scene) LoginScene.getInstance());
+            default -> this.state.append((new UnknownCommandException()).getMessage()).append("\n");
         }
     }
 

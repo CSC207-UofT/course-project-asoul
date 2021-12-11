@@ -23,12 +23,16 @@ class MarketScene extends Scene {
         info = new HashMap<>();
         pointer = new HashMap<>();
         sorter = "";
-        setHelpMessage("\n\nAll commands:\n" +
-                "help -> View all commands on this page\n" +
-                "back -> Go back to user info page\n" +
-                "select + [Space] + [Foodtruck id] -> view the food menu of the specified foodtruck and prepare for ordering\n" +
-                "sort_by + [Space] + [Sorting method] -> Sort the food trucks with specified method (See next line for possible methods)\n" +
-                "        Sorting Methods: 'name', 'rating'\n");
+        setHelpMessage("""
+
+
+                All commands:
+                help -> View all commands on this page
+                back -> Go back to user info page
+                select + [Space] + [Foodtruck id] -> view the food menu of the specified foodtruck and prepare for ordering
+                sort_by + [Space] + [Sorting method] -> Sort the food trucks with specified method (See next line for possible methods)
+                        Sorting Methods: 'name', 'rating'
+                """);
     }
 
     /**

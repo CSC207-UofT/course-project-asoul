@@ -7,14 +7,11 @@ import java.util.Arrays;
 public class SorterSimpleFactory {
 
     public static Sorter constructSorter(String s) throws UnknownSorterException {
-        switch (s) {
-            case "rating":
-                return RatingSorter.getInstance();
-            case "name":
-                return NameSorter.getInstance();
-            default:
-                throw new UnknownSorterException();
-        }
+        return switch (s) {
+            case "rating" -> RatingSorter.getInstance();
+            case "name" -> NameSorter.getInstance();
+            default -> throw new UnknownSorterException();
+        };
     }
 
     public static boolean containsSorter(String s){

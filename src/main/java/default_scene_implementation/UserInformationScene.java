@@ -26,15 +26,18 @@ class UserInformationScene extends Scene {
         this.truckName = "";
         this.truckActive = "";
         this.accBalance = 0;
-        this.setHelpMessage("\n\nAll commands:\n" +
-                "help -> View all commands on this page\n" +
-                "view_market -> View all food trucks\n" +
-                "change_user_info -> Change user information\n" +
-                "change_truck_info -> Change user's food truck information\n" +
-                "add_money + [Space] + [amount of money] -> add money to balance\n" +
-                "withdraw_money + [Space] + [amount of money] -> withdraw money from balance\n" +
-                "view_orders -> View all orders\n" +
-                "change_truck_status -> Change Truck Status.");
+        this.setHelpMessage("""
+
+
+                All commands:
+                help -> View all commands on this page
+                view_market -> View all food trucks
+                change_user_info -> Change user information
+                change_truck_info -> Change user's food truck information
+                add_money + [Space] + [amount of money] -> add money to balance
+                withdraw_money + [Space] + [amount of money] -> withdraw money from balance
+                view_orders -> View all orders
+                change_truck_status -> Change Truck Status.""");
     }
 
     public static Singleton getInstance(){

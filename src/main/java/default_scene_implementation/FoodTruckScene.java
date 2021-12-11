@@ -17,11 +17,13 @@ class FoodTruckScene extends Scene {
         super();
         foodtruck = "";
         cart = new HashMap<>();
-        setHelpMessage("select + [Food id] + [Quantity] -> add food to your cart\n" +
-                "remove + [Food id] + [Quantity] -> Remove food from your cart\n" +
-                "clear_cart -> Empty your cart\n" +
-                "back -> Back to market\n" +
-                "confirm -> Proceed to checkout\n"
+        setHelpMessage("""
+                select + [Food id] + [Quantity] -> add food to your cart
+                remove + [Food id] + [Quantity] -> Remove food from your cart
+                clear_cart -> Empty your cart
+                back -> Back to market
+                confirm -> Proceed to checkout
+                """
         );
     }
 

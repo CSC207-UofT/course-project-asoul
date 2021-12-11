@@ -15,11 +15,15 @@ class LoginScene extends Scene {
         super();
         this.fields.put("username", "");
         this.fields.put("password", "");
-        this.setHelpMessage("\n\nAll commands:\n" +
-                "help -> View all commands on this page\n" +
-                "U + [Space] + [your username] -> Enter your username\n" +
-                "P + [Space] + [your password] -> Enter your password\n" +
-                "confirm -> Login with the information you entered\n");
+        this.setHelpMessage("""
+
+
+                All commands:
+                help -> View all commands on this page
+                U + [Space] + [your username] -> Enter your username
+                P + [Space] + [your password] -> Enter your password
+                confirm -> Login with the information you entered
+                """);
     }
 
     public static Singleton getInstance(){

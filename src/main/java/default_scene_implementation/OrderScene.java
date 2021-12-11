@@ -16,9 +16,11 @@ class OrderScene extends Scene {
         super();
         this.username = "";
         this.accessKey = "";
-        this.setHelpMessage("rate + [0-10] -> rate this order (Only as customer)\n" +
-                "complete -> complete this order (Only as seller)\n" +
-                "back -> return to last page\n"
+        this.setHelpMessage("""
+                rate + [0-10] -> rate this order (Only as customer)
+                complete -> complete this order (Only as seller)
+                back -> return to last page
+                """
         );
     }
 
@@ -34,25 +36,15 @@ class OrderScene extends Scene {
     public void handleInputString(String input){
         String[] text = input.split(" ");
         switch (text[0]) {
-            case "rate":
+            case "rate" -> {
                 double rate = Double.parseDouble(text[1]);
                 rateOrder(rate);
-                break;
-            case "complete":
-                completeOrder();
-                break;
-            case "back":
-                this.switchScene((Scene)OrderListScene.getInstance());
-                break;
-            case "help":
-                this.state.append(this.getHelpMessage());
-                break;
-            case "exit":
-                Scene.exit = true;
-                break;
-            default:
-                this.state.append((new UnknownCommandException()).getMessage()).append("\n");
-                break;
+            }
+            case "complete" -> completeOrder();
+            case "back" -> this.switchScene((Scene) OrderListScene.getInstance());
+            case "help" -> this.state.append(this.getHelpMessage());
+            case "exit" -> Scene.exit = true;
+            default -> this.state.append((new UnknownCommandException()).getMessage()).append("\n");
         }
     }
 

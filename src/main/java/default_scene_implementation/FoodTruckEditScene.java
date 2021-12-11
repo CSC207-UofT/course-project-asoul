@@ -18,14 +18,18 @@ class FoodTruckEditScene extends Scene {
         this.fields.put("New Location", "");
         this.fields.put("New Start Time", "");
         this.fields.put("New End Time", "");
-        String helpMessage = "\n\n" + "All commands:\n" + "help -> View all commands on this page\n" +
-                "truck_name + [Space] + [new truck name] -> Enter new truck name\n" +
-                "location + [Space] + [new location] -> Enter truck new location\n" +
-                "start + [Space] + [1 or 2 (1 is AM, 2 is PM)] + [Space] + [1-12] -> Enter your new truck service start time\n" +
-                "end + [Space] + [1 or 2 (1 is AM, 2 is PM)] + [Space] + [1-12] -> Enter your new truck service end time\n" +
-                "confirm -> confirm changes\n" +
-                "change_menu -> proceed to edit menu\n" +
-                "back -> Discard changes and return to view user information page";
+        String helpMessage = """
+
+
+                All commands:
+                help -> View all commands on this page
+                truck_name + [Space] + [new truck name] -> Enter new truck name
+                location + [Space] + [new location] -> Enter truck new location
+                start + [Space] + [1 or 2 (1 is AM, 2 is PM)] + [Space] + [1-12] -> Enter your new truck service start time
+                end + [Space] + [1 or 2 (1 is AM, 2 is PM)] + [Space] + [1-12] -> Enter your new truck service end time
+                confirm -> confirm changes
+                change_menu -> proceed to edit menu
+                back -> Discard changes and return to view user information page""";
         this.setHelpMessage(helpMessage);
     }
 

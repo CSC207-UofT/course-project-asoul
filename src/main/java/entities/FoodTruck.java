@@ -87,12 +87,14 @@ public class FoodTruck implements Serializable {
      */
     public String getDetailedDescription() {
         StringBuilder sb = new StringBuilder();
-        String f = String.format("Truck Name: %s\n" +
-                "Service Time Start: %s\n" +
-                "Service Time End: %s\n" +
-                "Address: %s\n" +
-                "Owner: %s\n" +
-                "rating: %f\n", truckName,  serviceTimeStart, serviceTimeEnd, location, seller, getRating()
+        String f = String.format("""
+                Truck Name: %s
+                Service Time Start: %s
+                Service Time End: %s
+                Address: %s
+                Owner: %s
+                rating: %f
+                """, truckName,  serviceTimeStart, serviceTimeEnd, location, seller, getRating()
         );
         sb.append(f).append("\n\n");
         sb.append("-----------Menu-----------\n");
