@@ -30,7 +30,7 @@ public class FoodTruckActivity extends AppCompatActivity {
 
 
 
-        switchToMarket = findViewById(R.id.ViewMarket);
+        switchToMarket = findViewById(R.id.food3);
         switchToMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
