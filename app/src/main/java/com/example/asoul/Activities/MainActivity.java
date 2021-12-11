@@ -1,7 +1,6 @@
 package com.example.asoul.Activities;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,12 +27,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         switchToLoginActivity = findViewById(R.id.btnLoginPage);
-        switchToLoginActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchActivities();
-            }
-        });
+        switchToLoginActivity.setOnClickListener(view -> switchActivities());
     }
 
     private void switchActivities() {

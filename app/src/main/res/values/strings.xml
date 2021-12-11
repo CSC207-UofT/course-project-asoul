@@ -1,10 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ASOUL</string>
     <string name="sign_in_with_username">Sign in with username</string>
     <string name="asoul">ASOUL</string>
     <string name="enter_password">enter your password</string>
     <string name="sign_in">sign in</string>
-    <string name="or_if_you_do_not_have_an_account">...or if you do not have an account:</string>
+    <string name="or_if_you_do_not_have_an_account" tools:ignore="TypographyEllipsis">...or if you do not have an account:</string>
     <string name="register">REGISTER</string>
     <string name="welcome">Welcome!</string>
     <string name="arrow_right"><![CDATA[--->]]></string>
@@ -17,7 +17,7 @@
     <string name="nickname">Nickname:</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="password">Password:</string>
-    <string name="or_go_back_to">...or go back to..</string>
+    <string name="or_go_back_to" tools:ignore="TypographyEllipsis">...or go back to..</string>
     <string name="add_fund">Add Fund</string>
     <string name="withdraw_fund">Withdraw Fund</string>
     <string name="edit_user_info">Edit User Info</string>
