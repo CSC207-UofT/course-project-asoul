@@ -1,7 +1,7 @@
 # course-project-asoul
 course-project-asoul created by GitHub Classroom
 
-This android app provides service for students to order food from FoodTrucks on campus. We started to design and partially implemented the android interface, but we are still struggling implementing a few more features. That means, we recommand you to use our delicated command line interface to have a full experience with our program.
+This android app provides a service for students to order food from food trucks on campus. We started to design and have partially implemented the android interface, but we are still struggling to implement a few more features. That means, we recommend you to use our delicate command-line interface to have a full experience with our program. Because in Android we haven't implemented all functions, and haven't finished dealing with the style warnings in the use-case and entities layers that were mainly caused by unused methods.
 <br />
 Here is a [demo](https://drive.google.com/file/d/1aCqhwBWwrBnrb5dMkkQCLdbaphxzIfyo/view?usp=sharing) of our Android app. We have designed layouts and partially implemented features. in particular, you can try our user system, rating system, and login system.
 <br />
