@@ -12,7 +12,6 @@ import exceptions.UnauthorizedAccessException;
 import helper.GlobalVariables;
 import use_case.UserManager;
 
-import java.io.IOException;
 
 public class UserInfoActivity extends AppCompatActivity {
 
@@ -28,6 +27,7 @@ public class UserInfoActivity extends AppCompatActivity {
     TextView accBalance;
     TextView phoneNum;
     TextView truckName;
+    TextView accessError;
 
 
 
@@ -41,29 +41,19 @@ public class UserInfoActivity extends AppCompatActivity {
         username = GlobalVariables.getUsername();
 
         welcomeContent = findViewById(R.id.WelcomeContent);
+        accBalance = findViewById(R.id.AccountBalance);
+        phoneNum = findViewById(R.id.PhoneNumber);
+        truckName = findViewById(R.id.TruckName);
+        accessError = findViewById(R.id.accessError);
+
         try {
             welcomeContent.setText("Welcome, " + UserManager.getNickname(username, key));
+            accBalance.setText("Account Balance is " + UserManager.getBalance(username, key));
+            phoneNum.setText("Phone Number: " + UserManager.getPhoneNumber(username, key));
+            truckName.setText("FoodTruck: " + UserManager.getTruckName(username, key));
         } catch (UnauthorizedAccessException e) {
             //
-            e.printStackTrace();
-        }
-        accBalance = findViewById(R.id.AccountBalance);
-        try {
-            accBalance.setText("Account Balance is 100" + UserManager.getBalance(username, key));
-        } catch (UnauthorizedAccessException e) {
-            e.printStackTrace();
-        }
-        phoneNum = findViewById(R.id.PhoneNumber);
-        try {
-            phoneNum.setText("Phone Number: " + UserManager.getPhoneNumber(username, key));
-        } catch (UnauthorizedAccessException e) {
-            e.printStackTrace();
-        }
-        truckName = findViewById(R.id.TruckName);
-        try {
-            accBalance.setText("FoodTruck: " + UserManager.getTruckName(username, key));
-        } catch (UnauthorizedAccessException e) {
-            e.printStackTrace();
+            accessError.setText("Unauthorized access to the content!");
         }
 
 
