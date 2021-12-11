@@ -6,7 +6,6 @@ import serialization.Deserializer;
 import serialization.Serializer;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import helper.RandomStringGenerator;
 /**
@@ -56,49 +55,7 @@ public class OrderManager {
         }
     }
 
-    /**
-     * Change the specific order's status.
-     *
-     * @param id the id of the specific order
-     *
-     */
-    public static void changeOrderStatus(String username, String accessKey, String id) throws UnknownOrderException,
-            UnauthorizedAccessException {
-        UserManager.accessCheck(username, accessKey);
-        if(!orders.containsKey(id)){
-            throw new UnknownOrderException();
-        }
-        Order o = orders.get(id);
-        if(!username.equals(o.getSellerName())){
-            throw new UnauthorizedAccessException();
-        }
-        orders.get(id).changeOrderStatus();
-    }
 
-    /**
-     * @param foods the list of foods' name
-     * @param truck where these foods from
-     * @return An ArrayList of Entities.Food from the given foods' names.
-     */
-    public static ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruck truck) throws UnknownFoodException {
-        FoodMenu menu = truck.getMenu();
-        ArrayList<Food> wish_food = new ArrayList<>();
-        for (String item : foods) {
-            wish_food.add(menu.getFood(item));
-        }
-        return wish_food;
-    }
-
-    /**
-     * @param foods     the list of foods' name
-     * @param trucks    A FoodTruckManager stores all trucks.
-     * @param truckName The truck name of the truck
-     * @return An ArrayList of Entities.Food from the given foods' names.
-     */
-    public ArrayList<Food> getMenuFood(ArrayList<String> foods, FoodTruckManager trucks, String truckName) throws UnknownFoodException {
-        FoodTruck truck = FoodTruckManager.foodTrucks.get(truckName);
-        return getMenuFood(foods, truck);
-    }
 
     /**
      * @param id the order's id.
@@ -132,7 +89,7 @@ public class OrderManager {
      *
      * @param rating should be a double <= 10 & >= 0
      * @param id     the id of the order we want to rate
-     * @return return true if rating updated successfully, return false otherwise
+     *
      * @throws NullPointerException If the order with specified id does not exist
      */
     public static void rateOrder(String username, String accessKey, double rating, String id) throws UnknownOrderException,

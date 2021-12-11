@@ -6,7 +6,7 @@ import singleton_pattern.Singleton;
 import use_case.FoodTruckManager;
 import use_case.UserManager;
 
-import java.util.HashMap;
+
 
 class UserInformationScene extends Scene {
     private final static UserInformationScene us = new UserInformationScene();

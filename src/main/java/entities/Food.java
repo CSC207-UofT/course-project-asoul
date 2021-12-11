@@ -1,9 +1,8 @@
 package entities;
 
-import exceptions.IncorrectArgumentException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 
 /**
  * Java class representation for Entities.Food instance
@@ -11,8 +10,8 @@ import java.util.ArrayList;
 
 public class Food implements Comparable<Food>, Serializable {
     private final String foodName; //Name of the food item, can't be changed once set
-    private double price; //Price of the food item
-    private String descriptions; // Description of the food
+    private final double price; //Price of the food item
+    private final String descriptions; // Description of the food
 
     /**
      * Construct an instance of a Entities.Food
@@ -27,20 +26,6 @@ public class Food implements Comparable<Food>, Serializable {
         this.descriptions = descriptions;
     }
 
-    // Change the price of the Food item
-    public void changePrice(double price) throws IncorrectArgumentException {
-        if(price < 0){
-            throw new IncorrectArgumentException();
-        }
-        this.price = price;
-    }
-
-    // Change the description of the Entities.Food item and return the previous description
-    public String changeDescription(String description) {
-        String temp_string = this.descriptions;
-        this.descriptions = description;
-        return temp_string;
-    }
 
     /**
      * Below are Getter methods for all instance variables

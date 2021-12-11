@@ -14,7 +14,7 @@ public class FoodTruck implements Serializable {
     private String location; //The location of the Entities.Food Truck, can't be changed once set
     private String serviceTimeStart; //Starting service time
     private String serviceTimeEnd; //Ending service time
-    private boolean active = false; //Whether the Entities.Food Truck is currently operating
+    private boolean active; //Whether the Entities.Food Truck is currently operating
     private final String seller; // The Entities.Seller who owns the Entities.Food Truck
     // we are going to change it in the rating system. So it can't be final.
     private final FoodMenu menu; //Menu of the Entities.Food Truck
@@ -52,7 +52,7 @@ public class FoodTruck implements Serializable {
      * add food to menu if food object is not in menu. If the food is in menu, update the food with the new one.
      *
      * @param food The food want to add or update.
-     * @return true if we add the food. false if we update the food.
+     *
      */
     public void addFoodToMenu(Food food, String id) throws CollidedFoodException, FoodIdCollisionException {
         this.menu.addFood(food, id);
@@ -128,13 +128,6 @@ public class FoodTruck implements Serializable {
         this.location = address;
     }
 
-    /**
-     * Deactivate this food truck.
-     */
-
-    public String displayMenu() {
-        return this.menu.toString();
-    }
 
     /**
      * Update the rating of the food truck given a rating.
@@ -155,9 +148,6 @@ public class FoodTruck implements Serializable {
         return this.truckName;
     }
 
-    public String getLocation() {
-        return this.location;
-    }
 
     // Return a String showing the service window of this Entities.Food Truck
     public String displayServiceTime() {

@@ -1,16 +1,11 @@
 package controllers;
 
-import observer_pattern.Observer;
-import use_case.FoodTruckManager;
-import use_case.OrderManager;
-import use_case.UserManager;
+
 
 import singleton_pattern.Singleton;
-import observer_pattern.Observable;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
+
 
 
 abstract public class Scene implements Singleton{
