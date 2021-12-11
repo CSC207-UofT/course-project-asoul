@@ -11,7 +11,7 @@ import use_case.UserManager;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-    GlobalVariables globalVariables = (GlobalVariables) this.getApplication();
+
 
     Button switchToLoginActivity;
 
