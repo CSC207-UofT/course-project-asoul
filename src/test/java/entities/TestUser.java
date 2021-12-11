@@ -1,69 +1,58 @@
 package entities;
 
-import java.util.ArrayList;
+import exceptions.IncorrectArgumentException;
+import exceptions.InsufficientBalanceException;
 
 public class TestUser {
     User user;
-    Order order;
 
     @org.junit.Before
-    public void Setup() {
+    public void Setup(){
         user = new User("Yx", "yxyyds", "yuanxiao", "110108");
-        ArrayList<String> labels = new ArrayList<>();
-        labels.add("Italian");
-        labels.add("Fast food");
-        Food pizza = new Food("Pizza", 5.00, 1, labels,
-                "One large slice of Hawaii Piazza");
-        ArrayList<Food> foodList = new ArrayList<>();
-
-        foodList.add(pizza);
-        FoodMenu menu = new FoodMenu(foodList);
-
-        FoodTruck foodTruck = new FoodTruck("Ideal Catering", "Bahen", "8:00",
-                "18:00", "David", menu);
-        order = new Order(foodTruck, foodList, "Paul", "4169990000",
-                "David", "6478863531", 1);
     }
 
     @org.junit.Test
-    public void addOrderTest() {
-        user.storeOrder(Integer.toString(order.getId()));
-        ArrayList<String> anOrder = new ArrayList<>();
-        anOrder.add("1");
-        assert user.getOrderHistory().equals(anOrder);
-    }
-
-
-    @org.junit.Test
-    public void loginTest() {
-        boolean x = user.login("yxyyds");
-        assert x;
-    }
-
-    @org.junit.Test
-    public void logoutTest() {
-        user.login("yxyyds");
-        boolean y = user.logout();
-        assert y;
-    }
-
-    @org.junit.Test
-    public void addMoneyTest() {
+    public void addWithdrawMoneyTest() throws InsufficientBalanceException, IncorrectArgumentException {
         user.addMoney(1);
         assert user.getAccountBalance() == 1;
-    }
-
-    @org.junit.Test
-    public void withdrawMoneyTest() {
-        user.addMoney(1);
         user.withdrawMoney(1);
         assert user.getAccountBalance() == 0;
     }
 
     @org.junit.Test
-    public void checkBalanceTest() {
-        user.addMoney(1);
-        assert user.checkBalance() == 1;
+    public void testGetAccountName() {
+        assert user.getAccountName().equals("Yx");
     }
 
+    @org.junit.Test
+    public void testGetAccountBalance() {
+        assert user.getAccountBalance() == 0;
+    }
+
+    @org.junit.Test
+    public void testGetNickname() {
+        assert user.getAccountName().equals("yuanxiao");
+    }
+
+    @org.junit.Test
+    public void testGetPassword() {
+        assert user.getPassword().equals("yxyyds");
+    }
+
+    @org.junit.Test
+    public void testGetPhoneNumber() {
+        assert user.getPhoneNumber().equals("110108");
+    }
+
+    @org.junit.Test
+    public void testSetNickname() {
+        user.setNickname("12344");
+        assert user.getNickname().equals("12344");
+    }
+
+    @org.junit.Test
+    public void testSetPhoneNumber() {
+        user.setPhoneNumber("12344");
+        assert user.getPhoneNumber().equals("12344");
+    }
 }

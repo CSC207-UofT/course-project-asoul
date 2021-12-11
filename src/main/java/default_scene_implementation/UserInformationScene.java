@@ -41,6 +41,10 @@ class UserInformationScene extends Scene {
         return us;
     }
 
+    /**
+     *
+     * @param input Input from commandline interface.
+     */
     public void handleInputString(String input){
         String[] text = input.split(" ");
         switch (text[0]) {
@@ -105,6 +109,10 @@ class UserInformationScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @return Output String to the commandline interface.
+     */
     @Override
     public String constructOutputString(){
         updateUserInfo();
@@ -118,6 +126,9 @@ class UserInformationScene extends Scene {
                 this.state;
     }
 
+    /**
+     * Update the user information
+     */
     public void updateUserInfo(){
         try {
             this.truckName = UserManager.getTruckName(username, accessKey);
@@ -136,6 +147,7 @@ class UserInformationScene extends Scene {
         }
     }
 
+    // the rest are helper methods for inputHandler.
     public void viewMarket() {
         MarketScene scene = (MarketScene) MarketScene.getInstance();
         this.switchScene(scene);

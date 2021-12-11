@@ -16,11 +16,19 @@ public class FoodMenu implements Serializable {
     private final HashMap<String, Food> foodMap; // a list of Entities.Food objects that are on the menu.
     private final HashSet<Food> foodSet;
 
+    /**
+     * create new FoodMenu.
+     */
     public FoodMenu() {
         this.foodMap = new HashMap<>();
         this.foodSet = new HashSet<>();
     }
 
+    /**
+     *
+     * @param id the id of the food
+     * @return true is the menu contains food with this id.
+     */
     public boolean hasFoodId(String id){
         return foodMap.containsKey(id);
     }
@@ -57,7 +65,7 @@ public class FoodMenu implements Serializable {
     /**
      * A menu
      *
-     * @return a string representation of Foodmenu object
+     * @return a string representation of FoodMenu object
      */
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -69,6 +77,12 @@ public class FoodMenu implements Serializable {
         return result.toString().trim();
     }
 
+    /**
+     *
+     * @param id the food's id
+     * @return the Food object
+     * @throws UnknownFoodException when menu doesn't have good with this id.
+     */
     public Food getFood(String id) throws UnknownFoodException {
         if(!foodMap.containsKey(id)){
             throw new UnknownFoodException();
@@ -76,6 +90,12 @@ public class FoodMenu implements Serializable {
         return foodMap.get(id);
     }
 
+    /**
+     *
+     * @param id the food's id
+     * @return the food's price
+     * @throws UnknownFoodException when menu doesn't have good with this id.
+     */
     public double getFoodPrice(String id) throws UnknownFoodException {
         if(!foodMap.containsKey(id)){
             throw new UnknownFoodException();

@@ -97,6 +97,10 @@ public class Order implements Serializable {
                 "Rating: " + s + "\n";
     }
 
+    /**
+     *
+     * @return this Order's description.
+     */
     public String getDescription(){
         return "Date: " + this.getFormattedTime() + "\n" +
                 "TruckName: " + this.truckName + "\n";
@@ -112,7 +116,7 @@ public class Order implements Serializable {
         return this.getTime().format(format);
     }
 
-
+    // the rests are getters of this class.
     public LocalDateTime getTime() {
         return this.time;
     }

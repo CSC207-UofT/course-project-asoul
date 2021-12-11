@@ -27,6 +27,10 @@ class MenuEditScene extends Scene {
         this.setHelpMessage(helpMessage);
     }
 
+    /**
+     *
+     * @param input input from interface.
+     */
     @Override
     public void handleInputString(String input) {
         String[] text = input.split(" ");
@@ -76,6 +80,10 @@ class MenuEditScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @return output String to the interface.
+     */
     @Override
     public String constructOutputString() {
         StringBuilder outputString = new StringBuilder();
@@ -104,6 +112,10 @@ class MenuEditScene extends Scene {
         this.username = username;
     }
 
+    /**
+     *
+     * @throws UnfilledArgumentException if some fields are not filled.
+     */
     private void checkAllFilled() throws UnfilledArgumentException {
         for (String key: fields.keySet()){
             if (fields.get(key).equals("")){

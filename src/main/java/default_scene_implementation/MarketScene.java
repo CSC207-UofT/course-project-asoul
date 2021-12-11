@@ -31,11 +31,19 @@ class MarketScene extends Scene {
                 "        Sorting Methods: 'name', 'rating'\n");
     }
 
+    /**
+     * Update the food truck info.
+     */
     private void updateInfo(){
         info = FoodTruckManager.getActiveFoodTruckDescription();
         assignPointer();
     }
 
+    /**
+     *
+     * @return the sorted array of food truck name
+     * @throws UnknownSorterException if the sorter doesn't exit.
+     */
     private ArrayList<String> sortTruckInfo()throws UnknownSorterException{
         Sorter s = SorterSimpleFactory.constructSorter(sorter);
         HashMap<String, String> items = new HashMap<>();
@@ -51,6 +59,9 @@ class MarketScene extends Scene {
         return s.sort(items);
     }
 
+    /**
+     * helper method of sortTruckInfo
+     */
     private void assignPointer(){
         int counter = 1;
         pointer.clear();
@@ -68,6 +79,10 @@ class MarketScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @param input input from interface.
+     */
     @Override
     public void handleInputString(String input){
         String[] text = input.split(" ");
@@ -92,6 +107,10 @@ class MarketScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @return return output String to user.
+     */
     @Override
     public String constructOutputString(){
         updateInfo();

@@ -26,6 +26,10 @@ class OrderScene extends Scene {
         return os;
     }
 
+    /**
+     *
+     * @param input input from commandline interface.
+     */
     @Override
     public void handleInputString(String input){
         String[] text = input.split(" ");
@@ -52,6 +56,10 @@ class OrderScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @return Output to commandline interface.
+     */
     @Override
     public String constructOutputString(){
         StringBuilder sb = new StringBuilder();
@@ -64,6 +72,10 @@ class OrderScene extends Scene {
         return sb.toString();
     }
 
+    /**
+     *
+     * @param rating rating to the order.
+     */
     private void rateOrder(double rating){
         try {
             OrderManager.rateOrder(username, accessKey, rating, order);
@@ -72,6 +84,9 @@ class OrderScene extends Scene {
         }
     }
 
+    /**
+     *  Complete this order.
+     */
     private void completeOrder(){
         try{
             UserManager.completeOrder(order, username, accessKey);
@@ -80,6 +95,11 @@ class OrderScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @param username username of the user.
+     * @param accessKey access key
+     */
     public void setUserInfo(String username, String accessKey){
         this.username = username;
         this.accessKey = accessKey;

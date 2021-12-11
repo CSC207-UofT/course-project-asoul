@@ -35,6 +35,10 @@ public class OrderListScene extends Scene {
                 "back -> View user information\n" );
     }
 
+    /**
+     *
+     * @param input input from interface.
+     */
     @Override
     public void handleInputString(String input) {
         String[] text = input.split(" ");
@@ -70,6 +74,10 @@ public class OrderListScene extends Scene {
 
     }
 
+    /**
+     *
+     * @return output String to interface.
+     */
     @Override
     public String constructOutputString() {
         updateMaps();
@@ -94,6 +102,9 @@ public class OrderListScene extends Scene {
         this.accessKey = key;
     }
 
+    /**
+     * Update the OrderLists.
+     */
     private void updateMaps() {
         try{
         sellInProgress = constructOrderMap(UserManager.getSellInProgress(username, accessKey));
@@ -106,6 +117,12 @@ public class OrderListScene extends Scene {
 
     }
 
+    /**
+     *
+     * @param map a map from an integer to a string of order description.
+     * @return a string of this map
+     * @throws UnknownOrderException if some orders are unknown.
+     */
     private String constructMapString(HashMap<Integer, String> map) throws UnknownOrderException {
         StringBuilder result = new StringBuilder();
         for (Integer i : map.keySet()){
@@ -116,6 +133,11 @@ public class OrderListScene extends Scene {
         
     }
 
+    /**
+     *
+     * @param set a set of orders.
+     * @return a hashmap from food ID to order description.
+     */
     private HashMap<Integer, String> constructOrderMap(HashSet<String> set) {
         HashMap<Integer, String> result = new HashMap<>();
         Integer key = 1;

@@ -74,14 +74,28 @@ public class User implements Serializable {
         accountBalance -= money;
     }
 
+    /**
+     *
+     * @param nickname the new nickname the user wants to have.
+     */
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
+    /**
+     *
+     * @param phoneNumber user's new phone number.
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     *
+     * @param newPassword user's new password.
+     * @param oldPassword user's original password.
+     * @throws IncorrectOldPasswordException if the old password is not correct.
+     */
     public void setPassword(String newPassword, String oldPassword) throws IncorrectOldPasswordException {
         if (oldPassword.equals(this.password)) {
             this.password = newPassword;
@@ -90,6 +104,11 @@ public class User implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id order id
+     * @throws UnknownOrderException if there is no order with this id.
+     */
     public void completeOrder(String id) throws UnknownOrderException{
         if(sellInProgress.contains(id)){
             sellInProgressToHistory(id);
@@ -102,6 +121,7 @@ public class User implements Serializable {
         throw new UnknownOrderException();
     }
 
+    // the rests are getters.
     private void buyInProgressToHistory(String id)  {
         this.buyInProgress.remove(id);
         this.buyOrderHistory.add(id);

@@ -26,6 +26,10 @@ class LoginScene extends Scene {
         return ls;
     }
 
+    /**
+     *
+     * @param input input from interface.
+     */
     public void handleInputString(String input){
         String[] text = input.split(" ");
         switch (text[0]) {
@@ -57,6 +61,10 @@ class LoginScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @return output string to interface.
+     */
     public String constructOutputString() {
         StringBuilder outputString = new StringBuilder();
         String enteredPassword = "*".repeat(this.fields.get("password").length());
@@ -67,6 +75,11 @@ class LoginScene extends Scene {
         return outputString.toString();
     }
 
+    /**
+     *
+     * @throws IncorrectCredentialsException if the password and username don't match
+     * @throws UnauthorizedAccessException if the user has no access to this functionality.
+     */
     public void userLogin() throws IncorrectCredentialsException, UnauthorizedAccessException { // attempt to login
         String username = this.fields.get("username");
         String password = this.fields.get("password");

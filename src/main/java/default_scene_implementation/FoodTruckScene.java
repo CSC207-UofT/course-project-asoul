@@ -29,6 +29,10 @@ class FoodTruckScene extends Scene {
         return fts;
     }
 
+    /**
+     *
+     * @param input input from commandline interface.
+     */
     @Override
     public void handleInputString(String input){
         String[] text = input.split(" ");
@@ -69,6 +73,10 @@ class FoodTruckScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @return the output string of this string.
+     */
     @Override
     public String constructOutputString(){
         StringBuilder sb = new StringBuilder();
@@ -104,6 +112,11 @@ class FoodTruckScene extends Scene {
         return sb.toString();
     }
 
+    /**
+     *
+     * @param key the key of the food in the menu.
+     * @param quantity the quantity of food.
+     */
     private void addFoodToCart(String key, int quantity){
         if(FoodTruckManager.notHaveFoodId(key, foodtruck)){
             this.state.append("Selected food does not exist in the menu!\n");
@@ -115,6 +128,11 @@ class FoodTruckScene extends Scene {
         cart.put(key, quantity);
     }
 
+    /**
+     *
+     * @param key the key of the food in the menu.
+     * @param quantity the quantity of food.
+     */
     public void removeFoodFromCart(String key, int quantity){
         if(!cart.containsKey(key)){
             this.state.append("The food does not appear to be in your cart!\n");
@@ -134,15 +152,27 @@ class FoodTruckScene extends Scene {
 
     }
 
+    /**
+     *
+     * @param name username
+     * @param accessKey access key
+     */
     public void setUserInfo(String name, String accessKey) {
         this.username = name;
         this.accessKey = accessKey;
     }
 
+    /**
+     *
+     * @param name name of the food truck.
+     */
     public void setFoodtruck(String name){
         foodtruck = name;
     }
 
+    /**
+     *  Place this order in this food truck.
+     */
     private void placeOrder(){
         if(cart.size() == 0){
             state.append("Your cart is empty! Please add some food before proceeding to checkout!\n");

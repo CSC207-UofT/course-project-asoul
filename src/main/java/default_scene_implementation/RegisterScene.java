@@ -30,6 +30,10 @@ class RegisterScene extends Scene {
         return rs;
     }
 
+    /**
+     *
+     * @param input input from commandline interface.
+     */
     public void handleInputString(String input){
         String[] arr = input.split(" ");
         switch (arr[0]) {
@@ -60,6 +64,10 @@ class RegisterScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @return Output String to the interface.
+     */
     public String constructOutputString() {
         StringBuilder outputString = new StringBuilder();
         ArrayList<String> requiredFields = new ArrayList<>(this.fields.keySet());
@@ -72,6 +80,9 @@ class RegisterScene extends Scene {
         return outputString.toString();
     }
 
+    /**
+     * Register the user.
+     */
     public void registerUser() { // Create new users
         String username = this.fields.get("Username");
         String password = this.fields.get("Password");

@@ -81,6 +81,10 @@ public class FoodTruck implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return the String of the food truck's description.
+     */
     public String getDetailedDescription() {
         StringBuilder sb = new StringBuilder();
         String f = String.format("Truck Name: %s\n" +
@@ -96,6 +100,12 @@ public class FoodTruck implements Serializable {
         return sb.toString();
     }
 
+    /**
+     *
+     * @param cart hash map as a cart of food.
+     * @return the total price of foods in the cart.
+     * @throws UnknownFoodException if the cart contains foods that don't exit.
+     */
     public double calculatePrice(HashMap<String, Integer> cart) throws UnknownFoodException {
         double total = 0;
         for(String id: cart.keySet()){
@@ -155,10 +165,18 @@ public class FoodTruck implements Serializable {
         return this.active;
     }
 
+    /**
+     *
+     * @return how many people rated this food truck.
+     */
     public int getNumberOfRatings(){
         return ratings.size();
     }
 
+    /**
+     *
+     * @return the rating of this food truck.
+     */
     public double getRating() {
         double s = 0;
         for(String id: ratings.keySet()){

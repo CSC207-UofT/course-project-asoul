@@ -34,6 +34,10 @@ public class UserInfoEditScene extends Scene {
         return editScene;
     }
 
+    /**
+     *
+     * @param input from commandline interface.
+     */
     @Override
     public void handleInputString(String input) {
         String[] text = input.split(" ");
@@ -82,6 +86,10 @@ public class UserInfoEditScene extends Scene {
 
     }
 
+    /**
+     *
+     * @return the output string to commandline interface.
+     */
     @Override
     public String constructOutputString() {
         StringBuilder outputString = new StringBuilder();

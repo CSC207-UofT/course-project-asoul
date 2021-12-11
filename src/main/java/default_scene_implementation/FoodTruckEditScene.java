@@ -33,6 +33,10 @@ class FoodTruckEditScene extends Scene {
         return ies;
     }
 
+    /**
+     *
+     * @param input input form commandline interface.
+     */
     @Override
     public void handleInputString(String input){
         String[] text = input.split(" ");
@@ -97,6 +101,10 @@ class FoodTruckEditScene extends Scene {
         }
     }
 
+    /**
+     *
+     * @return the output string of this string.
+     */
     @Override
     public String constructOutputString(){
         StringBuilder outputString = new StringBuilder();
@@ -112,11 +120,23 @@ class FoodTruckEditScene extends Scene {
         return outputString.toString();
     }
 
+    /**
+     *
+     * @param username username of the user
+     * @param key access key
+     */
     public void setUserInfo(String username, String key) {
         this.username = username;
         this.accessKey = key;
     }
 
+    /**
+     *
+     * @param midday decide it's AM or PM
+     * @param hour hour of the day
+     * @return the string of new time
+     * @throws IncorrectArgumentException if the arguments are incorrect.
+     */
     private String generateTime(String midday, String hour) throws IncorrectArgumentException {
         int a = Integer.parseInt(midday);
         int b = Integer.parseInt(hour);
@@ -130,6 +150,12 @@ class FoodTruckEditScene extends Scene {
         throw new IncorrectArgumentException();
     }
 
+    /**
+     *
+     * @param large an upper bound
+     * @param check a number
+     * @return true if the number is between 1 and the upper bound.
+     */
     private boolean checkInRange(int large, int check) {
         return 1 <= check && large >= check;
     }
