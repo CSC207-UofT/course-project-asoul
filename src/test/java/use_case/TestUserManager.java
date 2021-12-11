@@ -1,62 +1,87 @@
 package use_case;
 
-import exceptions.IncorrectArgumentException;
-import exceptions.IncorrectCredentialsException;
+
+import exceptions.*;
 
 public class TestUserManager {
+
     @org.junit.Test
-    public void createUserTest() {
-        UserManager userManager = new UserManager();
-        userManager.createUser("a", "b", "c", "c");
-        assert UserManager.checkUserExist("a");
+    public void createUserTest() throws Exception {
+        UserManager.createUser("a", "a", "tom", "a");
+        assert UserManager.getNickname("a").equals("tom");
     }
 
+    @org.junit.Test
+    public void createUserUnknownTest() {
+        try {
+            UserManager.getNickname("b");
+        } catch (Exception e) {
+            assert e instanceof UnknownUserException;
+        }
+
+    }
+
+    @org.junit.Test
+    public void addMoneyTest() throws IncorrectArgumentException, UnknownUserException {
+        UserManager.createUser("b", "a", "tom", "a");
+        UserManager.addMoney("b", 100);
+        double a = UserManager.getUser("b").getAccountBalance();
+        assert a == 100;
+    }
+
+    @org.junit.Test
+    public void withdrawMoneyTest() throws IncorrectArgumentException, UnknownUserException, InsufficientBalanceException {
+        UserManager.createUser("c", "a", "tom", "a");
+        UserManager.addMoney("c", 100);
+        UserManager.withdrawMoney("c", 50);
+        double a = UserManager.getUser("c").getAccountBalance();
+        assert a == 50;
+    }
 
     @org.junit.Test
     public void loginTest() throws IncorrectCredentialsException {
-        UserManager userManager = new UserManager();
-        userManager.createUser("a", "b", "c", "c");
-        UserManager.login("a", "b");
-        assert UserManager.userMap.get("a").getLoginStatus();
+        assert UserManager.login("b", "a") != null;
+
     }
 
     @org.junit.Test
-    public void addMoneyTest() {
-        UserManager userManager = new UserManager();
-        userManager.createUser("a", "b", "c", "c");
-        UserManager.addMoney("a", 100);
-        assert UserManager.userMap.get("a").getAccountBalance() == 100;
+    public void logOutTest() {
+        try {
+            String a = UserManager.login("c", "a");
+            UserManager.logOut("c", a);
+        } catch (Exception e) {
+            assert false;
+        }
+    }
+
+
+    @org.junit.Test
+    public void getBuyOrderHistoryTest() throws IncorrectCredentialsException, UnauthorizedAccessException {
+        UserManager.createUser("d", "d", "d", "d");
+        String a = UserManager.login("d", "d");
+        assert UserManager.getBuyOrderHistory("d", a).isEmpty();
     }
 
     @org.junit.Test
-    public void withdrawMoneyTest() throws IncorrectArgumentException {
-        UserManager userManager = new UserManager();
-        userManager.createUser("a", "b", "c", "c");
-        userManager.withdrawMoney("a", 50);
-        assert UserManager.userMap.get("a").getAccountBalance() == 50;
-    }
-
-//    @org.junit.Test
-//    public void checkBalanceTest() {
-//        UserManager userManager = new UserManager();
-//        userManager.createUser("a", "b", "c", "c");
-//        assert UserManager.userMap.get("a").checkBalance() == 50;
-//    }
-
-    @org.junit.Test
-    public void checkUserExistTest() {
-        UserManager userManager = new UserManager();
-        userManager.createUser("a", "b", "c", "c");
-        assert UserManager.checkUserExist("a");
+    public void getSellOrderHistoryTest() throws IncorrectCredentialsException, UnauthorizedAccessException {
+        UserManager.createUser("e", "e", "d", "d");
+        String a = UserManager.login("e", "e");
+        assert UserManager.getSellOrderHistory("e", a).isEmpty();
     }
 
     @org.junit.Test
-    public void deleteUserTest() {
-        UserManager userManager = new UserManager();
-        userManager.createUser("a", "b", "c", "c");
-        UserManager.deleteUser("a");
-        assert !UserManager.checkUserExist("a");
+    public void getBuyInProgressTest() throws IncorrectCredentialsException, UnauthorizedAccessException {
+        UserManager.createUser("f", "f", "d", "d");
+        String a = UserManager.login("f", "f");
+        assert UserManager.getBuyInProgress("f", a).isEmpty();
     }
 
+    @org.junit.Test
+    public void getSellInProgressTest() throws IncorrectCredentialsException, UnauthorizedAccessException {
+        UserManager.createUser("g", "f", "d", "d");
+        String a = UserManager.login("g", "f");
+        assert UserManager.getSellInProgress("g", a).isEmpty();
+    }
 
 }
+
