@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.example.asoul.R;
@@ -21,7 +20,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         switchToUserInfo.setOnClickListener(v -> setSwitchToUserInfoActivity());
     }
 
-    private void setSwitchToUserInfoActivity(){
+    private void setSwitchToUserInfoActivity() {
         Intent switchToUserInfoActivityIntent = new Intent(this, UserInfoActivity.class);
         startActivity(switchToUserInfoActivityIntent);
     }

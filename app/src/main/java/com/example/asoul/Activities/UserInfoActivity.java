@@ -29,7 +29,6 @@ public class UserInfoActivity extends AppCompatActivity {
     TextView accessError;
 
 
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,28 +71,32 @@ public class UserInfoActivity extends AppCompatActivity {
         switchToChangeBalanceActivity.setOnClickListener(v -> setSwitchToChangeBalanceActivity());
 
     }
-    private void setSwitchToMarketActivity(){
+
+    private void setSwitchToMarketActivity() {
         Intent switchActivityIntent = new Intent(this, MarketActivity.class);
         startActivity(switchActivityIntent);
 
     }
-    private void setSwitchToEditUserInfoActivity(){
+
+    private void setSwitchToEditUserInfoActivity() {
         Intent switchActivityIntent = new Intent(this, ChangeUserInfoActivity.class);
         startActivity(switchActivityIntent);
 
     }
-    private void setSwitchToEditTruckInfoActivity(){
+
+    private void setSwitchToEditTruckInfoActivity() {
         Intent switchActivityIntent = new Intent(this, ChangeTruckInfoActivity.class);
         startActivity(switchActivityIntent);
 
     }
-    private void setSwitchToViewOrderHistoryActivity(){
+
+    private void setSwitchToViewOrderHistoryActivity() {
         Intent switchActivityIntent = new Intent(this, OrderActivity.class);
         startActivity(switchActivityIntent);
 
     }
 
-    private void setSwitchToChangeBalanceActivity(){
+    private void setSwitchToChangeBalanceActivity() {
         Intent switchActivityIntent = new Intent(this, changeBalanceActivity.class);
         startActivity(switchActivityIntent);
 

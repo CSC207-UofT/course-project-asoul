@@ -1,136 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                    android:id="@+id/marketLayout"
-                                                   tools:context="Activities.MarketActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/marketLayout"
+    tools:context="Activities.MarketActivity">
 
 
     <TextView
-            android:id="@+id/textView2"
-            android:layout_width="160dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="183dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="sans-serif-black"
-            android:rotationX="360"
-            android:rotationY="26"
-            android:text="MarketPlace"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
+        android:id="@+id/textView2"
+        android:layout_width="160dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="183dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="sans-serif-black"
+        android:rotationX="360"
+        android:rotationY="26"
+        android:text="@string/marketplace"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="412dp"
-            android:layout_height="617dp"
-            android:layout_marginBottom="75dp"
-            android:background="@drawable/login_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView2"
-            tools:ignore="MissingConstraints" app:layout_constraintVertical_bias="0.966">
+        android:id="@+id/scrollView2"
+        android:layout_width="412dp"
+        android:layout_height="617dp"
+        android:layout_marginBottom="75dp"
+        android:background="@drawable/login_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintVertical_bias="0.966">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="40dp"
-                tools:context=".Activities.MarketActivity">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="40dp"
+            tools:context=".Activities.MarketActivity">
 
 
             <Button
-                    android:text="@string/blueButton"
-                    android:layout_width="400dp"
-                    android:layout_height="160dp" android:id="@+id/blue"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="27dp" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                android:text="@string/blueButton"
+                android:layout_width="400dp"
+                android:layout_height="160dp"
+                android:id="@+id/blue"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="27dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <Button
-                    android:text="@string/yellowButton"
-                    android:layout_width="400dp"
-                    android:layout_height="160dp" android:id="@+id/yellow"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintTop_toBottomOf="@+id/blue" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                android:text="@string/yellowButton"
+                android:layout_width="400dp"
+                android:layout_height="160dp"
+                android:id="@+id/yellow"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <Button
-                    android:text="@string/sushiButton"
-                    android:layout_width="400dp"
-                    android:layout_height="160dp" android:id="@+id/sushi"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintTop_toBottomOf="@+id/yellow" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                android:text="@string/sushiButton"
+                android:layout_width="400dp"
+                android:layout_height="160dp"
+                android:id="@+id/sushi"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/yellow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
             <Button
-                    android:text="@string/mamaButton"
-                    android:layout_width="400dp"
-                    android:layout_height="160dp" android:id="@+id/mama"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintTop_toBottomOf="@+id/sushi" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                android:text="@string/mamaButton"
+                android:layout_width="400dp"
+                android:layout_height="160dp"
+                android:id="@+id/mama"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/sushi"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
             <Button
-                    android:text="@string/idealButton"
-                    android:layout_width="400dp"
-                    android:layout_height="160dp" android:id="@+id/ideal"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintTop_toBottomOf="@+id/mama" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                android:text="@string/idealButton"
+                android:layout_width="400dp"
+                android:layout_height="160dp"
+                android:id="@+id/ideal"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/mama"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-    <Button
-            android:id="@+id/Userinfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="11dp"
-            android:text="Home"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/UserEdit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     <Button
-            android:id="@+id/UserEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="11dp"
-            android:text="Account"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/EditTruck"
-            app:layout_constraintStart_toEndOf="@+id/Userinfo"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        android:id="@+id/Userinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="11dp"
+        android:text="@string/home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/UserEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     <Button
-            android:id="@+id/EditTruck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="2dp"
-            android:text="My Truck"
-            app:layout_constraintEnd_toStartOf="@+id/Exit"
-            app:layout_constraintStart_toEndOf="@+id/UserEdit"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        android:id="@+id/UserEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="11dp"
+        android:text="@string/account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/EditTruck"
+        app:layout_constraintStart_toEndOf="@+id/Userinfo"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     <Button
-            android:id="@+id/Exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="22dp"
-            android:text="SignOut"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/EditTruck"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        android:id="@+id/EditTruck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="2dp"
+        android:text="@string/my_truck"
+        app:layout_constraintEnd_toStartOf="@+id/Exit"
+        app:layout_constraintStart_toEndOf="@+id/UserEdit"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+    <Button
+        android:id="@+id/Exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="22dp"
+        android:text="@string/signout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/EditTruck"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

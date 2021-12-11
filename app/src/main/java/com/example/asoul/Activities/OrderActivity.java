@@ -72,6 +72,7 @@ public class OrderActivity extends AppCompatActivity {
 
 
     }
+
     private void switchToUserInfo() {
         Intent switchActivityIntent = new Intent(this, UserInfoActivity.class);
         startActivity(switchActivityIntent);

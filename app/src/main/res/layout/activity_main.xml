@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/login_bg"
-        tools:context="Activities.MainActivity" android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    tools:context="Activities.MainActivity"
+    android:orientation="vertical">
+
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="250sp"
-            android:textSize="50sp"
-            android:textStyle="italic"
-    />
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/btnLoginPage"
-            android:layout_marginStart="155sp"
-            android:layout_marginTop="10sp"
-            android:textColor="@color/black"
-            android:text="@string/arrow_right"
-            android:backgroundTint="@android:color/white"
-            android:textSize="16sp"
-    />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="250sp"
+        android:textSize="50sp"
+        android:textStyle="italic" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLoginPage"
+        android:layout_marginStart="155sp"
+        android:layout_marginTop="10sp"
+        android:textColor="@color/black"
+        android:text="@string/arrow_right"
+        android:backgroundTint="@android:color/white"
+        android:textSize="16sp" />
 
 </LinearLayout>
